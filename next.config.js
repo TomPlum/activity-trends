@@ -7,7 +7,6 @@ const assetPrefix = isProd ? '/activity-trends' : ''
 module.exports = {
   exportPathMap: () => ({
     '/': { page: '/' },
-    '/page1': { page: '/page1' },
   }),
   assetPrefix: assetPrefix,
   webpack: config => {
