@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Footer from '../components/footer';
+import Header from '../components/header';
 
 const Home: React.FC<{}> = () => {
   return (
@@ -8,6 +9,8 @@ const Home: React.FC<{}> = () => {
         <title>Activity Trends</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Header></Header>
 
       <main>
         <h1 className="title">
