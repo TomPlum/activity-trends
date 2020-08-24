@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const env = require('dotenv').config()
 
 const isProd = (process.env.NODE_ENV || 'production') === 'production'
 
@@ -21,7 +22,7 @@ module.exports = {
 }
 
 //CSS Configuration
-const withCSS = require('@zeit/next-css')
+/*const withCSS = require('@zeit/next-css')
 module.exports = withCSS({
     cssModules: true
-})
+})*/
