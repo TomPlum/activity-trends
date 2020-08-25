@@ -1,8 +1,15 @@
 import Head from 'next/head'
-import Footer from '../components/footer';
-import Header from '../components/header';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Workouts from '../components/Workouts';
+import Papa from 'papaparse';
+import { fetch } from 'isomorphic-fetch';
 
-const Home: React.FC<{}> = () => {
+interface HomeProps {
+  workouts: String[];
+}
+
+const Home: React.FC<HomeProps> = ({workouts}) => {
   return (
     <div className="container">
       <Head>
@@ -13,46 +20,13 @@ const Home: React.FC<{}> = () => {
       <Header></Header>
 
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <Workouts data={workouts}>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        </Workouts>
       </main>
 
-      <Footer></Footer>
+      <Footer lastDataUpdate='24/08/2020'></Footer>
+      
       <style jsx>{`
             .container {
           min-height: 100vh;
@@ -162,6 +136,24 @@ const Home: React.FC<{}> = () => {
     </div>
   )
 
+}
+
+export async function getStaticProps() {
+  const csv = await fetch('/public/workouts.csv').then((response) => {
+    let reader = response.body.getReader();
+    let decoder = new TextDecoder('utf-8');
+
+    return reader.read().then(function (result) {
+      return decoder.decode(result.value);
+    });
+  });
+
+  
+  return {
+    props: {
+      workouts: Papa.parse(csv)
+    }
+  }
 }
 
 export default Home;

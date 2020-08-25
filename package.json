@@ -12,9 +12,13 @@
     "dependencies": {
         "@zeit/next-css": "^1.0.1",
         "dotenv": "^8.2.0",
+        "es6-promise": "^4.2.8",
+        "isomorphic-fetch": "^2.2.1",
         "next": "9.3.5",
         "react": "16.13.1",
         "react-dom": "16.13.1",
+        "react-papaparse": "^3.7.3",
+        "recharts": "^1.8.5",
         "webpack": "^4.44.1"
     },
     "devDependencies": {
