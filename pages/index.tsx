@@ -1,9 +1,8 @@
 import Head from 'next/head'
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import Workouts from '../components/Workouts';
 import Papa from 'papaparse';
-import { fetch } from 'isomorphic-fetch';
+import Header from '../components/header';
+import Footer from '../components/footer';
 
 interface HomeProps {
   workouts: String[];
@@ -139,14 +138,16 @@ const Home: React.FC<HomeProps> = ({workouts}) => {
 }
 
 export async function getStaticProps() {
-  const csv = await fetch('/public/workouts.csv').then((response) => {
-    let reader = response.body.getReader();
-    let decoder = new TextDecoder('utf-8');
+  const csv = await fetch('http://localhost:3000/workouts.csv').then((response) => {
+    
+    //let reader = response.body.getReader();
+    //let decoder = new TextDecoder('utf-8');
 
-    return reader.read().then(function (result) {
-      return decoder.decode(result.value);
+    //return reader.read().then(function (result) {
+      //return decoder.decode(result.value);
+      return "test,123"
     });
-  });
+  
 
   
   return {
