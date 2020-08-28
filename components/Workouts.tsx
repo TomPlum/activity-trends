@@ -2,9 +2,12 @@ interface WorkoutsProps {
     data: String[]
 }
 
-const Workouts: React.FunctionComponent<WorkoutsProps> = (data) => {
+const Workouts: React.FunctionComponent<WorkoutsProps> = ({data}) => {
     return (
-        <p>{data[0]}</p>
+        <div className="container">
+            <p>Test</p>
+            <p>{data}</p>
+        </div>
     )
 }
 

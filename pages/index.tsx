@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Workouts from '../components/Workouts';
 import Papa from 'papaparse';
-import Header from '../components/header';
-import Footer from '../components/footer';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 interface HomeProps {
   workouts: String[];
@@ -138,21 +138,26 @@ const Home: React.FC<HomeProps> = ({workouts}) => {
 }
 
 export async function getStaticProps() {
-  const csv = await fetch('http://localhost:3000/workouts.csv').then((response) => {
+ /*  const csv = await fetch('http://localhost:3000/workouts.csv').then((response) => {
     
-    //let reader = response.body.getReader();
-    //let decoder = new TextDecoder('utf-8');
+    let reader = response.body.getReader();
+    let decoder = new TextDecoder('utf-8');
 
-    //return reader.read().then(function (result) {
-      //return decoder.decode(result.value);
+    return reader.read().then(function (result) {
+      return decoder.decode(result.value);
       return "test,123"
-    });
+    }); */
   
 
   
-  return {
+  /* return {
     props: {
       workouts: Papa.parse(csv)
+    }
+  } */
+  return {
+    props: {
+      workouts: "123,test"
     }
   }
 }
