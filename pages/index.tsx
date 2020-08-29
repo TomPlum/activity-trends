@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Workouts from '../components/Workouts';
+import Workouts, { WorkoutData } from '../components/Workouts';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import fs from 'fs'
@@ -7,7 +7,7 @@ import path from 'path'
 import Papa from 'papaparse';
 
 interface HomeProps {
-  workouts: String[];
+  workouts: WorkoutData[];
 }
 
 const Home: React.FC<HomeProps> = ({workouts}) => {
@@ -29,7 +29,7 @@ const Home: React.FC<HomeProps> = ({workouts}) => {
       <Footer lastDataUpdate='24/08/2020'></Footer>
       
       <style jsx>{`
-            .container {
+        .container {
           min-height: 100vh;
           padding: 0 0.5rem;
           display: flex;
@@ -148,14 +148,12 @@ export async function getStaticProps() {
     const fileContents = fs.readFileSync(filePath, 'utf8')
     return Papa.parse(fileContents, {
       delimiter: ',',
+      header: true,
       complete: results => {
         return results.data
       }
     })
   });
-
-  console.log(parsed)
-
 
   return {
     props: {
