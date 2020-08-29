@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Workouts, { WorkoutData } from '../components/Workouts';
+import { Container, Row, Col } from 'react-bootstrap';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import fs from 'fs'
@@ -10,7 +11,7 @@ interface HomeProps {
   workouts: WorkoutData[];
 }
 
-const Home: React.FC<HomeProps> = ({workouts}) => {
+const Home: React.FC<HomeProps> = ({ workouts }) => {
   return (
     <div className="container">
       <Head>
@@ -20,14 +21,23 @@ const Home: React.FC<HomeProps> = ({workouts}) => {
 
       <Header></Header>
 
-      <main>
-        <Workouts data={workouts}>
+        <Container fluid>
+          <Row>
+            <Col className='card'>
+              <Workouts data={workouts}>
 
-        </Workouts>
-      </main>
+              </Workouts>
+            </Col>
+            <Col className='card'>
+            </Col>
+          </Row>
+          <Row>
+
+          </Row>
+        </Container>
 
       <Footer lastDataUpdate='24/08/2020'></Footer>
-      
+
       <style jsx>{`
         .container {
           min-height: 100vh;
@@ -42,7 +52,6 @@ const Home: React.FC<HomeProps> = ({workouts}) => {
           flex: 1;
           display: flex;
           flex-direction: column;
-          justify-content: center;
           align-items: center;
         }
         a {
@@ -88,14 +97,12 @@ const Home: React.FC<HomeProps> = ({workouts}) => {
           margin-top: 3rem;
         }
         .card {
-          margin: 1rem;
-          flex-basis: 45%;
           padding: 1.5rem;
           text-align: left;
           color: inherit;
           text-decoration: none;
           border: 1px solid #eaeaea;
-          border-radius: 10px;
+          border-radius: 30px;
           transition: color 0.15s ease, border-color 0.15s ease;
         }
         .card:hover,

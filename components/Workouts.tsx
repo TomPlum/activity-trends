@@ -1,5 +1,5 @@
 import { Container } from 'react-bootstrap'
-import { PieChart, Pie, Sector, Cell } from 'recharts'
+import { PieChart, Pie, ResponsiveContainer } from 'recharts'
 
 interface WorkoutsProps {
     data: WorkoutData[]
@@ -20,26 +20,29 @@ export interface WorkoutData {
     'Elevation Ascended': string,
     'Elevation Descended': string,
     'Weather Temperature': string,
-    'Weeather Humidity': string
+    'Weather Humidity': string
 }
 
 const Workouts: React.FunctionComponent<WorkoutsProps> = ({ data }) => {
     return (
         <Container>
             <p>{data.length} workouts recorded.</p>
-            <PieChart width={800} height={400}>
-                <Pie
-                    data={extractWorkoutTypes(data)}
-                    nameKey="name"
-                    dataKey="value"
-                    labelLine={false}
-                    //label={renderCustomizedLabel}
-                    outerRadius={80}
-                    fill="#8884d8"
-                >
-                </Pie>
-            </PieChart>
+            <ResponsiveContainer width="80%" height={200}>
+                <PieChart>
+                    <Pie
+                        data={extractWorkoutTypes(data)}
+                        nameKey="name"
+                        dataKey="value"
+                        labelLine={false}
+                        //label={renderCustomizedLabel}
+                        outerRadius={80}
+                        fill="#8884d8"
+                    >
+                    </Pie>
+                </PieChart>
+            </ResponsiveContainer>
         </Container>
+
     )
 }
 
@@ -50,7 +53,7 @@ function extractWorkoutTypes(data: WorkoutData[]) {
         var num = types[i];
         counts[num] = (counts[num] || 0) + 1
     }
-    const uniqueTypes = types.filter((v, i, self) => {return self.indexOf(v) === i})
+    const uniqueTypes = types.filter((v, i, self) => { return self.indexOf(v) === i })
     const result = uniqueTypes.map(type => {
         return {
             name: type,
