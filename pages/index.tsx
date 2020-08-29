@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import Workouts from '../components/Workouts';
-import parse from 'csv-parse'
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import fs from 'fs'
+import path from 'path'
+import Papa from 'papaparse';
 
 interface HomeProps {
   workouts: String[];
@@ -138,12 +140,26 @@ const Home: React.FC<HomeProps> = ({workouts}) => {
 }
 
 export async function getStaticProps() {
-  const csv = parse('localhost:3000/public/workouts.csv', {delimiter: ','});
-  console.log(JSON.stringify(csv))
-  
+  const dataDirectory = path.join(process.cwd(), 'public/data')
+  const filenames = fs.readdirSync(dataDirectory)
+
+  const parsed = filenames.map((filename) => {
+    const filePath = path.join(dataDirectory, filename)
+    const fileContents = fs.readFileSync(filePath, 'utf8')
+    return Papa.parse(fileContents, {
+      delimiter: ',',
+      complete: results => {
+        return results.data
+      }
+    })
+  });
+
+  console.log(parsed)
+
+
   return {
     props: {
-      workouts: csv.stringify() //Papa.parse(csv)
+      workouts: parsed[0].data
     }
   }
 }

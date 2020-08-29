@@ -15,7 +15,7 @@ module.exports = {
             new webpack.DefinePlugin({
                 'process.env.ASSET_PREFIX': JSON.stringify(assetPrefix),
             }),
-        )
+        );
 
         return config
     },
