@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Workouts, { WorkoutData } from '../components/Workouts';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/header';
+import Footer from '../components/footer';
 import fs from 'fs'
 import path from 'path'
 import Papa from 'papaparse';
