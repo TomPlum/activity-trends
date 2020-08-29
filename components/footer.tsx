@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { Container, Row, Col } from 'react-bootstrap'
 import styles from '../public/footer.module.css'
 
