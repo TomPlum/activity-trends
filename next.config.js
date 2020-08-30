@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 console.log("Node Environment: " + process.env.ENVIRONMENT)
 
-const isProd = process.env.ENVIRONMENT === 'production'
+const isProd = process.env.ENVIRONMENT !== 'dev'
 const assetPrefix = isProd ? '/activity-trends' : '';
 const basePath = isProd ? '/docs' : '';
 
