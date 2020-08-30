@@ -1,11 +1,11 @@
 import Head from 'next/head'
-import Workouts, { WorkoutData } from '../components/Workouts';
 import { CardDeck, Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as icons from '@fortawesome/free-solid-svg-icons'
-import styles from '../public/index.module.css'
-import Header from '../components/header';
-import Footer from '../components/footer';
+import styles from '../assets/css/components/index.module.css'
+import Header from '../layout/Header';
+import Footer from '../layout/Footer';
+import Workouts, { WorkoutData } from '../components/Workouts'
 import fs from 'fs'
 import path from 'path'
 import Papa from 'papaparse';
