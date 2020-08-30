@@ -1,7 +1,6 @@
 import { Container } from 'react-bootstrap'
 import { PieChart, Pie, ResponsiveContainer, Sector } from 'recharts'
 import { Component } from 'react';
-import GraphTitle from './GraphTitle';
 
 interface WorkoutsProps {
     data: WorkoutData[]
