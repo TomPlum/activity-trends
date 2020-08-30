@@ -1,5 +1,188 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["static\\development\\pages\\index.js"],{
 
+/***/ "./assets/css/components/footer.module.css":
+/*!*************************************************!*\
+  !*** ./assets/css/components/footer.module.css ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./footer.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/footer.module.css");
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = function(element){// These elements should always exist. If they do not,
+// this code should fail.
+var anchorElement=document.querySelector('#__next_css__DO_NOT_USE__');var parentNode=anchorElement.parentNode;// Normally <head>
+// Each style tag should be placed right before our
+// anchor. By inserting before and not after, we do not
+// need to track the last inserted element.
+parentNode.insertBefore(element,anchorElement)// Remember: this is development only code.
+//
+// After styles are injected, we need to remove the
+// <style> tags that set `body { display: none; }`.
+//
+// We use `requestAnimationFrame` as a way to defer
+// this operation since there may be multiple style
+// tags.
+;(self.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}});};
+options.singleton = false;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+if (true) {
+  if (!content.locals) {
+    module.hot.accept(
+      /*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./footer.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/footer.module.css",
+      function () {
+        var newContent = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./footer.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/footer.module.css");
+
+        if (typeof newContent === 'string') {
+          newContent = [[module.i, newContent, '']];
+        }
+        
+        update(newContent);
+      }
+    )
+  }
+
+  module.hot.dispose(function() { 
+    update();
+  });
+}
+
+/***/ }),
+
+/***/ "./assets/css/components/header.module.css":
+/*!*************************************************!*\
+  !*** ./assets/css/components/header.module.css ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./header.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/header.module.css");
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = function(element){// These elements should always exist. If they do not,
+// this code should fail.
+var anchorElement=document.querySelector('#__next_css__DO_NOT_USE__');var parentNode=anchorElement.parentNode;// Normally <head>
+// Each style tag should be placed right before our
+// anchor. By inserting before and not after, we do not
+// need to track the last inserted element.
+parentNode.insertBefore(element,anchorElement)// Remember: this is development only code.
+//
+// After styles are injected, we need to remove the
+// <style> tags that set `body { display: none; }`.
+//
+// We use `requestAnimationFrame` as a way to defer
+// this operation since there may be multiple style
+// tags.
+;(self.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}});};
+options.singleton = false;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+if (true) {
+  if (!content.locals) {
+    module.hot.accept(
+      /*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./header.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/header.module.css",
+      function () {
+        var newContent = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./header.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/header.module.css");
+
+        if (typeof newContent === 'string') {
+          newContent = [[module.i, newContent, '']];
+        }
+        
+        update(newContent);
+      }
+    )
+  }
+
+  module.hot.dispose(function() { 
+    update();
+  });
+}
+
+/***/ }),
+
+/***/ "./assets/css/components/index.module.css":
+/*!************************************************!*\
+  !*** ./assets/css/components/index.module.css ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./index.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/index.module.css");
+
+if (typeof content === 'string') {
+  content = [[module.i, content, '']];
+}
+
+var options = {}
+
+options.insert = function(element){// These elements should always exist. If they do not,
+// this code should fail.
+var anchorElement=document.querySelector('#__next_css__DO_NOT_USE__');var parentNode=anchorElement.parentNode;// Normally <head>
+// Each style tag should be placed right before our
+// anchor. By inserting before and not after, we do not
+// need to track the last inserted element.
+parentNode.insertBefore(element,anchorElement)// Remember: this is development only code.
+//
+// After styles are injected, we need to remove the
+// <style> tags that set `body { display: none; }`.
+//
+// We use `requestAnimationFrame` as a way to defer
+// this operation since there may be multiple style
+// tags.
+;(self.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}});};
+options.singleton = false;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
+
+if (content.locals) {
+  module.exports = content.locals;
+}
+
+if (true) {
+  if (!content.locals) {
+    module.hot.accept(
+      /*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./index.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/index.module.css",
+      function () {
+        var newContent = __webpack_require__(/*! !../../../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../../../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./index.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/index.module.css");
+
+        if (typeof newContent === 'string') {
+          newContent = [[module.i, newContent, '']];
+        }
+        
+        update(newContent);
+      }
+    )
+  }
+
+  module.hot.dispose(function() { 
+    update();
+  });
+}
+
+/***/ }),
+
 /***/ "./components/Workouts.tsx":
 /*!*********************************!*\
   !*** ./components/Workouts.tsx ***!
@@ -73,7 +256,7 @@ var Workouts = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 46,
+          lineNumber: 45,
           columnNumber: 13
         }
       }, __jsx(recharts__WEBPACK_IMPORTED_MODULE_9__["ResponsiveContainer"], {
@@ -82,14 +265,14 @@ var Workouts = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 47,
+          lineNumber: 46,
           columnNumber: 17
         }
       }, __jsx(recharts__WEBPACK_IMPORTED_MODULE_9__["PieChart"], {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 48,
+          lineNumber: 47,
           columnNumber: 21
         }
       }, __jsx(recharts__WEBPACK_IMPORTED_MODULE_9__["Pie"], {
@@ -106,7 +289,7 @@ var Workouts = /*#__PURE__*/function (_Component) {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 49,
+          lineNumber: 48,
           columnNumber: 25
         }
       }))));
@@ -171,7 +354,7 @@ var renderActiveShape = function renderActiveShape(props) {
     __self: _this2,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 106,
+      lineNumber: 105,
       columnNumber: 9
     }
   }, __jsx("text", {
@@ -183,7 +366,7 @@ var renderActiveShape = function renderActiveShape(props) {
     __self: _this2,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 107,
+      lineNumber: 106,
       columnNumber: 13
     }
   }, payload.name), __jsx(recharts__WEBPACK_IMPORTED_MODULE_9__["Sector"], {
@@ -197,7 +380,7 @@ var renderActiveShape = function renderActiveShape(props) {
     __self: _this2,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 108,
+      lineNumber: 107,
       columnNumber: 13
     }
   }), __jsx(recharts__WEBPACK_IMPORTED_MODULE_9__["Sector"], {
@@ -211,7 +394,7 @@ var renderActiveShape = function renderActiveShape(props) {
     __self: _this2,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117,
+      lineNumber: 116,
       columnNumber: 13
     }
   }), __jsx("path", {
@@ -221,7 +404,7 @@ var renderActiveShape = function renderActiveShape(props) {
     __self: _this2,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 126,
+      lineNumber: 125,
       columnNumber: 13
     }
   }), __jsx("circle", {
@@ -233,7 +416,7 @@ var renderActiveShape = function renderActiveShape(props) {
     __self: _this2,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 127,
+      lineNumber: 126,
       columnNumber: 13
     }
   }), __jsx("text", {
@@ -244,7 +427,7 @@ var renderActiveShape = function renderActiveShape(props) {
     __self: _this2,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 128,
+      lineNumber: 127,
       columnNumber: 13
     }
   }, "x", value), __jsx("text", {
@@ -256,7 +439,7 @@ var renderActiveShape = function renderActiveShape(props) {
     __self: _this2,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 129,
+      lineNumber: 128,
       columnNumber: 13
     }
   }, "".concat((percent * 100).toFixed(0), "%")));
@@ -266,10 +449,10 @@ var renderActiveShape = function renderActiveShape(props) {
 
 /***/ }),
 
-/***/ "./components/footer.tsx":
-/*!*******************************!*\
-  !*** ./components/footer.tsx ***!
-  \*******************************/
+/***/ "./layout/Footer.tsx":
+/*!***************************!*\
+  !*** ./layout/Footer.tsx ***!
+  \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -278,10 +461,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-/* harmony import */ var _public_footer_module_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../public/footer.module.css */ "./public/footer.module.css");
-/* harmony import */ var _public_footer_module_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_public_footer_module_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _assets_css_components_footer_module_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/css/components/footer.module.css */ "./assets/css/components/footer.module.css");
+/* harmony import */ var _assets_css_components_footer_module_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_assets_css_components_footer_module_css__WEBPACK_IMPORTED_MODULE_2__);
 var _this = undefined,
-    _jsxFileName = "H:\\git\\activity-trends\\components\\footer.tsx";
+    _jsxFileName = "H:\\git\\activity-trends\\layout\\Footer.tsx";
 
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
@@ -302,7 +485,7 @@ var Footer = function Footer(_ref) {
     bg: "light",
     variant: "light",
     fixed: "bottom",
-    className: _public_footer_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.footer,
+    className: _assets_css_components_footer_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.footer,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
@@ -323,10 +506,10 @@ var Footer = function Footer(_ref) {
 
 /***/ }),
 
-/***/ "./components/header.tsx":
-/*!*******************************!*\
-  !*** ./components/header.tsx ***!
-  \*******************************/
+/***/ "./layout/Header.tsx":
+/*!***************************!*\
+  !*** ./layout/Header.tsx ***!
+  \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -334,11 +517,11 @@ var Footer = function Footer(_ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _public_header_module_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../public/header.module.css */ "./public/header.module.css");
-/* harmony import */ var _public_header_module_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_public_header_module_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_css_components_header_module_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/css/components/header.module.css */ "./assets/css/components/header.module.css");
+/* harmony import */ var _assets_css_components_header_module_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_css_components_header_module_css__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
 var _this = undefined,
-    _jsxFileName = "H:\\git\\activity-trends\\components\\header.tsx";
+    _jsxFileName = "H:\\git\\activity-trends\\layout\\Header.tsx";
 
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
@@ -350,7 +533,7 @@ var Header = function Header() {
     bg: "dark",
     variant: "dark",
     fixed: "top",
-    className: _public_header_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header,
+    className: _assets_css_components_header_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
@@ -369,7 +552,7 @@ var Header = function Header() {
     src: "/logo.png",
     width: "28px",
     height: "28px",
-    className: _public_header_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.logo,
+    className: _assets_css_components_header_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.logo,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
@@ -16090,56 +16273,56 @@ $export($export.P + $export.F * ($fails(function () {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/footer.module.css":
-/*!*************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!./node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./public/footer.module.css ***!
-  \*************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/footer.module.css":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!./node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./assets/css/components/footer.module.css ***!
+  \****************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
 // Module
-exports.push([module.i, ".footer_footer__k_XWz {\r\n    width: 100%;\r\n    height: 60px;\r\n    box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);\r\n    position: fixed;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.footer_footer__k_XWz span {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: inherit;\r\n    text-decoration: none;\r\n    font-size: 1em;\r\n}", "",{"version":3,"sources":["H:/git/activity-trends/public/footer.module.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,YAAY;IAGZ,2CAA2C;IAC3C,eAAe;IACf,uBAAuB;IACvB,mBAAmB;IACnB,iCAAiC;AACrC;;AAEA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,cAAc;IACd,qBAAqB;IACrB,cAAc;AAClB","file":"footer.module.css","sourcesContent":[".footer {\r\n    width: 100%;\r\n    height: 60px;\r\n    -webkit-box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);\r\n    -moz-box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);\r\n    box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);\r\n    position: fixed;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.footer span {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: inherit;\r\n    text-decoration: none;\r\n    font-size: 1em;\r\n}"]}]);
+exports.push([module.i, ".footer_footer__3fAGM {\r\n    width: 100%;\r\n    height: 60px;\r\n    box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);\r\n    position: fixed;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.footer_footer__3fAGM span {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: inherit;\r\n    text-decoration: none;\r\n    font-size: 1em;\r\n}", "",{"version":3,"sources":["H:/git/activity-trends/assets/css/components/footer.module.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,YAAY;IAGZ,2CAA2C;IAC3C,eAAe;IACf,uBAAuB;IACvB,mBAAmB;IACnB,iCAAiC;AACrC;;AAEA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,cAAc;IACd,qBAAqB;IACrB,cAAc;AAClB","file":"footer.module.css","sourcesContent":[".footer {\r\n    width: 100%;\r\n    height: 60px;\r\n    -webkit-box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);\r\n    -moz-box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);\r\n    box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);\r\n    position: fixed;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.footer span {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: inherit;\r\n    text-decoration: none;\r\n    font-size: 1em;\r\n}"]}]);
 // Exports
 exports.locals = {
-	"footer": "footer_footer__k_XWz"
+	"footer": "footer_footer__3fAGM"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/header.module.css":
-/*!*************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!./node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./public/header.module.css ***!
-  \*************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/header.module.css":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!./node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./assets/css/components/header.module.css ***!
+  \****************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
 // Module
-exports.push([module.i, ".header_header__3WjdW {\r\n    width: 100%;\r\n    height: 60px;\r\n    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);\r\n    position: fixed;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.header_header__3WjdW h2 {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: inherit;\r\n    text-decoration: none;\r\n}\r\n\r\n.header_logo__WaLXS {\r\n    display: inline-block;\r\n}", "",{"version":3,"sources":["H:/git/activity-trends/public/header.module.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,YAAY;IAGZ,2CAA2C;IAC3C,eAAe;IACf,uBAAuB;IACvB,mBAAmB;IACnB,iCAAiC;AACrC;;AAEA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,cAAc;IACd,qBAAqB;AACzB;;AAEA;IACI,qBAAqB;AACzB","file":"header.module.css","sourcesContent":[".header {\r\n    width: 100%;\r\n    height: 60px;\r\n    -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);\r\n    -moz-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);\r\n    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);\r\n    position: fixed;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.header h2 {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: inherit;\r\n    text-decoration: none;\r\n}\r\n\r\n.logo {\r\n    display: inline-block;\r\n}"]}]);
+exports.push([module.i, ".header_header__2TIGR {\r\n    width: 100%;\r\n    height: 60px;\r\n    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);\r\n    position: fixed;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.header_header__2TIGR h2 {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: inherit;\r\n    text-decoration: none;\r\n}\r\n\r\n.header_logo__qnrjt {\r\n    display: inline-block;\r\n}", "",{"version":3,"sources":["H:/git/activity-trends/assets/css/components/header.module.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,YAAY;IAGZ,2CAA2C;IAC3C,eAAe;IACf,uBAAuB;IACvB,mBAAmB;IACnB,iCAAiC;AACrC;;AAEA;IACI,aAAa;IACb,uBAAuB;IACvB,mBAAmB;IACnB,cAAc;IACd,qBAAqB;AACzB;;AAEA;IACI,qBAAqB;AACzB","file":"header.module.css","sourcesContent":[".header {\r\n    width: 100%;\r\n    height: 60px;\r\n    -webkit-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);\r\n    -moz-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);\r\n    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);\r\n    position: fixed;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-family: 'Roboto', sans-serif;\r\n}\r\n\r\n.header h2 {\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    color: inherit;\r\n    text-decoration: none;\r\n}\r\n\r\n.logo {\r\n    display: inline-block;\r\n}"]}]);
 // Exports
 exports.locals = {
-	"header": "header_header__3WjdW",
-	"logo": "header_logo__WaLXS"
+	"header": "header_header__2TIGR",
+	"logo": "header_logo__qnrjt"
 };
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/index.module.css":
-/*!************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!./node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./public/index.module.css ***!
-  \************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./assets/css/components/index.module.css":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!./node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./assets/css/components/index.module.css ***!
+  \***************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(true);
 // Module
-exports.push([module.i, ".public_card__1jRl9 {\r\n    min-width: 500px;\r\n    border-radius: 15px;\r\n    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.public_footer__3oyIY, .public_title__1sywS {\r\n    text-align: center;\r\n}", "",{"version":3,"sources":["H:/git/activity-trends/public/index.module.css"],"names":[],"mappings":"AAAA;IACI,gBAAgB;IAChB,mBAAmB;IACnB,0CAA0C;AAC9C;;AAEA;IACI,kBAAkB;AACtB","file":"index.module.css","sourcesContent":[".card {\r\n    min-width: 500px;\r\n    border-radius: 15px;\r\n    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.footer, .title {\r\n    text-align: center;\r\n}"]}]);
+exports.push([module.i, ".components_card__JPb7- {\r\n    min-width: 500px;\r\n    border-radius: 15px;\r\n    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.components_footer__gwshG, .components_title__y0yHW {\r\n    text-align: center;\r\n}", "",{"version":3,"sources":["H:/git/activity-trends/assets/css/components/index.module.css"],"names":[],"mappings":"AAAA;IACI,gBAAgB;IAChB,mBAAmB;IACnB,0CAA0C;AAC9C;;AAEA;IACI,kBAAkB;AACtB","file":"index.module.css","sourcesContent":[".card {\r\n    min-width: 500px;\r\n    border-radius: 15px;\r\n    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.footer, .title {\r\n    text-align: center;\r\n}"]}]);
 // Exports
 exports.locals = {
-	"card": "public_card__1jRl9",
-	"footer": "public_footer__3oyIY",
-	"title": "public_title__1sywS"
+	"card": "components_card__JPb7-",
+	"footer": "components_footer__gwshG",
+	"title": "components_title__y0yHW"
 };
 
 /***/ }),
@@ -79037,14 +79220,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! next/head */ "./node_modules/next/dist/next-server/lib/head.js");
 /* harmony import */ var next_head__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_head__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_Workouts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Workouts */ "./components/Workouts.tsx");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
-/* harmony import */ var _public_index_module_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../public/index.module.css */ "./public/index.module.css");
-/* harmony import */ var _public_index_module_css__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_public_index_module_css__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _components_header__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/header */ "./components/header.tsx");
-/* harmony import */ var _components_footer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/footer */ "./components/footer.tsx");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons */ "./node_modules/@fortawesome/free-solid-svg-icons/index.es.js");
+/* harmony import */ var _assets_css_components_index_module_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../assets/css/components/index.module.css */ "./assets/css/components/index.module.css");
+/* harmony import */ var _assets_css_components_index_module_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_assets_css_components_index_module_css__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _layout_Header__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../layout/Header */ "./layout/Header.tsx");
+/* harmony import */ var _layout_Footer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../layout/Footer */ "./layout/Footer.tsx");
+/* harmony import */ var _components_Workouts__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/Workouts */ "./components/Workouts.tsx");
 var _this = undefined,
     _jsxFileName = "H:\\git\\activity-trends\\pages\\index.tsx";
 
@@ -79105,45 +79288,45 @@ var Home = function Home(_ref) {
       lineNumber: 23,
       columnNumber: 9
     }
-  })), __jsx(_components_header__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  })), __jsx(_layout_Header__WEBPACK_IMPORTED_MODULE_7__["default"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 26,
       columnNumber: 7
     }
-  }), __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["CardDeck"], {
+  }), __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["CardDeck"], {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 28,
       columnNumber: 7
     }
-  }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"], {
-    className: _public_index_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.card,
+  }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"], {
+    className: _assets_css_components_index_module_css__WEBPACK_IMPORTED_MODULE_6___default.a.card,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 29,
       columnNumber: 9
     }
-  }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Body, {
+  }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Body, {
     __self: _this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 30,
       columnNumber: 11
     }
-  }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Title, {
-    className: _public_index_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.title,
+  }, __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Title, {
+    className: _assets_css_components_index_module_css__WEBPACK_IMPORTED_MODULE_6___default.a.title,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 31,
       columnNumber: 13
     }
-  }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__["FontAwesomeIcon"], {
-    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faDumbbell"],
+  }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faDumbbell"],
     size: "xs",
     fixedWidth: true,
     __self: _this,
@@ -79152,7 +79335,7 @@ var Home = function Home(_ref) {
       lineNumber: 32,
       columnNumber: 15
     }
-  }), " Workouts"), __jsx(_components_Workouts__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }), " Workouts"), __jsx(_components_Workouts__WEBPACK_IMPORTED_MODULE_9__["default"], {
     data: workouts,
     __self: _this,
     __source: {
@@ -79160,15 +79343,15 @@ var Home = function Home(_ref) {
       lineNumber: 34,
       columnNumber: 13
     }
-  })), __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Card"].Footer, {
-    className: _public_index_module_css__WEBPACK_IMPORTED_MODULE_7___default.a.footer,
+  })), __jsx(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Footer, {
+    className: _assets_css_components_index_module_css__WEBPACK_IMPORTED_MODULE_6___default.a.footer,
     __self: _this,
     __source: {
       fileName: _jsxFileName,
       lineNumber: 36,
       columnNumber: 11
     }
-  }, workouts.length, " workouts recorded"))), __jsx(_components_footer__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }, workouts.length, " workouts recorded"))), __jsx(_layout_Footer__WEBPACK_IMPORTED_MODULE_8__["default"], {
     lastDataUpdate: "24/08/2020",
     __self: _this,
     __source: {
@@ -79179,194 +79362,11 @@ var Home = function Home(_ref) {
   }), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
     id: "486971797",
     __self: _this
-  }, ".container.jsx-486971797{min-height:100vh;padding:0 0.5rem;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}main.jsx-486971797{padding:5rem 0;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkg6XFxnaXRcXGFjdGl2aXR5LXRyZW5kc1xccGFnZXNcXGluZGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUEyQ2tCLEFBRzRCLEFBUUYsZUFDUixFQVJVLGlCQUNKLGNBUUEsNERBUFMsY0FRQSxnRUFQQyxjQVFKLHFGQVBBLFFBUXJCLHFGQVBBIiwiZmlsZSI6Ikg6XFxnaXRcXGFjdGl2aXR5LXRyZW5kc1xccGFnZXNcXGluZGV4LnRzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBIZWFkIGZyb20gJ25leHQvaGVhZCdcclxuaW1wb3J0IFdvcmtvdXRzLCB7IFdvcmtvdXREYXRhIH0gZnJvbSAnLi4vY29tcG9uZW50cy9Xb3Jrb3V0cyc7XHJcbmltcG9ydCB7IENhcmREZWNrLCBDYXJkIH0gZnJvbSAncmVhY3QtYm9vdHN0cmFwJztcclxuaW1wb3J0IHsgRm9udEF3ZXNvbWVJY29uIH0gZnJvbSAnQGZvcnRhd2Vzb21lL3JlYWN0LWZvbnRhd2Vzb21lJ1xyXG5pbXBvcnQgKiBhcyBpY29ucyBmcm9tICdAZm9ydGF3ZXNvbWUvZnJlZS1zb2xpZC1zdmctaWNvbnMnXHJcbmltcG9ydCBzdHlsZXMgZnJvbSAnLi4vcHVibGljL2luZGV4Lm1vZHVsZS5jc3MnXHJcbmltcG9ydCBIZWFkZXIgZnJvbSAnLi4vY29tcG9uZW50cy9oZWFkZXInO1xyXG5pbXBvcnQgRm9vdGVyIGZyb20gJy4uL2NvbXBvbmVudHMvZm9vdGVyJztcclxuaW1wb3J0IGZzIGZyb20gJ2ZzJ1xyXG5pbXBvcnQgcGF0aCBmcm9tICdwYXRoJ1xyXG5pbXBvcnQgUGFwYSBmcm9tICdwYXBhcGFyc2UnO1xyXG5cclxuaW50ZXJmYWNlIEhvbWVQcm9wcyB7XHJcbiAgd29ya291dHM6IFdvcmtvdXREYXRhW107XHJcbn1cclxuXHJcbmNvbnN0IEhvbWU6IFJlYWN0LkZDPEhvbWVQcm9wcz4gPSAoeyB3b3Jrb3V0cyB9KSA9PiB7XHJcbiAgcmV0dXJuIChcclxuICAgIDxkaXYgY2xhc3NOYW1lPVwiY29udGFpbmVyXCI+XHJcbiAgICAgIDxIZWFkPlxyXG4gICAgICAgIDx0aXRsZT5BY3Rpdml0eSBUcmVuZHM8L3RpdGxlPlxyXG4gICAgICAgIDxsaW5rIHJlbD1cImljb25cIiBocmVmPVwiL2Zhdmljb24uaWNvXCIgLz5cclxuICAgICAgICA8bGluayBocmVmPVwiaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1Sb2JvdG86aXRhbCx3Z2h0QDAsMTAwOzAsMzAwOzAsNDAwOzAsNTAwOzAsNzAwOzAsOTAwOzEsMTAwOzEsMzAwOzEsNTAwOzEsNzAwOzEsOTAwJmRpc3BsYXk9c3dhcFwiIHJlbD1cInN0eWxlc2hlZXRcIj48L2xpbms+XHJcbiAgICAgIDwvSGVhZD5cclxuXHJcbiAgICAgIDxIZWFkZXI+PC9IZWFkZXI+XHJcblxyXG4gICAgICA8Q2FyZERlY2s+XHJcbiAgICAgICAgPENhcmQgY2xhc3NOYW1lPXtzdHlsZXMuY2FyZH0+XHJcbiAgICAgICAgICA8Q2FyZC5Cb2R5PlxyXG4gICAgICAgICAgICA8Q2FyZC5UaXRsZSBjbGFzc05hbWU9e3N0eWxlcy50aXRsZX0+XHJcbiAgICAgICAgICAgICAgPEZvbnRBd2Vzb21lSWNvbiBpY29uPXtpY29ucy5mYUR1bWJiZWxsfSBzaXplPVwieHNcIiBmaXhlZFdpZHRoLz4gV29ya291dHNcclxuICAgICAgICAgICAgPC9DYXJkLlRpdGxlPlxyXG4gICAgICAgICAgICA8V29ya291dHMgZGF0YT17d29ya291dHN9PjwvV29ya291dHM+XHJcbiAgICAgICAgICA8L0NhcmQuQm9keT5cclxuICAgICAgICAgIDxDYXJkLkZvb3RlciBjbGFzc05hbWU9e3N0eWxlcy5mb290ZXJ9PlxyXG4gICAgICAgICAgICB7d29ya291dHMubGVuZ3RofSB3b3Jrb3V0cyByZWNvcmRlZFxyXG4gICAgICAgICAgPC9DYXJkLkZvb3Rlcj5cclxuICAgICAgICA8L0NhcmQ+XHJcbiAgICAgIDwvQ2FyZERlY2s+XHJcblxyXG4gICAgICA8Rm9vdGVyIGxhc3REYXRhVXBkYXRlPScyNC8wOC8yMDIwJz48L0Zvb3Rlcj5cclxuXHJcbiAgICAgIDxzdHlsZSBqc3g+e2BcclxuICAgICAgICAuY29udGFpbmVyIHtcclxuICAgICAgICAgIG1pbi1oZWlnaHQ6IDEwMHZoO1xyXG4gICAgICAgICAgcGFkZGluZzogMCAwLjVyZW07XHJcbiAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICB9XHJcbiAgICAgICAgbWFpbiB7XHJcbiAgICAgICAgICBwYWRkaW5nOiA1cmVtIDA7XHJcbiAgICAgICAgICBmbGV4OiAxO1xyXG4gICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIH1cclxuICAgICAgYH08L3N0eWxlPlxyXG5cclxuXHJcbiAgICA8L2Rpdj5cclxuICApXHJcblxyXG59XHJcblxyXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gZ2V0U3RhdGljUHJvcHMoKSB7XHJcbiAgY29uc3QgZGF0YURpcmVjdG9yeSA9IHBhdGguam9pbihwcm9jZXNzLmN3ZCgpLCAncHVibGljL2RhdGEnKVxyXG4gIGNvbnN0IGZpbGVuYW1lcyA9IGZzLnJlYWRkaXJTeW5jKGRhdGFEaXJlY3RvcnkpXHJcblxyXG4gIGNvbnN0IHBhcnNlZCA9IGZpbGVuYW1lcy5tYXAoKGZpbGVuYW1lKSA9PiB7XHJcbiAgICBjb25zdCBmaWxlUGF0aCA9IHBhdGguam9pbihkYXRhRGlyZWN0b3J5LCBmaWxlbmFtZSlcclxuICAgIGNvbnN0IGZpbGVDb250ZW50cyA9IGZzLnJlYWRGaWxlU3luYyhmaWxlUGF0aCwgJ3V0ZjgnKVxyXG4gICAgcmV0dXJuIFBhcGEucGFyc2UoZmlsZUNvbnRlbnRzLCB7XHJcbiAgICAgIGRlbGltaXRlcjogJywnLFxyXG4gICAgICBoZWFkZXI6IHRydWUsXHJcbiAgICAgIGNvbXBsZXRlOiByZXN1bHRzID0+IHtcclxuICAgICAgICByZXR1cm4gcmVzdWx0cy5kYXRhXHJcbiAgICAgIH1cclxuICAgIH0pXHJcbiAgfSk7XHJcblxyXG4gIHJldHVybiB7XHJcbiAgICBwcm9wczoge1xyXG4gICAgICB3b3Jrb3V0czogcGFyc2VkWzBdLmRhdGFcclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbmV4cG9ydCBkZWZhdWx0IEhvbWU7Il19 */\n/*@ sourceURL=H:\\\\git\\\\activity-trends\\\\pages\\\\index.tsx */"));
+  }, ".container.jsx-486971797{min-height:100vh;padding:0 0.5rem;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}main.jsx-486971797{padding:5rem 0;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkg6XFxnaXRcXGFjdGl2aXR5LXRyZW5kc1xccGFnZXNcXGluZGV4LnRzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUEyQ2tCLEFBRzRCLEFBUUYsZUFDUixFQVJVLGlCQUNKLGNBUUEsNERBUFMsY0FRQSxnRUFQQyxjQVFKLHFGQVBBLFFBUXJCLHFGQVBBIiwiZmlsZSI6Ikg6XFxnaXRcXGFjdGl2aXR5LXRyZW5kc1xccGFnZXNcXGluZGV4LnRzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBIZWFkIGZyb20gJ25leHQvaGVhZCdcclxuaW1wb3J0IHsgQ2FyZERlY2ssIENhcmQgfSBmcm9tICdyZWFjdC1ib290c3RyYXAnO1xyXG5pbXBvcnQgeyBGb250QXdlc29tZUljb24gfSBmcm9tICdAZm9ydGF3ZXNvbWUvcmVhY3QtZm9udGF3ZXNvbWUnXHJcbmltcG9ydCAqIGFzIGljb25zIGZyb20gJ0Bmb3J0YXdlc29tZS9mcmVlLXNvbGlkLXN2Zy1pY29ucydcclxuaW1wb3J0IHN0eWxlcyBmcm9tICcuLi9hc3NldHMvY3NzL2NvbXBvbmVudHMvaW5kZXgubW9kdWxlLmNzcydcclxuaW1wb3J0IEhlYWRlciBmcm9tICcuLi9sYXlvdXQvSGVhZGVyJztcclxuaW1wb3J0IEZvb3RlciBmcm9tICcuLi9sYXlvdXQvRm9vdGVyJztcclxuaW1wb3J0IFdvcmtvdXRzLCB7IFdvcmtvdXREYXRhIH0gZnJvbSAnLi4vY29tcG9uZW50cy9Xb3Jrb3V0cydcclxuaW1wb3J0IGZzIGZyb20gJ2ZzJ1xyXG5pbXBvcnQgcGF0aCBmcm9tICdwYXRoJ1xyXG5pbXBvcnQgUGFwYSBmcm9tICdwYXBhcGFyc2UnO1xyXG5cclxuaW50ZXJmYWNlIEhvbWVQcm9wcyB7XHJcbiAgd29ya291dHM6IFdvcmtvdXREYXRhW107XHJcbn1cclxuXHJcbmNvbnN0IEhvbWU6IFJlYWN0LkZDPEhvbWVQcm9wcz4gPSAoeyB3b3Jrb3V0cyB9KSA9PiB7XHJcbiAgcmV0dXJuIChcclxuICAgIDxkaXYgY2xhc3NOYW1lPVwiY29udGFpbmVyXCI+XHJcbiAgICAgIDxIZWFkPlxyXG4gICAgICAgIDx0aXRsZT5BY3Rpdml0eSBUcmVuZHM8L3RpdGxlPlxyXG4gICAgICAgIDxsaW5rIHJlbD1cImljb25cIiBocmVmPVwiL2Zhdmljb24uaWNvXCIgLz5cclxuICAgICAgICA8bGluayBocmVmPVwiaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1Sb2JvdG86aXRhbCx3Z2h0QDAsMTAwOzAsMzAwOzAsNDAwOzAsNTAwOzAsNzAwOzAsOTAwOzEsMTAwOzEsMzAwOzEsNTAwOzEsNzAwOzEsOTAwJmRpc3BsYXk9c3dhcFwiIHJlbD1cInN0eWxlc2hlZXRcIj48L2xpbms+XHJcbiAgICAgIDwvSGVhZD5cclxuXHJcbiAgICAgIDxIZWFkZXI+PC9IZWFkZXI+XHJcblxyXG4gICAgICA8Q2FyZERlY2s+XHJcbiAgICAgICAgPENhcmQgY2xhc3NOYW1lPXtzdHlsZXMuY2FyZH0+XHJcbiAgICAgICAgICA8Q2FyZC5Cb2R5PlxyXG4gICAgICAgICAgICA8Q2FyZC5UaXRsZSBjbGFzc05hbWU9e3N0eWxlcy50aXRsZX0+XHJcbiAgICAgICAgICAgICAgPEZvbnRBd2Vzb21lSWNvbiBpY29uPXtpY29ucy5mYUR1bWJiZWxsfSBzaXplPVwieHNcIiBmaXhlZFdpZHRoLz4gV29ya291dHNcclxuICAgICAgICAgICAgPC9DYXJkLlRpdGxlPlxyXG4gICAgICAgICAgICA8V29ya291dHMgZGF0YT17d29ya291dHN9PjwvV29ya291dHM+XHJcbiAgICAgICAgICA8L0NhcmQuQm9keT5cclxuICAgICAgICAgIDxDYXJkLkZvb3RlciBjbGFzc05hbWU9e3N0eWxlcy5mb290ZXJ9PlxyXG4gICAgICAgICAgICB7d29ya291dHMubGVuZ3RofSB3b3Jrb3V0cyByZWNvcmRlZFxyXG4gICAgICAgICAgPC9DYXJkLkZvb3Rlcj5cclxuICAgICAgICA8L0NhcmQ+XHJcbiAgICAgIDwvQ2FyZERlY2s+XHJcblxyXG4gICAgICA8Rm9vdGVyIGxhc3REYXRhVXBkYXRlPScyNC8wOC8yMDIwJz48L0Zvb3Rlcj5cclxuXHJcbiAgICAgIDxzdHlsZSBqc3g+e2BcclxuICAgICAgICAuY29udGFpbmVyIHtcclxuICAgICAgICAgIG1pbi1oZWlnaHQ6IDEwMHZoO1xyXG4gICAgICAgICAgcGFkZGluZzogMCAwLjVyZW07XHJcbiAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICB9XHJcbiAgICAgICAgbWFpbiB7XHJcbiAgICAgICAgICBwYWRkaW5nOiA1cmVtIDA7XHJcbiAgICAgICAgICBmbGV4OiAxO1xyXG4gICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIH1cclxuICAgICAgYH08L3N0eWxlPlxyXG5cclxuXHJcbiAgICA8L2Rpdj5cclxuICApXHJcblxyXG59XHJcblxyXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gZ2V0U3RhdGljUHJvcHMoKSB7XHJcbiAgY29uc3QgZGF0YURpcmVjdG9yeSA9IHBhdGguam9pbihwcm9jZXNzLmN3ZCgpLCAncHVibGljL2RhdGEnKVxyXG4gIGNvbnN0IGZpbGVuYW1lcyA9IGZzLnJlYWRkaXJTeW5jKGRhdGFEaXJlY3RvcnkpXHJcblxyXG4gIGNvbnN0IHBhcnNlZCA9IGZpbGVuYW1lcy5tYXAoKGZpbGVuYW1lKSA9PiB7XHJcbiAgICBjb25zdCBmaWxlUGF0aCA9IHBhdGguam9pbihkYXRhRGlyZWN0b3J5LCBmaWxlbmFtZSlcclxuICAgIGNvbnN0IGZpbGVDb250ZW50cyA9IGZzLnJlYWRGaWxlU3luYyhmaWxlUGF0aCwgJ3V0ZjgnKVxyXG4gICAgcmV0dXJuIFBhcGEucGFyc2UoZmlsZUNvbnRlbnRzLCB7XHJcbiAgICAgIGRlbGltaXRlcjogJywnLFxyXG4gICAgICBoZWFkZXI6IHRydWUsXHJcbiAgICAgIGNvbXBsZXRlOiByZXN1bHRzID0+IHtcclxuICAgICAgICByZXR1cm4gcmVzdWx0cy5kYXRhXHJcbiAgICAgIH1cclxuICAgIH0pXHJcbiAgfSk7XHJcblxyXG4gIHJldHVybiB7XHJcbiAgICBwcm9wczoge1xyXG4gICAgICB3b3Jrb3V0czogcGFyc2VkWzBdLmRhdGFcclxuICAgIH1cclxuICB9XHJcbn1cclxuXHJcbmV4cG9ydCBkZWZhdWx0IEhvbWU7Il19 */\n/*@ sourceURL=H:\\\\git\\\\activity-trends\\\\pages\\\\index.tsx */"));
 };
 
 var __N_SSG = true;
 /* harmony default export */ __webpack_exports__["default"] = (Home);
-
-/***/ }),
-
-/***/ "./public/footer.module.css":
-/*!**********************************!*\
-  !*** ./public/footer.module.css ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./footer.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/footer.module.css");
-
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
-
-var options = {}
-
-options.insert = function(element){// These elements should always exist. If they do not,
-// this code should fail.
-var anchorElement=document.querySelector('#__next_css__DO_NOT_USE__');var parentNode=anchorElement.parentNode;// Normally <head>
-// Each style tag should be placed right before our
-// anchor. By inserting before and not after, we do not
-// need to track the last inserted element.
-parentNode.insertBefore(element,anchorElement)// Remember: this is development only code.
-//
-// After styles are injected, we need to remove the
-// <style> tags that set `body { display: none; }`.
-//
-// We use `requestAnimationFrame` as a way to defer
-// this operation since there may be multiple style
-// tags.
-;(self.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}});};
-options.singleton = false;
-
-var update = __webpack_require__(/*! ../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
-
-if (content.locals) {
-  module.exports = content.locals;
-}
-
-if (true) {
-  if (!content.locals) {
-    module.hot.accept(
-      /*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./footer.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/footer.module.css",
-      function () {
-        var newContent = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./footer.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/footer.module.css");
-
-        if (typeof newContent === 'string') {
-          newContent = [[module.i, newContent, '']];
-        }
-        
-        update(newContent);
-      }
-    )
-  }
-
-  module.hot.dispose(function() { 
-    update();
-  });
-}
-
-/***/ }),
-
-/***/ "./public/header.module.css":
-/*!**********************************!*\
-  !*** ./public/header.module.css ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./header.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/header.module.css");
-
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
-
-var options = {}
-
-options.insert = function(element){// These elements should always exist. If they do not,
-// this code should fail.
-var anchorElement=document.querySelector('#__next_css__DO_NOT_USE__');var parentNode=anchorElement.parentNode;// Normally <head>
-// Each style tag should be placed right before our
-// anchor. By inserting before and not after, we do not
-// need to track the last inserted element.
-parentNode.insertBefore(element,anchorElement)// Remember: this is development only code.
-//
-// After styles are injected, we need to remove the
-// <style> tags that set `body { display: none; }`.
-//
-// We use `requestAnimationFrame` as a way to defer
-// this operation since there may be multiple style
-// tags.
-;(self.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}});};
-options.singleton = false;
-
-var update = __webpack_require__(/*! ../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
-
-if (content.locals) {
-  module.exports = content.locals;
-}
-
-if (true) {
-  if (!content.locals) {
-    module.hot.accept(
-      /*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./header.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/header.module.css",
-      function () {
-        var newContent = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./header.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/header.module.css");
-
-        if (typeof newContent === 'string') {
-          newContent = [[module.i, newContent, '']];
-        }
-        
-        update(newContent);
-      }
-    )
-  }
-
-  module.hot.dispose(function() { 
-    update();
-  });
-}
-
-/***/ }),
-
-/***/ "./public/index.module.css":
-/*!*********************************!*\
-  !*** ./public/index.module.css ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./index.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/index.module.css");
-
-if (typeof content === 'string') {
-  content = [[module.i, content, '']];
-}
-
-var options = {}
-
-options.insert = function(element){// These elements should always exist. If they do not,
-// this code should fail.
-var anchorElement=document.querySelector('#__next_css__DO_NOT_USE__');var parentNode=anchorElement.parentNode;// Normally <head>
-// Each style tag should be placed right before our
-// anchor. By inserting before and not after, we do not
-// need to track the last inserted element.
-parentNode.insertBefore(element,anchorElement)// Remember: this is development only code.
-//
-// After styles are injected, we need to remove the
-// <style> tags that set `body { display: none; }`.
-//
-// We use `requestAnimationFrame` as a way to defer
-// this operation since there may be multiple style
-// tags.
-;(self.requestAnimationFrame||setTimeout)(function(){for(var x=document.querySelectorAll('[data-next-hide-fouc]'),i=x.length;i--;){x[i].parentNode.removeChild(x[i]);}});};
-options.singleton = false;
-
-var update = __webpack_require__(/*! ../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js")(content, options);
-
-if (content.locals) {
-  module.exports = content.locals;
-}
-
-if (true) {
-  if (!content.locals) {
-    module.hot.accept(
-      /*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./index.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/index.module.css",
-      function () {
-        var newContent = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--5-oneOf-2-1!../node_modules/next/dist/compiled/postcss-loader??__nextjs_postcss!./index.module.css */ "./node_modules/css-loader/dist/cjs.js?!./node_modules/next/dist/compiled/postcss-loader/index.js?!./public/index.module.css");
-
-        if (typeof newContent === 'string') {
-          newContent = [[module.i, newContent, '']];
-        }
-        
-        update(newContent);
-      }
-    )
-  }
-
-  module.hot.dispose(function() { 
-    update();
-  });
-}
 
 /***/ }),
 
