@@ -485,7 +485,7 @@ module.exports=function(e,n){return n=n||{},new Promise(function(t,r){var s=new 
 
 
 exports.__esModule = true;
-exports["default"] = initializeBuildWatcher;
+exports.default = initializeBuildWatcher;
 
 var _eventsource = __webpack_require__(/*! ./error-overlay/eventsource */ "./node_modules/next/dist/client/dev/error-overlay/eventsource.js");
 
@@ -531,7 +531,7 @@ function initializeBuildWatcher() {
   });
   evtSource.addMessageListener(function (event) {
     // This is the heartbeat event
-    if (event.data === "\uD83D\uDC93") {
+    if (event.data === '\uD83D\uDC93') {
       return;
     }
 
@@ -834,7 +834,7 @@ var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime/helpers/int
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = connect;
+exports.default = connect;
 
 var _eventsource = __webpack_require__(/*! ./eventsource */ "./node_modules/next/dist/client/dev/error-overlay/eventsource.js");
 
@@ -893,7 +893,7 @@ function connect(options) {
         colNumber = _ref.colNumber; // Resolve invalid paths coming from react-error-overlay
 
     var resolvedFilename = fileName.replace(/^webpack:\/\//, '');
-    (0, _unfetch["default"])('/_next/development/open-stack-frame-in-editor' + ("?fileName=" + window.encodeURIComponent(resolvedFilename)) + ("&lineNumber=" + (lineNumber || 1)) + ("&colNumber=" + (colNumber || 1)));
+    (0, _unfetch.default)('/_next/development/open-stack-frame-in-editor' + ("?fileName=" + window.encodeURIComponent(resolvedFilename)) + ("&lineNumber=" + (lineNumber || 1)) + ("&colNumber=" + (colNumber || 1)));
   }); // We need to keep track of if there has been a runtime error.
   // Essentially, we cannot guarantee application state was not corrupted by the
   // runtime error. To prevent confusing behavior, we forcibly reload the entire
@@ -916,7 +916,7 @@ function connect(options) {
 
   (0, _eventsource.getEventSourceWrapper)(options).addMessageListener(function (event) {
     // This is the heartbeat event
-    if (event.data === "\uD83D\uDC93") {
+    if (event.data === '\uD83D\uDC93') {
       return;
     }
 
@@ -927,13 +927,15 @@ function connect(options) {
     }
   });
   return {
-    subscribeToHmrEvent: function subscribeToHmrEvent(handler) {
+    subscribeToHmrEvent(handler) {
       customHmrEventHandler = handler;
     },
-    reportRuntimeError: function reportRuntimeError(err) {
+
+    reportRuntimeError(err) {
       ErrorOverlay.reportRuntimeError(err);
     },
-    prepareError: function prepareError(err) {
+
+    prepareError(err) {
       // Temporary workaround for https://github.com/facebook/create-react-app/issues/4760
       // Should be removed once the fix lands
       hadRuntimeError = true; // react-error-overlay expects a type of `Error`
@@ -945,6 +947,7 @@ function connect(options) {
       (0, _sourceMapSupport.rewriteStacktrace)(error, "H:\\git\\activity-trends\\.next");
       return error;
     }
+
   };
 } // Remember some state related to hot module replacement.
 
@@ -988,7 +991,7 @@ function handleSuccess() {
 function handleWarnings(warnings) {
   clearOutdatedErrors(); // Print warnings to the console.
 
-  var formatted = (0, _formatWebpackMessages["default"])({
+  var formatted = (0, _formatWebpackMessages.default)({
     warnings: warnings,
     errors: []
   });
@@ -1000,7 +1003,7 @@ function handleWarnings(warnings) {
         break;
       }
 
-      console.warn((0, _stripAnsi["default"])(formatted.warnings[i]));
+      console.warn((0, _stripAnsi.default)(formatted.warnings[i]));
     }
   }
 } // Compilation with errors (e.g. syntax error or missing modules).
@@ -1011,7 +1014,7 @@ function handleErrors(errors) {
   isFirstCompilation = false;
   hasCompileErrors = true; // "Massage" webpack messages.
 
-  var formatted = (0, _formatWebpackMessages["default"])({
+  var formatted = (0, _formatWebpackMessages.default)({
     errors: errors,
     warnings: []
   }); // Only show the first error.
@@ -1020,7 +1023,7 @@ function handleErrors(errors) {
 
   if (typeof console !== 'undefined' && typeof console.error === 'function') {
     for (var i = 0; i < formatted.errors.length; i++) {
-      console.error((0, _stripAnsi["default"])(formatted.errors[i]));
+      console.error((0, _stripAnsi.default)(formatted.errors[i]));
     }
   }
 } // There is a newer version of the code available.
@@ -1262,7 +1265,7 @@ function rewriteTraceLine(trace, distDir) {
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _unfetch = _interopRequireDefault(__webpack_require__(/*! next/dist/build/polyfills/unfetch */ "./node_modules/next/dist/build/polyfills/unfetch.js"));
 /* eslint-disable */
@@ -1715,7 +1718,7 @@ FetchTransport.prototype.open = function (xhr, onStartCallback, onProgressCallba
   var signal = controller.signal; // see #120
 
   var textDecoder = new TextDecoder();
-  (0, _unfetch["default"])(url, {
+  (0, _unfetch.default)(url, {
     headers: headers,
     credentials: withCredentials ? 'include' : 'same-origin',
     signal: signal,
@@ -1903,7 +1906,7 @@ function EventSourcePolyfill(url, options) {
   start(this, url, options);
 }
 
-var isFetchSupported = _unfetch["default"] != undefined && Response != undefined && 'body' in Response.prototype;
+var isFetchSupported = _unfetch.default != undefined && Response != undefined && 'body' in Response.prototype;
 
 function start(es, url, options) {
   url = String(url);
@@ -2194,7 +2197,7 @@ EventSourcePolyfill.OPEN = OPEN;
 EventSourcePolyfill.CLOSED = CLOSED;
 EventSourcePolyfill.prototype.withCredentials = undefined;
 var _default = EventSourcePolyfill;
-exports["default"] = _default;
+exports.default = _default;
 
 /***/ }),
 
@@ -2244,7 +2247,7 @@ var _regeneratorRuntime = __webpack_require__(/*! @babel/runtime/regenerator */ 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _router = _interopRequireDefault(__webpack_require__(/*! next/router */ "./node_modules/next/dist/client/router.js"));
 
@@ -2258,14 +2261,14 @@ var _default = function _default(_ref) {
         case 0:
           assetPrefix = _ref.assetPrefix;
 
-          _router["default"].ready(function () {
-            _router["default"].events.on('routeChangeComplete', _onDemandEntriesUtils.setupPing.bind(void 0, assetPrefix, function () {
-              return _router["default"].pathname;
+          _router.default.ready(function () {
+            _router.default.events.on('routeChangeComplete', _onDemandEntriesUtils.setupPing.bind(void 0, assetPrefix, function () {
+              return _router.default.pathname;
             }));
           });
 
           (0, _onDemandEntriesUtils.setupPing)(assetPrefix, function () {
-            return _router["default"].pathname;
+            return _router.default.pathname;
           }, _onDemandEntriesUtils.currentPage); // prevent HMR connection from being closed when running tests
 
           if (!undefined) {
@@ -2274,7 +2277,7 @@ var _default = function _default(_ref) {
 
               if (state === 'visible') {
                 (0, _onDemandEntriesUtils.setupPing)(assetPrefix, function () {
-                  return _router["default"].pathname;
+                  return _router.default.pathname;
                 }, true);
               } else {
                 (0, _onDemandEntriesUtils.closePing)();
@@ -2293,7 +2296,7 @@ var _default = function _default(_ref) {
   }, null, null, null, Promise);
 };
 
-exports["default"] = _default;
+exports.default = _default;
 
 /***/ }),
 
@@ -2351,7 +2354,7 @@ function setupPing(assetPrefix, pathnameFn, retry) {
       if (payload.invalid) {
         // Payload can be invalid even if the page does not exist.
         // So, we need to make sure it exists before reloading.
-        (0, _unfetch["default"])(location.href, {
+        (0, _unfetch.default)(location.href, {
           credentials: 'same-origin'
         }).then(function (pageRes) {
           if (pageRes.status === 200) {
@@ -2380,7 +2383,7 @@ function setupPing(assetPrefix, pathnameFn, retry) {
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = initializeBuildWatcher;
+exports.default = initializeBuildWatcher;
 
 var _router = _interopRequireDefault(__webpack_require__(/*! ../router */ "./node_modules/next/dist/client/router.js"));
 
@@ -2472,7 +2475,7 @@ function initializeBuildWatcher() {
     return toggleExpand(false);
   });
 
-  _router["default"].events.on('routeChangeComplete', function () {
+  _router.default.events.on('routeChangeComplete', function () {
     isVisible = window.next.isPrerendered;
     updateContainer();
   });
@@ -2510,7 +2513,7 @@ var _slicedToArray = __webpack_require__(/*! @babel/runtime/helpers/slicedToArra
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _hotDevClient = _interopRequireDefault(__webpack_require__(/*! ./error-overlay/hot-dev-client */ "./node_modules/next/dist/client/dev/error-overlay/hot-dev-client.js"));
 
@@ -2519,7 +2522,7 @@ var _default = function _default(_ref) {
   var options = {
     path: assetPrefix + "/_next/webpack-hmr"
   };
-  var devClient = (0, _hotDevClient["default"])(options);
+  var devClient = (0, _hotDevClient.default)(options);
   devClient.subscribeToHmrEvent(function (obj) {
     if (obj.action === 'reloadPage') {
       return window.location.reload();
@@ -2552,7 +2555,7 @@ var _default = function _default(_ref) {
   return devClient;
 };
 
-exports["default"] = _default;
+exports.default = _default;
 
 /***/ }),
 
@@ -2567,7 +2570,7 @@ exports["default"] = _default;
 
 
 exports.__esModule = true;
-exports["default"] = initHeadManager;
+exports.default = initHeadManager;
 var DOMAttributeNames = {
   acceptCharset: 'accept-charset',
   className: 'class',
@@ -2707,7 +2710,7 @@ var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/inte
 exports.__esModule = true;
 exports.render = render;
 exports.renderError = renderError;
-exports["default"] = exports.emitter = exports.router = exports.version = void 0;
+exports.default = exports.emitter = exports.router = exports.version = void 0;
 
 var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js"));
 
@@ -2743,7 +2746,7 @@ var _performanceRelayer = __webpack_require__(/*! ./performance-relayer */ "./no
 
 if (!('finally' in Promise.prototype)) {
   // eslint-disable-next-line no-extend-native
-  Promise.prototype["finally"] = __webpack_require__(/*! next/dist/build/polyfills/finally-polyfill.min */ "./node_modules/next/dist/build/polyfills/finally-polyfill.min.js");
+  Promise.prototype.finally = __webpack_require__(/*! next/dist/build/polyfills/finally-polyfill.min */ "./node_modules/next/dist/build/polyfills/finally-polyfill.min.js");
 }
 
 var data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
@@ -2770,7 +2773,7 @@ envConfig.setConfig({
   publicRuntimeConfig: runtimeConfig || {}
 });
 var asPath = (0, _utils.getURL)();
-var pageLoader = new _pageLoader["default"](buildId, prefix);
+var pageLoader = new _pageLoader.default(buildId, prefix);
 
 var register = function register(_ref) {
   var _ref6 = _slicedToArray(_ref, 2),
@@ -2786,7 +2789,7 @@ if (window.__NEXT_P) {
 
 window.__NEXT_P = [];
 window.__NEXT_P.push = register;
-var updateHead = (0, _headManager["default"])();
+var updateHead = (0, _headManager.default)();
 var appElement = document.getElementById('__next');
 var lastAppProps;
 var webpackHMR;
@@ -2825,7 +2828,7 @@ var Container = /*#__PURE__*/function (_react$default$Compon) {
 
       if (router.isSsr && (isFallback || data.nextExport && ((0, _isDynamic.isDynamicRoute)(router.pathname) || location.search) || props.__N_SSG && location.search)) {
         // update query on mount for exported pages
-        router.replace(router.pathname + '?' + (0, _querystring.stringify)((0, _extends2["default"])({}, router.query, {}, (0, _querystring.parse)(location.search.substr(1)))), asPath, {
+        router.replace(router.pathname + '?' + (0, _querystring.stringify)((0, _extends2.default)({}, router.query, {}, (0, _querystring.parse)(location.search.substr(1)))), asPath, {
           // WARNING: `_h` is an internal option for handing Next.js
           // client-side hydration. Your app should _never_ use this property.
           // It may change at any time without notice.
@@ -2874,9 +2877,9 @@ var Container = /*#__PURE__*/function (_react$default$Compon) {
   }]);
 
   return Container;
-}(_react["default"].Component);
+}(_react.default.Component);
 
-var emitter = (0, _mitt["default"])();
+var emitter = (0, _mitt.default)();
 exports.emitter = emitter;
 
 var _default = function _default(_temp) {
@@ -2909,11 +2912,11 @@ var _default = function _default(_temp) {
                   duration = _ref2.duration,
                   entryType = _ref2.entryType;
               mod.unstable_onPerformanceData({
-                name: name,
-                startTime: startTime,
-                value: value,
-                duration: duration,
-                entryType: entryType
+                name,
+                startTime,
+                value,
+                duration,
+                entryType
               });
             };
           }
@@ -2961,21 +2964,21 @@ var _default = function _default(_temp) {
         case 28:
           exports.router = router = (0, _router.createRouter)(page, query, asPath, {
             initialProps: props,
-            pageLoader: pageLoader,
-            App: App,
-            Component: Component,
-            wrapApp: wrapApp,
+            pageLoader,
+            App,
+            Component,
+            wrapApp,
             err: initialErr,
-            isFallback: isFallback,
+            isFallback,
             subscription: function subscription(_ref3, App) {
               var Component = _ref3.Component,
                   props = _ref3.props,
                   err = _ref3.err;
               render({
-                App: App,
-                Component: Component,
-                props: props,
-                err: err
+                App,
+                Component,
+                props,
+                err
               });
             }
           }); // call init-client middleware
@@ -2983,9 +2986,9 @@ var _default = function _default(_temp) {
           if (false) {}
 
           renderCtx = {
-            App: App,
-            Component: Component,
-            props: props,
+            App,
+            Component,
+            props,
             err: initialErr
           };
 
@@ -3001,9 +3004,9 @@ var _default = function _default(_temp) {
           if (false) {}
 
           return _context.abrupt("return", {
-            emitter: emitter,
-            render: render,
-            renderCtx: renderCtx
+            emitter,
+            render,
+            renderCtx
           });
 
         case 36:
@@ -3014,7 +3017,7 @@ var _default = function _default(_temp) {
   }, null, null, [[10, 22]], Promise);
 };
 
-exports["default"] = _default;
+exports.default = _default;
 
 function render(props) {
   return _regeneratorRuntime.async(function render$(_context2) {
@@ -3045,7 +3048,7 @@ function render(props) {
           _context2.prev = 9;
           _context2.t0 = _context2["catch"](4);
           _context2.next = 13;
-          return _regeneratorRuntime.awrap(renderError((0, _extends2["default"])({}, props, {
+          return _regeneratorRuntime.awrap(renderError((0, _extends2.default)({}, props, {
             err: _context2.t0
           })));
 
@@ -3091,14 +3094,14 @@ function renderError(props) {
           AppTree = wrapApp(App);
           appCtx = {
             Component: ErrorComponent,
-            AppTree: AppTree,
-            router: router,
+            AppTree,
+            router,
             ctx: {
-              err: err,
+              err,
               pathname: page,
-              query: query,
-              asPath: asPath,
-              AppTree: AppTree
+              query,
+              asPath,
+              AppTree
             }
           };
 
@@ -3121,8 +3124,8 @@ function renderError(props) {
         case 18:
           initProps = _context3.t0;
           _context3.next = 21;
-          return _regeneratorRuntime.awrap(doRender((0, _extends2["default"])({}, props, {
-            err: err,
+          return _regeneratorRuntime.awrap(doRender((0, _extends2.default)({}, props, {
+            err,
             Component: ErrorComponent,
             props: initProps
           })));
@@ -3136,7 +3139,7 @@ function renderError(props) {
 } // If hydrate does not exist, eg in preact.
 
 
-var isInitialRender = typeof _reactDom["default"].hydrate === 'function';
+var isInitialRender = typeof _reactDom.default.hydrate === 'function';
 var reactRoot = null;
 
 function renderReactElement(reactEl, domEl) {
@@ -3148,11 +3151,11 @@ function renderReactElement(reactEl, domEl) {
 
 
     if (isInitialRender) {
-      _reactDom["default"].hydrate(reactEl, domEl, markHydrateComplete);
+      _reactDom.default.hydrate(reactEl, domEl, markHydrateComplete);
 
       isInitialRender = false;
     } else {
-      _reactDom["default"].render(reactEl, domEl, markRenderComplete);
+      _reactDom.default.render(reactEl, domEl, markRenderComplete);
     }
   }
 
@@ -3219,30 +3222,30 @@ function clearMarks() {
 
 function AppContainer(_ref4) {
   var children = _ref4.children;
-  return _react["default"].createElement(Container, {
+  return _react.default.createElement(Container, {
     fn: function fn(error) {
       return renderError({
-        App: App,
+        App,
         err: error
-      })["catch"](function (err) {
+      }).catch(function (err) {
         return console.error('Error rendering page: ', err);
       });
     }
-  }, _react["default"].createElement(_routerContext.RouterContext.Provider, {
+  }, _react.default.createElement(_routerContext.RouterContext.Provider, {
     value: (0, _router.makePublicRouterInstance)(router)
-  }, _react["default"].createElement(_headManagerContext.HeadManagerContext.Provider, {
+  }, _react.default.createElement(_headManagerContext.HeadManagerContext.Provider, {
     value: updateHead
   }, children)));
 }
 
 var wrapApp = function wrapApp(App) {
   return function (props) {
-    var appProps = (0, _extends2["default"])({}, props, {
-      Component: Component,
-      err: err,
-      router: router
+    var appProps = (0, _extends2.default)({}, props, {
+      Component,
+      err,
+      router
     });
-    return _react["default"].createElement(AppContainer, null, _react["default"].createElement(App, appProps));
+    return _react.default.createElement(AppContainer, null, _react.default.createElement(App, appProps));
   };
 };
 
@@ -3264,15 +3267,15 @@ function doRender(_ref5) {
           _router2 = router, pathname = _router2.pathname, _query = _router2.query, _asPath = _router2.asPath;
           AppTree = wrapApp(App);
           appCtx = {
-            router: router,
-            AppTree: AppTree,
+            router,
+            AppTree,
             Component: ErrorComponent,
             ctx: {
-              err: err,
-              pathname: pathname,
+              err,
+              pathname,
               query: _query,
               asPath: _asPath,
-              AppTree: AppTree
+              AppTree
             }
           };
           _context4.next = 7;
@@ -3284,25 +3287,25 @@ function doRender(_ref5) {
         case 8:
           Component = Component || lastAppProps.Component;
           props = props || lastAppProps.props;
-          appProps = (0, _extends2["default"])({}, props, {
-            Component: Component,
-            err: err,
-            router: router
+          appProps = (0, _extends2.default)({}, props, {
+            Component,
+            err,
+            router
           }); // lastAppProps has to be set before ReactDom.render to account for ReactDom throwing an error.
 
           lastAppProps = appProps;
           emitter.emit('before-reactdom-render', {
-            Component: Component,
-            ErrorComponent: ErrorComponent,
-            appProps: appProps
+            Component,
+            ErrorComponent,
+            appProps
           });
-          elem = _react["default"].createElement(AppContainer, null, _react["default"].createElement(App, appProps)); // We catch runtime errors using componentDidCatch which will trigger renderError
+          elem = _react.default.createElement(AppContainer, null, _react.default.createElement(App, appProps)); // We catch runtime errors using componentDidCatch which will trigger renderError
 
           renderReactElement( false ? undefined : elem, appElement);
           emitter.emit('after-reactdom-render', {
-            Component: Component,
-            ErrorComponent: ErrorComponent,
-            appProps: appProps
+            Component,
+            ErrorComponent,
+            appProps
           });
 
         case 16:
@@ -3349,30 +3352,30 @@ __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.t.bind(null, /
 ; // Support EventSource on Internet Explorer 11
 
 if (!window.EventSource) {
-  window.EventSource = _eventSourcePolyfill["default"];
+  window.EventSource = _eventSourcePolyfill.default;
 }
 
 var _window = window,
     assetPrefix = _window.__NEXT_DATA__.assetPrefix;
 var prefix = assetPrefix || '';
-var webpackHMR = (0, _webpackHotMiddlewareClient["default"])({
+var webpackHMR = (0, _webpackHotMiddlewareClient.default)({
   assetPrefix: prefix
 });
 window.next = next;
-(0, next["default"])({
-  webpackHMR: webpackHMR
+(0, next.default)({
+  webpackHMR
 }).then(function (_ref) {
   var emitter = _ref.emitter,
       renderCtx = _ref.renderCtx,
       render = _ref.render;
-  (0, _onDemandEntriesClient["default"])({
+  (0, _onDemandEntriesClient.default)({
     assetPrefix: prefix
   });
-  if (true) (0, _devBuildWatcher["default"])();
+  if (true) (0, _devBuildWatcher.default)();
 
   if ( true && // disable by default in electron
   !(typeof process !== 'undefined' && 'electron' in process.versions)) {
-    (0, _prerenderIndicator["default"])();
+    (0, _prerenderIndicator.default)();
   } // delay rendering until after styles have been applied in development
 
 
@@ -3407,7 +3410,7 @@ window.next = next;
       lastScroll = null;
     }
   });
-})["catch"](function (err) {
+}).catch(function (err) {
   console.error('Error was not caught', err);
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../process/browser.js */ "./node_modules/process/browser.js")))
@@ -3431,7 +3434,7 @@ var _createClass = __webpack_require__(/*! @babel/runtime/helpers/createClass */
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _url = __webpack_require__(/*! url */ "./node_modules/native-url/dist/index.js");
 
@@ -3488,7 +3491,7 @@ var PageLoader = /*#__PURE__*/function () {
     this.buildId = buildId;
     this.assetPrefix = assetPrefix;
     this.pageCache = {};
-    this.pageRegisterEvents = (0, _mitt["default"])();
+    this.pageRegisterEvents = (0, _mitt.default)();
     this.loadingRoutes = {};
 
     if (false) {}
@@ -3619,8 +3622,8 @@ var PageLoader = /*#__PURE__*/function () {
             reject(error);
           } else {
             resolve({
-              page: page,
-              mod: mod
+              page,
+              mod
             });
           }
         }; // If there's a cached version of the page, let's use it.
@@ -3633,8 +3636,8 @@ var PageLoader = /*#__PURE__*/function () {
               page = cachedPage.page,
               mod = cachedPage.mod;
           error ? reject(error) : resolve({
-            page: page,
-            mod: mod
+            page,
+            mod
           });
           return;
         } // Register a listener to get the page
@@ -3682,7 +3685,7 @@ var PageLoader = /*#__PURE__*/function () {
         error.code = 'PAGE_LOAD_ERROR';
 
         _this5.pageRegisterEvents.emit(route, {
-          error: error
+          error
         });
       };
 
@@ -3698,19 +3701,19 @@ var PageLoader = /*#__PURE__*/function () {
         try {
           var mod = regFn();
           var pageData = {
-            page: mod["default"] || mod,
-            mod: mod
+            page: mod.default || mod,
+            mod
           };
           _this6.pageCache[route] = pageData;
 
           _this6.pageRegisterEvents.emit(route, pageData);
         } catch (error) {
           _this6.pageCache[route] = {
-            error: error
+            error
           };
 
           _this6.pageRegisterEvents.emit(route, {
-            error: error
+            error
           });
         }
       };
@@ -3778,7 +3781,7 @@ var PageLoader = /*#__PURE__*/function () {
   return PageLoader;
 }();
 
-exports["default"] = PageLoader;
+exports.default = PageLoader;
 
 /***/ }),
 
@@ -3792,7 +3795,7 @@ exports["default"] = PageLoader;
 "use strict";
 
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -3902,7 +3905,7 @@ function observePaint(onPerfEntry) {
 
 var _construct = __webpack_require__(/*! @babel/runtime/helpers/construct */ "./node_modules/@babel/runtime/helpers/construct.js");
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -3915,33 +3918,35 @@ var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/inte
 exports.__esModule = true;
 exports.useRouter = useRouter;
 exports.makePublicRouterInstance = makePublicRouterInstance;
-exports.createRouter = exports.withRouter = exports["default"] = void 0;
+exports.createRouter = exports.withRouter = exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 var _router2 = _interopRequireWildcard(__webpack_require__(/*! ../next-server/lib/router/router */ "./node_modules/next/dist/next-server/lib/router/router.js"));
 
-exports.Router = _router2["default"];
+exports.Router = _router2.default;
 exports.NextRouter = _router2.NextRouter;
 
 var _routerContext = __webpack_require__(/*! ../next-server/lib/router-context */ "./node_modules/next/dist/next-server/lib/router-context.js");
 
 var _withRouter = _interopRequireDefault(__webpack_require__(/*! ./with-router */ "./node_modules/next/dist/client/with-router.js"));
 
-exports.withRouter = _withRouter["default"];
+exports.withRouter = _withRouter.default;
 /* global window */
 
 var singletonRouter = {
   router: null,
   // holds the actual router instance
   readyCallbacks: [],
-  ready: function ready(cb) {
+
+  ready(cb) {
     if (this.router) return cb();
 
     if (true) {
       this.readyCallbacks.push(cb);
     }
   }
+
 }; // Create public properties and methods of the router in the singletonRouter
 
 var urlPropertyFields = ['pathname', 'route', 'query', 'asPath', 'components', 'isFallback', 'basePath'];
@@ -3949,9 +3954,10 @@ var routerEvents = ['routeChangeStart', 'beforeHistoryChange', 'routeChangeCompl
 var coreMethodFields = ['push', 'replace', 'reload', 'back', 'prefetch', 'beforePopState']; // Events is a static property on the router, the router doesn't have to be initialized to use it
 
 Object.defineProperty(singletonRouter, 'events', {
-  get: function get() {
-    return _router2["default"].events;
+  get() {
+    return _router2.default.events;
   }
+
 });
 urlPropertyFields.forEach(function (field) {
   // Here we need to use Object.defineProperty because, we need to return
@@ -3959,10 +3965,11 @@ urlPropertyFields.forEach(function (field) {
   // The value might get changed as we change routes and this is the
   // proper way to access it
   Object.defineProperty(singletonRouter, field, {
-    get: function get() {
+    get() {
       var router = getRouter();
       return router[field];
     }
+
   });
 });
 coreMethodFields.forEach(function (field) {
@@ -3976,7 +3983,7 @@ coreMethodFields.forEach(function (field) {
 });
 routerEvents.forEach(function (event) {
   singletonRouter.ready(function () {
-    _router2["default"].events.on(event, function () {
+    _router2.default.events.on(event, function () {
       var eventField = "on" + event.charAt(0).toUpperCase() + event.substring(1);
       var _singletonRouter = singletonRouter;
 
@@ -4006,10 +4013,10 @@ function getRouter() {
 
 var _default = singletonRouter; // Reexport the withRoute HOC
 
-exports["default"] = _default;
+exports.default = _default;
 
 function useRouter() {
-  return _react["default"].useContext(_routerContext.RouterContext);
+  return _react.default.useContext(_routerContext.RouterContext);
 } // INTERNAL APIS
 // -------------
 // (do not use following exports inside the app)
@@ -4023,7 +4030,7 @@ var createRouter = function createRouter() {
     args[_key] = arguments[_key];
   }
 
-  singletonRouter.router = _construct(_router2["default"], args);
+  singletonRouter.router = _construct(_router2.default, args);
   singletonRouter.readyCallbacks.forEach(function (cb) {
     return cb();
   });
@@ -4060,7 +4067,7 @@ function makePublicRouterInstance(router) {
     _iterator.f();
   }
 
-  instance.events = _router2["default"].events;
+  instance.events = _router2.default.events;
   coreMethodFields.forEach(function (field) {
     instance[field] = function () {
       return _router[field].apply(_router, arguments);
@@ -4084,7 +4091,7 @@ function makePublicRouterInstance(router) {
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = withRouter;
+exports.default = withRouter;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
@@ -4092,7 +4099,7 @@ var _router = __webpack_require__(/*! ./router */ "./node_modules/next/dist/clie
 
 function withRouter(ComposedComponent) {
   function WithRouterWrapper(props) {
-    return _react["default"].createElement(ComposedComponent, Object.assign({
+    return _react.default.createElement(ComposedComponent, Object.assign({
       router: (0, _router.useRouter)()
     }, props));
   }
@@ -4168,7 +4175,7 @@ function withRouter(ComposedComponent) {
     };
 
     e.exports = s;
-    e.exports["default"] = s;
+    e.exports.default = s;
   },
   804: function _(e) {
     "use strict";
@@ -4248,17 +4255,19 @@ Object.defineProperty(exports, "__esModule", {
 function mitt() {
   var all = Object.create(null);
   return {
-    on: function on(type, handler) {
+    on(type, handler) {
       ;
       (all[type] || (all[type] = [])).push(handler);
     },
-    off: function off(type, handler) {
+
+    off(type, handler) {
       if (all[type]) {
         // tslint:disable-next-line:no-bitwise
         all[type].splice(all[type].indexOf(handler) >>> 0, 1);
       }
     },
-    emit: function emit(type) {
+
+    emit(type) {
       for (var _len = arguments.length, evts = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         evts[_key - 1] = arguments[_key];
       }
@@ -4269,10 +4278,11 @@ function mitt() {
         handler.apply(void 0, evts);
       });
     }
+
   };
 }
 
-exports["default"] = mitt;
+exports.default = mitt;
 
 /***/ }),
 
@@ -4377,7 +4387,7 @@ function fetchNextData(pathname, query, isServerRender, cb) {
     return fetch(utils_1.formatWithValidation({
       // @ts-ignore __NEXT_DATA__
       pathname: "/_next/data/".concat(__NEXT_DATA__.buildId).concat(pathname, ".json"),
-      query: query
+      query
     }), {
       // Cookies are required to be present for Next.js' SSG "Preview Mode".
       // Cookies may also be required for `getServerSideProps`.
@@ -4406,7 +4416,7 @@ function fetchNextData(pathname, query, isServerRender, cb) {
 
   return getResponse().then(function (data) {
     return cb ? cb(data) : data;
-  })["catch"](function (err) {
+  }).catch(function (err) {
     // We should only trigger a server-side transition if this was caused
     // on a client-side transition. Otherwise, we'd get into an infinite
     // loop.
@@ -4510,9 +4520,9 @@ var Router = /*#__PURE__*/function () {
 
     if (pathname !== '/_error') {
       this.components[this.route] = {
-        Component: Component,
+        Component,
         props: initialProps,
-        err: err,
+        err,
         __N_SSG: initialProps && initialProps.__N_SSG,
         __N_SSP: initialProps && initialProps.__N_SSP
       };
@@ -4544,8 +4554,8 @@ var Router = /*#__PURE__*/function () {
       // in order for `e.state` to work on the `onpopstate` event
       // we have to register the initial route upon initialization
       this.changeState('replaceState', utils_1.formatWithValidation({
-        pathname: pathname,
-        query: query
+        pathname,
+        query
       }), as);
       window.addEventListener('popstate', this.onPopState);
     }
@@ -4555,7 +4565,7 @@ var Router = /*#__PURE__*/function () {
   _createClass(Router, [{
     key: "update",
     value: function update(route, mod) {
-      var Component = mod["default"] || mod;
+      var Component = mod.default || mod;
       var data = this.components[route];
 
       if (!data) {
@@ -4563,7 +4573,7 @@ var Router = /*#__PURE__*/function () {
       }
 
       var newData = Object.assign(Object.assign({}, data), {
-        Component: Component,
+        Component,
         __N_SSG: mod.__N_SSG,
         __N_SSP: mod.__N_SSP
       });
@@ -4764,9 +4774,9 @@ var Router = /*#__PURE__*/function () {
 
       if (method !== 'pushState' || utils_1.getURL() !== as) {
         window.history[method]({
-          url: url,
-          as: as,
-          options: options
+          url,
+          as,
+          options
         }, // Most browsers currently ignores this parameter, although they may use it in the future.
         // Passing the empty string here should be safe against future changes to the method.
         // https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState
@@ -4814,14 +4824,14 @@ var Router = /*#__PURE__*/function () {
           resolve(_this3.fetchComponent('/_error').then(function (res) {
             var Component = res.page;
             var routeInfo = {
-              Component: Component,
-              err: err
+              Component,
+              err
             };
             return new Promise(function (resolve) {
               _this3.getInitialProps(Component, {
-                err: err,
-                pathname: pathname,
-                query: query
+                err,
+                pathname,
+                query
               }).then(function (props) {
                 routeInfo.props = props;
                 routeInfo.error = err;
@@ -4833,7 +4843,7 @@ var Router = /*#__PURE__*/function () {
                 resolve(routeInfo);
               });
             });
-          })["catch"](function (err) {
+          }).catch(function (err) {
             return handleError(err, true);
           }));
         });
@@ -4868,8 +4878,8 @@ var Router = /*#__PURE__*/function () {
         return _this3._getData(function () {
           return __N_SSG ? _this3._getStaticData(as) : __N_SSP ? _this3._getServerData(as) : _this3.getInitialProps(Component, // we provide AppTree later so this needs to be `any`
           {
-            pathname: pathname,
-            query: query,
+            pathname,
+            query,
             asPath: as
           });
         }).then(function (props) {
@@ -4877,7 +4887,7 @@ var Router = /*#__PURE__*/function () {
           _this3.components[route] = routeInfo;
           return routeInfo;
         });
-      })["catch"](handleError);
+      }).catch(handleError);
     }
   }, {
     key: "set",
@@ -5081,10 +5091,10 @@ var Router = /*#__PURE__*/function () {
 
       ctx.AppTree = AppTree;
       return utils_1.loadGetInitialProps(App, {
-        AppTree: AppTree,
-        Component: Component,
+        AppTree,
+        Component,
         router: this,
-        ctx: ctx
+        ctx
       });
     }
   }, {
@@ -5115,8 +5125,8 @@ var Router = /*#__PURE__*/function () {
   return Router;
 }();
 
-exports["default"] = Router;
-Router.events = mitt_1["default"]();
+exports.default = Router;
+Router.events = mitt_1.default();
 
 /***/ }),
 
@@ -5228,7 +5238,7 @@ function getRouteRegex(normalizedRoute) {
   });
   return {
     re: new RegExp('^' + parameterizedRoute + '(?:/)?$', 'i'),
-    groups: groups
+    groups
   };
 }
 
@@ -5251,7 +5261,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var runtimeConfig;
 
-exports["default"] = function () {
+exports.default = function () {
   return runtimeConfig;
 };
 
