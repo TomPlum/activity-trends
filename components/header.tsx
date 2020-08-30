@@ -1,10 +1,20 @@
 import styles from '../public/header.module.css'
+import { Navbar } from 'react-bootstrap'
 
 const Header: React.FunctionComponent = () => {
     return (
-        <header className={styles.header}>
-            <p>Activity Trends</p>
-        </header>
+        <Navbar bg="dark" variant="dark" fixed="top" className={styles.header}>
+            <Navbar.Brand>
+                <img
+                    alt="activity-rings-logo"
+                    src="/logo.png"
+                    width="28px"
+                    height="28px"
+                    className={styles.logo}
+                />{' '}
+                Activity Trends
+            </Navbar.Brand>
+        </Navbar>
     )
 }
 

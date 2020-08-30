@@ -1,24 +1,19 @@
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Navbar } from 'react-bootstrap'
 import styles from '../public/footer.module.css'
 
 interface FooterProps {
     lastDataUpdate: String
 }
 
-const Footer: React.FunctionComponent<FooterProps> = ({lastDataUpdate}) => {
+const Footer: React.FunctionComponent<FooterProps> = ({ lastDataUpdate }) => {
     return (
-        <footer className={styles.footer}>
-            <Container fluid>
-                <Row>
-                    <Col>
-                        <p>Created by Thomas Plumpton.</p>
-                    </Col>
-                    <Col>
-                        <p>Data as of: {lastDataUpdate}</p>
-                    </Col>
-                </Row>
-            </Container>
-        </footer>
+        <Container fluid>
+            <Navbar bg="light" variant="light" fixed="bottom" className={styles.footer}>
+                <Navbar.Brand>
+                    Created by Thomas Plumpton &nbsp; | &nbsp; Last data import {lastDataUpdate}
+                </Navbar.Brand>
+            </Navbar>
+        </Container>
     )
 }
 
