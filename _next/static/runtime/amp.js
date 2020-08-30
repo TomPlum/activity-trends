@@ -69,7 +69,7 @@ var _fouc = __webpack_require__(/*! ./fouc */ "./node_modules/next/dist/client/d
 
 
 if (!window.EventSource) {
-  window.EventSource = _eventSourcePolyfill["default"];
+  window.EventSource = _eventSourcePolyfill.default;
 }
 
 var data = JSON.parse(document.getElementById('__NEXT_DATA__').textContent);
@@ -114,7 +114,7 @@ function tryApplyUpdates() {
         case 2:
           _context.prev = 2;
           _context.next = 5;
-          return _regeneratorRuntime.awrap((0, _unfetch["default"])("" + hotUpdatePath + curHash + ".hot-update.json"));
+          return _regeneratorRuntime.awrap((0, _unfetch.default)("" + hotUpdatePath + curHash + ".hot-update.json"));
 
         case 5:
           res = _context.sent;
@@ -154,7 +154,7 @@ function tryApplyUpdates() {
 (0, _eventsource.getEventSourceWrapper)({
   path: assetPrefix + "/_next/webpack-hmr"
 }).addMessageListener(function (event) {
-  if (event.data === "\uD83D\uDC93") {
+  if (event.data === '\uD83D\uDC93') {
     return;
   }
 
@@ -282,7 +282,7 @@ function getEventSourceWrapper(options) {
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _unfetch = _interopRequireDefault(__webpack_require__(/*! next/dist/build/polyfills/unfetch */ "./node_modules/next/dist/build/polyfills/unfetch.js"));
 /* eslint-disable */
@@ -735,7 +735,7 @@ FetchTransport.prototype.open = function (xhr, onStartCallback, onProgressCallba
   var signal = controller.signal; // see #120
 
   var textDecoder = new TextDecoder();
-  (0, _unfetch["default"])(url, {
+  (0, _unfetch.default)(url, {
     headers: headers,
     credentials: withCredentials ? 'include' : 'same-origin',
     signal: signal,
@@ -923,7 +923,7 @@ function EventSourcePolyfill(url, options) {
   start(this, url, options);
 }
 
-var isFetchSupported = _unfetch["default"] != undefined && Response != undefined && 'body' in Response.prototype;
+var isFetchSupported = _unfetch.default != undefined && Response != undefined && 'body' in Response.prototype;
 
 function start(es, url, options) {
   url = String(url);
@@ -1214,7 +1214,7 @@ EventSourcePolyfill.OPEN = OPEN;
 EventSourcePolyfill.CLOSED = CLOSED;
 EventSourcePolyfill.prototype.withCredentials = undefined;
 var _default = EventSourcePolyfill;
-exports["default"] = _default;
+exports.default = _default;
 
 /***/ }),
 
@@ -1303,7 +1303,7 @@ function setupPing(assetPrefix, pathnameFn, retry) {
       if (payload.invalid) {
         // Payload can be invalid even if the page does not exist.
         // So, we need to make sure it exists before reloading.
-        (0, _unfetch["default"])(location.href, {
+        (0, _unfetch.default)(location.href, {
           credentials: 'same-origin'
         }).then(function (pageRes) {
           if (pageRes.status === 200) {

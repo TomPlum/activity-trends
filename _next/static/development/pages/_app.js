@@ -3175,7 +3175,7 @@ var e,t=(e=__webpack_require__(/*! querystring */ "./node_modules/querystring-es
 
 var _construct = __webpack_require__(/*! @babel/runtime/helpers/construct */ "./node_modules/@babel/runtime/helpers/construct.js");
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -3188,33 +3188,35 @@ var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/inte
 exports.__esModule = true;
 exports.useRouter = useRouter;
 exports.makePublicRouterInstance = makePublicRouterInstance;
-exports.createRouter = exports.withRouter = exports["default"] = void 0;
+exports.createRouter = exports.withRouter = exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
 var _router2 = _interopRequireWildcard(__webpack_require__(/*! ../next-server/lib/router/router */ "./node_modules/next/dist/next-server/lib/router/router.js"));
 
-exports.Router = _router2["default"];
+exports.Router = _router2.default;
 exports.NextRouter = _router2.NextRouter;
 
 var _routerContext = __webpack_require__(/*! ../next-server/lib/router-context */ "./node_modules/next/dist/next-server/lib/router-context.js");
 
 var _withRouter = _interopRequireDefault(__webpack_require__(/*! ./with-router */ "./node_modules/next/dist/client/with-router.js"));
 
-exports.withRouter = _withRouter["default"];
+exports.withRouter = _withRouter.default;
 /* global window */
 
 var singletonRouter = {
   router: null,
   // holds the actual router instance
   readyCallbacks: [],
-  ready: function ready(cb) {
+
+  ready(cb) {
     if (this.router) return cb();
 
     if (true) {
       this.readyCallbacks.push(cb);
     }
   }
+
 }; // Create public properties and methods of the router in the singletonRouter
 
 var urlPropertyFields = ['pathname', 'route', 'query', 'asPath', 'components', 'isFallback', 'basePath'];
@@ -3222,9 +3224,10 @@ var routerEvents = ['routeChangeStart', 'beforeHistoryChange', 'routeChangeCompl
 var coreMethodFields = ['push', 'replace', 'reload', 'back', 'prefetch', 'beforePopState']; // Events is a static property on the router, the router doesn't have to be initialized to use it
 
 Object.defineProperty(singletonRouter, 'events', {
-  get: function get() {
-    return _router2["default"].events;
+  get() {
+    return _router2.default.events;
   }
+
 });
 urlPropertyFields.forEach(function (field) {
   // Here we need to use Object.defineProperty because, we need to return
@@ -3232,10 +3235,11 @@ urlPropertyFields.forEach(function (field) {
   // The value might get changed as we change routes and this is the
   // proper way to access it
   Object.defineProperty(singletonRouter, field, {
-    get: function get() {
+    get() {
       var router = getRouter();
       return router[field];
     }
+
   });
 });
 coreMethodFields.forEach(function (field) {
@@ -3249,7 +3253,7 @@ coreMethodFields.forEach(function (field) {
 });
 routerEvents.forEach(function (event) {
   singletonRouter.ready(function () {
-    _router2["default"].events.on(event, function () {
+    _router2.default.events.on(event, function () {
       var eventField = "on" + event.charAt(0).toUpperCase() + event.substring(1);
       var _singletonRouter = singletonRouter;
 
@@ -3279,10 +3283,10 @@ function getRouter() {
 
 var _default = singletonRouter; // Reexport the withRoute HOC
 
-exports["default"] = _default;
+exports.default = _default;
 
 function useRouter() {
-  return _react["default"].useContext(_routerContext.RouterContext);
+  return _react.default.useContext(_routerContext.RouterContext);
 } // INTERNAL APIS
 // -------------
 // (do not use following exports inside the app)
@@ -3296,7 +3300,7 @@ var createRouter = function createRouter() {
     args[_key] = arguments[_key];
   }
 
-  singletonRouter.router = _construct(_router2["default"], args);
+  singletonRouter.router = _construct(_router2.default, args);
   singletonRouter.readyCallbacks.forEach(function (cb) {
     return cb();
   });
@@ -3333,7 +3337,7 @@ function makePublicRouterInstance(router) {
     _iterator.f();
   }
 
-  instance.events = _router2["default"].events;
+  instance.events = _router2.default.events;
   coreMethodFields.forEach(function (field) {
     instance[field] = function () {
       return _router[field].apply(_router, arguments);
@@ -3357,7 +3361,7 @@ function makePublicRouterInstance(router) {
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = withRouter;
+exports.default = withRouter;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
@@ -3365,7 +3369,7 @@ var _router = __webpack_require__(/*! ./router */ "./node_modules/next/dist/clie
 
 function withRouter(ComposedComponent) {
   function WithRouterWrapper(props) {
-    return _react["default"].createElement(ComposedComponent, Object.assign({
+    return _react.default.createElement(ComposedComponent, Object.assign({
       router: (0, _router.useRouter)()
     }, props));
   }
@@ -3412,17 +3416,19 @@ Object.defineProperty(exports, "__esModule", {
 function mitt() {
   var all = Object.create(null);
   return {
-    on: function on(type, handler) {
+    on(type, handler) {
       ;
       (all[type] || (all[type] = [])).push(handler);
     },
-    off: function off(type, handler) {
+
+    off(type, handler) {
       if (all[type]) {
         // tslint:disable-next-line:no-bitwise
         all[type].splice(all[type].indexOf(handler) >>> 0, 1);
       }
     },
-    emit: function emit(type) {
+
+    emit(type) {
       for (var _len = arguments.length, evts = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         evts[_key - 1] = arguments[_key];
       }
@@ -3433,10 +3439,11 @@ function mitt() {
         handler.apply(void 0, evts);
       });
     }
+
   };
 }
 
-exports["default"] = mitt;
+exports.default = mitt;
 
 /***/ }),
 
@@ -3541,7 +3548,7 @@ function fetchNextData(pathname, query, isServerRender, cb) {
     return fetch(utils_1.formatWithValidation({
       // @ts-ignore __NEXT_DATA__
       pathname: "/_next/data/".concat(__NEXT_DATA__.buildId).concat(pathname, ".json"),
-      query: query
+      query
     }), {
       // Cookies are required to be present for Next.js' SSG "Preview Mode".
       // Cookies may also be required for `getServerSideProps`.
@@ -3570,7 +3577,7 @@ function fetchNextData(pathname, query, isServerRender, cb) {
 
   return getResponse().then(function (data) {
     return cb ? cb(data) : data;
-  })["catch"](function (err) {
+  }).catch(function (err) {
     // We should only trigger a server-side transition if this was caused
     // on a client-side transition. Otherwise, we'd get into an infinite
     // loop.
@@ -3674,9 +3681,9 @@ var Router = /*#__PURE__*/function () {
 
     if (pathname !== '/_error') {
       this.components[this.route] = {
-        Component: Component,
+        Component,
         props: initialProps,
-        err: err,
+        err,
         __N_SSG: initialProps && initialProps.__N_SSG,
         __N_SSP: initialProps && initialProps.__N_SSP
       };
@@ -3708,8 +3715,8 @@ var Router = /*#__PURE__*/function () {
       // in order for `e.state` to work on the `onpopstate` event
       // we have to register the initial route upon initialization
       this.changeState('replaceState', utils_1.formatWithValidation({
-        pathname: pathname,
-        query: query
+        pathname,
+        query
       }), as);
       window.addEventListener('popstate', this.onPopState);
     }
@@ -3719,7 +3726,7 @@ var Router = /*#__PURE__*/function () {
   _createClass(Router, [{
     key: "update",
     value: function update(route, mod) {
-      var Component = mod["default"] || mod;
+      var Component = mod.default || mod;
       var data = this.components[route];
 
       if (!data) {
@@ -3727,7 +3734,7 @@ var Router = /*#__PURE__*/function () {
       }
 
       var newData = Object.assign(Object.assign({}, data), {
-        Component: Component,
+        Component,
         __N_SSG: mod.__N_SSG,
         __N_SSP: mod.__N_SSP
       });
@@ -3928,9 +3935,9 @@ var Router = /*#__PURE__*/function () {
 
       if (method !== 'pushState' || utils_1.getURL() !== as) {
         window.history[method]({
-          url: url,
-          as: as,
-          options: options
+          url,
+          as,
+          options
         }, // Most browsers currently ignores this parameter, although they may use it in the future.
         // Passing the empty string here should be safe against future changes to the method.
         // https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState
@@ -3978,14 +3985,14 @@ var Router = /*#__PURE__*/function () {
           resolve(_this3.fetchComponent('/_error').then(function (res) {
             var Component = res.page;
             var routeInfo = {
-              Component: Component,
-              err: err
+              Component,
+              err
             };
             return new Promise(function (resolve) {
               _this3.getInitialProps(Component, {
-                err: err,
-                pathname: pathname,
-                query: query
+                err,
+                pathname,
+                query
               }).then(function (props) {
                 routeInfo.props = props;
                 routeInfo.error = err;
@@ -3997,7 +4004,7 @@ var Router = /*#__PURE__*/function () {
                 resolve(routeInfo);
               });
             });
-          })["catch"](function (err) {
+          }).catch(function (err) {
             return handleError(err, true);
           }));
         });
@@ -4032,8 +4039,8 @@ var Router = /*#__PURE__*/function () {
         return _this3._getData(function () {
           return __N_SSG ? _this3._getStaticData(as) : __N_SSP ? _this3._getServerData(as) : _this3.getInitialProps(Component, // we provide AppTree later so this needs to be `any`
           {
-            pathname: pathname,
-            query: query,
+            pathname,
+            query,
             asPath: as
           });
         }).then(function (props) {
@@ -4041,7 +4048,7 @@ var Router = /*#__PURE__*/function () {
           _this3.components[route] = routeInfo;
           return routeInfo;
         });
-      })["catch"](handleError);
+      }).catch(handleError);
     }
   }, {
     key: "set",
@@ -4245,10 +4252,10 @@ var Router = /*#__PURE__*/function () {
 
       ctx.AppTree = AppTree;
       return utils_1.loadGetInitialProps(App, {
-        AppTree: AppTree,
-        Component: Component,
+        AppTree,
+        Component,
         router: this,
-        ctx: ctx
+        ctx
       });
     }
   }, {
@@ -4279,8 +4286,8 @@ var Router = /*#__PURE__*/function () {
   return Router;
 }();
 
-exports["default"] = Router;
-Router.events = mitt_1["default"]();
+exports.default = Router;
+Router.events = mitt_1.default();
 
 /***/ }),
 
@@ -4392,7 +4399,7 @@ function getRouteRegex(normalizedRoute) {
   });
   return {
     re: new RegExp('^' + parameterizedRoute + '(?:/)?$', 'i'),
-    groups: groups
+    groups
   };
 }
 

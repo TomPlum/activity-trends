@@ -365,7 +365,7 @@ exports.isInAmpMode = isInAmpMode;
 
 function useAmp() {
   // Don't assign the context value to a variable to save bytes
-  return isInAmpMode(react_1["default"].useContext(amp_context_1.AmpStateContext));
+  return isInAmpMode(react_1.default.useContext(amp_context_1.AmpStateContext));
 }
 
 exports.useAmp = useAmp;
@@ -438,12 +438,12 @@ var amp_1 = __webpack_require__(/*! ./amp */ "./node_modules/next/dist/next-serv
 
 function defaultHead() {
   var inAmpMode = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  var head = [react_1["default"].createElement("meta", {
+  var head = [react_1.default.createElement("meta", {
     charSet: "utf-8"
   })];
 
   if (!inAmpMode) {
-    head.push(react_1["default"].createElement("meta", {
+    head.push(react_1.default.createElement("meta", {
       name: "viewport",
       content: "width=device-width"
     }));
@@ -461,8 +461,8 @@ function onlyReactElement(list, child) {
   } // Adds support for React.Fragment
 
 
-  if (child.type === react_1["default"].Fragment) {
-    return list.concat(react_1["default"].Children.toArray(child.props.children).reduce(function (fragmentList, fragmentChild) {
+  if (child.type === react_1.default.Fragment) {
+    return list.concat(react_1.default.Children.toArray(child.props.children).reduce(function (fragmentList, fragmentChild) {
       if (typeof fragmentChild === 'string' || typeof fragmentChild === 'number') {
         return fragmentList;
       }
@@ -549,17 +549,17 @@ function unique() {
 
 function reduceComponents(headElements, props) {
   return headElements.reduce(function (list, headElement) {
-    var headElementChildren = react_1["default"].Children.toArray(headElement.props.children);
+    var headElementChildren = react_1.default.Children.toArray(headElement.props.children);
     return list.concat(headElementChildren);
   }, []).reduce(onlyReactElement, []).reverse().concat(defaultHead(props.inAmpMode)).filter(unique()).reverse().map(function (c, i) {
     var key = c.key || i;
-    return react_1["default"].cloneElement(c, {
-      key: key
+    return react_1.default.cloneElement(c, {
+      key
     });
   });
 }
 
-var Effect = side_effect_1["default"]();
+var Effect = side_effect_1.default();
 /**
  * This component injects elements to `<head>` of your page.
  * To avoid duplicated `tags` in `<head>` you can use the `key` property, which will make sure every tag is only rendered once.
@@ -567,9 +567,9 @@ var Effect = side_effect_1["default"]();
 
 function Head(_ref) {
   var children = _ref.children;
-  return react_1["default"].createElement(amp_context_1.AmpStateContext.Consumer, null, function (ampState) {
-    return react_1["default"].createElement(head_manager_context_1.HeadManagerContext.Consumer, null, function (updateHead) {
-      return react_1["default"].createElement(Effect, {
+  return react_1.default.createElement(amp_context_1.AmpStateContext.Consumer, null, function (ampState) {
+    return react_1.default.createElement(head_manager_context_1.HeadManagerContext.Consumer, null, function (updateHead) {
+      return react_1.default.createElement(Effect, {
         reduceComponentsToState: reduceComponents,
         handleStateChange: updateHead,
         inAmpMode: amp_1.isInAmpMode(ampState)
@@ -579,7 +579,7 @@ function Head(_ref) {
 }
 
 Head.rewind = Effect.rewind;
-exports["default"] = Head;
+exports.default = Head;
 
 /***/ }),
 
@@ -619,7 +619,7 @@ var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var isServer = false;
 
-exports["default"] = function () {
+exports.default = function () {
   var mountedInstances = new Set();
   var state;
 
@@ -676,7 +676,7 @@ exports["default"] = function () {
     }, {
       key: "componentWillUnmount",
       value: function componentWillUnmount() {
-        mountedInstances["delete"](this);
+        mountedInstances.delete(this);
         emitChange(this);
       }
     }, {
@@ -719,7 +719,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 
 exports.__esModule = true;
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
@@ -737,7 +737,7 @@ function _getInitialProps(_ref) {
       err = _ref.err;
   var statusCode = res && res.statusCode ? res.statusCode : err ? err.statusCode : 404;
   return {
-    statusCode: statusCode
+    statusCode
   };
 }
 /**
@@ -761,26 +761,26 @@ var Error = /*#__PURE__*/function (_react$default$Compon) {
     value: function render() {
       var statusCode = this.props.statusCode;
       var title = this.props.title || statusCodes[statusCode] || 'An unexpected error has occurred';
-      return _react["default"].createElement("div", {
+      return _react.default.createElement("div", {
         style: styles.error
-      }, _react["default"].createElement(_head["default"], null, _react["default"].createElement("title", null, statusCode, ": ", title)), _react["default"].createElement("div", null, _react["default"].createElement("style", {
+      }, _react.default.createElement(_head.default, null, _react.default.createElement("title", null, statusCode, ": ", title)), _react.default.createElement("div", null, _react.default.createElement("style", {
         dangerouslySetInnerHTML: {
           __html: 'body { margin: 0 }'
         }
-      }), statusCode ? _react["default"].createElement("h1", {
+      }), statusCode ? _react.default.createElement("h1", {
         style: styles.h1
-      }, statusCode) : null, _react["default"].createElement("div", {
+      }, statusCode) : null, _react.default.createElement("div", {
         style: styles.desc
-      }, _react["default"].createElement("h2", {
+      }, _react.default.createElement("h2", {
         style: styles.h2
       }, title, "."))));
     }
   }]);
 
   return Error;
-}(_react["default"].Component);
+}(_react.default.Component);
 
-exports["default"] = Error;
+exports.default = Error;
 Error.displayName = 'ErrorPage';
 Error.getInitialProps = _getInitialProps;
 Error.origGetInitialProps = _getInitialProps;
