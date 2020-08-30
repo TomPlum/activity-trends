@@ -44,8 +44,7 @@ class Workouts extends Component<WorkoutsProps, WorkoutState> {
     render() {
         return (
             <Container>
-                <GraphTitle title="Workouts"></GraphTitle>
-                <ResponsiveContainer width="80%" height={200}>
+                <ResponsiveContainer width="100%" height={200}>
                     <PieChart>
                         <Pie
                             data={this.extractWorkoutTypes()}
