@@ -1,7 +1,7 @@
 const webpack = require('webpack')
-const env = require('dotenv').config()
+console.log("Node Environment: " + process.env.ENVIRONMENT)
 
-const isProd = (process.env.NODE_ENV || 'production') === 'production'
+const isProd = process.env.ENVIRONMENT === 'production'
 
 const assetPrefix = isProd ? '/activity-trends' : ''
 
@@ -20,9 +20,3 @@ module.exports = {
         return config
     },
 }
-
-//CSS Configuration
-/*const withCSS = require('@zeit/next-css')
-module.exports = withCSS({
-    cssModules: true
-})*/
