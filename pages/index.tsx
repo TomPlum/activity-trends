@@ -21,20 +21,23 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
 
       <Header></Header>
 
-        <Container fluid>
-          <Row>
-            <Col className='card'>
-              <Workouts data={workouts}>
+      <Container fluid>
+        <Row>
+          <Col className='card'>
+            <Workouts data={workouts}>
 
-              </Workouts>
-            </Col>
-            <Col className='card'>
-            </Col>
-          </Row>
-          <Row>
-
-          </Row>
-        </Container>
+            </Workouts>
+          </Col>
+          <Col className='card'>
+          </Col>
+        </Row>
+        <Row>
+          <Col className='card'>
+          </Col>
+          <Col className='card'>
+          </Col>
+        </Row>
+      </Container>
 
       <Footer lastDataUpdate='24/08/2020'></Footer>
 
