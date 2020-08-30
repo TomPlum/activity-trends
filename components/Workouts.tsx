@@ -56,7 +56,7 @@ class Workouts extends Component<WorkoutsProps, WorkoutState> {
                             outerRadius={80}
                             fill="#52f04d"
                             onMouseEnter={this.onPieEnter}
-                            paddingAngle={3}
+                            paddingAngle={2}
                         >
                         </Pie>
                     </PieChart>
@@ -125,7 +125,7 @@ const renderActiveShape = (props) => {
             />
             <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
             <circle cx={ex} cy={ey} r={2} fill="#0cab21" stroke="none" />
-            <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#000000">{value} workouts</text>
+            <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#000000">x{value}</text>
             <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
                 {`${(percent * 100).toFixed(0)}%`}
             </text>
