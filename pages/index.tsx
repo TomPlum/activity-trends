@@ -1,14 +1,14 @@
 import Head from 'next/head'
-import { CardDeck, Card } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import * as icons from '@fortawesome/free-solid-svg-icons'
+import { CardDeck, Card, Container, Row, Col } from 'react-bootstrap';
 import styles from '../assets/css/components/index.module.css'
 import Header from '../layout/Header';
 import Footer from '../layout/Footer';
-import Workouts, { WorkoutData } from '../components/Workouts'
+import Menu from '../layout/Menu';
+import { WorkoutData } from '../components/WorkoutTypes'
 import fs from 'fs'
 import path from 'path'
 import Papa from 'papaparse';
+import Workouts from './workouts';
 
 interface HomeProps {
   workouts: WorkoutData[];
@@ -25,19 +25,16 @@ const Home: React.FC<HomeProps> = ({ workouts }) => {
 
       <Header></Header>
 
-      <CardDeck>
-        <Card className={styles.card}>
-          <Card.Body>
-            <Card.Title className={styles.title}>
-              <FontAwesomeIcon icon={icons.faDumbbell} size="xs" fixedWidth/> Workouts
-            </Card.Title>
-            <Workouts data={workouts}></Workouts>
-          </Card.Body>
-          <Card.Footer className={styles.footer}>
-            {workouts.length} workouts recorded
-          </Card.Footer>
-        </Card>
-      </CardDeck>
+      <Container fluid>
+        <Row>
+          <Col xs={3} className={styles.menu}>
+            <Menu />
+          </Col>
+          <Col xs={9} className={styles.content}>
+            <Workouts workouts={workouts}></Workouts>
+          </Col>
+        </Row>
+      </Container>
 
       <Footer lastDataUpdate='24/08/2020'></Footer>
 

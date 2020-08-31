@@ -4,6 +4,19 @@
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
 }
 
-.footer, .title {
-    text-align: center;
+.menu {
+    min-height: 100vh !important;
+    width: 100vw;
+    margin-left: -1rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+.content {
+    min-width: 0;
+    width: 100%;
 }

@@ -2,7 +2,7 @@ import { Container } from 'react-bootstrap'
 import { PieChart, Pie, ResponsiveContainer, Sector } from 'recharts'
 import { Component } from 'react';
 
-interface WorkoutsProps {
+interface WorkoutTypeProps {
     data: WorkoutData[]
 }
 
@@ -24,12 +24,12 @@ export interface WorkoutData {
     'Weather Humidity': string
 }
 
-interface WorkoutState {
+interface WorkoutTypesState {
     activeIndex: number;
 }
 
-class Workouts extends Component<WorkoutsProps, WorkoutState> {
-    constructor(props: WorkoutsProps) {
+class WorkoutTypes extends Component<WorkoutTypeProps, WorkoutTypesState> {
+    constructor(props: WorkoutTypeProps) {
         super(props);
         this.state = {
             activeIndex: 0
@@ -132,4 +132,4 @@ const renderActiveShape = (props) => {
     );
 };
 
-export default Workouts;
+export default WorkoutTypes;
