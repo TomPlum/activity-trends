@@ -22,18 +22,18 @@ class Menu extends Component<{}> {
                 <h4>Menu</h4>
                 <Nav activeKey="/" className={styles.menu + " flex-column"}>
                     <Nav.Item>
-                        <Nav.Link href="/">
-                            <FontAwesomeIcon icon={faHome} size="xs" fixedWidth /> Overview
+                        <Nav.Link href="/" className={styles.link}>
+                            <FontAwesomeIcon icon={faHome} size="sm" className={styles.icon} fixedWidth /> Overview
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/workouts">
-                            <FontAwesomeIcon icon={faRunning} size="xs" fixedWidth /> Workouts
+                        <Nav.Link href="/workouts" className={styles.link}>
+                            <FontAwesomeIcon icon={faRunning} size="sm" className={styles.icon} fixedWidth /> Workouts
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/sleep">
-                            <FontAwesomeIcon icon={faMoon} size="xs" fixedWidth /> Sleep
+                        <Nav.Link href="/sleep" className={styles.link}>
+                            <FontAwesomeIcon icon={faMoon} size="sm" className={styles.icon} fixedWidth /> Sleep
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
