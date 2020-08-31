@@ -1,12 +1,5 @@
-.card {
-    min-width: 500px;
-    border-radius: 15px;
-    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
-}
-
 .menu {
     min-height: 100vh !important;
-    width: 100vw;
     margin-left: -1rem;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
@@ -19,4 +12,6 @@
 .content {
     min-width: 0;
     width: 100%;
+    padding: 40px;
+    overflow: hidden;
 }

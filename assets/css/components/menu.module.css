@@ -1,12 +1,13 @@
 .menu {
     position: fixed;
-    top: 0;
     bottom: 0;
     left: 0;
     min-height: 100vh !important;
+    max-width: 200px;
+    width: 100%;
     z-index: 100;
     padding: 48px 0 0;
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    float: left;
 }
-
-.sticky {}

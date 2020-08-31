@@ -16,48 +16,27 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ workouts }) => {
   return (
-    <div className="container">
+    <Container fluid>
       <Head>
         <title>Activity Trends</title>
         <link rel="icon" href="/favicon.ico" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&display=swap" rel="stylesheet"></link>
       </Head>
 
-      <Header></Header>
-
-      <Container fluid>
-        <Row>
-          <Col xs={3} className={styles.menu}>
-            <Menu />
-          </Col>
-          <Col xs={9} className={styles.content}>
-            <Workouts workouts={workouts}></Workouts>
-          </Col>
-        </Row>
-      </Container>
+      <Row>
+          <Header></Header>
+      </Row>
+      <Row>
+        <Col xs={2} className={styles.menu}>
+          <Menu />
+        </Col>
+        <Col xs={10} className={styles.content}>
+          <Workouts workouts={workouts}></Workouts>
+        </Col>
+      </Row>
 
       <Footer lastDataUpdate='24/08/2020'></Footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-      `}</style>
-
-
-    </div>
+    </Container>
   )
 
 }
