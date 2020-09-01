@@ -5,7 +5,6 @@
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
-    padding: 0.875rem 1.25rem;
     font-size: 1.2rem;
 }
 
@@ -14,4 +13,8 @@
     width: 100%;
     padding: 40px;
     overflow: hidden;
+}
+
+.menu, .content {
+    margin-top: 60px;
 }
