@@ -3,6 +3,9 @@ import styles from '../assets/css/pages/workouts.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell, faHamburger, faClock } from '@fortawesome/free-solid-svg-icons';
 import WorkoutTypes, { WorkoutData } from '../components/WorkoutTypes';
+import fs from 'fs'
+import path from 'path'
+import Papa from 'papaparse';
 
 export interface WorkoutsProps {
     workouts: WorkoutData[]
@@ -33,7 +36,7 @@ const Workouts: React.FunctionComponent<WorkoutsProps> = ({ workouts }) => {
                     Total workout time is x
                 </Card.Footer>
             </Card>
-            
+
 
             <Card className={styles.card}>
                 <Card.Body>
@@ -47,6 +50,29 @@ const Workouts: React.FunctionComponent<WorkoutsProps> = ({ workouts }) => {
             </Card>
         </CardDeck>
     )
+}
+
+export async function getStaticProps() {
+    const dataDirectory = path.join(process.cwd(), 'public/data')
+    const filenames = fs.readdirSync(dataDirectory)
+
+    const parsed = filenames.map((filename) => {
+        const filePath = path.join(dataDirectory, filename)
+        const fileContents = fs.readFileSync(filePath, 'utf8')
+        return Papa.parse(fileContents, {
+            delimiter: ',',
+            header: true,
+            complete: results => {
+                return results.data
+            }
+        })
+    });
+
+    return {
+        props: {
+            workouts: parsed[0].data
+        }
+    }
 }
 
 export default Workouts;

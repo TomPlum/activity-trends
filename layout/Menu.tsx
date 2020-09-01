@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Nav } from "react-bootstrap";
+import { Nav, Container } from "react-bootstrap";
 import styles from '../assets/css/components/menu.module.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRunning, faMoon, faHome, faDumbbell } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,7 @@ class Menu extends Component<{}> {
 
     render() {
         return (
-            <>
+            <Container>
                 <Nav activeKey="/" className={styles.menu + " flex-column"}>
                     <Nav.Item>
                         <Nav.Link href="/" className={styles.link}>
@@ -44,7 +44,7 @@ class Menu extends Component<{}> {
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
-            </>
+            </Container>
 
         )
     }

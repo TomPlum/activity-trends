@@ -1,4 +1,4 @@
-.menu {
+.sidebar {
     min-height: 100vh !important;
     margin-left: -1rem;
     -webkit-transition: margin .25s ease-out;
@@ -6,15 +6,21 @@
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
     font-size: 1.2rem;
+    background-color: rgb(247, 247, 247);
 }
 
 .content {
     min-width: 0;
     width: 100%;
-    padding: 40px;
+    padding: 35px;
     overflow: hidden;
 }
 
-.menu, .content {
+.sidebar, .content {
     margin-top: 60px;
+}
+
+.wrapper {
+    padding: 0;
+    overflow-x: hidden;
 }
