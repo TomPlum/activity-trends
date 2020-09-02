@@ -3,6 +3,8 @@ import { Card } from 'react-bootstrap';
 import { Component } from 'react';
 import OverviewGraph, { OverviewGraphData } from '../components/OverviewGraph';
 import DataRepository from '../components/DataRepository';
+import ActivityRings from '../public/svg/activity-rings.svg';
+import sass from '../assets/sass/index.module.scss';
 
 interface OverviewProps {
   workoutData: OverviewGraphData[]
@@ -16,6 +18,7 @@ class Overview extends Component<OverviewProps> {
 
         <Card className={styles.card}>
           <OverviewGraph data={this.props.workoutData}/>
+          <ActivityRings className={sass.ActivityRings}/>
         </Card>
       </div>
     )
