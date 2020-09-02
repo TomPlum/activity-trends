@@ -1,9 +1,21 @@
 # :chart: Activity Trends
 
+# Contents
+- [About](#about)
+- [Getting Started](#getting-started)
+- [NPM Scripts](#npm-scripts)
+- [Technology Documentation](#technology-documentation)
+
 ## About
 
-## Contents
-- [Useful Documentation Links](#technology-documentation)
+## Getting Started
+
+## NPM Scripts
+
+| Name     | Description                                                          |
+|----------|----------------------------------------------------------------------|
+| `dev`    |
+| `deploy` |
 
 ## Technology Documentation
 - [NextJS](https://nextjs.org/docs/getting-started)

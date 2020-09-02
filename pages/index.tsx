@@ -1,30 +1,35 @@
 import styles from '../assets/css/pages/index.module.css';
 import { Card } from 'react-bootstrap';
 import { Component } from 'react';
-import { ComposedChart } from 'recharts';
+import OverviewGraph, { OverviewGraphData } from '../components/OverviewGraph';
+import DataRepository from '../components/DataRepository';
 
 interface OverviewProps {
-  overviewGraphData: OverviewGraphData[]
+  workoutData: OverviewGraphData[]
 }
 
-interface OverviewGraphData {
-
-}
-
-class Overview extends Component {
+class Overview extends Component<OverviewProps> {
   render() {
     return (
       <div>
         <p>This is the overview page.</p>
 
         <Card className={styles.card}>
-          <ComposedChart width="100%" height={400}>
-
-          </ComposedChart>
+          <OverviewGraph data={this.props.workoutData}/>
         </Card>
       </div>
     )
   }
 }
+
+export async function getStaticProps() {
+  const parsed = new DataRepository().read('workouts.csv');
+  return {
+      props: {
+          workouts: parsed.data
+      }
+  }
+}
+
 
 export default Overview;
