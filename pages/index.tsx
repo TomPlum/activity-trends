@@ -6,7 +6,7 @@ import ActivityRings from '../assets/svg/activity-rings.svg';
 import '../assets/sass/index.module.scss';
 
 interface OverviewProps {
-  workoutData: OverviewGraphData[]
+  workouts: OverviewGraphData[]
 }
 
 class Overview extends Component<OverviewProps> {
@@ -15,8 +15,10 @@ class Overview extends Component<OverviewProps> {
       <div>
         <p>This is the overview page.</p>
 
-        <Card className="test">
-          <OverviewGraph data={this.props.workoutData}/>
+        <Card>
+          <Card.Body>
+            <OverviewGraph data={this.props.workouts} />
+          </Card.Body>
 
         </Card>
       </div>
@@ -27,9 +29,9 @@ class Overview extends Component<OverviewProps> {
 export async function getStaticProps() {
   const parsed = new DataRepository().read('workouts.csv');
   return {
-      props: {
-          workouts: parsed.data
-      }
+    props: {
+      workouts: parsed.data
+    }
   }
 }
 
