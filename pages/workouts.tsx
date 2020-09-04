@@ -51,7 +51,7 @@ const Workouts: React.FunctionComponent<WorkoutsProps> = ({ workouts }) => {
 }
 
 export async function getStaticProps() {
-    const parsed = new DataRepository().read('workouts.csv')
+    const parsed = new DataRepository().read('workouts.csv', ',')
 
     return {
         props: {

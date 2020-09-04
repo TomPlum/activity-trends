@@ -31,12 +31,12 @@ class OverviewGraph extends Component<OverviewGraphProps> {
                 <ResponsiveContainer width="100%" height={350}>
                     <ComposedChart height={325} data={this.extractOverviewData()}>
                         <XAxis dataKey="Date" angle={-45} textAnchor="end"/>
-                        <YAxis domain={[0, 450]}/>
+                        <YAxis domain={[0, 1200]}/>
                         <Tooltip />
                         <Legend />
                         <CartesianGrid stroke="#f5f5f5" />
                         <Area type="monotone" dataKey="Duration" fill="#8884d8" stroke="#8884d8" />
-                        <Bar dataKey="Calories Burnt" barSize={8} barGap={2} />
+                        <Bar dataKey="Calories Burnt" barSize={4} barGap={1} />
                         <Line type="monotone" dataKey="Average Heart Rate" stroke="#ff7300" />
                     </ComposedChart>
                 </ResponsiveContainer>
@@ -61,7 +61,7 @@ class OverviewGraph extends Component<OverviewGraphProps> {
             }
         });
         console.log(filtered)
-        return filtered.slice(0, 10);
+        return filtered.slice(0, 50);
     }
 }
 
