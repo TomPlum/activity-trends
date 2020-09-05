@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import {  Card } from 'react-bootstrap';
+import moment from 'moment';
 import { ScatterChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
 
 interface SleepGraphProps {
@@ -72,7 +73,7 @@ class SleepGraph extends Component<SleepGraphProps> {
 
 
     private xAxisFormatter(tickItem) {
-        return tickItem.split(" ")[0].split("-")[0]; //TODO: Use moment or some formatter to show MMM YY
+        return moment(tickItem.slice(0, -6)).format("MMM YY")
     }
 
 
@@ -90,7 +91,6 @@ class SleepGraph extends Component<SleepGraphProps> {
         }).filter(datum => {
             return Number(datum.duration) > 0 && Number(datum.sleepQuality) > 0 && Number(datum.duration) < 12 && Number(datum.duration) > 3 && datum.date && !datum.isNap;
         });
-        console.log(filtered)
         return filtered;
     }
 

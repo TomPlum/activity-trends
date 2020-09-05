@@ -28,7 +28,7 @@ class Menu extends Component<{}> {
 
                     <Nav.Item>
                         <Nav.Link href="/strength" className={styles.link}>
-                            <FontAwesomeIcon icon={faDumbbell} size="sm" className={styles.icon} fixedWidth /> Strength
+                            <FontAwesomeIcon icon={faDumbbell} size="sm" className={styles.icon} fixedWidth /> Gym
                         </Nav.Link>
                     </Nav.Item>
 

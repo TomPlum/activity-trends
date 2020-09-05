@@ -25,3 +25,4 @@
 - [TypeScript](https://www.typescriptlang.org/docs)
 - [Font Awesome](https://fontawesome.com/how-to-use/on-the-web/using-with/react)
 - [SASS](https://sass-lang.com/documentation/syntax#scss)
+- [MomentJS](https://momentjs.com/docs/)
