@@ -1,4 +1,4 @@
-import { SleepData, SleepGraphData } from "./SleepGraph";
+import { SleepData, SleepGraphData } from "../components/sleep/SleepGraph";
 
 class SleepDataConverter {
     convert(data: any[]) {

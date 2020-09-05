@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import DataRepository from '../components/DataRepository';
-import SleepDataConverter from '../components/SleepDataConverter';
-import SleepGraph, { SleepData, SleepGraphData } from '../components/SleepGraph';
+import DataRepository from '../src/repository/DataRepository';
+import SleepDataConverter from '../src/converters/SleepDataConverter';
+import SleepGraph, { SleepData, SleepGraphData } from '../src/components/sleep/SleepGraph';
 import { CardDeck, Card, Row } from 'react-bootstrap';
 import styles from '../assets/sass/sleep.module.scss';
 

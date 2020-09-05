@@ -2,8 +2,8 @@ import { CardDeck, Card } from 'react-bootstrap';
 import styles from '../assets/css/pages/workouts.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell, faHamburger, faClock } from '@fortawesome/free-solid-svg-icons';
-import WorkoutTypes, { WorkoutData } from '../components/WorkoutTypes';
-import DataRepository from '../components/DataRepository';
+import WorkoutTypes, { WorkoutData } from '../src/components/WorkoutTypes';
+import DataRepository from '../src/components/DataRepository';
 
 export interface WorkoutsProps {
     workouts: WorkoutData[]

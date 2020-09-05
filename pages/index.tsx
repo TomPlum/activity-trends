@@ -1,7 +1,7 @@
 import { Card } from 'react-bootstrap';
 import { Component } from 'react';
-import OverviewGraph, { OverviewGraphData } from '../components/OverviewGraph';
-import DataRepository from '../components/DataRepository';
+import OverviewGraph, { OverviewGraphData } from '../src/components/overview/OverviewGraph';
+import DataRepository from '../src/repository/DataRepository';
 import ActivityRings from '../assets/svg/activity-rings.svg';
 import '../assets/sass/index.module.scss';
 

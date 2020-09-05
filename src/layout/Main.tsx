@@ -1,8 +1,8 @@
-import Header from '../layout/Header';
-import Footer from '../layout/Footer';
-import Menu from '../layout/Menu';
+import Header from './Header';
+import Footer from './Footer';
+import Menu from './Menu';
 import { Row, Col, Container } from 'react-bootstrap';
-import styles from '../assets/css/components/main.module.css'
+import styles from '../../assets/css/components/main.module.css'
 
 const MainLayout = ({ children }) => (
     <Container fluid className={styles.wrapper}>
