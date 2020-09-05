@@ -52,7 +52,7 @@ class SleepGraph extends Component<SleepGraphProps, SleepGraphState> {
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
                                 <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
-                                <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" />
+                                <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" unit="%" />
                                 <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                                 <Legend />
                                 <Scatter name="Sleep Sessions" data={this.state.graphData} fill="#8884d8" />
@@ -66,8 +66,9 @@ class SleepGraph extends Component<SleepGraphProps, SleepGraphState> {
 
     private yAxisDomain(): Number[] {
         const data = this.state.graphData;
-        const minDuration: Number = Math.floor(this.arrayMin(data.map(e => e.duration)));
-        const maxDuration: Number = Math.ceil(this.arrayMax(data.map(e => e.duration)));
+        const durations = data.map(e => e.duration);
+        const minDuration: Number = Math.floor(this.arrayMin(durations));
+        const maxDuration: Number = Math.ceil(this.arrayMax(durations));
         return [minDuration, maxDuration];
     }
 
