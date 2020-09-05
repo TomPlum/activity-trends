@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import {  Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import moment from 'moment';
 import { ScatterChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
 
@@ -28,12 +28,21 @@ interface SleepGraphData {
     isNap: boolean
 }
 
-class SleepGraph extends Component<SleepGraphProps> {
+interface SleepGraphState {
+    graphData: SleepGraphData[]
+}
+
+class SleepGraph extends Component<SleepGraphProps, SleepGraphState> {
+    constructor(props: SleepGraphProps) {
+        super(props)
+        this.state = {
+            graphData: this.extractSleepData()
+        }
+    }
+
     render() {
-        const data = this.extractSleepData();
-        const minDuration: Number = Math.floor(this.arrayMin(data.map(e => e.duration)));
-        const maxDuration: Number = Math.ceil(this.arrayMax(data.map(e => e.duration)));
-        console.log(minDuration, maxDuration)
+        const { graphData } = this.state;
+
         return (
             <div>
                 <Card>
@@ -41,33 +50,36 @@ class SleepGraph extends Component<SleepGraphProps> {
                         <ResponsiveContainer width="100%" height={350}>
                             <ScatterChart>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter}/>
-                                <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={[minDuration, maxDuration]} />
+                                <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
+                                <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
                                 <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" />
                                 <Tooltip cursor={{ strokeDasharray: '3 3' }} />
                                 <Legend />
-                                <Scatter name="Sleep Sessions" data={data} fill="#8884d8" />
+                                <Scatter name="Sleep Sessions" data={this.state.graphData} fill="#8884d8" />
                             </ScatterChart>
                         </ResponsiveContainer>
                     </Card.Body>
-                    <Card.Footer>
-                        <p>{data.length} sessions recorded. The shortest session was {this.arrayMin(data.map(e => e.duration))} hours.</p>
-                    </Card.Footer>
                 </Card>
-
             </div>
         )
     }
 
+    private yAxisDomain(): Number[] {
+        const data = this.state.graphData;
+        const minDuration: Number = Math.floor(this.arrayMin(data.map(e => e.duration)));
+        const maxDuration: Number = Math.ceil(this.arrayMax(data.map(e => e.duration)));
+        return [minDuration, maxDuration];
+    }
+
     private arrayMin(arr) {
         return arr.reduce(function (p, v) {
-            return ( p < v ? p : v );
+            return (p < v ? p : v);
         });
     }
 
     private arrayMax(arr) {
         return arr.reduce(function (p, v) {
-            return ( p > v ? p : v );
+            return (p > v ? p : v);
         });
     }
 
