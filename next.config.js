@@ -33,5 +33,8 @@ module.exports = {
         includePaths: [path.join(__dirname, 'assets/sass')],
     },
     withCSS,
-    withSASS,
+    withSASS: {
+        sass: true,
+        modules: true
+    },
 }

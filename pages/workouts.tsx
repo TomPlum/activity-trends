@@ -3,7 +3,7 @@ import styles from '../assets/css/pages/workouts.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell, faHamburger, faClock } from '@fortawesome/free-solid-svg-icons';
 import WorkoutTypes, { WorkoutData } from '../src/components/WorkoutTypes';
-import DataRepository from '../src/components/DataRepository';
+import DataRepository from '../src/repository/DataRepository';
 
 export interface WorkoutsProps {
     workouts: WorkoutData[]

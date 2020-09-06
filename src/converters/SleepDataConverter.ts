@@ -1,7 +1,7 @@
 import { SleepData, SleepGraphData } from "../components/sleep/SleepGraph";
 
 class SleepDataConverter {
-    convert(data: any[]) {
+    convert(data: any[]): SleepData[] {
         return data.map(row => {
             return {
                 startDate: row["Start Time"],
