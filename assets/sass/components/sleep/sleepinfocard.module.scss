@@ -1,0 +1,29 @@
+$inner-purple: rgba(147, 108, 255, 0.849);
+
+.icon {
+    background: $inner-purple;
+    font-size: large;
+    padding: 30px;
+    border-radius: 50%;
+    margin: auto;
+    display: block;
+}
+
+.value, .title {
+    display: block;
+    text-align: left;
+}
+
+.title {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.value {
+    margin: 0;
+    font-weight: 600;
+}
+
+.card {
+    padding: 25px;
+    margin-bottom: 15px;
+}

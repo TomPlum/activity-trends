@@ -1,91 +1,39 @@
-import Head from 'next/head'
-import { CardDeck, Card } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import * as icons from '@fortawesome/free-solid-svg-icons'
-import styles from '../assets/css/components/index.module.css'
-import Header from '../layout/Header';
-import Footer from '../layout/Footer';
-import Workouts, { WorkoutData } from '../components/Workouts'
-import fs from 'fs'
-import path from 'path'
-import Papa from 'papaparse';
+import { Card } from 'react-bootstrap';
+import { Component } from 'react';
+import OverviewGraph, { OverviewGraphData } from '../src/components/overview/OverviewGraph';
+import DataRepository from '../src/repository/DataRepository';
+import ActivityRings from '../assets/svg/activity-rings.svg';
+import '../assets/sass/index.module.scss';
 
-interface HomeProps {
-  workouts: WorkoutData[];
+interface OverviewProps {
+  workouts: OverviewGraphData[]
 }
 
-const Home: React.FC<HomeProps> = ({ workouts }) => {
-  return (
-    <div className="container">
-      <Head>
-        <title>Activity Trends</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&display=swap" rel="stylesheet"></link>
-      </Head>
+class Overview extends Component<OverviewProps> {
+  render() {
+    return (
+      <div>
+        <p>This is the overview page.</p>
 
-      <Header></Header>
-
-      <CardDeck>
-        <Card className={styles.card}>
+        <Card>
           <Card.Body>
-            <Card.Title className={styles.title}>
-              <FontAwesomeIcon icon={icons.faDumbbell} size="xs" fixedWidth/> Workouts
-            </Card.Title>
-            <Workouts data={workouts}></Workouts>
+            <OverviewGraph data={this.props.workouts} />
           </Card.Body>
-          <Card.Footer className={styles.footer}>
-            {workouts.length} workouts recorded
-          </Card.Footer>
+
         </Card>
-      </CardDeck>
-
-      <Footer lastDataUpdate='24/08/2020'></Footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-      `}</style>
-
-
-    </div>
-  )
-
+      </div>
+    )
+  }
 }
 
 export async function getStaticProps() {
-  const dataDirectory = path.join(process.cwd(), 'public/data')
-  const filenames = fs.readdirSync(dataDirectory)
-
-  const parsed = filenames.map((filename) => {
-    const filePath = path.join(dataDirectory, filename)
-    const fileContents = fs.readFileSync(filePath, 'utf8')
-    return Papa.parse(fileContents, {
-      delimiter: ',',
-      header: true,
-      complete: results => {
-        return results.data
-      }
-    })
-  });
-
+  const parsed = new DataRepository().read('workouts.csv', ',');
   return {
     props: {
-      workouts: parsed[0].data
+      workouts: parsed.data
     }
   }
 }
 
-export default Home;
+
+export default Overview;

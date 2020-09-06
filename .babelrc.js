@@ -5,6 +5,6 @@ module.exports = {
     'next/babel'
   ],
   'plugins': [
-    ['transform-define', env]
+    ['transform-define', env, "inline-react-svg"]
   ]
 }

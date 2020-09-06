@@ -1,0 +1,43 @@
+<svg class="ActivityRings" viewBox='0 0 37 37'>
+    <g class="ring move" style="transform: scale(1) rotate(-90deg);">
+        <circle class="background"
+            cx="50%" cy="50%"
+            r="15.915"
+            stroke-width="3"
+        />
+        <circle class="completed"
+            cx="50%" cy="50%"
+            r="15.915"
+            stroke-width="3"
+            stroke-dasharray="85, 100" 
+        />
+    </g>
+
+    <g class="ring exercise" style="transform: scale(0.75) rotate(-90deg);">
+        <circle class="background"
+                cx="50%" cy="50%"
+                r="15.915"
+                stroke-width="4" 
+        />
+        <circle class="completed"
+            cx="50%" cy="50%"
+            r="15.915"
+            stroke-width="4"
+            stroke-dasharray="85, 100" 
+        />
+    </g>
+
+    <g class="ring stand" style="transform: scale(0.5) rotate(-90deg);">
+        <circle class="background"
+                cx="50%" cy="50%"
+                r="15.915"
+                stroke-width="6"
+        />
+        <circle class="completed"
+            cx="50%" cy="50%"
+            r="15.915"
+            stroke-width="6"
+            stroke-dasharray="85, 100"
+        />
+    </g>
+</svg>

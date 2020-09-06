@@ -8,3 +8,15 @@ body {
 * {
     box-sizing: border-box;
 }
+
+.card {
+    box-shadow: 0 0 4px 0.01em rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px !important;
+}
+
+.card-title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
