@@ -2,7 +2,7 @@ import { Component } from 'react';
 import DataRepository from '../src/repository/DataRepository';
 import SleepDataConverter from '../src/converters/SleepDataConverter';
 import SleepGraph, { SleepGraphData } from '../src/components/sleep/SleepGraph';
-import { CardDeck, Card } from 'react-bootstrap';
+import { CardDeck, Card, DropdownButton, Dropdown } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepInfoCard from '../src/components/sleep/SleepInfoCard';
 import styles from '../assets/sass/pages/sleep.module.scss';
@@ -36,6 +36,7 @@ class Sleep extends Component<SleepProps> {
                 </CardDeck>
                 <Card>
                     <Card.Body>
+                        <Card.Title>Sleep Quality vs Time</Card.Title>
                         <SleepGraph data={this.props.sleepData} />
                     </Card.Body>
                 </Card>

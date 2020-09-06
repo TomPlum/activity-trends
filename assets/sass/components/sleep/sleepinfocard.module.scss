@@ -1,17 +1,17 @@
+$inner-purple: rgba(147, 108, 255, 0.849);
+
 .icon {
-    float: left;
-    background: #dbc0ff;
-    width: 35px;
-    height: 35px;
+    background: $inner-purple;
+    font-size: large;
+    padding: 30px;
     border-radius: 50%;
-    text-align: center;
-    line-height: 35px;
-    vertical-align: middle;
-    padding: 10px;
+    margin: auto;
+    display: block;
 }
 
 .value, .title {
-    display: inline-block;
+    display: block;
+    text-align: left;
 }
 
 .title {
@@ -24,6 +24,6 @@
 }
 
 .card {
-    padding: 10px;
+    padding: 25px;
     margin-bottom: 15px;
 }

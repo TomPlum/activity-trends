@@ -8,7 +8,7 @@ interface MenuState {
     active: string;
 }
 
-class Menu extends Component<{}> {
+class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
