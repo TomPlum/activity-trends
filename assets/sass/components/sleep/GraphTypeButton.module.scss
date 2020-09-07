@@ -1,0 +1,19 @@
+@import '../../colours';
+
+.dropdown {
+    float: right;
+}
+
+.toggle {
+    color: black;
+}
+
+.toggle:hover {
+    color: $sleep-purple;
+    transition: 0.5s ease;
+    text-decoration: none;
+}
+
+.option {
+    text-align: right;
+}

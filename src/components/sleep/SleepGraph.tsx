@@ -4,6 +4,8 @@ import { Card, Col } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
 import { ScatterChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
 import ScatterTooltip from './ScatterTooltip';
+import GraphTypeButton from './GraphTypeButton';
+import { GraphType } from '../../types/GraphType';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -12,6 +14,7 @@ interface SleepGraphMainProps {
 interface SleepGraphState {
     selectedSessionData: SleepQualityPieChartData;
     selectedSessionDate: string;
+    selectedGraphType: GraphType;
 }
 
 export interface SleepGraphMainData {
@@ -28,9 +31,11 @@ export interface SleepGraphMainData {
 class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     constructor(props) {
         super(props);
+        this.handleGraphTypeChange = this.handleGraphTypeChange.bind(this);
         this.state = {
             selectedSessionData: this.getMostRecentSleepSession(),
-            selectedSessionDate: this.getMostRecentDate()
+            selectedSessionDate: this.getMostRecentDate(),
+            selectedGraphType: GraphType.SCATTER
         }
     }
 
@@ -47,19 +52,28 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         });
     }
 
+    handleGraphTypeChange = (option) => {
+        this.setState({ selectedGraphType: option });
+    }
+
     render() {
         return (
             <>
                 <Card>
                     <Card.Body>
-                        <Card.Title>Sleep Quality vs Duration over Time</Card.Title>
+                        <Card.Title>Sleep Quality vs Duration over Time
+                            <GraphTypeButton
+                                options={[GraphType.SCATTER, GraphType.LINE]}
+                                onChange={this.handleGraphTypeChange}
+                            />
+                        </Card.Title>
                         <ResponsiveContainer width="100%" height={350}>
                             <ScatterChart>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" name="Date" type="category" tickFormatter={this.xAxisFormatter} />
                                 <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
                                 <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" unit="%" />
-                                <Tooltip cursor={{ strokeDasharray: '3 3' }} content={<ScatterTooltip/>} />
+                                <Tooltip cursor={{ strokeDasharray: '3 3' }} content={<ScatterTooltip />} />
                                 <Legend />
                                 <Scatter
                                     name="Sleep Sessions"
