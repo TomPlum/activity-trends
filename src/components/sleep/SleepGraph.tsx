@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import moment from 'moment';
-import { Card } from 'react-bootstrap';
+import { Card, Col } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
 import { ScatterChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
 
@@ -34,7 +34,7 @@ export interface SleepGraphMainData {
     isNap: boolean,
     awakeTime: number,
     lightSleep: number,
-    deepSlight: number,
+    deepSleep: number,
     remSleep: number
 }
 
@@ -42,13 +42,8 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     constructor(props) {
         super(props);
         this.state = {
-            selectedSessionData: {
-                awakeTime: 10,
-                deepSleep: 40,
-                lightSleep: 30,
-                remSleep: 20
-            } //TODO: Make latest record date
-            , selectedSessionDate: this.getMostRecentDate()
+            selectedSessionData: this.getMostRecentSleepSession(),
+            selectedSessionDate: this.getMostRecentDate()
         }
     }
 
@@ -58,7 +53,8 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                 awakeTime: data.awakeTime,
                 deepSleep: data.deepSleep,
                 lightSleep: data.lightSleep,
-                remSleep: data.remSleep
+                remSleep: data.remSleep,
+                sleepQuality: data.sleepQuality
             },
             selectedSessionDate: data.date
         });
@@ -90,10 +86,13 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                 </Card>
                 <Card>
                     <Card.Body>
-                        <Card.Title>{this.state.selectedSessionDate}</Card.Title>
-                        <SleepQualityPieChart
-                            data={this.state.selectedSessionData}
-                        />
+                        <Card.Title>{this.formatDateTitle()}</Card.Title>
+                        <Col md={4}>
+                            <SleepQualityPieChart
+                                data={this.state.selectedSessionData}
+                            />
+                        </Col>
+                        
                     </Card.Body>
                 </Card>
             </>
@@ -121,17 +120,17 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         return moment(tickItem).format("MMM YY")
     }
 
+    private formatDateTitle() {
+        return moment(this.state.selectedSessionDate).format("dddd Do MMMM YYYY")
+    }
+
     private getMostRecentSleepSession() {
         const data = this.props.data;
-        const it = data.reduce((a, b) => {
-            return new Date(a.date) > new Date(b.date) ? a : b;
-        });
-        console.log(it)
-        return it;
+        return data.find(d => d.date = this.getMostRecentDate());
     }
 
     private getMostRecentDate() {
-        return new Date(Math.max(...this.props.data.map(e => new Date(e.date).getMilliseconds()))).toString();
+        return moment.max(this.props.data.map(d => moment(d.date))).toString();
     }
 }
 

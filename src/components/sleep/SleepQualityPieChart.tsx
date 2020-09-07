@@ -1,6 +1,6 @@
 import { Component } from "react";
-import { PieChart, Pie, ResponsiveContainer, Tooltip, Cell } from 'recharts';
-import { faAtlas } from "@fortawesome/free-solid-svg-icons";
+import { PieChart, Pie, ResponsiveContainer, Tooltip, Cell, Label } from 'recharts';
+import styles from '../../../assets/sass/components/sleep/sleepqualitypiechart.module.scss';
 
 interface SleepQualityPieChartProps {
     data: SleepQualityPieChartData
@@ -11,6 +11,7 @@ export interface SleepQualityPieChartData {
     remSleep: number,
     lightSleep: number,
     deepSleep: number,
+    sleepQuality: number
 }
 
 class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
@@ -26,7 +27,9 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
                             dataKey="value"
                             labelLine={false}
                             innerRadius="40%"
+                            animationBegin={0}
                         >
+                            <Label className={styles.label} position="center" value={this.getSleepQualityLabel()} />
                             {
                                 this.getSectorColourMappings(data)
                             }
@@ -40,6 +43,11 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
 
     private getSectorColourMappings(data) {
         return data.map((entry, i) => <Cell key={`cell-${i}`} fill={entry.color} />)
+    }
+
+    private getSleepQualityLabel() {
+        const value = this.props.data.sleepQuality;
+        return value + "%";
     }
 
     private createGraphData() {
