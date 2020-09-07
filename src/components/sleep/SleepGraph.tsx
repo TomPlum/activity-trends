@@ -2,10 +2,9 @@ import { Component } from 'react';
 import moment from 'moment';
 import { Card, Col } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
-import { ScatterChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
-import ScatterTooltip from './ScatterTooltip';
 import GraphTypeButton from './GraphTypeButton';
 import { GraphType } from '../../types/GraphType';
+import SleepScatterGraph from './SleepScatterGraph';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -39,16 +38,10 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         }
     }
 
-    onClickScatter = (data) => {
+    onClickScatter = (response) => {
         this.setState({
-            selectedSessionData: {
-                awakeTime: data.awakeTime,
-                deepSleep: data.deepSleep,
-                lightSleep: data.lightSleep,
-                remSleep: data.remSleep,
-                sleepQuality: data.sleepQuality
-            },
-            selectedSessionDate: data.date
+            selectedSessionData: response.data,
+            selectedSessionDate: response.date
         });
     }
 
@@ -67,23 +60,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                 onChange={this.handleGraphTypeChange}
                             />
                         </Card.Title>
-                        <ResponsiveContainer width="100%" height={350}>
-                            <ScatterChart>
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="date" name="Date" type="category" tickFormatter={this.xAxisFormatter} />
-                                <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
-                                <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" unit="%" />
-                                <Tooltip cursor={{ strokeDasharray: '3 3' }} content={<ScatterTooltip />} />
-                                <Legend />
-                                <Scatter
-                                    name="Sleep Sessions"
-                                    data={this.props.data}
-                                    fill="#8884d8"
-                                    onClick={this.onClickScatter}
-                                    isAnimationActive={true}
-                                />
-                            </ScatterChart>
-                        </ResponsiveContainer>
+                        <SleepScatterGraph data={this.props.data} onSelectedSession={this.onClickScatter}/>
                     </Card.Body>
                 </Card>
                 <Card>
@@ -102,36 +79,16 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         )
     }
 
-    private yAxisDomain(): number[] {
-        const data = this.props.data;
-        const durations = data.map(e => e.duration);
-        const minDuration = Math.floor(this.arrayMin(durations));
-        const maxDuration = Math.ceil(this.arrayMax(durations));
-        return [minDuration, maxDuration];
-    }
-
-    private arrayMin(arr: number[]) {
-        return arr.reduce((p, v) => (p < v ? p : v));
-    }
-
-    private arrayMax(arr: number[]) {
-        return arr.reduce((p, v) => (p > v ? p : v));
-    }
-
-    private xAxisFormatter(tickItem: string) {
-        return moment(tickItem).format("MMM YY")
-    }
-
-    private formatDateTitle() {
+    private formatDateTitle(): string {
         return moment(this.state.selectedSessionDate).format("dddd Do MMMM YYYY")
     }
 
-    private getMostRecentSleepSession() {
+    private getMostRecentSleepSession(): SleepGraphMainData {
         const data = this.props.data;
         return data.find(d => d.date = this.getMostRecentDate());
     }
 
-    private getMostRecentDate() {
+    private getMostRecentDate(): string {
         return moment.max(this.props.data.map(d => moment(d.date))).toString();
     }
 }
