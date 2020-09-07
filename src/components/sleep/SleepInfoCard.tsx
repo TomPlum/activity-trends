@@ -3,7 +3,7 @@ import { Card, Row, Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faCircle} from '@fortawesome/free-solid-svg-icons';
-import styles from '../../../assets/sass/components/sleep/sleepinfocard.module.scss';
+import styles from '../../../assets/sass/components/sleep/SleepInfoCard.module.scss';
 
 export interface SleepInfoCardProps {
     value: number | string,
