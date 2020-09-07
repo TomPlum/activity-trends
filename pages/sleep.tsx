@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import DataRepository from '../src/repository/DataRepository';
-import SleepDataConverter from '../src/converters/SleepDataConverter';
+import SleepDataConverter, { SleepData } from '../src/converters/SleepDataConverter';
 import SleepGraph, { SleepGraphMainData } from '../src/components/sleep/SleepGraph';
 import { CardDeck } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
@@ -58,8 +58,8 @@ class Sleep extends Component<SleepProps> {
 export async function getStaticProps() {
     const csv = new DataRepository().read('sleep.csv', ', ');
     const converter = new SleepDataConverter();
-    const data = converter.convert(csv.data);
-    const graphData = converter.convertToMainGraphData(data);
+    const data: SleepData[] = converter.convert(csv.data);
+    const graphData: SleepGraphMainData[] = converter.convertToMainGraphData(data);
     return {
         props: {
             sleepData: graphData

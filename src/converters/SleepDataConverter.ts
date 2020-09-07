@@ -1,4 +1,18 @@
-import { SleepData, SleepGraphMainData } from "../components/sleep/SleepGraph";
+import { SleepGraphMainData } from "../components/sleep/SleepGraph";
+
+export interface SleepData {
+    startDate: string,
+    endDate: string,
+    duration: number,
+    isNap: boolean,
+    sleepQuality: number,
+    awakeTime: number,
+    remSleep: number,
+    lightSleep: number,
+    deepSleep: number,
+    soundsRecorded: number,
+    mood: string
+}
 
 class SleepDataConverter {
     convert(data: any[]): SleepData[] {

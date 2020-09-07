@@ -14,20 +14,6 @@ interface SleepGraphState {
     selectedSessionDate: string;
 }
 
-export interface SleepData {
-    startDate: string,
-    endDate: string,
-    duration: number,
-    isNap: boolean,
-    sleepQuality: number,
-    awakeTime: number,
-    remSleep: number,
-    lightSleep: number,
-    deepSleep: number,
-    soundsRecorded: number,
-    mood: string
-}
-
 export interface SleepGraphMainData {
     date: string,
     duration: number,
