@@ -20,3 +20,8 @@ body {
     padding-bottom: 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
+
+.recharts-scatter .recharts-scatter-symbol .recharts-symbols:hover {
+    fill: rgba(29, 29, 29, 0.8);
+    transition: 0.5s;
+ }

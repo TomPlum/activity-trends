@@ -72,13 +72,14 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                 <XAxis dataKey="date" name="Date" type="category" tickFormatter={this.xAxisFormatter} />
                                 <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
                                 <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" unit="%" />
-                                <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                                <Tooltip cursor={{ strokeDasharray: '3 3'}} />
                                 <Legend />
                                 <Scatter
                                     name="Sleep Sessions"
                                     data={this.props.data}
                                     fill="#8884d8"
                                     onClick={this.onClickScatter}
+                                    isAnimationActive={true}
                                 />
                             </ScatterChart>
                         </ResponsiveContainer>
@@ -92,7 +93,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                 data={this.state.selectedSessionData}
                             />
                         </Col>
-                        
+
                     </Card.Body>
                 </Card>
             </>
