@@ -1,5 +1,5 @@
 import { CardDeck, Card } from 'react-bootstrap';
-import styles from '../assets/css/pages/workouts.module.css';
+import styles from '../assets/sass/pages/workouts.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell, faHamburger, faClock } from '@fortawesome/free-solid-svg-icons';
 import WorkoutTypes, { WorkoutData } from '../src/components/WorkoutTypes';

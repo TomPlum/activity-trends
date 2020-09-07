@@ -2,7 +2,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Menu from './Menu';
 import { Row, Col, Container } from 'react-bootstrap';
-import styles from '../../assets/css/components/main.module.css'
+import styles from '../../assets/sass/components/layout/main.module.scss'
 
 const MainLayout = ({ children }) => (
     <Container fluid className={styles.wrapper}>

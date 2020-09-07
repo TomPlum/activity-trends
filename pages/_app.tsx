@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/css/styles.css'
+import '../assets/sass/styles.scss'
 import '../assets/sass/activity-rings.scss';
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from "@fortawesome/fontawesome-svg-core";

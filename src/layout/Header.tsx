@@ -1,4 +1,4 @@
-import styles from '../../assets/css/components/header.module.css'
+import styles from '../../assets/sass/components/layout/header.module.scss'
 import { Navbar } from 'react-bootstrap'
 
 const Header: React.FunctionComponent = () => {

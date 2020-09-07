@@ -1,8 +1,8 @@
 import { Component } from "react";
 import { Nav, Container } from "react-bootstrap";
-import styles from '../../assets/css/components/menu.module.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRunning, faMoon, faHome, faDumbbell } from '@fortawesome/free-solid-svg-icons';
+import styles from '../../assets/sass/components/layout/menu.module.scss';
 
 interface MenuState {
     active: string;
