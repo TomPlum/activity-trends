@@ -1,12 +1,15 @@
-$inner-purple: rgba(147, 108, 255, 0.849);
+$inner-purple: rgba(190, 167, 252, 0.849);
 
 .icon {
-    background: $inner-purple;
     font-size: large;
-    padding: 30px;
-    border-radius: 50%;
     margin: auto;
     display: block;
+}
+
+.circle {
+    color: $inner-purple;
+    border: 2px solid rgba(168, 136, 255, 0.849);
+    border-radius: 50%;
 }
 
 .value, .title {

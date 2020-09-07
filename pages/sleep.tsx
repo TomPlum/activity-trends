@@ -15,7 +15,7 @@ class Sleep extends Component<SleepProps> {
     render() {
         return (
             <div>
-                <p>This is the sleep page</p>
+                <p>Visualing the data recorded by the iOS Pillow app from my watch.</p>
 
                 <CardDeck>
                     <SleepInfoCard

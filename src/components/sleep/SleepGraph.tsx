@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Card, Col } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
 import { ScatterChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
+import ScatterTooltip from './ScatterTooltip';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -65,14 +66,14 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
             <>
                 <Card>
                     <Card.Body>
-                        <Card.Title>Sleep Quality vs Time</Card.Title>
+                        <Card.Title>Sleep Quality vs Duration over Time</Card.Title>
                         <ResponsiveContainer width="100%" height={350}>
                             <ScatterChart>
                                 <CartesianGrid strokeDasharray="3 3" />
                                 <XAxis dataKey="date" name="Date" type="category" tickFormatter={this.xAxisFormatter} />
                                 <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
                                 <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" unit="%" />
-                                <Tooltip cursor={{ strokeDasharray: '3 3'}} />
+                                <Tooltip cursor={{ strokeDasharray: '3 3' }} content={<ScatterTooltip/>} />
                                 <Legend />
                                 <Scatter
                                     name="Sleep Sessions"
