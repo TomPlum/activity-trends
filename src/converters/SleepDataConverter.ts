@@ -1,4 +1,4 @@
-import { SleepData, SleepGraphData } from "../components/sleep/SleepGraph";
+import { SleepData, SleepGraphMainData } from "../components/sleep/SleepGraph";
 
 class SleepDataConverter {
     convert(data: any[]): SleepData[] {
@@ -19,13 +19,17 @@ class SleepDataConverter {
         });
     }
 
-    convertToGraphData(data: SleepData[]): SleepGraphData[] {
+    convertToMainGraphData(data: SleepData[]): SleepGraphMainData[] {
         return data.map(e => {
             return {
                 date: e.startDate.slice(0, -6),
                 duration: e.duration / 60,
                 sleepQuality: e.sleepQuality,
-                isNap: e.isNap
+                isNap: e.isNap,
+                awakeTime: e.awakeTime / 60,
+                remSleep: e.remSleep / 60,
+                lightSleep: e.lightSleep / 60,
+                deepSleep: e.deepSleep / 60
             }
         }).filter(e => e.duration > 3 && e.duration < 12 && !e.isNap && e.sleepQuality > 0);
     }
