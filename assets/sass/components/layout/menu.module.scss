@@ -10,38 +10,3 @@
     padding: 10px 0 0;
     /*box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);*/
 }
-
-.link {
-    font-family: 'Roboto';
-    font-weight: 500;
-    color: #343a40;
-}
-
-.link:hover {
-    color: #000000;
-    transition: 0.2s ease;
-}
-
-@mixin shadow {
-    filter:box-shadow(0 0 4px rgba(0, 0, 0, 0.8));
-}
-
-.overview {
-    @include shadow;
-    color: $standing-blue;
-}
-
-.running {
-    @include shadow;
-    color: $exercise-green;
-}
-
-.sleep {
-    @include shadow;
-    color: $sleep-graph-fill;
-}
-
-.gym {
-    @include shadow;
-    color: $calories-red;
-}
