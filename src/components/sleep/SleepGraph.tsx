@@ -6,6 +6,7 @@ import GraphTypeButton from './GraphTypeButton';
 import { GraphType } from '../../types/GraphType';
 import SleepScatterGraph from './SleepScatterGraph';
 import SleepAreaGraph from './SleepAreaGraph';
+import Info from './Info';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -56,6 +57,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                 <Card>
                     <Card.Body>
                         <Card.Title>Sleep Quality vs Duration over Time
+                            <Info text="The menu on the right can be used to change the graph type."/>
                             <GraphTypeButton
                                 options={[GraphType.SCATTER, GraphType.AREA]}
                                 onChange={this.handleGraphTypeChange}

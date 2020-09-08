@@ -1,0 +1,15 @@
+@import '../../colours';
+
+.text {
+    text-align: left;
+}
+
+.icon {
+    margin: 0 5px;
+}
+
+.icon:hover {
+    color: $sleep-purple;
+    transition: 0.3s ease;
+    opacity: 0.6;
+}
