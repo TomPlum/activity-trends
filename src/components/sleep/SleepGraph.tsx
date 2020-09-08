@@ -70,14 +70,11 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                     <Card.Body>
                         <Card.Title>{this.formatDateTitle()}</Card.Title>
                         <Col md={4}>
-                            <SleepQualityPieChart
-                                data={this.state.selectedSessionData}
-                            />
+                            <SleepQualityPieChart data={this.state.selectedSessionData} />
                         </Col>
                     </Card.Body>
                 </Card>
             </>
-
         )
     }
 

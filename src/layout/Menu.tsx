@@ -22,25 +22,42 @@ class Menu extends Component {
                 <Nav activeKey="/" className={styles.menu + " flex-column"}>
                     <Nav.Item>
                         <Nav.Link href="/" className={styles.link}>
-                            <FontAwesomeIcon icon={faHome} size="sm" className={styles.icon} fixedWidth /> Overview
-                        </Nav.Link>
-                    </Nav.Item>
-
-                    <Nav.Item>
-                        <Nav.Link href="/strength" className={styles.link}>
-                            <FontAwesomeIcon icon={faDumbbell} size="sm" className={styles.icon} fixedWidth /> Gym
+                            <FontAwesomeIcon
+                                icon={faHome}
+                                className={styles.overview}
+                                fixedWidth
+                            /> Overview
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link href="/workouts" className={styles.link}>
-                            <FontAwesomeIcon icon={faRunning} size="sm" className={styles.icon} fixedWidth /> Running
+                            <FontAwesomeIcon
+                                icon={faRunning}
+                                className={styles.running}
+                                fixedWidth
+                            /> Running
+                        </Nav.Link>
+                    </Nav.Item>
+
+
+                    <Nav.Item>
+                        <Nav.Link href="/strength" className={styles.link}>
+                            <FontAwesomeIcon
+                                icon={faDumbbell}
+                                className={styles.gym}
+                                fixedWidth
+                            /> Gym
                         </Nav.Link>
                     </Nav.Item>
 
                     <Nav.Item>
                         <Nav.Link href="/sleep" className={styles.link}>
-                            <FontAwesomeIcon icon={faMoon} size="sm" className={styles.icon} fixedWidth /> Sleep
+                            <FontAwesomeIcon
+                                icon={faMoon}
+                                className={styles.sleep}
+                                fixedWidth
+                            /> Sleep
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
