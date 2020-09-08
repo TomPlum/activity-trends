@@ -47,9 +47,8 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         });
     }
 
-    handleGraphTypeChange = (option) => {
-        this.setState({ selectedGraphType: option });
-    }
+    handleGraphTypeChange = (option) => this.setState({ selectedGraphType: option });
+
 
     render() {
         return (
@@ -57,7 +56,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                 <Card>
                     <Card.Body>
                         <Card.Title>Sleep Quality vs Duration
-                            <Info text="The menu on the right can be used to change the graph type."/>
+                            <Info text="Click a data point on the graph to display that session in detail below."/>
                             <GraphTypeButton
                                 options={[GraphType.SCATTER, GraphType.AREA]}
                                 onChange={this.handleGraphTypeChange}
