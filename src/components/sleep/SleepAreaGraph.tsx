@@ -3,6 +3,7 @@ import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, Tooltip, Area, YA
 import { SleepGraphMainData } from './SleepGraph';
 import { Arrays } from '../../utility/Arrays';
 import moment from "moment";
+import AreaTooltip from "./AreaTooltip";
 
 interface SleepAreaGraphProps {
     data: SleepGraphMainData[];
@@ -14,9 +15,9 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
             <ResponsiveContainer width="100%" height={350}>
                 <AreaChart data={this.props.data}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" tickFormatter={this.xAxisFormatter} />
-                    <YAxis type="number" unit="%" domain={this.yAxisDomain()} />
-                    <Tooltip />
+                    <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
+                    <YAxis type="number" name="Sleep Quality" unit="%" domain={this.yAxisDomain()} />
+                    <Tooltip content={<AreaTooltip />} />
                     <Area type="monotone" dataKey="sleepQuality" stroke="#8884d8" fill="#8884d8" />
                     <Brush
                         dataKey='date'
