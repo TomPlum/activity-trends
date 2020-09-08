@@ -1,5 +1,5 @@
 export enum GraphType {
-    LINE = "Line",
+    AREA = "Area",
     SCATTER = "Scatter",
     UNKNOWN = "Unknown"
 }

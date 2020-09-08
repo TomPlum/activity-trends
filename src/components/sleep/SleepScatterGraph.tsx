@@ -2,6 +2,7 @@ import { Component } from "react";
 import { ResponsiveContainer, CartesianGrid, ScatterChart, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
 import ScatterTooltip from "./ScatterTooltip";
 import { SleepGraphMainData } from "./SleepGraph";
+import { Arrays } from '../../utility/Arrays';
 import moment from "moment";
 
 interface SleepScatterGraphProps {
@@ -10,16 +11,16 @@ interface SleepScatterGraphProps {
 }
 
 class SleepScatterGraph extends Component<SleepScatterGraphProps> {
-    onClickScatter = (data) => {
+    onClickScatter = (selected) => {
         this.props.onSelectedSession({
             data: {
-                awakeTime: data.awakeTime,
-                deepSleep: data.deepSleep,
-                lightSleep: data.lightSleep,
-                remSleep: data.remSleep,
-                sleepQuality: data.sleepQuality
+                awakeTime: selected.awakeTime,
+                deepSleep: selected.deepSleep,
+                lightSleep: selected.lightSleep,
+                remSleep: selected.remSleep,
+                sleepQuality: selected.sleepQuality
             },
-            date: data.date
+            date: selected.date
         });
     }
     
@@ -48,17 +49,9 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps> {
     private yAxisDomain(): number[] {
         const data = this.props.data;
         const durations = data.map(e => e.duration);
-        const minDuration = Math.floor(this.arrayMin(durations));
-        const maxDuration = Math.ceil(this.arrayMax(durations));
+        const minDuration = Math.floor(Arrays.min(durations));
+        const maxDuration = Math.ceil(Arrays.max(durations));
         return [minDuration, maxDuration];
-    }
-
-    private arrayMin(arr: number[]) {
-        return arr.reduce((p, v) => (p < v ? p : v));
-    }
-
-    private arrayMax(arr: number[]) {
-        return arr.reduce((p, v) => (p > v ? p : v));
     }
 
     private xAxisFormatter(tickItem: string) {

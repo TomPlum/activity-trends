@@ -1,12 +1,14 @@
 import { Component } from 'react';
-import { Card } from 'react-bootstrap';
+import { ResponsiveContainer } from 'recharts';
 
 export interface GraphContainerProps {
     title: string;
 }
 
-class GraphContainer extends Component {
-
-}
+const GraphContainer = ({ children }) => {
+    <ResponsiveContainer width="100%" height={350}>
+        {children}
+    </ResponsiveContainer>
+};
 
 export default GraphContainer;

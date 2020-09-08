@@ -5,6 +5,7 @@ import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPi
 import GraphTypeButton from './GraphTypeButton';
 import { GraphType } from '../../types/GraphType';
 import SleepScatterGraph from './SleepScatterGraph';
+import SleepAreaGraph from './SleepAreaGraph';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -56,11 +57,11 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                     <Card.Body>
                         <Card.Title>Sleep Quality vs Duration over Time
                             <GraphTypeButton
-                                options={[GraphType.SCATTER, GraphType.LINE]}
+                                options={[GraphType.SCATTER, GraphType.AREA]}
                                 onChange={this.handleGraphTypeChange}
                             />
                         </Card.Title>
-                        <SleepScatterGraph data={this.props.data} onSelectedSession={this.onClickScatter}/>
+                        {this.LeadingGraph()}
                     </Card.Body>
                 </Card>
                 <Card>
@@ -71,7 +72,6 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                 data={this.state.selectedSessionData}
                             />
                         </Col>
-
                     </Card.Body>
                 </Card>
             </>
@@ -90,6 +90,19 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
 
     private getMostRecentDate(): string {
         return moment.max(this.props.data.map(d => moment(d.date))).toString();
+    }
+
+    private LeadingGraph() {
+        const { data } = this.props;
+
+        switch(this.state.selectedGraphType) {
+            case GraphType.SCATTER: {
+                return <SleepScatterGraph data={data} onSelectedSession={this.onClickScatter} />
+            }
+            case GraphType.AREA: {
+                return <SleepAreaGraph data={data} />
+            }
+        }
     }
 }
 

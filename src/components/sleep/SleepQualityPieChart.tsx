@@ -38,7 +38,7 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
                                 this.getSectorColourMappings(data)
                             }
                         </Pie>
-                        <Tooltip content={<PieTooltip/>}/>
+                        <Tooltip content={<PieTooltip />}/>
                         <Legend />
                     </PieChart>
                 </ResponsiveContainer>
