@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import moment from 'moment';
-import { Card, Col } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
 import GraphTypeButton from './GraphTypeButton';
 import { GraphType } from '../../types/GraphType';
@@ -56,7 +56,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                 <Card>
                     <Card.Body>
                         <Card.Title>Sleep Quality vs Duration
-                            <Info text="Click a data point on the graph to display that session in detail below."/>
+                            <Info text="Click a data point on the graph to display that session in detail below." />
                             <GraphTypeButton
                                 options={[GraphType.SCATTER, GraphType.AREA]}
                                 onChange={this.handleGraphTypeChange}
@@ -65,14 +65,25 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                         {this.LeadingGraph()}
                     </Card.Body>
                 </Card>
-                <Card>
-                    <Card.Body>
-                        <Card.Title>{this.formatDateTitle()}</Card.Title>
-                        <Col md={4}>
-                            <SleepQualityPieChart data={this.state.selectedSessionData} />
-                        </Col>
-                    </Card.Body>
-                </Card>
+                <Row>
+                    <Col md={6} sm={12}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>{this.formatDateTitle()}</Card.Title>
+                                <SleepQualityPieChart data={this.state.selectedSessionData} />
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={6} sm={12}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>Miscellaneous Information</Card.Title>
+                                <div style={{height: "350px"}}></div>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+
             </>
         )
     }
@@ -93,12 +104,12 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     private LeadingGraph() {
         const { data } = this.props;
 
-        switch(this.state.selectedGraphType) {
+        switch (this.state.selectedGraphType) {
             case GraphType.SCATTER: {
                 return <SleepScatterGraph data={data} onSelectedSession={this.onClickSleepSession} />
             }
             case GraphType.AREA: {
-                return <SleepAreaGraph data={data} onSelectedSession={this.onClickSleepSession}/>
+                return <SleepAreaGraph data={data} onSelectedSession={this.onClickSleepSession} />
             }
         }
     }

@@ -17,7 +17,7 @@ class SleepInfoCard extends Component<SleepInfoCardProps> {
         return (
             <Card className={styles.card}>
                 <Row>
-                    <Col md={4}>
+                    <Col md={4} sm={12}>
                         <span className="fa-layers fa-fw fa-4x">
                             <FontAwesomeIcon icon={faCircle} className={styles.circle} />
                             <FontAwesomeIcon icon={icon} className={styles.icon} />

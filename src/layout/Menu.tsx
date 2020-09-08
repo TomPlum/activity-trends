@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { Nav, Container } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRunning, faMoon, faHome, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import Item from "./Item";
 import styles from '../../assets/sass/components/layout/menu.module.scss';
