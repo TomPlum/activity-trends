@@ -1,0 +1,16 @@
+@mixin rechartsElementHover {
+    fill: rgba(29, 29, 29, 0.8);
+    transition: 0.5s;
+}
+
+.recharts-scatter .recharts-scatter-symbol .recharts-symbols:hover {
+    @include rechartsElementHover;
+}
+
+.recharts-pie .recharts-pie-sector .recharts-sector .recharts-sector:hover {
+    @include rechartsElementHover;
+}
+
+.tooltip .tooltip-inner {
+    background-color: rgba(0, 0, 0, 0.8);
+}

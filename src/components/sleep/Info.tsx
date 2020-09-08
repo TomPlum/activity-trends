@@ -24,7 +24,7 @@ class Info extends Component<InfoProps, InfoState> {
         return (
             <OverlayTrigger
                 placement="right"
-                delay={{ show: 250, hide: 250 }}
+                delay={{ show: 100, hide: 250 }}
                 overlay={this.renderTooltip}>
                 <FontAwesomeIcon
                     fixedWidth
@@ -37,7 +37,13 @@ class Info extends Component<InfoProps, InfoState> {
         );
     }
 
-    renderTooltip = (props) => <Tooltip className={styles.text} {...props}>{this.props.text}</Tooltip>
+    renderTooltip = (props) => {
+        return (
+            <Tooltip className={styles.text} {...props}>
+                {this.props.text}
+            </Tooltip>
+        );
+    }
 
 };
 
