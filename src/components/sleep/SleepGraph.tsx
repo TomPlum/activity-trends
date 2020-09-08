@@ -40,7 +40,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         }
     }
 
-    onClickScatter = (response) => {
+    onClickSleepSession = (response) => {
         this.setState({
             selectedSessionData: response.data,
             selectedSessionDate: response.date
@@ -56,7 +56,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
             <>
                 <Card>
                     <Card.Body>
-                        <Card.Title>Sleep Quality vs Duration over Time
+                        <Card.Title>Sleep Quality vs Duration
                             <Info text="The menu on the right can be used to change the graph type."/>
                             <GraphTypeButton
                                 options={[GraphType.SCATTER, GraphType.AREA]}
@@ -99,10 +99,10 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
 
         switch(this.state.selectedGraphType) {
             case GraphType.SCATTER: {
-                return <SleepScatterGraph data={data} onSelectedSession={this.onClickScatter} />
+                return <SleepScatterGraph data={data} onSelectedSession={this.onClickSleepSession} />
             }
             case GraphType.AREA: {
-                return <SleepAreaGraph data={data} />
+                return <SleepAreaGraph data={data} onSelectedSession={this.onClickSleepSession}/>
             }
         }
     }

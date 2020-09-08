@@ -2,7 +2,6 @@ import styles from '../../../assets/sass/components/sleep/PieTooltip.module.scss
 
 const PieTooltip = ({ active, payload }) => {
     if (active) {
-        console.log(payload)
         return (
             <div className={styles.wrapper}>
                 <p className={styles.value}>

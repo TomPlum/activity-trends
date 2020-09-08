@@ -7,9 +7,24 @@ import AreaTooltip from "./AreaTooltip";
 
 interface SleepAreaGraphProps {
     data: SleepGraphMainData[];
+    onSelectedSession: (session) => void;
 }
 
 class SleepAreaGraph extends Component<SleepAreaGraphProps> {
+    onClickArea = (selected) => {
+        const payload = selected.payload;
+        this.props.onSelectedSession({
+            data: {
+                awakeTime: payload.awakeTime,
+                deepSleep: payload.deepSleep,
+                lightSleep: payload.lightSleep,
+                remSleep: payload.remSleep,
+                sleepQuality: payload.sleepQuality
+            },
+            date: payload.date
+        });
+    }
+
     render() {
         return (
             <ResponsiveContainer width="100%" height={350}>
@@ -18,7 +33,13 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
                     <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
                     <YAxis type="number" name="Sleep Quality" unit="%" domain={this.yAxisDomain()} />
                     <Tooltip content={<AreaTooltip />} />
-                    <Area type="monotone" dataKey="sleepQuality" stroke="#8884d8" fill="#8884d8" />
+                    <Area
+                        type="monotone"
+                        dataKey="sleepQuality"
+                        stroke="#8884d8"
+                        fill="#8884d8"
+                        activeDot={{ onClick: this.onClickArea }}
+                    />
                     <Brush
                         dataKey='date'
                         height={30}

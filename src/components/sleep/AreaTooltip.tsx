@@ -3,7 +3,6 @@ import moment from 'moment';
 
 const AreaTooltip = ({ active, payload }) => {
     if (active) {
-        console.log(payload)
         return (
             <div className={styles.wrapper}>
                 <p className={styles.value}>
