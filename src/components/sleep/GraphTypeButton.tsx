@@ -6,6 +6,7 @@ import styles from "../../../assets/sass/components/sleep/GraphTypeButton.module
 interface GraphTypeButtonProps {
     onChange: (option) => void;
     options: GraphType[];
+    default?: GraphType;
 }
 
 interface GraphTypeButtonState {
@@ -16,7 +17,7 @@ class GraphTypeButton extends Component<GraphTypeButtonProps, GraphTypeButtonSta
     constructor(props) {
         super(props);
         this.state = {
-            selectedType: props.options ? props.options[0] : GraphType.UNKNOWN
+            selectedType: props.default ? props.default : props.options ? props.options[0] : GraphType.UNKNOWN
         }
     }
 

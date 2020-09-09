@@ -1,6 +1,5 @@
 import { Component } from 'react';
-import moment from 'moment';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Container, Card, Col, Row } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
 import GraphTypeButton from './GraphTypeButton';
 import { GraphType } from '../../types/GraphType';
@@ -9,6 +8,7 @@ import SleepAreaGraph from './SleepAreaGraph';
 import Info from './Info';
 import MiscInfo, { MiscInfoData } from './MiscInfo';
 import { Mood } from './Mood';
+import moment from 'moment';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -42,7 +42,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
             selectedSessionData: this.getMostRecentSleepSession(),
             selectedSessionMiscInfo: this.getMostRecentSleepSession(),
             selectedSessionDate: this.getMostRecentDate(),
-            selectedGraphType: GraphType.SCATTER
+            selectedGraphType: GraphType.AREA
         }
     }
 
@@ -63,18 +63,24 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     render() {
         return (
             <>
-                <Card>
-                    <Card.Body>
-                        <Card.Title>Sleep Quality vs Duration
+                <Row>
+                    <Col xs={12}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>Sleep Quality vs Duration
                             <Info text="Click a data point on the graph to display that session in detail below." />
-                            <GraphTypeButton
-                                options={[GraphType.SCATTER, GraphType.AREA]}
-                                onChange={this.handleGraphTypeChange}
-                            />
-                        </Card.Title>
-                        {this.LeadingGraph()}
-                    </Card.Body>
-                </Card>
+                                    <GraphTypeButton
+                                        options={[GraphType.SCATTER, GraphType.AREA]}
+                                        onChange={this.handleGraphTypeChange}
+                                        default={this.state.selectedGraphType}
+                                    />
+                                </Card.Title>
+                                {this.renderLeadingGraph()}
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+
                 <Row>
                     <Col md={6} sm={12}>
                         <Card>
@@ -88,12 +94,11 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                         <Card>
                             <Card.Body>
                                 <Card.Title>Miscellaneous Information</Card.Title>
-                                <MiscInfo data={this.state.selectedSessionMiscInfo}/>
+                                <MiscInfo data={this.state.selectedSessionMiscInfo} />
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
-
             </>
         )
     }
@@ -111,7 +116,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         return moment.max(this.props.data.map(d => moment(d.date))).toString();
     }
 
-    private LeadingGraph() {
+    private renderLeadingGraph() {
         const { data } = this.props;
 
         switch (this.state.selectedGraphType) {
