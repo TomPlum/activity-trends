@@ -3,7 +3,7 @@ import styles from '../assets/sass/pages/workouts.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell, faHamburger, faClock } from '@fortawesome/free-solid-svg-icons';
 import WorkoutTypes, { WorkoutData } from '../src/components/WorkoutTypes';
-import DataRepository from '../src/repository/DataRepository';
+import CsvFileReader from '../src/infrastructure/CsvFileReader';
 
 export interface WorkoutsProps {
     workouts: WorkoutData[]
@@ -51,7 +51,7 @@ const Workouts: React.FunctionComponent<WorkoutsProps> = ({ workouts }) => {
 }
 
 export async function getStaticProps() {
-    const csv = new DataRepository().read('workouts.csv', ',')
+    const csv = new CsvFileReader().read('workouts.csv', ',')
 
     return {
         props: {

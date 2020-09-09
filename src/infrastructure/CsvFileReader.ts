@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import Papa from 'papaparse';
 
-class DataRepository {
+class CsvFileReader {
 
     read(fileName: string, delimiter: string): unknown[] {
         const dataDirectory = path.join(process.cwd(), 'public/data')
@@ -33,4 +33,4 @@ class DataRepository {
     }
 }
 
-export default DataRepository;
+export default CsvFileReader;
