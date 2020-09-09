@@ -67,8 +67,8 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                     <Col xs={12}>
                         <Card>
                             <Card.Body>
-                                <Card.Title>Sleep Quality vs Duration
-                            <Info text="Click a data point on the graph to display that session in detail below." />
+                                <Card.Title> Sleep Quality vs Duration
+                                    <Info text="Click a data point on the graph to display that session in detail below." />
                                     <GraphTypeButton
                                         options={[GraphType.SCATTER, GraphType.AREA]}
                                         onChange={this.handleGraphTypeChange}
