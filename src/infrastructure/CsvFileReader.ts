@@ -3,21 +3,14 @@ import path from 'path'
 import Papa from 'papaparse';
 
 class CsvFileReader {
+    private readonly dataDirectory = path.join(process.cwd(), 'public/data')
 
     read(fileName: string, delimiter: string): unknown[] {
-        const dataDirectory = path.join(process.cwd(), 'public/data')
-        const filenames = fs.readdirSync(dataDirectory)
-
-        const file = filenames.find(e => e === fileName);
-        if (!file) {
-            throw new ReferenceError('Unknown File: ' + fileName)
-        }
         
-        const filePath = path.join(dataDirectory, file)
-        const fileContents = fs.readFileSync(filePath, 'utf8')
-        const result = Papa.parse(fileContents, {
+        const result = Papa.parse(this.getFileContents(fileName), {
             delimiter: delimiter,
             header: true,
+            skipEmptyLines: true,
             complete: results => {
                 return results.data
             }
@@ -30,6 +23,17 @@ class CsvFileReader {
         }
 
         return result.data;
+    }
+
+    private getFileContents(fileName: string) {
+        const filenames = fs.readdirSync(this.dataDirectory)
+        const file = filenames.find(e => e === fileName);
+
+        if (!file) {
+            throw new ReferenceError('Unknown File: ' + fileName)
+        }
+        const filePath = path.join(this.dataDirectory, file)
+        return fs.readFileSync(filePath, 'utf8')
     }
 }
 
