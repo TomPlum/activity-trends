@@ -6,6 +6,7 @@ import { CardDeck } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepInfoCard from '../src/components/sleep/SleepInfoCard';
 import styles from '../assets/sass/pages/sleep.module.scss';
+import { Mood } from '../src/components/sleep/Mood';
 
 interface SleepProps {
     sleepData: SleepGraphMainData[]
@@ -58,7 +59,7 @@ class Sleep extends Component<SleepProps> {
 export async function getStaticProps() {
     const csv = new DataRepository().read('sleep.csv', ', ');
     const converter = new SleepDataConverter();
-    const data: SleepData[] = converter.convert(csv.data);
+    const data: SleepData[] = converter.convert(csv);
     const graphData: SleepGraphMainData[] = converter.convertToMainGraphData(data);
     return {
         props: {

@@ -7,6 +7,8 @@ import { GraphType } from '../../types/GraphType';
 import SleepScatterGraph from './SleepScatterGraph';
 import SleepAreaGraph from './SleepAreaGraph';
 import Info from './Info';
+import MiscInfo, { MiscInfoData } from './MiscInfo';
+import { Mood } from './Mood';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -14,6 +16,7 @@ interface SleepGraphMainProps {
 
 interface SleepGraphState {
     selectedSessionData: SleepQualityPieChartData;
+    selectedSessionMiscInfo: MiscInfoData;
     selectedSessionDate: string;
     selectedGraphType: GraphType;
 }
@@ -26,7 +29,9 @@ export interface SleepGraphMainData {
     awakeTime: number,
     lightSleep: number,
     deepSleep: number,
-    remSleep: number
+    remSleep: number,
+    soundsRecorded: number,
+    mood: Mood
 }
 
 class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
@@ -35,6 +40,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         this.handleGraphTypeChange = this.handleGraphTypeChange.bind(this);
         this.state = {
             selectedSessionData: this.getMostRecentSleepSession(),
+            selectedSessionMiscInfo: this.getMostRecentSleepSession(),
             selectedSessionDate: this.getMostRecentDate(),
             selectedGraphType: GraphType.SCATTER
         }
@@ -43,7 +49,11 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     onClickSleepSession = (response) => {
         this.setState({
             selectedSessionData: response.data,
-            selectedSessionDate: response.date
+            selectedSessionDate: response.date,
+            selectedSessionMiscInfo: {
+                soundsRecorded: response.data.soundsRecorded,
+                mood: response.data.mood
+            }
         });
     }
 
@@ -78,7 +88,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                         <Card>
                             <Card.Body>
                                 <Card.Title>Miscellaneous Information</Card.Title>
-                                <div style={{height: "350px"}}></div>
+                                <MiscInfo data={this.state.selectedSessionMiscInfo}/>
                             </Card.Body>
                         </Card>
                     </Col>

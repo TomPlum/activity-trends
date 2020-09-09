@@ -20,7 +20,9 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
                 deepSleep: payload.deepSleep,
                 lightSleep: payload.lightSleep,
                 remSleep: payload.remSleep,
-                sleepQuality: payload.sleepQuality
+                sleepQuality: payload.sleepQuality,
+                soundsRecorded: payload.soundsRecorded,
+                mood: payload.mood
             },
             date: payload.date
         });
@@ -33,7 +35,7 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
                     <YAxis type="number" name="Sleep Quality" unit="%" domain={this.yAxisDomain()} />
-                    <Tooltip content={<AreaTooltip />} />
+                    <Tooltip content={props => <AreaTooltip {...props}/>} />
                     <Area
                         type="monotone"
                         dataKey="sleepQuality"

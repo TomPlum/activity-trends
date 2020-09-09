@@ -25,10 +25,10 @@ class Overview extends Component<OverviewProps> {
 }
 
 export async function getStaticProps() {
-  const parsed = new DataRepository().read('workouts.csv', ',');
+  const csv = new DataRepository().read('workouts.csv', ',');
   return {
     props: {
-      workouts: parsed.data
+      workouts: csv
     }
   }
 }

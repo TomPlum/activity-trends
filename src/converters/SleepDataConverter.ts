@@ -1,4 +1,5 @@
 import { SleepGraphMainData } from "../components/sleep/SleepGraph";
+import { Mood } from "../components/sleep/Mood";
 
 export interface SleepData {
     startDate: string,
@@ -43,7 +44,9 @@ class SleepDataConverter {
                 awakeTime: e.awakeTime / 60,
                 remSleep: e.remSleep / 60,
                 lightSleep: e.lightSleep / 60,
-                deepSleep: e.deepSleep / 60
+                deepSleep: e.deepSleep / 60,
+                soundsRecorded: e.soundsRecorded,
+                mood: e.mood as Mood
             }
         }).filter(e => e.duration > 3 && e.duration < 12 && !e.isNap && e.sleepQuality > 0);
     }

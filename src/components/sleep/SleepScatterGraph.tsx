@@ -18,7 +18,9 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps> {
                 deepSleep: selected.deepSleep,
                 lightSleep: selected.lightSleep,
                 remSleep: selected.remSleep,
-                sleepQuality: selected.sleepQuality
+                sleepQuality: selected.sleepQuality,
+                soundsRecorded: selected.soundsRecorded,
+                mood: selected.mood
             },
             date: selected.date
         });
@@ -32,7 +34,7 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps> {
                     <XAxis dataKey="date" name="Date" type="category" tickFormatter={this.xAxisFormatter} />
                     <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
                     <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" unit="%" />
-                    <Tooltip cursor={{ strokeDasharray: '3 3' }} content={<ScatterTooltip />} />
+                    <Tooltip cursor={{ strokeDasharray: '3 3' }} content={props => <ScatterTooltip {...props} />} />
                     <Legend />
                     <Scatter
                         name="Sleep Sessions"
