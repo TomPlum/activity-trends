@@ -22,7 +22,9 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps> {
                 soundsRecorded: selected.soundsRecorded,
                 mood: selected.mood
             },
-            date: selected.date
+            date: selected.date,
+            startTime: selected.startTime,
+            endTime: selected.endTime
         });
     }
     

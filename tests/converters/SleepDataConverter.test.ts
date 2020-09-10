@@ -47,6 +47,8 @@ describe('Convert To Main Graph Data', () => {
     }];
 
     test('Date', () => expect(converter.convertToMainGraphData(data)[0].date).toBe('2018-08-21 21:44:03'));
+    test('Start Time', () => expect(converter.convertToMainGraphData(data)[0].startTime).toBe('21:44'));
+    test('End Time', () => expect(converter.convertToMainGraphData(data)[0].endTime).toBe('06:00'));
     test('Duration', () => expect(converter.convertToMainGraphData(data)[0].duration).toBeCloseTo(8.283));
     test('Sleep Quality', () => expect(converter.convertToMainGraphData(data)[0].sleepQuality).toBe(60));
     test('Nap', () => expect(converter.convertToMainGraphData(data)[0].isNap).toBe(false));

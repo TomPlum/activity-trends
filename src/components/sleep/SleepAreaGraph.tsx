@@ -24,7 +24,9 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
                 soundsRecorded: payload.soundsRecorded,
                 mood: payload.mood
             },
-            date: payload.date
+            date: payload.date,
+            startTime: payload.startTime,
+            endTime: payload.endTime
         });
     }
 

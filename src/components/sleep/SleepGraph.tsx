@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Container, Card, Col, Row } from 'react-bootstrap';
+import { Card, Col, Row } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
 import GraphTypeButton from './GraphTypeButton';
 import { GraphType } from '../../types/GraphType';
@@ -16,13 +16,21 @@ interface SleepGraphMainProps {
 
 interface SleepGraphState {
     selectedSessionData: SleepQualityPieChartData;
-    selectedSessionMiscInfo: MiscInfoData;
-    selectedSessionDate: string;
+    selectedSession: SelectedSessionInfo;
     selectedGraphType: GraphType;
+}
+
+interface SelectedSessionInfo {
+    date: string,
+    startTime: string,
+    endTime: string,
+    miscInfo: MiscInfoData
 }
 
 export interface SleepGraphMainData {
     date: string,
+    startTime: string,
+    endTime: string,
     duration: number,
     sleepQuality: number,
     isNap: boolean,
@@ -37,11 +45,9 @@ export interface SleepGraphMainData {
 class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     constructor(props) {
         super(props);
-        this.handleGraphTypeChange = this.handleGraphTypeChange.bind(this);
         this.state = {
-            selectedSessionData: this.getMostRecentSleepSession(),
-            selectedSessionMiscInfo: this.getMostRecentSleepSession(),
-            selectedSessionDate: this.getMostRecentDate(),
+            selectedSessionData: this.getMostRecentSleepSessionData(),
+            selectedSession: this.getMostRecentSleepSession(),
             selectedGraphType: GraphType.AREA
         }
     }
@@ -49,16 +55,20 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     onClickSleepSession = (response) => {
         this.setState({
             selectedSessionData: response.data,
-            selectedSessionDate: response.date,
-            selectedSessionMiscInfo: {
-                soundsRecorded: response.data.soundsRecorded,
-                mood: response.data.mood
-            }
+            selectedSession: {
+                date: response.date,
+                startTime: response.startTime,
+                endTime: response.endTime,
+                miscInfo: {
+                    soundsRecorded: response.data.soundsRecorded,
+                    mood: response.data.mood
+                }
+            },
+            
         });
     }
 
     handleGraphTypeChange = (option) => this.setState({ selectedGraphType: option });
-
 
     render() {
         return (
@@ -94,7 +104,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                         <Card>
                             <Card.Body>
                                 <Card.Title>Miscellaneous Information</Card.Title>
-                                <MiscInfo data={this.state.selectedSessionMiscInfo} />
+                                <MiscInfo data={this.state.selectedSession.miscInfo} />
                             </Card.Body>
                         </Card>
                     </Col>
@@ -104,16 +114,25 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     }
 
     private formatDateTitle(): string {
-        return moment(this.state.selectedSessionDate).format("dddd Do MMMM YYYY")
+        const { date, startTime, endTime } = this.state.selectedSession;
+        return moment(date).format("dddd Do MMMM YYYY") + " (" + startTime + " - " + endTime + ")";
     }
 
-    private getMostRecentSleepSession(): SleepGraphMainData {
-        const data = this.props.data;
-        return data.find(d => d.date = this.getMostRecentDate());
+    private getMostRecentSleepSessionData(): SleepGraphMainData {
+        return this.props.data.find(d => d.date == this.getMostRecentSleepSession().date);
     }
 
-    private getMostRecentDate(): string {
-        return moment.max(this.props.data.map(d => moment(d.date))).toString();
+    private getMostRecentSleepSession(): SelectedSessionInfo {
+        const sessionData = this.props.data.reduce((a, b) => (new Date(a.date) > new Date(b.date) ? a : b));
+        return {
+            date: sessionData.date,
+            startTime: sessionData.startTime,
+            endTime: sessionData.endTime,
+            miscInfo: {
+                soundsRecorded: sessionData.soundsRecorded,
+                mood: sessionData.mood
+            }
+        }
     }
 
     private renderLeadingGraph() {

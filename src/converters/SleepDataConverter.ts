@@ -1,5 +1,6 @@
 import { SleepGraphMainData } from "../components/sleep/SleepGraph";
 import { Mood } from "../components/sleep/Mood";
+import moment from "moment";
 
 export interface SleepData {
     startDate: string,
@@ -36,8 +37,12 @@ class SleepDataConverter {
 
     convertToMainGraphData(data: SleepData[]): SleepGraphMainData[] {
         return data.map(e => {
+            const startDate = e.startDate.slice(0, -6);
+            const endDate = e.endDate.slice(0, -6);
             return {
-                date: e.startDate.slice(0, -6),
+                date: startDate,
+                startTime: moment(startDate).format("HH:mm"),
+                endTime: moment(endDate).format("HH:mm"),
                 duration: e.duration / 60,
                 sleepQuality: e.sleepQuality,
                 isNap: e.isNap,
