@@ -1,10 +1,11 @@
 import { Component } from "react";
-import { ResponsiveContainer, AreaChart, CartesianGrid, XAxis, Tooltip, Area, YAxis, Brush } from 'recharts';
+import { AreaChart, CartesianGrid, XAxis, Tooltip, Area, YAxis, Brush } from 'recharts';
 import { SleepGraphMainData } from './SleepGraph';
 import { Arrays } from '../../utility/Arrays';
 import moment from "moment";
 import AreaTooltip from "./AreaTooltip";
 import styles from '../../../assets/sass/components/sleep/SleepAreaGraph.module.scss';
+import GraphContainer from '../GraphContainer';
 
 interface SleepAreaGraphProps {
     data: SleepGraphMainData[];
@@ -34,7 +35,7 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
 
     render() {
         return (
-            <ResponsiveContainer width="100%" height={350}>
+            <GraphContainer>
                 <AreaChart data={this.props.data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
@@ -56,7 +57,7 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
                         tickFormatter={this.xAxisFormatter}
                     />
                 </AreaChart>
-            </ResponsiveContainer>
+            </GraphContainer>
         )
     }
 
