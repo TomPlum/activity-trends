@@ -1,7 +1,9 @@
+import { Navbar, Nav } from 'react-bootstrap'
 import styles from '../../assets/sass/components/layout/header.module.scss'
-import { Navbar } from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
-const Header: React.FunctionComponent = () => {
+const Header = () => {
     return (
         <Navbar bg="dark" variant="dark" fixed="top" className={styles.header}>
             <Navbar.Brand>
@@ -14,6 +16,15 @@ const Header: React.FunctionComponent = () => {
                 />{' '}
                 Activity Trends
             </Navbar.Brand>
+            <Navbar.Toggle />
+
+            <Navbar.Collapse className="justify-content-end">
+                <Nav>
+                    <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>
+                        <FontAwesomeIcon icon={faGithub} size="lg" fixedWidth className={styles.github} />
+                    </Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
         </Navbar>
     )
 }
