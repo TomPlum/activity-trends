@@ -19,12 +19,13 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps> {
                 lightSleep: selected.lightSleep,
                 remSleep: selected.remSleep,
                 sleepQuality: selected.sleepQuality,
-                soundsRecorded: selected.soundsRecorded,
-                mood: selected.mood
             },
             date: selected.date,
             startTime: selected.startTime,
-            endTime: selected.endTime
+            endTime: selected.endTime,
+            duration: selected.duration,
+            soundsRecorded: selected.soundsRecorded,
+            mood: selected.mood
         });
     }
     

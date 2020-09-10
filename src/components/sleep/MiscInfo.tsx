@@ -1,9 +1,10 @@
 import { Component } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
 import { Mood } from "./Mood";
-import { faVolumeOff, faVolumeUp, faGrinBeam, faSmile, faMeh, faFrown, faTired, faMehBlank } from '@fortawesome/free-solid-svg-icons';
+import { faVolumeOff, faVolumeUp, faGrinBeam, faSmile, faMeh, faFrown, faTired, faMehBlank, faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../../../assets/sass/components/sleep/MiscInfo.module.scss'
+import moment from "moment";
 
 interface MiscInfoProps {
     data: MiscInfoData;
@@ -12,11 +13,12 @@ interface MiscInfoProps {
 export interface MiscInfoData {
     soundsRecorded: number;
     mood: Mood;
+    duration: number;
 }
 
 class MiscInfo extends Component<MiscInfoProps> {
     render() {
-        const { soundsRecorded, mood } = this.props.data;
+        const { soundsRecorded, mood, duration } = this.props.data;
 
         return (
             <Container className={styles.container}>
@@ -31,11 +33,23 @@ class MiscInfo extends Component<MiscInfoProps> {
                 </Row>
                 <Row className={styles.row}>
                     <Col xs={6}>
+                        <span className={styles.value}>{this.getMoodFace()}</span>
+                    </Col>
+                    <Col xs={6}>
                         <h1 className={styles.value}>{mood}</h1>
                         <h5 className={styles.title}>Wake-Up Mood</h5>
                     </Col>
+                </Row>
+                <Row className={styles.row}>
                     <Col xs={6}>
-                        <span className={styles.value}>{this.getMoodFace()}</span>
+                        <span className={styles.value}>
+                            <FontAwesomeIcon icon={faClock} className={styles.icon} size="4x" />
+                        </span>
+                    </Col>
+                    <Col xs={6}>
+                        <h1 className={styles.value}>{duration.toFixed(1)}h</h1>
+                        <h5 className={styles.title}>Duration Slept</h5>
+
                     </Col>
                 </Row>
             </Container>

@@ -53,18 +53,19 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     }
 
     onClickSleepSession = (response) => {
+        const { data, date, startTime, endTime, soundsRecorded, duration, mood } = response;
         this.setState({
-            selectedSessionData: response.data,
+            selectedSessionData: data,
             selectedSession: {
-                date: response.date,
-                startTime: response.startTime,
-                endTime: response.endTime,
+                date,
+                startTime,
+                endTime,
                 miscInfo: {
-                    soundsRecorded: response.data.soundsRecorded,
-                    mood: response.data.mood
+                    soundsRecorded,
+                    mood,
+                    duration
                 }
             },
-            
         });
     }
 
@@ -124,15 +125,8 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
 
     private getMostRecentSleepSession(): SelectedSessionInfo {
         const sessionData = this.props.data.reduce((a, b) => (new Date(a.date) > new Date(b.date) ? a : b));
-        return {
-            date: sessionData.date,
-            startTime: sessionData.startTime,
-            endTime: sessionData.endTime,
-            miscInfo: {
-                soundsRecorded: sessionData.soundsRecorded,
-                mood: sessionData.mood
-            }
-        }
+        const { date, startTime, endTime, soundsRecorded, mood, duration } = sessionData;
+        return { date, startTime, endTime, miscInfo: { soundsRecorded, mood, duration } };
     }
 
     private renderLeadingGraph() {

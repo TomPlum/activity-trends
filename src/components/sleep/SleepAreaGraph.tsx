@@ -21,12 +21,14 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
                 lightSleep: payload.lightSleep,
                 remSleep: payload.remSleep,
                 sleepQuality: payload.sleepQuality,
-                soundsRecorded: payload.soundsRecorded,
                 mood: payload.mood
             },
             date: payload.date,
             startTime: payload.startTime,
-            endTime: payload.endTime
+            endTime: payload.endTime,
+            soundsRecorded: payload.soundsRecorded,
+            duration: payload.duration,
+            mood: payload.mood
         });
     }
 
@@ -44,6 +46,7 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
                         stroke="#8884d8"
                         fill="#8884d8"
                         activeDot={{ onClick: this.onClickArea }}
+                        animationDuration={2200}
                     />
                     <Brush
                         dataKey='date'
