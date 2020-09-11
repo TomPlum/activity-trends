@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { SleepGraphMainData } from "./SleepGraph";
 import GraphContainer from "../../GraphContainer";
-import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Brush } from 'recharts';
+import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, Brush } from 'recharts';
 import moment from "moment";
 import BarTooltip from "../tooltips/BarTooltip";
 
@@ -36,9 +36,9 @@ class SleepBarGraph extends Component<SleepBarGraphProps> {
             <GraphContainer>
                 <BarChart data={this.props.data}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter}/>
+                    <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
                     <YAxis unit="%" name="Sleep Quality" />
-                    <Tooltip content={(props) => <BarTooltip {...props}/>} />
+                    <Tooltip content={(props) => <BarTooltip {...props} />} />
                     <Brush
                         dataKey='date'
                         height={30}
@@ -46,7 +46,12 @@ class SleepBarGraph extends Component<SleepBarGraphProps> {
                         endIndex={this.getBrushEndIndex()}
                         tickFormatter={this.xAxisFormatter}
                     />
-                    <Bar dataKey="sleepQuality" fill="#8884d8" onClick={this.onClickBar} />
+                    <Bar
+                        dataKey="sleepQuality"
+                        fill="rgba(136, 132, 216, 0.6)"
+                        stroke="#8884d8"
+                        onClick={this.onClickBar}
+                    />
                 </BarChart>
             </GraphContainer>
         );
