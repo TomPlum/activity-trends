@@ -1,4 +1,4 @@
-import styles from '../../../../assets/sass/components/sleep/ScatterTooltip.module.scss';
+import styles from '../../../../assets/sass/components/sleep/tooltips/ScatterTooltip.module.scss';
 import moment from 'moment';
 
 const ScatterTooltip = ({ active, payload }) => {

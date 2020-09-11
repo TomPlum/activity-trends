@@ -4,8 +4,8 @@ import { SleepGraphMainData } from './SleepGraph';
 import { Arrays } from '../../../utility/Arrays';
 import moment from "moment";
 import AreaTooltip from "../tooltips/AreaTooltip";
-import styles from '../../../assets/sass/components/sleep/SleepAreaGraph.module.scss';
 import GraphContainer from '../../GraphContainer';
+import styles from '../../../assets/sass/components/sleep/graphs/SleepAreaGraph.module.scss';
 
 interface SleepAreaGraphProps {
     data: SleepGraphMainData[];

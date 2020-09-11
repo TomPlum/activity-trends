@@ -1,4 +1,4 @@
-import styles from '../../../../assets/sass/components/sleep/AreaTooltip.module.scss';
+import styles from '../../../../assets/sass/components/sleep/tooltips/AreaTooltip.module.scss';
 import moment from 'moment';
 
 const AreaTooltip = ({ active, payload }) => {
