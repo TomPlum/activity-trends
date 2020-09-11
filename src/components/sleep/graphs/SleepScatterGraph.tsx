@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { CartesianGrid, ScatterChart, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
+import { CartesianGrid, ScatterChart, XAxis, YAxis, ZAxis, Tooltip, Scatter, Brush } from 'recharts';
 import ScatterTooltip from "../tooltips/ScatterTooltip";
 import { SleepGraphMainData } from "./SleepGraph";
 import { Arrays } from '../../../utility/Arrays';
@@ -11,7 +11,20 @@ interface SleepScatterGraphProps {
     onSelectedSession: (session) => void;
 }
 
-class SleepScatterGraph extends Component<SleepScatterGraphProps> {
+interface SleepScatterGraphState {
+    brushStartIndex: string;
+    brushEndIndex: string;
+}
+
+class SleepScatterGraph extends Component<SleepScatterGraphProps, SleepScatterGraphState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            brushStartIndex: this.getEarliestDate(),
+            brushEndIndex: this.getBrushEndIndex()
+        }
+    }
+
     onClickScatter = (selected) => {
         this.props.onSelectedSession({
             data: {
@@ -33,23 +46,42 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps> {
     render() {
         return (
             <GraphContainer>
-                <ScatterChart>
+                <ScatterChart data={this.props.data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" name="Date" type="category" tickFormatter={this.xAxisFormatter} />
                     <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
-                    <ZAxis dataKey="sleepQuality" range={[1, 100]} name="Sleep Quality" unit="%" />
+                    <ZAxis dataKey="sleepQuality" range={[1, 300]} name="Sleep Quality" unit="%" />
                     <Tooltip cursor={{ strokeDasharray: '3 3' }} content={props => <ScatterTooltip {...props} />} />
-                    <Legend />
+                    <Brush
+                        dataKey='date'
+                        height={30}
+                        stroke="#8884d8"
+                        tickFormatter={this.xAxisFormatter}
+                        endIndex={this.getBrushFilteredData().length}
+                        onChange={({ brushStartIndex, brushEndIndex }) => this.setState({ brushStartIndex, brushEndIndex })}
+                    />
                     <Scatter
                         name="Sleep Sessions"
-                        data={this.props.data}
-                        fill="#8884d8"
+                        data={this.getBrushFilteredData()}
+                        fill="rgba(136, 132, 216, 0.7)"
                         onClick={this.onClickScatter}
                         isAnimationActive={true}
                     />
                 </ScatterChart>
             </GraphContainer>
         );
+    }
+
+    private getBrushFilteredData() {
+        const { brushStartIndex, brushEndIndex } = this.state;
+        return this.props.data.filter(datum => new Date(datum.date) >= new Date(brushStartIndex) && new Date(datum.date) <= new Date(brushEndIndex));
+    }
+
+    private getEarliestDate = () => this.props.data[0].date;
+    
+    private getBrushEndIndex() {
+        const { data } = this.props;
+        return data[Math.round(data.length / 5)].date;
     }
 
     private yAxisDomain(): number[] {
