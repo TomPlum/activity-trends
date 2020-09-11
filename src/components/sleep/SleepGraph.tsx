@@ -9,6 +9,7 @@ import Info from './Info';
 import MiscInfo, { MiscInfoData } from './MiscInfo';
 import { Mood } from './Mood';
 import moment from 'moment';
+import SleepBarGraph from './SleepBarChart';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -81,7 +82,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                 <Card.Title> Sleep Quality vs Duration
                                     <Info text="Click a data point on the graph to display that session in detail below." />
                                     <GraphTypeButton
-                                        options={[GraphType.SCATTER, GraphType.AREA]}
+                                        options={[GraphType.SCATTER, GraphType.AREA, GraphType.BAR]}
                                         onChange={this.handleGraphTypeChange}
                                         default={this.state.selectedGraphType}
                                     />
@@ -138,6 +139,9 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
             }
             case GraphType.AREA: {
                 return <SleepAreaGraph data={data} onSelectedSession={this.onClickSleepSession} />
+            }
+            case GraphType.BAR: {
+                return <SleepBarGraph data={data} onSelectedSession={this.onClickSleepSession} />
             }
         }
     }

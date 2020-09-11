@@ -11,6 +11,10 @@
     @include rechartsElementHover;
 }
 
+.recharts-bar .recharts-bar-rectangle .recharts-rectangle:hover {
+    @include rechartsElementHover;
+}
+
 .tooltip .tooltip-inner {
     background-color: rgba(0, 0, 0, 0.8);
 }
