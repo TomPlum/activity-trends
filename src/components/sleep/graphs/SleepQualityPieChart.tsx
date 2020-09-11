@@ -1,6 +1,7 @@
 import { Component } from "react";
-import { PieChart, Pie, ResponsiveContainer, Tooltip, Cell, Label, Legend } from 'recharts';
+import { PieChart, Pie, Tooltip, Cell, Label, Legend } from 'recharts';
 import PieTooltip from "../tooltips/PieTooltip";
+import GraphContainer from '../../GraphContainer';
 import styles from '../../../../assets/sass/components/sleep/graphs/SleepQualityPieChart.module.scss';
 
 interface SleepQualityPieChartProps {
@@ -19,7 +20,7 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
     render() {
         const data = this.createGraphData();
         return (
-            <ResponsiveContainer width="100%" height={350}>
+            <GraphContainer>
                 <PieChart>
                     <Pie data={data} nameKey="name" dataKey="value" innerRadius="40%" animationBegin={0}>
                         <Label className={styles.label} position="center" value={this.getSleepQualityLabel()} />
@@ -28,7 +29,7 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
                     <Tooltip content={props => <PieTooltip {...props} />} />
                     <Legend />
                 </PieChart>
-            </ResponsiveContainer>
+            </GraphContainer>
         );
     }
 
