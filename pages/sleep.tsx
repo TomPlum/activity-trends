@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import SleepGraph, { SleepGraphMainData } from '../src/components/sleep/SleepGraph';
+import SleepGraph, { SleepGraphMainData } from '../src/components/sleep/graphs/SleepGraph';
 import { CardDeck } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepInfoCard from '../src/components/sleep/SleepInfoCard';

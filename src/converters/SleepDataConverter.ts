@@ -1,5 +1,5 @@
-import { SleepGraphMainData } from "../components/sleep/SleepGraph";
-import { Mood } from "../components/sleep/Mood";
+import { SleepGraphMainData } from "../components/sleep/graphs/SleepGraph";
+import { Mood } from "../types/Mood";
 import moment from "moment";
 
 export interface SleepData {

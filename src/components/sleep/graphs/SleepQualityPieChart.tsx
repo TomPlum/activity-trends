@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { PieChart, Pie, ResponsiveContainer, Tooltip, Cell, Label, Legend } from 'recharts';
-import PieTooltip from "./PieTooltip";
-import styles from '../../../assets/sass/components/sleep/SleepQualityPieChart.module.scss';
+import PieTooltip from "../tooltips/PieTooltip";
+import styles from '../../../../assets/sass/components/sleep/SleepQualityPieChart.module.scss';
 
 interface SleepQualityPieChartProps {
     data: SleepQualityPieChartData

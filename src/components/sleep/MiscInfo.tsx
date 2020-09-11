@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
-import { Mood } from "./Mood";
+import { Mood } from "../../types/Mood";
 import { faVolumeOff, faVolumeUp, faGrinBeam, faSmile, faMeh, faFrown, faTired, faMehBlank, faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from '../../../assets/sass/components/sleep/MiscInfo.module.scss'

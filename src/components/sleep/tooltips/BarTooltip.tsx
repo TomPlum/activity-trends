@@ -1,7 +1,7 @@
-import styles from '../../../assets/sass/components/sleep/AreaTooltip.module.scss';
+import styles from '../../../../assets/sass/components/sleep/BarTooltip.module.scss';
 import moment from 'moment';
 
-const AreaTooltip = ({ active, payload }) => {
+const BarTooltip = ({ active, payload }) => {
     if (active) {
         return (
             <div className={styles.wrapper}>
@@ -29,4 +29,4 @@ function formatSleepQuality(value: number): string {
     return value.toFixed(0) + "%";
 }
 
-export default AreaTooltip;
+export default BarTooltip;

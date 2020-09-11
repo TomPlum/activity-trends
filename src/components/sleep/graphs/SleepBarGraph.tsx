@@ -1,9 +1,9 @@
 import { Component } from "react";
 import { SleepGraphMainData } from "./SleepGraph";
-import GraphContainer from "../GraphContainer";
+import GraphContainer from "../../GraphContainer";
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Brush } from 'recharts';
 import moment from "moment";
-import BarTooltip from "./BarTooltip";
+import BarTooltip from "../tooltips/BarTooltip";
 
 interface SleepBarGraphProps {
     data: SleepGraphMainData[];

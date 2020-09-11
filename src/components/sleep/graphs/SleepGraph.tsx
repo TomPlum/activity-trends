@@ -1,15 +1,15 @@
 import { Component } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
-import GraphTypeButton from './GraphTypeButton';
-import { GraphType } from '../../types/GraphType';
+import GraphTypeButton from '../GraphTypeButton';
+import { GraphType } from '../../../types/GraphType';
 import SleepScatterGraph from './SleepScatterGraph';
 import SleepAreaGraph from './SleepAreaGraph';
-import Info from './Info';
-import MiscInfo, { MiscInfoData } from './MiscInfo';
-import { Mood } from './Mood';
+import Info from '../Info';
+import MiscInfo, { MiscInfoData } from '../MiscInfo';
+import { Mood } from '../../../types/Mood';
 import moment from 'moment';
-import SleepBarGraph from './SleepBarChart';
+import SleepBarGraph from './SleepBarGraph';
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]

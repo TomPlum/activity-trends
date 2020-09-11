@@ -1,10 +1,10 @@
 import { Component } from "react";
 import { CartesianGrid, ScatterChart, XAxis, YAxis, ZAxis, Tooltip, Legend, Scatter } from 'recharts';
-import ScatterTooltip from "./ScatterTooltip";
+import ScatterTooltip from "../tooltips/ScatterTooltip";
 import { SleepGraphMainData } from "./SleepGraph";
-import { Arrays } from '../../utility/Arrays';
+import { Arrays } from '../../../utility/Arrays';
 import moment from "moment";
-import GraphContainer from "../GraphContainer";
+import GraphContainer from "../../GraphContainer";
 
 interface SleepScatterGraphProps {
     data: SleepGraphMainData[];
