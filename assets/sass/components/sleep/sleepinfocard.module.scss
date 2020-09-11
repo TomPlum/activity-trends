@@ -1,14 +1,16 @@
+@import '../../colours';
+
 $inner-purple: rgba(190, 167, 252, 0.849);
 
 .icon {
-    font-size: large;
+    font-size: 2.4rem;
     margin: auto;
-    display: block;
+    color: rgba(37, 37, 37, 1);
 }
 
 .circle {
-    color: $inner-purple;
-    border: 2px solid rgba(168, 136, 255, 0.849);
+    color: $sleep-graph-fill;
+    opacity: 0.8;
     border-radius: 50%;
 }
 

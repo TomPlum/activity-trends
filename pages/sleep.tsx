@@ -41,7 +41,7 @@ class Sleep extends Component<SleepProps> {
 
     private getAverageSleepQuality() {
         let sum = this.props.sleepData.map(e => e.sleepQuality).reduce((sum, val) => sum + val, 0);
-        return (sum / this.getSleepSessionQuantity()).toFixed(1);
+        return Number((sum / this.getSleepSessionQuantity()).toFixed(1));
     }
 
     private getSleepSessionQuantity() {
