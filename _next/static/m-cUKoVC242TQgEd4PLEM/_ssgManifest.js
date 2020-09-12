@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002F","\u002Fworkouts","\u002Fsleep"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
