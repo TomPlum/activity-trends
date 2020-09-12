@@ -1,21 +1,32 @@
 import { Component } from 'react';
-import DataRepository from '../src/repository/DataRepository';
-import SleepDataConverter from '../src/converters/SleepDataConverter';
-import SleepGraph, { SleepGraphData } from '../src/components/sleep/SleepGraph';
-import { CardDeck, Card, DropdownButton, Dropdown } from 'react-bootstrap';
+import SleepGraph, { SleepGraphMainData } from '../src/components/sleep/graphs/SleepGraph';
+import { CardDeck } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepInfoCard from '../src/components/sleep/SleepInfoCard';
+import { SleepService } from '../src/service/SleepService';
+import LoadingSpinner from '../src/layout/LoadingSpinner';
 import styles from '../assets/sass/pages/sleep.module.scss';
 
 interface SleepProps {
-    sleepData: SleepGraphData[]
+    sleepData: SleepGraphMainData[]
 }
 
-class Sleep extends Component<SleepProps> {
+interface SleepState {
+    loading: boolean;
+}
+
+class Sleep extends Component<SleepProps, SleepState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false
+        }
+    }
+
     render() {
         return (
             <div>
-                <p>This is the sleep page</p>
+                <p>Visualing the data recorded by the iOS Pillow app from my watch.</p>
 
                 <CardDeck>
                     <SleepInfoCard
@@ -26,6 +37,7 @@ class Sleep extends Component<SleepProps> {
                     <SleepInfoCard
                         title="Average Sleep Quality"
                         value={this.getAverageSleepQuality()}
+                        unit="%"
                         icon={faSmile}
                     />
                     <SleepInfoCard
@@ -34,19 +46,14 @@ class Sleep extends Component<SleepProps> {
                         icon={faClock}
                     />
                 </CardDeck>
-                <Card>
-                    <Card.Body>
-                        <Card.Title>Sleep Quality vs Time</Card.Title>
-                        <SleepGraph data={this.props.sleepData} />
-                    </Card.Body>
-                </Card>
+                <SleepGraph data={this.props.sleepData} />
             </div>
         )
     }
 
     private getAverageSleepQuality() {
         let sum = this.props.sleepData.map(e => e.sleepQuality).reduce((sum, val) => sum + val, 0);
-        return (sum / this.getSleepSessionQuantity()).toFixed(1) + "%";
+        return Number((sum / this.getSleepSessionQuantity()).toFixed(1));
     }
 
     private getSleepSessionQuantity() {
@@ -58,14 +65,11 @@ class Sleep extends Component<SleepProps> {
         const hours = data.map(e => e.duration).reduce((sum, val) => sum + val, 0);
         return Math.round(hours);
     }
-
 }
 
 export async function getStaticProps() {
-    const csv = new DataRepository().read('sleep.csv', ', ');
-    const converter = new SleepDataConverter();
-    const data = converter.convert(csv.data);
-    const graphData = converter.convertToGraphData(data);
+    const graphData: SleepGraphMainData[] = new SleepService().getMainGraphData();
+
     return {
         props: {
             sleepData: graphData

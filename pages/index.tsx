@@ -1,9 +1,7 @@
 import { Card } from 'react-bootstrap';
 import { Component } from 'react';
 import OverviewGraph, { OverviewGraphData } from '../src/components/overview/OverviewGraph';
-import DataRepository from '../src/repository/DataRepository';
-import ActivityRings from '../assets/svg/activity-rings.svg';
-import '../assets/sass/index.module.scss';
+import CsvFileReader from '../src/infrastructure/CsvFileReader';
 
 interface OverviewProps {
   workouts: OverviewGraphData[]
@@ -27,10 +25,10 @@ class Overview extends Component<OverviewProps> {
 }
 
 export async function getStaticProps() {
-  const parsed = new DataRepository().read('workouts.csv', ',');
+  const csv = new CsvFileReader().read('workouts.csv', ',');
   return {
     props: {
-      workouts: parsed.data
+      workouts: csv
     }
   }
 }

@@ -12,6 +12,8 @@ const basePath = isProd ? '/docs' : '';
 module.exports = {
     exportPathMap: () => ({
         '/': { page: '/' },
+        '/sleep': { page: '/sleep' },
+        '/workouts': { page: '/workouts' }
     }),
     basePath: basePath,
     assetPrefix: assetPrefix,

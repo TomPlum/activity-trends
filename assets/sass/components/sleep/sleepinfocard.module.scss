@@ -1,12 +1,17 @@
-$inner-purple: rgba(147, 108, 255, 0.849);
+@import '../../colours';
+
+$inner-purple: rgba(190, 167, 252, 0.849);
 
 .icon {
-    background: $inner-purple;
-    font-size: large;
-    padding: 30px;
-    border-radius: 50%;
+    font-size: 2.2rem;
     margin: auto;
-    display: block;
+    color: rgba(37, 37, 37, 1);
+}
+
+.circle {
+    color: $sleep-graph-fill;
+    opacity: 0.8;
+    border-radius: 50%;
 }
 
 .value, .title {
@@ -21,6 +26,7 @@ $inner-purple: rgba(147, 108, 255, 0.849);
 .value {
     margin: 0;
     font-weight: 600;
+    font-size: 2em;
 }
 
 .card {

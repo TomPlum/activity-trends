@@ -1,0 +1,36 @@
+$active: rgba(152, 103, 216, 0.9);
+
+@mixin rechartsElementHover {
+    fill: rgba(29, 29, 29, 0.8);
+    transition: 0.5s ease;
+}
+
+@mixin rechartsElementActive {
+    fill: $active;
+    transition: 0.1s ease;
+}
+
+.recharts-scatter .recharts-scatter-symbol .recharts-symbols:hover {
+    @include rechartsElementHover;
+}
+
+.recharts-scatter .recharts-scatter-symbol .recharts-symbols:active {
+    @include rechartsElementActive;
+}
+
+
+.recharts-pie .recharts-pie-sector .recharts-sector:hover {
+    @include rechartsElementHover;
+}
+
+.recharts-bar .recharts-bar-rectangle .recharts-rectangle:hover {
+    @include rechartsElementHover;
+}
+
+.recharts-bar .recharts-bar-rectangle .recharts-rectangle:active {
+    @include rechartsElementActive;
+}
+
+.tooltip .tooltip-inner {
+    background-color: rgba(0, 0, 0, 0.8);
+}

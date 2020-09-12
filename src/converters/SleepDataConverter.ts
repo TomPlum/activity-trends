@@ -1,4 +1,20 @@
-import { SleepData, SleepGraphData } from "../components/sleep/SleepGraph";
+import { SleepGraphMainData } from "../components/sleep/graphs/SleepGraph";
+import { Mood } from "../types/Mood";
+import moment from "moment";
+
+export interface SleepData {
+    startDate: string,
+    endDate: string,
+    duration: number,
+    isNap: boolean,
+    sleepQuality: number,
+    awakeTime: number,
+    remSleep: number,
+    lightSleep: number,
+    deepSleep: number,
+    soundsRecorded: number,
+    mood: string
+}
 
 class SleepDataConverter {
     convert(data: any[]): SleepData[] {
@@ -19,13 +35,23 @@ class SleepDataConverter {
         });
     }
 
-    convertToGraphData(data: SleepData[]): SleepGraphData[] {
+    convertToMainGraphData(data: SleepData[]): SleepGraphMainData[] {
         return data.map(e => {
+            const startDate = e.startDate.slice(0, -6);
+            const endDate = e.endDate.slice(0, -6);
             return {
-                date: e.startDate.slice(0, -6),
+                date: startDate,
+                startTime: moment(startDate).format("HH:mm"),
+                endTime: moment(endDate).format("HH:mm"),
                 duration: e.duration / 60,
                 sleepQuality: e.sleepQuality,
-                isNap: e.isNap
+                isNap: e.isNap,
+                awakeTime: e.awakeTime / 60,
+                remSleep: e.remSleep / 60,
+                lightSleep: e.lightSleep / 60,
+                deepSleep: e.deepSleep / 60,
+                soundsRecorded: e.soundsRecorded,
+                mood: e.mood as Mood
             }
         }).filter(e => e.duration > 3 && e.duration < 12 && !e.isNap && e.sleepQuality > 0);
     }

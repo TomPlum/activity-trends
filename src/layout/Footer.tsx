@@ -1,5 +1,5 @@
 import { Container, Navbar } from 'react-bootstrap'
-import styles from '../../assets/css/components/footer.module.css'
+import styles from '../../assets/sass/components/layout/footer.module.scss'
 
 interface FooterProps {
     lastDataUpdate: String

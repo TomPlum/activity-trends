@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/css/styles.css'
-import '../assets/sass/activity-rings.scss';
+import '../assets/sass/global/styles.scss';
+import '../assets/sass/global/activity-rings.scss';
+import '../assets/sass/global/recharts.scss';
+import '../assets/sass/global/react-bootstrap.scss';
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from "@fortawesome/fontawesome-svg-core";
 import type { AppProps } from 'next/app'
