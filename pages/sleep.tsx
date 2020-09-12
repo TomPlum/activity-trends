@@ -4,13 +4,25 @@ import { CardDeck } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepInfoCard from '../src/components/sleep/SleepInfoCard';
 import { SleepService } from '../src/service/SleepService';
+import LoadingSpinner from '../src/layout/LoadingSpinner';
 import styles from '../assets/sass/pages/sleep.module.scss';
 
 interface SleepProps {
     sleepData: SleepGraphMainData[]
 }
 
-class Sleep extends Component<SleepProps> {
+interface SleepState {
+    loading: boolean;
+}
+
+class Sleep extends Component<SleepProps, SleepState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false
+        }
+    }
+
     render() {
         return (
             <div>
