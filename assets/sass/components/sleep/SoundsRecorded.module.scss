@@ -1,0 +1,17 @@
+@import '../../colours';
+
+.active {
+    color: $sleep-graph-stroke;
+    
+}
+
+.inactive {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.active, .inactive {
+    transition: 0.6s ease;
+    vertical-align: middle;
+    margin: auto 2px;
+    font-size: 3.5em;
+}

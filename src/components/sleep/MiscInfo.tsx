@@ -1,9 +1,10 @@
 import { Component } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
 import { Mood } from "../../types/Mood";
-import { faVolumeOff, faVolumeUp, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import WakeMood from './WakeMood';
+import SoundsRecorded from './SoundsRecorded';
 import styles from '../../../assets/sass/components/sleep/MiscInfo.module.scss'
 
 interface MiscInfoProps {
@@ -23,10 +24,10 @@ class MiscInfo extends Component<MiscInfoProps> {
         return (
             <Container className={styles.container}>
                 <Row className={styles.row}>
-                    <Col xs={6}>
-                        {this.getSoundsRecordedIcon()}
+                    <Col xs={8}>
+                        <SoundsRecorded quantity={soundsRecorded} />
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={4}>
                         <h1 className={styles.value}>{soundsRecorded}</h1>
                         <h5 className={styles.title}>Sounds Recorded</h5>
                     </Col>
@@ -54,15 +55,6 @@ class MiscInfo extends Component<MiscInfoProps> {
                 </Row>
             </Container>
         );
-    }
-
-    private getSoundsRecordedIcon() {
-        const { soundsRecorded } = this.props.data;
-        if (soundsRecorded > 0) {
-            return <FontAwesomeIcon icon={faVolumeUp} size="4x" className={styles.icon} />
-        } else {
-            return <FontAwesomeIcon icon={faVolumeOff} size="4x" className={styles.icon} />
-        }
     }
 }
 
