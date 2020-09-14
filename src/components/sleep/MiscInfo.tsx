@@ -1,10 +1,10 @@
 import { Component } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
 import { Mood } from "../../types/Mood";
-import { faVolumeOff, faVolumeUp, faGrinBeam, faSmile, faMeh, faFrown, faTired, faMehBlank, faClock } from '@fortawesome/free-solid-svg-icons';
+import { faVolumeOff, faVolumeUp, faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import WakeMood from './WakeMood';
 import styles from '../../../assets/sass/components/sleep/MiscInfo.module.scss'
-import moment from "moment";
 
 interface MiscInfoProps {
     data: MiscInfoData;
@@ -32,10 +32,10 @@ class MiscInfo extends Component<MiscInfoProps> {
                     </Col>
                 </Row>
                 <Row className={styles.row}>
-                    <Col xs={6}>
-                        <span className={styles.value}>{this.getMoodFace()}</span>
+                    <Col xs={8}>
+                        <WakeMood mood={mood}/>
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={4}>
                         <h1 className={styles.value}>{mood}</h1>
                         <h5 className={styles.title}>Wake-Up Mood</h5>
                     </Col>
@@ -54,30 +54,6 @@ class MiscInfo extends Component<MiscInfoProps> {
                 </Row>
             </Container>
         );
-    }
-
-    private getMoodFace() {
-        const { mood } = this.props.data;
-        switch (mood) {
-            case Mood.GREAT: {
-                return <FontAwesomeIcon icon={faGrinBeam} size="4x" className={styles.icon} />
-            }
-            case Mood.GOOD: {
-                return <FontAwesomeIcon icon={faSmile} size="4x" className={styles.icon} />
-            }
-            case Mood.OK: {
-                return <FontAwesomeIcon icon={faMeh} size="4x" className={styles.icon} />
-            }
-            case Mood.NOT_SO_GOOD: {
-                return <FontAwesomeIcon icon={faFrown} size="4x" className={styles.icon} />
-            }
-            case Mood.BAD: {
-                return <FontAwesomeIcon icon={faTired} size="4x" className={styles.icon} />
-            }
-            default: {
-                return <FontAwesomeIcon icon={faMehBlank} size="4x" className={styles.icon} />
-            }
-        }
     }
 
     private getSoundsRecordedIcon() {
