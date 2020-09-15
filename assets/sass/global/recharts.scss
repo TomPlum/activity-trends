@@ -1,13 +1,14 @@
-$active: rgba(152, 103, 216, 0.9);
+$active: rgba(247, 247, 247, 0.9);
+$element-hover: rgba(29, 29, 29, 0.8);
 
 @mixin rechartsElementHover {
-    fill: rgba(29, 29, 29, 0.8);
+    fill: $element-hover;
     transition: 0.5s ease;
 }
 
 @mixin rechartsElementActive {
     fill: $active;
-    transition: 0.1s ease;
+    transition: 0.05s ease;
 }
 
 .recharts-scatter .recharts-scatter-symbol .recharts-symbols:hover {
@@ -21,6 +22,7 @@ $active: rgba(152, 103, 216, 0.9);
 
 .recharts-pie .recharts-pie-sector .recharts-sector:hover {
     @include rechartsElementHover;
+    stroke: $element-hover;
 }
 
 .recharts-bar .recharts-bar-rectangle .recharts-rectangle:hover {

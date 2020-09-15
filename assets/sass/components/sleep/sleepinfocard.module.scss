@@ -5,12 +5,11 @@ $inner-purple: rgba(190, 167, 252, 0.849);
 .icon {
     font-size: 2.2rem;
     margin: auto;
-    color: rgba(37, 37, 37, 1);
+    color: rgba(0, 0, 0, 0.9);
 }
 
 .circle {
     color: $sleep-graph-fill;
-    opacity: 0.8;
     border-radius: 50%;
 }
 

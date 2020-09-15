@@ -51,6 +51,7 @@ class SleepBarGraph extends Component<SleepBarGraphProps> {
                         fill="rgba(136, 132, 216, 0.6)"
                         stroke="#8884d8"
                         onClick={this.onClickBar}
+                        animationDuration={2200}
                     />
                 </BarChart>
             </GraphContainer>

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { PieChart, Pie, Tooltip, Cell, Label, Legend } from 'recharts';
 import PieTooltip from "../tooltips/PieTooltip";
 import GraphContainer from '../../GraphContainer';
@@ -22,7 +22,7 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
         return (
             <GraphContainer>
                 <PieChart>
-                    <Pie data={data} nameKey="name" dataKey="value" innerRadius="40%" animationBegin={0}>
+                    <Pie data={data} nameKey="name" dataKey="value" innerRadius="40%" animationBegin={0} paddingAngle={5}>
                         <Label className={styles.label} position="center" value={this.getSleepQualityLabel()} />
                         {this.getSectorColourMappings(data)}
                     </Pie>
@@ -33,17 +33,17 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
         );
     }
 
-    private getSectorColourMappings = data => data.map((entry, i) => <Cell key={`cell-${i}`} fill={entry.color} />)
+    private getSectorColourMappings = data => data.map((entry, i) => <Cell key={`cell-${i}`} fill={entry.fill} />)
 
     private getSleepQualityLabel = () => this.props.data.sleepQuality + "%";
 
     private createGraphData() {
         const { data } = this.props;
         return [
-            { name: "Awake Time", value: data.awakeTime, color: "#f7a334" },
-            { name: "REM Sleep", value: data.remSleep, color: "#f065d2" },
-            { name: "Light Sleep", value: data.lightSleep, color: "#50d96c" },
-            { name: "Deep Sleep", value: data.deepSleep, color: "#34b3f7" }
+            { name: "Awake Time", value: data.awakeTime, fill: "rgba(247, 163, 52, 0.6)", stroke: "rgba(247, 163, 52, 1)" },
+            { name: "REM Sleep", value: data.remSleep, fill: "rgba(240, 101, 210, 0.6)",  stroke: "rgba(240, 101, 210, 1)" },
+            { name: "Light Sleep", value: data.lightSleep, fill: "rgba(80, 217, 108, 0.6)", stroke: "rgba(80, 217, 108, 1)" },
+            { name: "Deep Sleep", value: data.deepSleep, fill: "rgba(52, 179, 247, 0.6)", stroke: "rgba(52, 179, 247, 1)" }
         ];
     }
 }
