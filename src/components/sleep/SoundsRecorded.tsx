@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, ProgressBar, Row, Col } from 'react-bootstrap';
 import { SoundThreshold } from '../../types/SoundThreshold';
 import { faVolumeDown, faVolumeUp, faVolumeMute, faVolumeOff } from '@fortawesome/free-solid-svg-icons';
 import styles from '../../../assets/sass/components/sleep/SoundsRecorded.module.scss';
@@ -13,15 +13,33 @@ class SoundsRecorded extends Component<SoundsRecordedProps> {
     render() {
         return (
             <Container>
-                <FontAwesomeIcon icon={faVolumeMute} fixedWidth className={this.getClass(SoundThreshold.FLOOR)} />
-                <FontAwesomeIcon icon={faVolumeOff} fixedWidth className={this.getClass(SoundThreshold.LOWER)} />
-                <FontAwesomeIcon icon={faVolumeDown} fixedWidth className={this.getClass(SoundThreshold.MIDDLE)} />
-                <FontAwesomeIcon icon={faVolumeUp} fixedWidth className={this.getClass(SoundThreshold.UPPER)} />
+                <Row>
+                    <Col xs={3} className={styles.column}>
+                        <FontAwesomeIcon icon={faVolumeMute} fixedWidth className={this.getClass(SoundThreshold.FLOOR)} />
+                    </Col>
+                    <Col xs={6} className={styles.middleColumn}>
+                        <ProgressBar now={this.getBarFillPercentage()} className={styles.bar} />
+                    </Col>
+                    <Col xs={3} className={styles.column}>
+                        <FontAwesomeIcon icon={faVolumeUp} fixedWidth className={this.getClass(SoundThreshold.UPPER)} />
+                    </Col>
+                </Row>
             </Container>
         );
     }
 
     private getClass = (threshold: SoundThreshold) => SoundThreshold.getThreshold(this.props.quantity) === threshold ? styles.active : styles.inactive
+
+    private getBarFillPercentage() {
+        const threshold = SoundThreshold.getThreshold(this.props.quantity);
+        switch (threshold) {
+            case SoundThreshold.FLOOR: return 0;
+            case SoundThreshold.LOWER: return 25
+            case SoundThreshold.MIDDLE: return 50
+            case SoundThreshold.UPPER: return 75
+        }
+
+    }
 }
 
 export default SoundsRecorded;

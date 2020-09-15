@@ -2,7 +2,6 @@
 
 .active {
     color: $sleep-graph-stroke;
-    
 }
 
 .inactive {
@@ -14,4 +13,18 @@
     vertical-align: middle;
     margin: auto 2px;
     font-size: 3.5em;
+}
+
+.column {
+    padding: 0 2px;
+}
+
+.middleColumn {
+    display: flex;
+    align-items: center;
+}
+
+.bar {
+    display: inline-block;
+    width: 100%;
 }

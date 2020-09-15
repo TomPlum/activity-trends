@@ -1,3 +1,5 @@
+@import '../colours';
+
 .card {
     box-shadow: 0 0 4px 0.01em rgba(0, 0, 0, 0.2);
     margin-bottom: 30px !important;
@@ -13,4 +15,8 @@
 .dropdown-menu {
     transform: translate(0px, 38px) !important;
     min-width: auto;
+}
+
+.progress .progress-bar {
+    background-color: $sleep-graph-stroke;
 }

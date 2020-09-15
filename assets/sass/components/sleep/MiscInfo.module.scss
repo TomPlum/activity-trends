@@ -4,7 +4,8 @@
 
 .row {
     height: 33%;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
 }
 
 .value {
