@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import { Container, ProgressBar, Row, Col } from 'react-bootstrap';
 import { SoundThreshold } from '../../types/SoundThreshold';
-import { faVolumeDown, faVolumeUp, faVolumeMute, faVolumeOff } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../../assets/sass/components/sleep/SoundsRecorded.module.scss';
+import { faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from '../../../assets/sass/components/sleep/SoundsRecorded.module.scss';
 
 interface SoundsRecordedProps {
     quantity: number;
@@ -34,11 +34,11 @@ class SoundsRecorded extends Component<SoundsRecordedProps> {
         const threshold = SoundThreshold.getThreshold(this.props.quantity);
         switch (threshold) {
             case SoundThreshold.FLOOR: return 0;
-            case SoundThreshold.LOWER: return 25
-            case SoundThreshold.MIDDLE: return 50
-            case SoundThreshold.UPPER: return 75
+            case SoundThreshold.LOWER: return 25;
+            case SoundThreshold.MIDDLE: return 50;
+            case SoundThreshold.UPPER: return 75;
+            default: 0;
         }
-
     }
 }
 
