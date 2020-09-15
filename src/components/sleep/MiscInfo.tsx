@@ -42,12 +42,12 @@ class MiscInfo extends Component<MiscInfoProps> {
                     </Col>
                 </Row>
                 <Row className={styles.row}>
-                    <Col xs={6}>
+                    <Col xs={8}>
                         <span className={styles.value}>
                             <FontAwesomeIcon icon={faClock} className={styles.icon} size="4x" />
                         </span>
                     </Col>
-                    <Col xs={6}>
+                    <Col xs={4}>
                         <h1 className={styles.value}>{duration.toFixed(1)}h</h1>
                         <h5 className={styles.title}>Duration Slept</h5>
 
