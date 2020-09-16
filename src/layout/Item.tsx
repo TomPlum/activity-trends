@@ -21,7 +21,8 @@ class Item extends Component<ItemProps> {
                         icon={icon}
                         className={styles[className]}
                         fixedWidth
-                    /> {name}
+                    />
+                    <p className={styles.name}>{name}</p>
                 </Nav.Link>
             </Nav.Item>
         );

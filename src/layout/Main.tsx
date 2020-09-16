@@ -10,10 +10,10 @@ const MainLayout = ({ children }) => (
             <Header/>
         </Row>
         <Row>
-            <Col xs={2} className={styles.sidebar}>
+            <div className={styles.sidebar}>
                 <Menu/>
-            </Col>
-            <Col xs={10} className={styles.content}>
+            </div>
+            <Col className={styles.content}>
                 {children}
             </Col>
         </Row>

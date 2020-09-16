@@ -10,8 +10,8 @@ const Header = () => {
                 <img
                     alt="activity-rings-logo"
                     src="/logo.png"
-                    width="28px"
-                    height="28px"
+                    width="30px"
+                    height="30px"
                     className={styles.logo}
                 />{' '}
                 Activity Trends
