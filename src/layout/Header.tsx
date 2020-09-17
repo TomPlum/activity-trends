@@ -1,7 +1,7 @@
 import { Navbar, Nav } from 'react-bootstrap'
-import styles from '../../assets/sass/components/layout/header.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import styles from '../../assets/sass/components/layout/Header.module.scss'
 
 const Header = () => {
     return (
