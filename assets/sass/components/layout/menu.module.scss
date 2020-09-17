@@ -13,9 +13,7 @@
 }
 
 @include phone {
-    .container {
-        padding: 2px;
-    }
+   @include nav;
 }
 
 @include tablet {

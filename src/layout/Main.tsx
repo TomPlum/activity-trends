@@ -6,10 +6,10 @@ import styles from '../../assets/sass/components/layout/main.module.scss'
 
 const MainLayout = ({ children }) => (
     <Container fluid className={styles.wrapper}>
-        <Row>
+        <Row className={styles.row}>
             <Header/>
         </Row>
-        <Row>
+        <Row className={styles.row}>
             <div className={styles.sidebar}>
                 <Menu/>
             </div>

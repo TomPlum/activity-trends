@@ -14,14 +14,14 @@ class Menu extends Component {
 
     render() {
         return (
-            <Container fluid className={styles.container}>
+            <>
                 <Nav activeKey="/" className={styles.nav + " flex-column"}>
                     <Item name="Overview" icon={faHome} page="/" className="overview" />
                     <Item name="Running" icon={faRunning} page="/workouts" className="running" />
                     <Item name="Gym" icon={faDumbbell} page="/strength" className="gym" />
                     <Item name="Sleep" icon={faMoon} page="/sleep" className="sleep" />
                 </Nav>
-            </Container>
+            </>
 
         )
     }
