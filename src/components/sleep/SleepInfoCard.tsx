@@ -18,14 +18,14 @@ class SleepInfoCard extends Component<SleepInfoCardProps> {
         const { value, title, icon, unit } = this.props;
         return (
             <Card className={styles.card}>
-                <Row>
-                    <Col xs={4}>
-                        <span className="fa-layers fa-fw fa-5x">
+                <Row className={styles.row}>
+                    <Col lg={4} xs={4}>
+                        <span className="fa-layers fa-5x">
                             <FontAwesomeIcon icon={faCircle} className={styles.circle} />
                             <FontAwesomeIcon icon={icon} className={styles.icon} />
                         </span>
                     </Col>
-                    <Col xs={8}>
+                    <Col lg={8} xs={8}>
                         <Countup start={0} end={Number(value)} suffix={unit} duration={2} className={styles.value} />
                         <h6 className={styles.title}>{title}</h6>
                     </Col>

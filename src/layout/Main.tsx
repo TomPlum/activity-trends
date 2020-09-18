@@ -6,14 +6,14 @@ import styles from '../../assets/sass/components/layout/main.module.scss'
 
 const MainLayout = ({ children }) => (
     <Container fluid className={styles.wrapper}>
-        <Row>
+        <Row className={styles.row}>
             <Header/>
         </Row>
-        <Row>
-            <Col xs={2} className={styles.sidebar}>
+        <Row className={styles.row}>
+            <div className={styles.sidebar}>
                 <Menu/>
-            </Col>
-            <Col xs={10} className={styles.content}>
+            </div>
+            <Col className={styles.content}>
                 {children}
             </Col>
         </Row>

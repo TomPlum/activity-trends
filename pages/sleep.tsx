@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import SleepGraph, { SleepGraphMainData } from '../src/components/sleep/graphs/SleepGraph';
-import { CardDeck } from 'react-bootstrap';
+import { CardDeck, Container, Row, Col } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepInfoCard from '../src/components/sleep/SleepInfoCard';
 import { SleepService } from '../src/service/SleepService';
@@ -25,29 +25,37 @@ class Sleep extends Component<SleepProps, SleepState> {
 
     render() {
         return (
-            <div>
+            <Container fluid>
                 <p>Visualing the data recorded by the iOS Pillow app from my watch.</p>
 
-                <CardDeck>
-                    <SleepInfoCard
-                        title="Sleep Sessions"
-                        value={this.getSleepSessionQuantity()}
-                        icon={faBed}
-                    />
-                    <SleepInfoCard
-                        title="Average Sleep Quality"
-                        value={this.getAverageSleepQuality()}
-                        unit="%"
-                        icon={faSmile}
-                    />
-                    <SleepInfoCard
-                        title="Hours Slept"
-                        value={this.getTotalHoursSlept()}
-                        icon={faClock}
-                    />
-                </CardDeck>
+                <Row>
+                    <Col md={4} sm={12}>
+                        <SleepInfoCard
+                            title="Sessions"
+                            value={this.getSleepSessionQuantity()}
+                            icon={faBed}
+                        />
+                    </Col>
+                    <Col md={4} sm={12}>
+                        <SleepInfoCard
+                            title="Avg Quality"
+                            value={this.getAverageSleepQuality()}
+                            unit="%"
+                            icon={faSmile}
+                        />
+                    </Col>
+                    <Col md={4} sm={12}>
+                        <SleepInfoCard
+                            title="Hours Slept"
+                            value={this.getTotalHoursSlept()}
+                            icon={faClock}
+                        />
+                    </Col>
+                </Row>
+
+
                 <SleepGraph data={this.props.sleepData} />
-            </div>
+            </Container>
         )
     }
 

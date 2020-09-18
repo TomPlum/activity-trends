@@ -1,4 +1,5 @@
 @import '../../colours';
+@import '../../viewports';
 
 $inner-purple: rgba(190, 167, 252, 0.849);
 
@@ -16,6 +17,7 @@ $inner-purple: rgba(190, 167, 252, 0.849);
 .value, .title {
     display: block;
     text-align: left;
+    margin-left: 10px;
 }
 
 .title {
@@ -23,12 +25,60 @@ $inner-purple: rgba(190, 167, 252, 0.849);
 }
 
 .value {
-    margin: 0;
     font-weight: 600;
     font-size: 2em;
 }
 
-.card {
-    padding: 25px;
-    margin-bottom: 15px;
+.row {
+    display: flex;
+    align-items: center;
+}
+
+@include phone {
+    .icon {
+        font-size: 2rem;
+    }
+
+    .circle {
+        font-size: 4.5rem;
+    }
+
+    .card {
+        padding: 15px;
+    }
+}
+
+@include tablet {
+    .card {
+        padding: 10px;
+    }
+
+    .icon {
+        font-size: 1.4rem;
+    }
+
+    .circle {
+        font-size: 0.7em;
+    }
+
+    .value {
+        font-weight: 600;
+        font-size: 1.5em;
+    }
+
+    .title {
+        font-size: 0.8em;
+    }
+}
+
+@include desktop {
+    .card {
+        padding: 25px;
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
 }

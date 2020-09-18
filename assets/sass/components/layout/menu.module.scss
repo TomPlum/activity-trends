@@ -1,12 +1,26 @@
 @import '../../colours';
+@import '../../viewports';
 
-.menu {
-    bottom: 0;
-    left: 0;
-    max-width: 200px;
-    height: 100%;
-    width: 100%;
-    z-index: 100;
-    padding: 10px 0 0;
-    /*box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);*/
+@mixin nav {
+    .nav {
+        bottom: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 100;
+        padding: 10px 0 0;
+    }
 }
+
+@include phone {
+   @include nav;
+}
+
+@include tablet {
+    @include nav;
+}
+
+@include desktop {
+    @include nav;
+}
+

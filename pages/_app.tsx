@@ -3,13 +3,21 @@ import '../assets/sass/global/styles.scss';
 import '../assets/sass/global/activity-rings.scss';
 import '../assets/sass/global/recharts.scss';
 import '../assets/sass/global/react-bootstrap.scss';
+import 'nprogress/nprogress.css';
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import Router from 'next/router';
+import NProgress from 'nprogress';
 import { config } from "@fortawesome/fontawesome-svg-core";
 import type { AppProps } from 'next/app'
 import MainLayout from '../src/layout/Main';
 import Head from 'next/head'
 
 config.autoAddCss = false;
+
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
+NProgress.configure({ showSpinner: false });
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

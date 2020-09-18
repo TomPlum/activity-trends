@@ -1,36 +1,85 @@
-@import '../../colours';
-
-.link {
-    font-family: 'Roboto';
-    font-weight: 500;
-    color: #343a40;
-}
-
-.link:hover {
-    color: #000000;
-    transition: 0.2s ease;
-}
+@import "../../colours";
+@import "../../viewports";
 
 @mixin shadow {
-    filter:box-shadow(0 0 4px rgba(0, 0, 0, 0.8));
+    filter: box-shadow(0 0 4px rgba(0, 0, 0, 0.8));
 }
 
-.overview {
-    @include shadow;
-    color: $standing-blue;
+@mixin icon-colours {
+    .overview {
+        @include shadow;
+        color: $standing-blue;
+    }
+    
+    .running {
+        @include shadow;
+        color: $exercise-green;
+    }
+    
+    .sleep {
+        @include shadow;
+        color: $sleep-graph-fill;
+    }
+    
+    .gym {
+        @include shadow;
+        color: $calories-red;
+    }
 }
 
-.running {
-    @include shadow;
-    color: $exercise-green;
+@mixin icons-large {
+    @include icon-colours;
+
+    .overview, .running, .sleep, .gym {
+        width: 100%;
+        font-size: 1.8em;
+        text-align: center;
+    }
 }
 
-.sleep {
-    @include shadow;
-    color: $sleep-graph-fill;
+@mixin icons-small {
+    @include icon-colours;
 }
 
-.gym {
-    @include shadow;
-    color: $calories-red;
+@mixin collapsed-mode {
+    @include icons-large;
+
+    .name {
+        display: none;
+    }
+
+    .link {
+        line-height: 0;
+    }
+}
+
+@include phone {
+    @include collapsed-mode;
+}
+
+@include tablet {
+    @include collapsed-mode;
+}
+
+@include desktop {
+    @include icons-small;
+
+    .name {
+        display: inline-block;
+        margin-left: 5px;
+        font-family: "Roboto";
+        font-weight: 500;
+        color: #343a40;
+    }
+    
+    .name:hover {
+        color: #000000;
+        transition: 0.2s ease;
+    }
+
+    .link {
+        line-height: 0;
+        padding: 5px 0;
+    }
+
 }
