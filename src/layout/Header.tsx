@@ -1,6 +1,7 @@
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import SnapshotSelector from './SnapshotSelector';
 import styles from '../../assets/sass/components/layout/Header.module.scss'
 
 const Header = () => {
@@ -18,15 +19,10 @@ const Header = () => {
             </Navbar.Brand>
             <Navbar.Toggle />
 
-            <NavDropdown title="Data Snapshot" id="snapshot-dropdown" className={styles.snapshot}>
-                <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item eventKey="4.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
+            
 
             <Navbar.Collapse className="justify-content-end">
+                <SnapshotSelector dates={["01/01/1970", "18/09/2020"]} />
                 <Nav>
                     <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>
                         <FontAwesomeIcon icon={faGithub} size="lg" fixedWidth className={styles.github} />
