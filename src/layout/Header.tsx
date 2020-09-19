@@ -22,7 +22,7 @@ const Header = () => {
             
 
             <Navbar.Collapse className="justify-content-end">
-                <SnapshotSelector dates={["01/01/1970", "18/09/2020"]} />
+                <SnapshotSelector mostRecent="19/09/2020" snapshots={["01/01/1970", "18/09/2020"]} />
                 <Nav>
                     <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>
                         <FontAwesomeIcon icon={faGithub} size="lg" fixedWidth className={styles.github} />
