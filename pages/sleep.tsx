@@ -26,6 +26,7 @@ class Sleep extends Component<SleepProps, SleepState> {
     render() {
         return (
             <Container fluid>
+                <LoadingSpinner active={true}/>
                 <p>Visualing the data recorded by the iOS Pillow app from my watch.</p>
 
                 <Row>
