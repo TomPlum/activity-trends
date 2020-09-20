@@ -5,39 +5,57 @@ import { Component } from 'react';
 interface SnapshotSelectorProps {
     mostRecent: string;
     snapshots: string[];
+    onChange: (snapshot: string) => void;
 }
 
 interface SnapshotSelectorState {
     selected: string;
+    isDisabled: boolean;
 }
 
 class SnapshotSelector extends Component<SnapshotSelectorProps, SnapshotSelectorState> {
     constructor(props) {
         super(props);
+        this.state = this.select.bind(this);
         this.state = {
-            selected: this.props.mostRecent
+            selected: this.props.mostRecent,
+            isDisabled: false
         }
     }
+
+    select = (snapshot) => {
+        this.setState({ selected: snapshot, isDisabled: true });
+        this.props.onChange(snapshot);
+        this.setState({ isDisabled: false });
+    }
+
     render() {
-        const { selected } = this.state;
+        const { mostRecent } = this.props;
+        const { isDisabled, selected } = this.state;
+
         return (
-            <NavDropdown title="Snapshot" id="snapshot-dropdown" className={styles.snapshot}>
+            <NavDropdown title={this.getTitle()} id="snapshot-dropdown" className={styles.snapshot} onSelect={this.select} disabled={isDisabled}>
+                <NavDropdown.Item className={styles.selected} key={mostRecent} eventKey={mostRecent}>
+                   Most Recent
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
                 {
                     this.props.snapshots.map(date => {
                         return (
-                            <NavDropdown.Item className={styles.date} eventKey={date}>
+                            <NavDropdown.Item className={styles.date} key={date} eventKey={date} disabled={selected === date}>
                                 {date}
                             </NavDropdown.Item>
                         )
                     })
                 }
-                <NavDropdown.Divider />
-                <NavDropdown.Item className={styles.selected} eventKey={selected}>
-                    Current: {selected}
-                </NavDropdown.Item>
             </NavDropdown>
         );
     }
-}
+
+    private getTitle() {
+        const { selected } = this.state;
+        return this.props.mostRecent === selected ? "Snapshot" : selected;
+    }
+}   
 
 export default SnapshotSelector;

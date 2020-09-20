@@ -60,7 +60,6 @@ class OverviewGraph extends Component<OverviewGraphProps> {
                 'Date': extracted['Start'].split(" ")[0]
             }
         });
-        console.log(filtered)
         return filtered.slice(0, 50);
     }
 }
