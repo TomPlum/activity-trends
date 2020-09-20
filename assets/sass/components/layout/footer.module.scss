@@ -1,20 +1,58 @@
-.footer {
-    width: 100%;
-    height: 60px;
-    -webkit-box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);
-    -moz-box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);
-    box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);
-    position: fixed;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Roboto', sans-serif;
+@import '../../viewports';
+
+@mixin footer {
+    .footer {
+        width: 100%;
+        -webkit-box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px -1px 8px rgba(0, 0, 0, 0.4);
+        position: fixed;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+    }
+    
+    .footer span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: inherit;
+        text-decoration: none;
+    }
 }
 
-.footer span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: inherit;
-    text-decoration: none;
-    font-size: 1em;
+@include phone {
+    @include footer;
+
+    .footer {
+        height: 30px;
+    }
+
+    .footer span {
+        font-size: 0.7em;
+    }
+}
+
+@include tablet {
+    @include footer;
+
+    .footer {
+        height: 45px;
+    }
+
+    .footer span {
+        font-size: 0.85em;
+    }
+}
+
+@include desktop {
+    @include footer;
+
+    .footer {
+        height: 60px;
+    }
+    
+    .footer span {
+        font-size: 1em;
+    }
 }

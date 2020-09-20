@@ -1,3 +1,12 @@
+@import '../../colours';
+@import '../../viewports';
+
+@include phone {
+    .snapshot {
+        display: none;
+    }
+}
+
 .snapshot > a {
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
@@ -10,4 +19,8 @@
 
 .snapshot > a:active, .snapshot > a:focus {
     outline: none;
+}
+
+.snapshot .dropdown-item a:active {
+    background-color: $dark;
 }

@@ -1,6 +1,6 @@
 import { NavDropdown } from 'react-bootstrap';
-import styles from '../../assets/sass/components/layout/SnapshotSelector.module.scss'
 import { Component } from 'react';
+import styles from '../../assets/sass/components/layout/SnapshotSelector.module.scss'
 
 interface SnapshotSelectorProps {
     mostRecent: string;
