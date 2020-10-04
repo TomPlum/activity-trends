@@ -55,6 +55,28 @@ class SleepDataConverter {
             }
         }).filter(e => e.duration > 3 && e.duration < 12 && !e.isNap && e.sleepQuality > 0);
     }
+
+    convertInitialiseResponseData(data: any): SleepGraphMainData[] {
+        return data.latestSnapshot.sessions.map(e => {
+            const startDate = e.startDate.slice(0, -6);
+            const endDate = e.endDate.slice(0, -6);
+            const time = e.time;
+            return {
+                date: startDate,
+                startTime: moment(startDate).format("HH:mm"),
+                endTime: moment(endDate).format("HH:mm"),
+                duration: e.duration / 60,
+                sleepQuality: e.quality,
+                isNap: e.nap,
+                awakeTime: time.awake / 60,
+                remSleep: time.rem / 60,
+                lightSleep: time.light / 60,
+                deepSleep: time.deep / 60,
+                soundsRecorded: e.soundsRecorded,
+                mood: e.mood as Mood
+            }
+        }).filter(e => e.duration > 3 && e.duration < 12 && !e.isNap && e.sleepQuality > 0);
+    }
 }
 
 export default SleepDataConverter;

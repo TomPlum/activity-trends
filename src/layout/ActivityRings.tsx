@@ -7,13 +7,13 @@ const ActivityRings = () => {
                 <circle className={styles.background}
                     cx="50%" cy="50%"
                     r="15.915"
-                    stroke-width="3"
+                    strokeWidth="3"
                 />
                 <circle className={styles.completed}
                     cx="50%" cy="50%"
                     r="15.915"
-                    stroke-width="3"
-                    stroke-dasharray="100, 100"
+                    strokeWidth="3"
+                    strokeDasharray="100, 100"
                 />
             </g>
 
@@ -21,13 +21,13 @@ const ActivityRings = () => {
                 <circle className={styles.background}
                     cx="50%" cy="50%"
                     r="15.915"
-                    stroke-width="4"
+                    strokeWidth="4"
                 />
                 <circle className={styles.completed}
                     cx="50%" cy="50%"
                     r="15.915"
-                    stroke-width="4"
-                    stroke-dasharray="100, 100"
+                    strokeWidth="4"
+                    strokeDasharray="100, 100"
                 />
             </g>
 
@@ -35,13 +35,13 @@ const ActivityRings = () => {
                 <circle className={styles.background}
                     cx="50%" cy="50%"
                     r="15.915"
-                    stroke-width="6"
+                    strokeWidth="6"
                 />
                 <circle className={styles.completed}
                     cx="50%" cy="50%"
                     r="15.915"
-                    stroke-width="6"
-                    stroke-dasharray="100, 100"
+                    strokeWidth="6"
+                    strokeDasharray="100, 100"
                 />
             </g>
         </svg>

@@ -13,12 +13,12 @@ class MainLayout extends Component<{}, MainLayoutState> {
     constructor(props) {
         super(props);
         this.state = {
-            snapshot: undefined
+            snapshot: undefined,
         }
     }
 
     handleDataChange = (date: string) => this.setState({ snapshot: date });
-    
+
     render() {
         return (
             <Container fluid className={styles.wrapper}>

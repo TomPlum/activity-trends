@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-unfetch';
+
 class RestClient {
     private static readonly host = process.env.BACKEND_URL
 
@@ -18,18 +20,19 @@ class RestClient {
         const URI = this.host + endpoint;
         console.log("Sending " + method + " request to " + URI);
 
-        return fetch(URI, {
+        return await fetch(URI, {
             method: method,
             headers: {
                 "Content-Type": "application/json"
             },
-            body: body ? JSON.stringify(body) : undefined
+            //body: body ? JSON.stringify(body) : undefined
         }).then(response => {
             const json = response.json()
-            console.log("Received JSON response:\n", json);
+            console.log("Received JSON response:", json);
             return json;
         }).catch(e => {
-            console.log("An error occurred while making a request to " + URI, e);
+            console.log("An error occurred while making a request to " + endpoint, e);
+            return undefined;
         });
     }
 }
