@@ -3,12 +3,16 @@ import fetch from 'isomorphic-unfetch';
 class RestClient {
     private static readonly host = process.env.BACKEND_URL
 
-    static get = (endpoint: string) => RestClient.makeRestRequest("GET", undefined, endpoint);
+    static async get<T>(endpoint: string): Promise<APIResponse<T>> {
+        return await RestClient.makeRestRequest<T>("GET", undefined, endpoint);
+    }
 
-    static post = (endpoint: string, body: {}) => RestClient.makeRestRequest("POST", body, endpoint);
+    static async post<T>(endpoint: string, body: {}):  Promise<APIResponse<T>> {
+        return await RestClient.makeRestRequest<T>("POST", body, endpoint);
+    }
     
 
-    private static async makeRestRequest(method: string, body: object, endpoint: string) {
+    private static async makeRestRequest<T>(method: string, body: object, endpoint: string): Promise<APIResponse<T>> {
         if (!this.host) {
             throw new ReferenceError('Host URI is not defined!');
         }
@@ -25,16 +29,34 @@ class RestClient {
             headers: {
                 "Content-Type": "application/json"
             },
-            //body: body ? JSON.stringify(body) : undefined
-        }).then(response => {
-            const json = response.json()
-            console.log("Received JSON response:", json);
-            return json;
+            body: body ? JSON.stringify(body) : undefined
+        }).then(async response => {
+            if (response.ok) {
+                const json = await response.json() as Promise<T>
+                console.log("Sucessfully received " + response.status + " response", json);
+                return {
+                    data: json,
+                    errors: []
+                };
+            } else {
+                return {
+                    data: undefined,
+                    errors: [new Error(response.statusText)]
+                };
+            }
         }).catch(e => {
             console.log("An error occurred while making a request to " + endpoint, e);
-            return undefined;
+            return {
+                data: undefined,
+                errors: [new Error(e)]
+            }
         });
     }
+}
+
+export interface APIResponse<T> {
+    data: Promise<T>;
+    errors: Error[];
 }
 
 export default RestClient;
