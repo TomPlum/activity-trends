@@ -10,8 +10,8 @@ export class SleepService {
         return this.converter.convertInitialiseResponseData(data);
     }
 
-    getMainGraphData() {
-        const data = this.repository.read();
-        return this.converter.convertToMainGraphData(data);
+    async getSnapshot(date: string) {
+        const data = await this.repository.getSnapshot(date);
+        return this.converter.convertSnapshotData(data);
     }
 }

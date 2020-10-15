@@ -12,6 +12,8 @@ import MainLayout from '../src/layout/Main';
 import Head from 'next/head'
 import React from 'react';
 import LoadingSpinner from '../src/layout/LoadingSpinner';
+import { ActivityTrendsService } from '../src/service/ActivityTrendsService';
+import SnapshotContextProvider from '../src/infrastructure/context/SnapshotContextProvider';
 
 config.autoAddCss = false;
 
@@ -19,9 +21,8 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 NProgress.configure({ showSpinner: false, easing: 'ease' });
- 
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps, snapshotDates}) {
     const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
@@ -47,10 +48,24 @@ export default function MyApp({ Component, pageProps }) {
                 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&display=swap" rel="stylesheet"></link>
             </Head>
 
-            <MainLayout>
-                <LoadingSpinner active={loading} />
-                <Component {...pageProps} />
-            </MainLayout>
+            <SnapshotContextProvider storeSnapshotDates={undefined}>
+                <MainLayout snapshotDates={undefined}>
+                    <LoadingSpinner active={loading} />
+                    <Component {...pageProps} />
+                </MainLayout>
+            </SnapshotContextProvider>
+            
         </>
     );
 }
+
+/* MyApp.getInitialProps = async() => {
+    const service = new ActivityTrendsService();
+    const snapshotDates = await service.getSnapshotDates();
+
+    return { 
+        props: {
+            snapshotDates: snapshotDates
+        }
+     }
+} */

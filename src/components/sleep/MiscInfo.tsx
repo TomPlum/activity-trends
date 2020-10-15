@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
-import { Mood } from "../../types/Mood";
+import { Mood } from "../../domain/Mood";
 import SleepDuration from "./SleepDuration";
 import WakeMood from './WakeMood';
 import SoundsRecorded from './SoundsRecorded';

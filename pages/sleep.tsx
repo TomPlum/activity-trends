@@ -75,17 +75,6 @@ class Sleep extends Component<SleepProps, SleepState> {
     }
 }
 
-/* export async function getStaticProps() {
-    const graphData: SleepGraphMainData[] = new SleepService().getMainGraphData();
-    new SleepService().initialise();
-
-    return {
-        props: {
-            sleepData: graphData
-        }
-    }
-} */
-
 export async function getServerSideProps() {
     const data = await new SleepService().initialise();
 

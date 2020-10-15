@@ -1,5 +1,6 @@
 import RestClient from "../RestClient";
 import { InitialiseResponse } from '../../types/Common';
+
 export class ActivityTrendsRepository {
     async initialise(): Promise<InitialiseResponse> {
         const response = await RestClient.get<InitialiseResponse>('/initialise')

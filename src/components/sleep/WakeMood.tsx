@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Mood } from '../../types/Mood';
+import { Mood } from '../../domain/Mood';
 import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGrinBeam, faSmile, faMeh, faFrown, faTired, faMehBlank, } from '@fortawesome/free-solid-svg-icons';

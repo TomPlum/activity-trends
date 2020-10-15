@@ -4,19 +4,13 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { Component } from 'react';
 import SnapshotSelector from './SnapshotSelector';
 import styles from '../../assets/sass/components/layout/Header.module.scss'
+import { SnapshotDates } from '../domain/SnapshotDates';
 
 interface HeaderProps {
-    onDataChange: (date: string) => void;
+    snapshotDates: SnapshotDates
 }
 
 class Header extends Component<HeaderProps> {
-    constructor(props) {
-        super(props);
-    }
-
-    onSnapshotChange = (date: string) => this.props.onDataChange(date);
-    
-
     render() {
         return (
             <Navbar bg="dark" variant="dark" fixed="top" className={styles.header}>
@@ -33,11 +27,7 @@ class Header extends Component<HeaderProps> {
                 <Navbar.Toggle />
 
                 <Navbar.Collapse className="justify-content-end">
-                    <SnapshotSelector
-                        mostRecent="19/09/2020"
-                        snapshots={["01/01/1970", "18/09/2020"]}
-                        onChange={this.onSnapshotChange}
-                    />
+                    <SnapshotSelector snapshotDates={this.props.snapshotDates} />
                     <Nav>
                         <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>
                             <FontAwesomeIcon icon={faGithub} size="lg" fixedWidth className={styles.github} />

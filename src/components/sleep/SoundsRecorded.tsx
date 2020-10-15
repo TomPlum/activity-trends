@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Container, ProgressBar, Row, Col } from 'react-bootstrap';
-import { SoundThreshold } from '../../types/SoundThreshold';
+import { SoundThreshold } from '../../domain/SoundThreshold';
 import { faVolumeUp, faVolumeMute } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../../assets/sass/components/sleep/SoundsRecorded.module.scss';
