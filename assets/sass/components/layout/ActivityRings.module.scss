@@ -1,0 +1,67 @@
+@import '../../colours';
+
+@keyframes RingProgress {
+    50% {
+        stroke-dasharray: 0 100;
+    }
+}
+
+.svg {
+    max-height: 300px;
+    height: 30%;
+    width: 100%;
+
+    .ring {
+        transform-origin: 50%;
+        box-shadow: 0 0 10px 5px black;
+    }
+    
+    .completed {
+        animation: RingProgress 3s ease-in-out forwards;
+        stroke-linecap: round;
+        animation-iteration-count:infinite;
+    }
+
+    circle {
+        fill: none;
+    }
+}
+
+.move {
+    transform: scale(1) rotate(-90deg);
+
+    .background {
+        stroke: transparentize($calories-red, 0.8);
+    }
+
+    .completed {
+        stroke: $calories-red;
+        animation-delay: 0.5s;
+    }   
+}
+
+.exercise {
+    transform: scale(0.75) rotate(-90deg);
+
+    .background {
+        stroke: transparentize($exercise-green, 0.8);
+    }
+
+    .completed {
+        stroke: $exercise-green;
+        animation-delay: 0.3s;
+    }
+}
+
+.stand {
+    transform: scale(0.5) rotate(-90deg);
+
+    .background {
+        stroke: transparentize($standing-blue, 0.8);
+    }
+
+    .completed {
+        stroke: $standing-blue;
+        animation-delay: 0.1s;
+    }
+}

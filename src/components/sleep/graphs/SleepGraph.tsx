@@ -7,7 +7,7 @@ import SleepScatterGraph from './SleepScatterGraph';
 import SleepAreaGraph from './SleepAreaGraph';
 import Info from '../Info';
 import MiscInfo, { MiscInfoData } from '../MiscInfo';
-import { Mood } from '../../../types/Mood';
+import { Mood } from '../../../domain/Mood';
 import moment from 'moment';
 import SleepBarGraph from './SleepBarGraph';
 

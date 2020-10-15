@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import SleepGraph, { SleepGraphMainData } from '../src/components/sleep/graphs/SleepGraph';
-import { CardDeck, Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepInfoCard from '../src/components/sleep/SleepInfoCard';
 import { SleepService } from '../src/service/SleepService';
@@ -26,6 +26,7 @@ class Sleep extends Component<SleepProps, SleepState> {
     render() {
         return (
             <Container fluid>
+                <LoadingSpinner active={this.state.loading}/>
                 <p>Visualing the data recorded by the iOS Pillow app from my watch.</p>
 
                 <Row>
@@ -53,7 +54,6 @@ class Sleep extends Component<SleepProps, SleepState> {
                     </Col>
                 </Row>
 
-
                 <SleepGraph data={this.props.sleepData} />
             </Container>
         )
@@ -75,12 +75,12 @@ class Sleep extends Component<SleepProps, SleepState> {
     }
 }
 
-export async function getStaticProps() {
-    const graphData: SleepGraphMainData[] = new SleepService().getMainGraphData();
+export async function getServerSideProps() {
+    const data = await new SleepService().initialise();
 
     return {
         props: {
-            sleepData: graphData
+            sleepData: data
         }
     }
 }

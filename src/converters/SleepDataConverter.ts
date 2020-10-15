@@ -1,5 +1,5 @@
 import { SleepGraphMainData } from "../components/sleep/graphs/SleepGraph";
-import { Mood } from "../types/Mood";
+import { Mood } from "../domain/Mood";
 import moment from "moment";
 
 export interface SleepData {
@@ -36,7 +36,7 @@ class SleepDataConverter {
     }
 
     convertToMainGraphData(data: SleepData[]): SleepGraphMainData[] {
-        return data.map(e => {
+        const graphData = data.map(e => {
             const startDate = e.startDate.slice(0, -6);
             const endDate = e.endDate.slice(0, -6);
             return {
@@ -53,7 +53,44 @@ class SleepDataConverter {
                 soundsRecorded: e.soundsRecorded,
                 mood: e.mood as Mood
             }
-        }).filter(e => e.duration > 3 && e.duration < 12 && !e.isNap && e.sleepQuality > 0);
+        });
+
+        return this.filterInvalidData(graphData);
+    }
+
+    convertInitialiseResponseData(data: any): SleepGraphMainData[] {
+        return this.convertSnapshot(data.latestSnapshot).filter(e => e.duration > 3 && e.duration < 12 && !e.isNap && e.sleepQuality > 0);
+    }
+
+    convertSnapshotData(data: any): SleepGraphMainData[] {
+        const graphData = this.convertSnapshot(data);
+        return this.filterInvalidData(graphData);
+    }
+
+    private filterInvalidData(data: SleepGraphMainData[]): SleepGraphMainData[] {
+        return data.filter(e => e.duration > 3 && e.duration < 12 && !e.isNap && e.sleepQuality > 0);
+    }
+
+    private convertSnapshot(data: any) {
+        return data.sessions.map( e => {
+            const startDate = e.startDate.slice(0, -6);
+            const endDate = e.endDate.slice(0, -6);
+            const time = e.time;
+            return {
+                date: startDate,
+                startTime: moment(startDate).format("HH:mm"),
+                endTime: moment(endDate).format("HH:mm"),
+                duration: e.duration / 60,
+                sleepQuality: e.quality,
+                isNap: e.nap,
+                awakeTime: time.awake / 60,
+                remSleep: time.rem / 60,
+                lightSleep: time.light / 60,
+                deepSleep: time.deep / 60,
+                soundsRecorded: e.soundsRecorded,
+                mood: e.mood as Mood
+            }
+        });
     }
 }
 

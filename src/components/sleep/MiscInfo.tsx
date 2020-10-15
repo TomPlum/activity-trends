@@ -1,8 +1,7 @@
 import { Component } from "react";
 import { Container, Row, Col } from 'react-bootstrap';
-import { Mood } from "../../types/Mood";
-import { faClock } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Mood } from "../../domain/Mood";
+import SleepDuration from "./SleepDuration";
 import WakeMood from './WakeMood';
 import SoundsRecorded from './SoundsRecorded';
 import styles from '../../../assets/sass/components/sleep/MiscInfo.module.scss'
@@ -43,14 +42,11 @@ class MiscInfo extends Component<MiscInfoProps> {
                 </Row>
                 <Row className={styles.row}>
                     <Col xs={8}>
-                        <span className={styles.value}>
-                            <FontAwesomeIcon icon={faClock} className={styles.icon} size="4x" />
-                        </span>
+                        <SleepDuration duration={duration}/>
                     </Col>
                     <Col xs={4}>
                         <h1 className={styles.value}>{duration.toFixed(1)}h</h1>
                         <h5 className={styles.title}>Duration Slept</h5>
-
                     </Col>
                 </Row>
             </Container>

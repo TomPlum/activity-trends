@@ -1,5 +1,5 @@
 import SleepDataConverter from '../../src/converters/SleepDataConverter';
-import { Mood } from '../../src/types/Mood';
+import { Mood } from '../../src/domain/Mood';
 
 const converter = new SleepDataConverter();
 

@@ -1,15 +1,16 @@
+import ActivityRings from './ActivityRings';
 import styles from '../../assets/sass/components/layout/LoadingSpinner.module.scss';
-import ActivityRings from '../../assets/svg/activity-rings.svg';
 
-const LoadingSpinner = (active) => {
+const LoadingSpinner = ({active}) => {
     if (active) {
         return (
             <div className={styles.wrapper}>
                 <ActivityRings />
-                <p>Loading...</p>
+                {/* <p className={styles.loading}>Loading...</p> */}
             </div>
         );
     }
+    return null;
 }
 
 export default LoadingSpinner;
