@@ -9,7 +9,7 @@ describe('Snapshot Dates Response Converter', () => {
     it('Should successfully convert a valid API response', () => {
         const source = getSource();
         const target = converter.convert(source);
-        expect(target).toBe(getExpectedTarget());
+        expect(target).toEqual(getExpectedTarget());
     });
 
     function getSource(): InitialiseResponse {
