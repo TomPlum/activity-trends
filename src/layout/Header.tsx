@@ -5,6 +5,8 @@ import { Component } from 'react';
 import SnapshotSelector from './SnapshotSelector';
 import styles from '../../assets/sass/components/layout/Header.module.scss'
 import { SnapshotDates } from '../domain/SnapshotDates';
+import HealthInfo from './HealthInfo';
+import { GitInformation } from '../domain/GitInformation';
 
 interface HeaderProps {
     snapshotDates: SnapshotDates
@@ -27,6 +29,7 @@ class Header extends Component<HeaderProps> {
                 <Navbar.Toggle />
 
                 <Navbar.Collapse className="justify-content-end">
+                    <HealthInfo info={new GitInformation("dev", "a834kda", "17/10/2020")}/>
                     <SnapshotSelector snapshotDates={this.props.snapshotDates} />
                     <Nav>
                         <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>
