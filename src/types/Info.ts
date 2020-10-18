@@ -9,8 +9,14 @@ export interface GitInfo {
 }
 
 export interface GitCommitInfo {
-    id: string;
+    id: GitCommitID;
     time: string;
+}
+
+export interface GitCommitID {
+    describe: string;
+    abbrev: string;
+    full: string;
 }
 
 export interface GitBuildInfo {

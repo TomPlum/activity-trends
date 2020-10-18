@@ -9,6 +9,10 @@ export class GitInformation {
         this.date = date;
     }
 
+    static empty() {
+        return new GitInformation("N/A", "N/A", "N/A");
+    }
+
     getBranch(): string {
         return this.branch;
     }

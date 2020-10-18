@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { GitInformation } from '../domain/GitInformation';
 import { faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../assets/sass/components/layout/HealthInfo.module.scss';
@@ -40,7 +39,7 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
     }
 
     renderTooltip = (props) => {
-        const { info } = this.props;
+        const info = this.getAppInformation();
         const git = info.getGitInfo();
         const build = info.getBuildInfo();
 
@@ -49,6 +48,7 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
                 <Popover.Title className={styles.heading}>
                     <FontAwesomeIcon fixedWidth icon={faHammer} className={styles.hammer}/>{' '}Latest Build
                 </Popover.Title>
+
                 <Popover.Content>
                     <p className={styles.label}>Branch:
                         <a href={git.getBranchURI()} target="_blank">
@@ -69,6 +69,10 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
                 </Popover.Content>
             </Popover>
         );
+    }
+
+    private getAppInformation(): AppInformation {
+        return this.props.info ? this.props.info : AppInformation.empty();
     }
 }
 

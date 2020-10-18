@@ -7,7 +7,7 @@ export class InfoConverter {
     convert(data: Info): AppInformation {
         const git = data.git;
         const commit = git.commit;
-        const gitInfo = new GitInformation(git.branch, commit.id, commit.time);
+        const gitInfo = new GitInformation(git.branch, commit.id.abbrev, commit.time);
 
         const build = git.build;
         const buildInfo = new BuildInfo(build.version);

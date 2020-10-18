@@ -10,6 +10,10 @@ export class AppInformation {
         this.buildInfo = build;
     }
 
+    static empty(): AppInformation {
+        return new AppInformation(GitInformation.empty(), BuildInfo.empty());
+    }
+
     getGitInfo(): GitInformation {
         return this.gitInformation;
     }

@@ -6,12 +6,13 @@ import SnapshotSelector from './SnapshotSelector';
 import styles from '../../assets/sass/components/layout/Header.module.scss'
 import { SnapshotDates } from '../domain/SnapshotDates';
 import HealthInfo from './HealthInfo';
+import { AppInformation } from '../domain/AppInformation';
 import { GitInformation } from '../domain/GitInformation';
 import { BuildInfo } from '../domain/BuildInfo';
-import { AppInformation } from '../domain/AppInformation';
 
 interface HeaderProps {
-    snapshotDates: SnapshotDates
+    snapshotDates: SnapshotDates;
+    appInfo: AppInformation;
 }
 
 class Header extends Component<HeaderProps> {
@@ -31,7 +32,7 @@ class Header extends Component<HeaderProps> {
                 <Navbar.Toggle />
 
                 <Navbar.Collapse className="justify-content-end">
-                    <HealthInfo info={new AppInformation(new GitInformation("dev", "a834kda", "17/10/2020"), new BuildInfo("0.0.1-SNAPSHOT"))}/>
+                    <HealthInfo info={new AppInformation(new GitInformation("dev", "a834kda", "17/10/2020"), new BuildInfo("1.0.0"))}/>
                     <SnapshotSelector snapshotDates={this.props.snapshotDates} />
                     <Nav>
                         <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>

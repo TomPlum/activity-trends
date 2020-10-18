@@ -5,6 +5,10 @@ export class BuildInfo {
         this.version = version;
     }
 
+    static empty() {
+        return new BuildInfo("N/A");
+    }
+
     getVersion(): string {
         return this.version;
     }

@@ -19,7 +19,11 @@ describe('Info Converter', () => {
             git: {
                 branch: "dev",
                 commit: {
-                    id: "7d42185",
+                    id: {
+                        describe: "",
+                        abbrev: "7d42185",
+                        full: "68f9b0ca2dc7dc8271b3b6052b5ee6ad5d5dc8e4"
+                    },
                     time: "2020-10-16T17:33:24Z"
                 },
                 build: {
