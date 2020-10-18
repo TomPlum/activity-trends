@@ -5,9 +5,14 @@ export interface Info {
 export interface GitInfo {
     branch: string;
     commit: GitCommitInfo;
+    build: GitBuildInfo;
 }
 
 export interface GitCommitInfo {
     id: string;
     time: string;
+}
+
+export interface GitBuildInfo {
+    version: string;
 }

@@ -14,7 +14,8 @@ export class GitInformation {
     }
 
     getBranchURI(): string {
-        return process.env.NEXT_PUBLIC_API_GIT_BRANCH_URI + this.branch;
+        //return process.env.NEXT_PUBLIC_API_GIT_BRANCH_URI + this.branch;
+        return "https://github.com/TomPlum/activity-trends-api/tree/" + this.branch;
     }
 
     getHash(): string {
@@ -22,7 +23,8 @@ export class GitInformation {
     }
 
     getCommitURI(): string {
-        return process.env.NEXT_PUBLIC_API_GIT_COMMIT_URI + this.hash;
+        //return process.env.NEXT_PUBLIC_API_GIT_COMMIT_URI + this.hash;
+        return "https://github.com/TomPlum/activity-trends-api/commit/" + this.hash;
     }
 
     getDate(): string {

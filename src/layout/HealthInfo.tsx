@@ -4,9 +4,10 @@ import { GitInformation } from '../domain/GitInformation';
 import { faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from '../../assets/sass/components/layout/HealthInfo.module.scss';
+import { AppInformation } from '../domain/AppInformation';
 
 interface HealthInfoProps {
-    info: GitInformation;
+    info: AppInformation;
 }
 
 interface HealthInfoState {
@@ -39,7 +40,10 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
     }
 
     renderTooltip = (props) => {
-        const data = this.props.info;
+        const { info } = this.props;
+        const git = info.getGitInfo();
+        const build = info.getBuildInfo();
+
         return (
             <Popover id="health" className={styles.tooltip} {...props}>
                 <Popover.Title className={styles.heading}>
@@ -47,17 +51,20 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
                 </Popover.Title>
                 <Popover.Content>
                     <p className={styles.label}>Branch:
-                        <a href={data.getBranchURI()} target="_blank">
-                            <span className={styles.value}>{data.getBranch()}</span>
+                        <a href={git.getBranchURI()} target="_blank">
+                            <span className={styles.value}>{git.getBranch()}</span>
                         </a>
                     </p>
                     <p className={styles.label}>Hash:
-                        <a href={data.getCommitURI()} target="_blank">
-                            <span className={styles.value}>{data.getHash()}</span>
+                        <a href={git.getCommitURI()} target="_blank">
+                            <span className={styles.value}>{git.getHash()}</span>
                         </a>
                     </p>
                     <p className={styles.label}>Date:
-                        <span className={styles.value}>{data.getDate()}</span>
+                        <span className={styles.value}>{git.getDate()}</span>
+                    </p>
+                    <p className={styles.label}>Ver:
+                        <span className={styles.value}>{build.getVersion()}</span>
                     </p>
                 </Popover.Content>
             </Popover>

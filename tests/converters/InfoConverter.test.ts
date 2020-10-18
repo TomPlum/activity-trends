@@ -1,6 +1,9 @@
 import { InfoConverter } from '../../src/converters/InfoConverter';
 import { Info } from '../../src/types/Info';
 import { GitInformation } from '../../src/domain/GitInformation';
+import { AppInformation } from '../../src/domain/AppInformation';
+import { BuildInfo } from '../../src/domain/BuildInfo';
+
 describe('Info Converter', () => {
 
     const converter = new InfoConverter();
@@ -18,13 +21,18 @@ describe('Info Converter', () => {
                 commit: {
                     id: "7d42185",
                     time: "2020-10-16T17:33:24Z"
+                },
+                build: {
+                    version: "0.0.1-SNAPSHOT"
                 }
             }
         }
     }
 
-    function getExpectedTarget(): GitInformation {
-        return new GitInformation("dev", "7d42185", "2020-10-16T17:33:24Z");
+    function getExpectedTarget(): AppInformation {
+        const gitInfo = new GitInformation("dev", "7d42185", "2020-10-16T17:33:24Z");
+        const buildInfo = new BuildInfo("0.0.1-SNAPSHOT");
+        return new AppInformation(gitInfo, buildInfo);
     }
 
 });
