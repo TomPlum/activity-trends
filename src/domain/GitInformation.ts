@@ -13,8 +13,16 @@ export class GitInformation {
         return this.branch;
     }
 
+    getBranchURI(): string {
+        return process.env.NEXT_PUBLIC_API_GIT_BRANCH_URI + this.branch;
+    }
+
     getHash(): string {
         return this.hash;
+    }
+
+    getCommitURI(): string {
+        return process.env.NEXT_PUBLIC_API_GIT_COMMIT_URI + this.hash;
     }
 
     getDate(): string {

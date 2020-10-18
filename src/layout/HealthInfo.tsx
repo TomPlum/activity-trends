@@ -3,7 +3,6 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { GitInformation } from '../domain/GitInformation';
 import { faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Tooltip } from 'react-bootstrap';
 import styles from '../../assets/sass/components/layout/HealthInfo.module.scss';
 
 interface HealthInfoProps {
@@ -27,13 +26,13 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
             <OverlayTrigger
                 placement="bottom"
                 delay={{ show: 100, hide: 2000 }}
-                overlay={this.renderTooltip}>
+                overlay={this.renderTooltip}
+                trigger={["hover", "focus"]}
+            >
                 <FontAwesomeIcon
                     fixedWidth
                     className={styles.icon}
                     icon={faInfoCircle}
-                    onMouseEnter={() => this.setState({ isActive: true })}
-                    onMouseLeave={() => this.setState({ isActive: false })}
                 />
             </OverlayTrigger>
         );
@@ -42,16 +41,18 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
     renderTooltip = (props) => {
         const data = this.props.info;
         return (
-            <Popover className={styles.tooltip} {...props}>
+            <Popover id="health" className={styles.tooltip} {...props}>
                 <Popover.Title className={styles.heading}>
-                    <FontAwesomeIcon fixedWidth icon={faHammer} />{' '}Latest Build
+                    <FontAwesomeIcon fixedWidth icon={faHammer} className={styles.hammer}/>{' '}Latest Build
                 </Popover.Title>
                 <Popover.Content>
                     <p className={styles.label}>Branch:
-                        <span className={styles.value}>{data.getBranch()}</span>
+                        <a href={data.getBranchURI()} target="_blank">
+                            <span className={styles.value}>{data.getBranch()}</span>
+                        </a>
                     </p>
                     <p className={styles.label}>Hash:
-                        <a href={this.getCommitURI()} target="_blank">
+                        <a href={data.getCommitURI()} target="_blank">
                             <span className={styles.value}>{data.getHash()}</span>
                         </a>
                     </p>
@@ -61,10 +62,6 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
                 </Popover.Content>
             </Popover>
         );
-    }
-
-    private getCommitURI() {
-        return "https://github.com/TomPlum/activity-trends-api/commit/" + this.props.info.getHash();
     }
 }
 
