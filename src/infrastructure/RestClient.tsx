@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-unfetch';
 
 class RestClient {
-    private static readonly host = process.env.BACKEND_URL
+    private static readonly host = process.env.REACT_APP_BACKEND_URL
 
     static async get<T>(endpoint: string): Promise<APIResponse<T>> {
         return await RestClient.makeRestRequest<T>("GET", undefined, endpoint);
@@ -26,9 +26,12 @@ class RestClient {
 
         return await fetch(URI, {
             method: method,
+            mode: 'cors',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
             },
+            referrerPolicy: 'no-referrer',
             body: body ? JSON.stringify(body) : undefined
         }).then(async response => {
             if (response.ok) {

@@ -1,14 +1,14 @@
 import { Navbar, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { Component } from 'react';
+import React, { Component } from 'react';
 import SnapshotSelector from './SnapshotSelector';
-import styles from '../../assets/sass/components/layout/Header.module.scss'
 import { SnapshotDates } from '../domain/SnapshotDates';
 import HealthInfo from './HealthInfo';
 import { AppInformation } from '../domain/AppInformation';
 import { GitInformation } from '../domain/GitInformation';
 import { BuildInfo } from '../domain/BuildInfo';
+import styles from '../assets/sass/components/layout/Header.module.scss'
 
 interface HeaderProps {
     snapshotDates: SnapshotDates;

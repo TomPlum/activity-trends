@@ -1,5 +1,6 @@
 import { createContext, useState } from 'react';
 import { SnapshotDates } from '../../domain/SnapshotDates';
+import React from 'react';
 
 export interface Snapshots {
     sleep: string[];

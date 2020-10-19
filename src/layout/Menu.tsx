@@ -1,8 +1,8 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Nav } from "react-bootstrap";
 import { faRunning, faMoon, faHome, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import Item from "./Item";
-import styles from '../../assets/sass/components/layout/Menu.module.scss';
+import styles from '../assets/sass/components/layout/Menu.module.scss';
 
 class Menu extends Component {
     constructor(props) {

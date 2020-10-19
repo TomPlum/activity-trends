@@ -1,9 +1,9 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../../assets/sass/components/layout/HealthInfo.module.scss';
 import { AppInformation } from '../domain/AppInformation';
+import styles from '../assets/sass/components/layout/HealthInfo.module.scss';
 
 interface HealthInfoProps {
     info: AppInformation;
