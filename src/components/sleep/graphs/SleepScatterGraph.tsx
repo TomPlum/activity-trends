@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { CartesianGrid, ScatterChart, XAxis, YAxis, ZAxis, Tooltip, Scatter, Brush } from 'recharts';
 import ScatterTooltip from "../tooltips/ScatterTooltip";
 import { SleepGraphMainData } from "./SleepGraph";

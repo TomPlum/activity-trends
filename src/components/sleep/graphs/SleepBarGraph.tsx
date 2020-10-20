@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { SleepGraphMainData } from "./SleepGraph";
 import GraphContainer from "../../GraphContainer";
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, Brush } from 'recharts';

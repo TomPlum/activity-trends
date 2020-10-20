@@ -10,12 +10,11 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 import MainLayout from '../src/layout/Main';
 import React from 'react';
 import LoadingSpinner from '../src/layout/LoadingSpinner';
-import { ActivityTrendsService } from '../src/service/ActivityTrendsService';
 import SnapshotContextProvider from '../src/infrastructure/context/SnapshotContextProvider';
 import { InfoService } from '../src/service/InfoService';
 import { AppInformation } from '../src/domain/AppInformation';
-import { SnapshotDates } from '../src/domain/SnapshotDates';
 import { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom'
 
 config.autoAddCss = false;
 
@@ -71,12 +70,12 @@ export default class App extends Component<{}, AppState> {
         return (
             <>
                 <SnapshotContextProvider storeSnapshotDates={undefined}>
-                    <MainLayout snapshotDates={undefined} appInfo={appInfo}>
-                        <LoadingSpinner active={loading} />
-                        {this.props.children}
-                    </MainLayout>
+                    <BrowserRouter>
+                        <MainLayout snapshotDates={undefined} appInfo={appInfo}>
+                            <LoadingSpinner active={loading} />
+                        </MainLayout>
+                    </BrowserRouter>
                 </SnapshotContextProvider>
-
             </>
         );
     }

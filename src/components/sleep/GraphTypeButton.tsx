@@ -1,7 +1,7 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Dropdown } from "react-bootstrap";
 import { GraphType } from "../../types/GraphType";
-import styles from "../../../assets/sass/components/sleep/GraphTypeButton.module.scss";
+import styles from "../../assets/sass/components/sleep/GraphTypeButton.module.scss";
 
 interface GraphTypeButtonProps {
     onChange: (option) => void;

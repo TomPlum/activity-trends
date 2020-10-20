@@ -1,5 +1,6 @@
-import styles from '../../../../assets/sass/components/sleep/tooltips/BarTooltip.module.scss';
+import React from 'react';
 import moment from 'moment';
+import styles from '../../../assets/sass/components/sleep/tooltips/BarTooltip.module.scss';
 
 const BarTooltip = ({ active, payload }) => {
     if (active) {

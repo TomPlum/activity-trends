@@ -1,8 +1,8 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../../assets/sass/components/sleep/SleepDuration.module.scss';
+import styles from '../../assets/sass/components/sleep/SleepDuration.module.scss';
 
 interface SleepDurationProps {
     duration: number;

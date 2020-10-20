@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { faBed, faClock, faSmile } from '@fortawesome/free-solid-svg-icons';
 import { SleepGraphMainData } from '../components/sleep/graphs/SleepGraph';
@@ -21,12 +21,15 @@ class Sleep extends Component<{}, SleepState> {
         }
     }
 
-    async componentDidMount() {
+    async componentWillMount() {
+        this.setState({ loading: true });
         const data = await new SleepService().initialise();
-        this.setState({ sleepData: data });
+        this.setState({ sleepData: data, loading: false });
     }
 
     render() {
+        const { sleepData } = this.state;
+
         return (
             <Container fluid>
                 <LoadingSpinner active={this.state.loading}/>
@@ -57,23 +60,27 @@ class Sleep extends Component<{}, SleepState> {
                     </Col>
                 </Row>
 
-                <SleepGraph data={this.state.sleepData} />
+                { sleepData && <SleepGraph data={sleepData} /> }
             </Container>
         )
     }
 
-    private getAverageSleepQuality() {
+    private getAverageSleepQuality(): number {
+        const { sleepData } = this.state;
+        if (!sleepData) return 0;
         let sum = this.state.sleepData.map(e => e.sleepQuality).reduce((sum, val) => sum + val, 0);
         return Number((sum / this.getSleepSessionQuantity()).toFixed(1));
     }
 
-    private getSleepSessionQuantity() {
-        return this.state.sleepData.length;
+    private getSleepSessionQuantity(): number {
+        const { sleepData } = this.state;
+        return sleepData ? sleepData.length : 0;
     }
 
-    private getTotalHoursSlept() {
-        const data = this.state.sleepData;
-        const hours = data.map(e => e.duration).reduce((sum, val) => sum + val, 0);
+    private getTotalHoursSlept(): number {
+        const { sleepData } = this.state;
+        if (!sleepData) return 0;
+        const hours = sleepData.map(e => e.duration).reduce((sum, val) => sum + val, 0);
         return Math.round(hours);
     }
 }

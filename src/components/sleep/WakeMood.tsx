@@ -1,9 +1,9 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Mood } from '../../domain/Mood';
 import { Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGrinBeam, faSmile, faMeh, faFrown, faTired, faMehBlank, } from '@fortawesome/free-solid-svg-icons';
-import styles from '../../../assets/sass/components/sleep/WakeMood.module.scss';
+import styles from '../../assets/sass/components/sleep/WakeMood.module.scss';
 
 interface WakeMoodProps {
     mood: Mood;
