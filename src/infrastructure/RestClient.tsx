@@ -26,12 +26,9 @@ class RestClient {
 
         return await fetch(URI, {
             method: method,
-            mode: 'cors',
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
             },
-            referrerPolicy: 'no-referrer',
             body: body ? JSON.stringify(body) : undefined
         }).then(async response => {
             if (response.ok) {
