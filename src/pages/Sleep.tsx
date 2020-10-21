@@ -33,7 +33,7 @@ class Sleep extends Component<{}, SleepState> {
         return (
             <Container fluid>
                 <LoadingSpinner active={this.state.loading}/>
-                <p>Visualing the data recorded by the iOS Pillow app from my watch.</p>
+                <p>Visualising the data recorded by the iOS Pillow app from my watch.</p>
 
                 <Row>
                     <Col md={4} sm={12}>

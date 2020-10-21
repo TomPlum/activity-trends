@@ -9,6 +9,7 @@ import { AppInformation } from '../domain/AppInformation';
 import styles from '../assets/sass/components/layout/Main.module.scss'
 import Sleep from '../pages/Sleep';
 import Switch from 'react-bootstrap/esm/Switch';
+import Overview from "../pages/Overview";
 
 interface MainLayoutProps {
     snapshotDates: SnapshotDates;
@@ -31,6 +32,7 @@ class MainLayout extends Component<MainLayoutProps> {
                     </div>
                     <Col className={styles.content}>
                         <Switch>
+                            <Route path='/' exact component={Overview}/>
                             <Route path='/sleep' exact component={Sleep}/>
                         </Switch>
                     </Col>
