@@ -4,12 +4,13 @@ import Menu from './Menu';
 import { Row, Col, Container } from 'react-bootstrap';
 import { SnapshotDates } from '../domain/SnapshotDates';
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { AppInformation } from '../domain/AppInformation';
-import styles from '../assets/sass/components/layout/Main.module.scss'
 import Sleep from '../pages/Sleep';
-import Switch from 'react-bootstrap/esm/Switch';
 import Overview from "../pages/Overview";
+import Gym from "../pages/Gym";
+import Running from "../pages/Running";
+import styles from '../assets/sass/components/layout/Main.module.scss'
 
 interface MainLayoutProps {
     snapshotDates: SnapshotDates;
@@ -33,7 +34,9 @@ class MainLayout extends Component<MainLayoutProps> {
                     <Col className={styles.content}>
                         <Switch>
                             <Route path='/' exact component={Overview}/>
-                            <Route path='/sleep' exact component={Sleep}/>
+                            <Route path='/running' exact component={Running}/>
+                            <Route path='/gym' component={Gym}/>
+                            <Route path='/sleep' component={Sleep}/>
                         </Switch>
                     </Col>
                 </Row>
