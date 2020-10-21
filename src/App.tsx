@@ -11,10 +11,10 @@ import MainLayout from '../src/layout/Main';
 import React from 'react';
 import LoadingSpinner from '../src/layout/LoadingSpinner';
 import SnapshotContextProvider from '../src/infrastructure/context/SnapshotContextProvider';
-import { InfoService } from '../src/service/InfoService';
-import { AppInformation } from '../src/domain/AppInformation';
+import { InfoService } from './service/InfoService';
+import { AppInformation } from './domain/AppInformation';
 import { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 
 config.autoAddCss = false;
 
@@ -70,11 +70,11 @@ export default class App extends Component<{}, AppState> {
         return (
             <>
                 <SnapshotContextProvider storeSnapshotDates={undefined}>
-                    <BrowserRouter>
+                    <HashRouter basename={process.env.REACT_APP_BASE_PATH}>
                         <MainLayout snapshotDates={undefined} appInfo={appInfo}>
                             <LoadingSpinner active={loading} />
                         </MainLayout>
-                    </BrowserRouter>
+                    </HashRouter>
                 </SnapshotContextProvider>
             </>
         );

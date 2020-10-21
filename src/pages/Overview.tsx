@@ -16,7 +16,7 @@ class Overview extends Component<{}, OverviewState> {
     }
 
     async componentWillMount() {
-        const csv = new CsvFileReader().read('workouts.csv', ',');
+        //const csv = new CsvFileReader().read('workouts.csv', ',');
         this.setState({ workouts: undefined });
     }
 
