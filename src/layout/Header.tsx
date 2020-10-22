@@ -32,7 +32,7 @@ class Header extends Component<HeaderProps> {
                 <Navbar.Toggle />
 
                 <Navbar.Collapse className="justify-content-end">
-                    <HealthInfo info={new AppInformation(new GitInformation("dev", "a834kda", "17/10/2020"), new BuildInfo("1.0.0"))}/>
+                    <HealthInfo />
                     <SnapshotSelector snapshotDates={this.props.snapshotDates} />
                     <Nav>
                         <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>

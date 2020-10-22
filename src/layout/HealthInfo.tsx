@@ -4,21 +4,26 @@ import { faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppInformation } from '../domain/AppInformation';
 import styles from '../assets/sass/components/layout/HealthInfo.module.scss';
-
-interface HealthInfoProps {
-    info: AppInformation;
-}
+import { GitInformation } from "../domain/GitInformation";
+import { InfoService } from "../service/InfoService";
 
 interface HealthInfoState {
     isActive: boolean;
+    data: AppInformation;
 }
 
-class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
+class HealthInfo extends Component<{ }, HealthInfoState> {
     constructor(props) {
         super(props);
         this.state = {
-            isActive: false
+            isActive: false,
+            data: AppInformation.empty()
         }
+    }
+
+    async componentDidMount() {
+        const data = await new InfoService().getInfo();
+        this.setState({ data });
     }
 
     render() {
@@ -39,7 +44,7 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
     }
 
     renderTooltip = (props) => {
-        const info = this.getAppInformation();
+        const info = this.state.data;
         const git = info.getGitInfo();
         const build = info.getBuildInfo();
 
@@ -69,10 +74,6 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
                 </Popover.Content>
             </Popover>
         );
-    }
-
-    private getAppInformation(): AppInformation {
-        return this.props.info ? this.props.info : AppInformation.empty();
     }
 }
 

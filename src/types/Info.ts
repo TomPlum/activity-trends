@@ -10,7 +10,7 @@ export interface GitInfo {
 
 export interface GitCommitInfo {
     id: GitCommitID;
-    time: string;
+    time: number;
 }
 
 export interface GitCommitID {
