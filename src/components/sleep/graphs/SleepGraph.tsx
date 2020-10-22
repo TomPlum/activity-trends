@@ -121,7 +121,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     }
 
     private getMostRecentSleepSessionData(): SleepGraphMainData {
-        return this.props.data.find(d => d.date == this.getMostRecentSleepSession().date);
+        return this.props.data.find(d => d.date === this.getMostRecentSleepSession().date);
     }
 
     private getMostRecentSleepSession(): SelectedSessionInfo {

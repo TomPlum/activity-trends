@@ -51,12 +51,12 @@ class HealthInfo extends Component<HealthInfoProps, HealthInfoState> {
 
                 <Popover.Content>
                     <p className={styles.label}>Branch:
-                        <a href={git.getBranchURI()} target="_blank">
+                        <a href={git.getBranchURI()} target="_blank" rel="noopener noreferrer">
                             <span className={styles.value}>{git.getBranch()}</span>
                         </a>
                     </p>
                     <p className={styles.label}>Hash:
-                        <a href={git.getCommitURI()} target="_blank">
+                        <a href={git.getCommitURI()} target="_blank" rel="noopener noreferrer">
                             <span className={styles.value}>{git.getHash()}</span>
                         </a>
                     </p>

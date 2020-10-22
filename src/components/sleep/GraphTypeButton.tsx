@@ -37,7 +37,7 @@ class GraphTypeButton extends Component<GraphTypeButtonProps, GraphTypeButtonSta
 
                 <Dropdown.Menu>
                     {
-                        this.props.options.filter(option => option != selectedType).map(option => {
+                        this.props.options.filter(option => option !== selectedType).map(option => {
                             return <Dropdown.Item
                                 className={styles.option}
                                 key={option}

@@ -23,7 +23,7 @@ class SleepDataConverter {
                 startDate: row["Start Time"],
                 endDate: row["End Time"],
                 duration: Number(row["Duration (mins)"]),
-                isNap: row["Nap"] == "YES",
+                isNap: row["Nap"] === "YES",
                 sleepQuality: Number(row["Sleep Quality (%)"]),
                 awakeTime: Number(row["Time Awake (mins)"]),
                 remSleep: Number(row["Time in REM Slep (mins)"]),
