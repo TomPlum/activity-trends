@@ -1,4 +1,4 @@
-import SleepDataConverter from '../../converters/SleepDataConverter';
+import SleepDataConverter from '../../infrastructure/converters/SleepDataConverter';
 import { Mood } from '../../domain/Mood';
 
 const converter = new SleepDataConverter();

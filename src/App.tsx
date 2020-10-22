@@ -7,9 +7,9 @@ import 'nprogress/nprogress.css';
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import NProgress from 'nprogress';
 import { config } from "@fortawesome/fontawesome-svg-core";
-import MainLayout from '../src/layout/Main';
+import MainLayout from './presentation/layout/Main';
 import React from 'react';
-import LoadingSpinner from '../src/layout/LoadingSpinner';
+import LoadingSpinner from './presentation/layout/LoadingSpinner';
 import SnapshotContextProvider from '../src/infrastructure/context/SnapshotContextProvider';
 import { Component } from 'react';
 import { HashRouter } from 'react-router-dom'

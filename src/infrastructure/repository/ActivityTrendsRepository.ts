@@ -1,5 +1,5 @@
 import RestClient from "../RestClient";
-import { InitialiseResponse } from '../../types/Common';
+import { InitialiseResponse } from '../types/Common';
 
 export class ActivityTrendsRepository {
     async initialise(): Promise<InitialiseResponse> {
