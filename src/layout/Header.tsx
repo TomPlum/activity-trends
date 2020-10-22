@@ -22,7 +22,7 @@ class Header extends Component<HeaderProps> {
                 <Navbar.Brand>
                     <img
                         alt="activity-rings-logo"
-                        src="/logo.png"
+                        src={process.env.REACT_APP_BASE_PATH + "logo.png"}
                         width="30px"
                         height="30px"
                         className={styles.logo}
