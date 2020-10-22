@@ -4,15 +4,11 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import React, { Component } from 'react';
 import SnapshotSelector from './SnapshotSelector';
 import { SnapshotDates } from '../domain/SnapshotDates';
-import HealthInfo from './HealthInfo';
-import { AppInformation } from '../domain/AppInformation';
-import { GitInformation } from '../domain/GitInformation';
-import { BuildInfo } from '../domain/BuildInfo';
+import HealthInfo from "./HealthInfo";
 import styles from '../assets/sass/components/layout/Header.module.scss'
 
 interface HeaderProps {
     snapshotDates: SnapshotDates;
-    appInfo: AppInformation;
 }
 
 class Header extends Component<HeaderProps> {

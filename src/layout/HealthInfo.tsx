@@ -4,7 +4,6 @@ import { faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppInformation } from '../domain/AppInformation';
 import styles from '../assets/sass/components/layout/HealthInfo.module.scss';
-import { GitInformation } from "../domain/GitInformation";
 import { InfoService } from "../service/InfoService";
 
 interface HealthInfoState {

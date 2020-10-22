@@ -11,8 +11,6 @@ import MainLayout from '../src/layout/Main';
 import React from 'react';
 import LoadingSpinner from '../src/layout/LoadingSpinner';
 import SnapshotContextProvider from '../src/infrastructure/context/SnapshotContextProvider';
-import { InfoService } from './service/InfoService';
-import { AppInformation } from './domain/AppInformation';
 import { Component } from 'react';
 import { HashRouter } from 'react-router-dom'
 
@@ -29,7 +27,6 @@ interface AppProps {
 }
 
 interface AppState {
-    appInfo: AppInformation;
     loading: boolean;
 }
 
@@ -38,7 +35,6 @@ export default class App extends Component<{}, AppState> {
         super(props);
 
         this.state = {
-            appInfo: AppInformation.empty(),
             loading: false
         }
     }
@@ -61,17 +57,15 @@ export default class App extends Component<{}, AppState> {
 
     async componentDidMount() {
         //const snapshotDates: SnapshotDates = await new ActivityTrendsService().getSnapshotDates();
-        const appInfo: AppInformation = await new InfoService().getInfo();
-        this.setState({ appInfo });
     }
 
     render() {
-        const { appInfo, loading } = this.state;
+        const { loading } = this.state;
         return (
             <>
                 <SnapshotContextProvider storeSnapshotDates={undefined}>
                     <HashRouter basename={process.env.REACT_APP_BASE_PATH}>
-                        <MainLayout snapshotDates={undefined} appInfo={appInfo}>
+                        <MainLayout snapshotDates={undefined} >
                             <LoadingSpinner active={loading} />
                         </MainLayout>
                     </HashRouter>

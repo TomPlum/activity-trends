@@ -5,26 +5,24 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { SnapshotDates } from '../domain/SnapshotDates';
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { AppInformation } from '../domain/AppInformation';
 import Sleep from '../pages/Sleep';
 import Overview from "../pages/Overview";
-import Gym from "../pages/Gym";
 import Running from "../pages/Running";
+import Gym from "../pages/Gym";
 import styles from '../assets/sass/components/layout/Main.module.scss'
 
 interface MainLayoutProps {
     snapshotDates: SnapshotDates;
-    appInfo: AppInformation;
 }
 
 class MainLayout extends Component<MainLayoutProps> {
     render() {
-        const { snapshotDates, appInfo } = this.props;
+        const { snapshotDates } = this.props;
 
         return (
             <Container fluid className={styles.wrapper}>
                 <Row className={styles.row}>
-                    <Header snapshotDates={snapshotDates} appInfo={appInfo} />
+                    <Header snapshotDates={snapshotDates} />
                 </Row>
 
                 <Row className={styles.row}>
