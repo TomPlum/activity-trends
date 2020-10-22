@@ -1,4 +1,5 @@
-import styles from '../../assets/sass/components/layout/ActivityRings.module.scss';
+import React from 'react';
+import styles from '../assets/sass/components/layout/ActivityRings.module.scss'
 
 const ActivityRings = () => {
     return (

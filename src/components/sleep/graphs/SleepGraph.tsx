@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
 import GraphTypeButton from '../GraphTypeButton';
@@ -121,7 +121,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     }
 
     private getMostRecentSleepSessionData(): SleepGraphMainData {
-        return this.props.data.find(d => d.date == this.getMostRecentSleepSession().date);
+        return this.props.data.find(d => d.date === this.getMostRecentSleepSession().date);
     }
 
     private getMostRecentSleepSession(): SelectedSessionInfo {

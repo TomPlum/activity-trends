@@ -1,5 +1,6 @@
-import styles from '../../../../assets/sass/components/sleep/tooltips/ScatterTooltip.module.scss';
+import React from 'react';
 import moment from 'moment';
+import styles from '../../../assets/sass/components/sleep/tooltips/ScatterTooltip.module.scss';
 
 const ScatterTooltip = ({ active, payload }) => {
     if (active) {

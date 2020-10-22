@@ -1,11 +1,10 @@
 import { NavDropdown } from 'react-bootstrap';
-import { Component, useContext } from 'react';
-import styles from '../../assets/sass/components/layout/SnapshotSelector.module.scss'
+import React, { Component } from 'react';
 import { Page } from '../domain/Page';
 import { SnapshotDates } from '../domain/SnapshotDates';
 import SnapshotContextProvider from '../infrastructure/context/SnapshotContextProvider';
 import { SnapshotContext } from '../infrastructure/context/SnapshotContextProvider';
-import { ActivityTrendsService } from '../service/ActivityTrendsService';
+import styles from '../assets/sass/components/layout/SnapshotSelector.module.scss'
 
 interface SnapshotSelectorProps {
     snapshotDates: SnapshotDates;

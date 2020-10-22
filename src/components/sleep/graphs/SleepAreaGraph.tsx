@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { AreaChart, CartesianGrid, XAxis, Tooltip, Area, YAxis, Brush } from 'recharts';
 import { SleepGraphMainData } from './SleepGraph';
 import { Arrays } from '../../../utility/Arrays';

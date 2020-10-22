@@ -1,9 +1,9 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import Link from 'next/link'
-import styles from '../../assets/sass/components/layout/Item.module.scss';
+import { Link } from "react-router-dom"
+import styles from '../assets/sass/components/layout/Item.module.scss';
 
 interface ItemProps {
     name: string;
@@ -17,15 +17,13 @@ class Item extends Component<ItemProps> {
         const { name, icon, page, className } = this.props;
         return (
             <Nav.Item>
-                <Link href={page} passHref>
-                    <Nav.Link className={styles.link} eventKey={name}>
-                        <FontAwesomeIcon
-                            icon={icon}
-                            className={styles[className]}
-                            fixedWidth
-                        />
-                        <p className={styles.name}>{name}</p>
-                    </Nav.Link>
+                <Link to={page} className={styles.link} eventKey={name}>
+                    <FontAwesomeIcon
+                        icon={icon}
+                        className={styles[className]}
+                        fixedWidth
+                    />
+                    <p className={styles.name}>{name}</p>
                 </Link>
             </Nav.Item>
         );

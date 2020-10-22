@@ -1,8 +1,8 @@
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { Component } from 'react';
-import styles from '../../../assets/sass/components/sleep/Info.module.scss';
+import React, { Component } from 'react';
+import styles from '../../assets/sass/components/sleep/Info.module.scss';
 
 interface InfoProps {
     text?: string;

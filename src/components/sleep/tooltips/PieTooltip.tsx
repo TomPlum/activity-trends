@@ -1,4 +1,5 @@
-import styles from '../../../../assets/sass/components/sleep/tooltips/PieTooltip.module.scss';
+import React from 'react';
+import styles from '../../../assets/sass/components/sleep/tooltips/PieTooltip.module.scss';
 
 const PieTooltip = ({ active, payload }) => {
     if (active) {
