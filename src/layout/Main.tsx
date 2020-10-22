@@ -11,18 +11,12 @@ import Running from "../pages/Running";
 import Gym from "../pages/Gym";
 import styles from '../assets/sass/components/layout/Main.module.scss'
 
-interface MainLayoutProps {
-    snapshotDates: SnapshotDates;
-}
-
-class MainLayout extends Component<MainLayoutProps> {
+class MainLayout extends Component {
     render() {
-        const { snapshotDates } = this.props;
-
         return (
             <Container fluid className={styles.wrapper}>
                 <Row className={styles.row}>
-                    <Header snapshotDates={snapshotDates} />
+                    <Header />
                 </Row>
 
                 <Row className={styles.row}>

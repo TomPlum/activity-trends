@@ -65,7 +65,7 @@ export default class App extends Component<{}, AppState> {
             <>
                 <SnapshotContextProvider storeSnapshotDates={undefined}>
                     <HashRouter basename={process.env.REACT_APP_BASE_PATH}>
-                        <MainLayout snapshotDates={undefined} >
+                        <MainLayout>
                             <LoadingSpinner active={loading} />
                         </MainLayout>
                     </HashRouter>

@@ -3,15 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import React, { Component } from 'react';
 import SnapshotSelector from './SnapshotSelector';
-import { SnapshotDates } from '../domain/SnapshotDates';
 import HealthInfo from "./HealthInfo";
 import styles from '../assets/sass/components/layout/Header.module.scss'
 
-interface HeaderProps {
-    snapshotDates: SnapshotDates;
-}
-
-class Header extends Component<HeaderProps> {
+class Header extends Component {
     render() {
         return (
             <Navbar bg="dark" variant="dark" fixed="top" className={styles.header}>
@@ -29,7 +24,7 @@ class Header extends Component<HeaderProps> {
 
                 <Navbar.Collapse className="justify-content-end">
                     <HealthInfo />
-                    <SnapshotSelector snapshotDates={this.props.snapshotDates} />
+                    <SnapshotSelector />
                     <Nav>
                         <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>
                             <FontAwesomeIcon icon={faGithub} size="lg" fixedWidth className={styles.github} />
