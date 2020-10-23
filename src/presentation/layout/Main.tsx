@@ -1,14 +1,15 @@
+import React, { Component } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Menu from './Menu';
 import { Row, Col, Container } from 'react-bootstrap';
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import Sleep from '../pages/Sleep';
 import Overview from "../pages/Overview";
 import Running from "../pages/Running";
 import Gym from "../pages/Gym";
 import styles from '../../assets/sass/components/layout/Main.module.scss'
+import ProgressRoute from "../components/ProgressRoute";
 
 class MainLayout extends Component {
     render() {
@@ -24,10 +25,10 @@ class MainLayout extends Component {
                     </div>
                     <Col className={styles.content}>
                         <Switch>
-                            <Route path='/' exact component={Overview}/>
-                            <Route path='/running' exact component={Running}/>
-                            <Route path='/gym' component={Gym}/>
-                            <Route path='/sleep' component={Sleep}/>
+                            <ProgressRoute path='/' component={Overview} exact />
+                            <ProgressRoute path='/running' component={Running} />
+                            <ProgressRoute path='/gym' component={Gym} />
+                            <ProgressRoute path='/sleep' component={Sleep} />
                         </Switch>
                     </Col>
                 </Row>
