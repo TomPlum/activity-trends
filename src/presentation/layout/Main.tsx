@@ -8,8 +8,9 @@ import Sleep from '../pages/Sleep';
 import Overview from "../pages/Overview";
 import Running from "../pages/Running";
 import Gym from "../pages/Gym";
-import styles from '../../assets/sass/components/layout/Main.module.scss'
+import NotFound from "../pages/NotFound";
 import ProgressRoute from "../components/ProgressRoute";
+import styles from '../../assets/sass/components/layout/Main.module.scss'
 
 class MainLayout extends Component {
     render() {
@@ -29,6 +30,7 @@ class MainLayout extends Component {
                             <ProgressRoute path='/running' component={Running} />
                             <ProgressRoute path='/gym' component={Gym} />
                             <ProgressRoute path='/sleep' component={Sleep} />
+                            <ProgressRoute component={NotFound} />
                         </Switch>
                     </Col>
                 </Row>

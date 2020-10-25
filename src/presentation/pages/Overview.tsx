@@ -1,4 +1,4 @@
-import { Card } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 import React, { Component } from 'react';
 import OverviewGraph, {OverviewGraphData} from "../components/overview/OverviewGraph";
 import CsvFileReader from "../../infrastructure/CsvFileReader";
@@ -23,7 +23,7 @@ class Overview extends Component<{}, OverviewState> {
     render() {
         const { workouts } = this.state;
         return (
-            <div>
+            <Container fluid>
                 <p>This is the overview page.</p>
 
                 <Card>
@@ -32,7 +32,7 @@ class Overview extends Component<{}, OverviewState> {
                     </Card.Body>
 
                 </Card>
-            </div>
+            </Container>
         );
     }
 }
