@@ -1,25 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 import styles from '../../../../assets/sass/components/sleep/tooltips/AreaTooltip.module.scss';
 
-const AreaTooltip = ({ active, payload }) => {
-    if (active) {
-        return (
-            <div className={styles.wrapper}>
-                <p className={styles.value}>
-                    <span className={styles.label}>Date: </span>
-                    {formatDate(payload[0].payload.date)}
-                </p>
+interface AreaTooltipState {
+    active: boolean;
+    payload: any;
+}
 
-                <p className={styles.value}>
-                    <span className={styles.label}>Sleep Quality: </span>
-                    {formatSleepQuality(payload[0].value)}
-                </p>
-            </div>
-        );
+class AreaTooltip extends Component<{}, AreaTooltipState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            active: false,
+            payload: null
+        }
     }
 
-    return null;
+    render() {
+        const { active, payload } = this.state;
+        if (active) {
+            return (
+                <div className={styles.wrapper}>
+                    <p className={styles.value}>
+                        <span className={styles.label}>Date: </span>
+                        {formatDate(payload[0].payload.date)}
+                    </p>
+    
+                    <p className={styles.value}>
+                        <span className={styles.label}>Sleep Quality: </span>
+                        {formatSleepQuality(payload[0].value)}
+                    </p>
+                </div>
+            );
+        }
+    
+        return null;
+    }
 };
 
 function formatDate(date: string): string {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { AreaChart, CartesianGrid, XAxis, Tooltip, Area, YAxis, Brush } from 'recharts';
+import { AxisDomain } from "recharts/types/util/types";
 import { SleepGraphMainData } from './SleepGraph';
 import { Arrays } from '../../../../utility/Arrays';
 import moment from "moment";
@@ -61,7 +62,7 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
         )
     }
 
-    private yAxisDomain(): number[] {
+    private yAxisDomain(): AxisDomain {
         const data = this.props.data;
         const quality = data.map(e => e.sleepQuality);
         const minQuality = Math.floor(Arrays.min(quality));

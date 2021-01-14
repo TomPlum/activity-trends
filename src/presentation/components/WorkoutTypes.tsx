@@ -45,7 +45,7 @@ class WorkoutTypes extends Component<WorkoutTypeProps, WorkoutTypesState> {
             <Container>
                 <ResponsiveContainer width="100%" height={200}>
                     <PieChart>
-                        <Pie
+                        {/* <Pie
                             data={this.extractWorkoutTypes()}
                             nameKey="name"
                             dataKey="value"
@@ -57,7 +57,7 @@ class WorkoutTypes extends Component<WorkoutTypeProps, WorkoutTypesState> {
                             onMouseEnter={this.onPieEnter}
                             paddingAngle={2}
                         >
-                        </Pie>
+                        </Pie> */}
                     </PieChart>
                 </ResponsiveContainer>
             </Container>

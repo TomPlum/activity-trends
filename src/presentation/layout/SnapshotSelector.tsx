@@ -9,6 +9,7 @@ interface SnapshotSelectorState {
     data: SnapshotDates;
     selected: string;
     isDisabled: boolean;
+    error: Error;
 }
 
 class SnapshotSelector extends Component<{}, SnapshotSelectorState> {
@@ -19,6 +20,7 @@ class SnapshotSelector extends Component<{}, SnapshotSelectorState> {
             data: new SnapshotDates(),
             selected: "Snapshot",
             isDisabled: false,
+            error: null
         }
     }
 
@@ -28,13 +30,19 @@ class SnapshotSelector extends Component<{}, SnapshotSelectorState> {
     }
 
     async componentDidMount() {
-        const data = await new ActivityTrendsService().getSnapshotDates();
-        this.setState({ data });
+        try {
+            const data = await new ActivityTrendsService().getSnapshotDates();
+            this.setState({ data });
+        } catch (e) {
+            this.setState({ error: e })
+        }
     }
 
     render() {
-        const { isDisabled, selected } = this.state;
+        const { isDisabled, selected, error } = this.state;
         const mostRecent = "Stubbed"
+
+        if (error) throw error;
 
         return (
             <NavDropdown title={this.getTitle()}

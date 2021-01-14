@@ -36,7 +36,7 @@ class OverviewGraph extends Component<OverviewGraphProps> {
                         <Legend />
                         <CartesianGrid stroke="#f5f5f5" />
                         <Area type="monotone" dataKey="Duration" fill="#8884d8" stroke="#8884d8" />
-                        <Bar dataKey="Calories Burnt" barSize={4} barGap={1} />
+                        <Bar dataKey="Calories Burnt" barSize={4} />
                         <Line type="monotone" dataKey="Average Heart Rate" stroke="#ff7300" />
                     </ComposedChart>
                 </ResponsiveContainer>

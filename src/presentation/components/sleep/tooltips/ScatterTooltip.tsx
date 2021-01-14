@@ -1,28 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 import styles from '../../../../assets/sass/components/sleep/tooltips/ScatterTooltip.module.scss';
 
-const ScatterTooltip = ({ active, payload }) => {
-    if (active) {
-        return (
-            <div className={styles.wrapper}>
-                <p className={styles.value}>
-                    <span className={styles.label}>Date: </span>
-                    {formatDate(payload[0].value)}
-                </p>
-                <p className={styles.value}>
-                    <span className={styles.label}>Duration: </span>
-                    {formatDuration(payload[1].value)}
-                </p>
-                <p className={styles.value}>
-                    <span className={styles.label}>Sleep Quality: </span>
-                    {formatSleepQuality(payload[2].value)}
-                </p>
-            </div>
-        );
-    }
+interface ScatterTooltipState {
+    active: boolean;
+    payload: any;
+}
 
-    return null;
+class ScatterTooltip extends Component<{}, ScatterTooltipState> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            active: false,
+            payload: null
+        }
+    }
+    
+    render() {
+        const { active, payload } = this.state;
+
+        if (active) {
+            return (
+                <div className={styles.wrapper}>
+                    <p className={styles.value}>
+                        <span className={styles.label}>Date: </span>
+                        {formatDate(payload[0].value)}
+                    </p>
+                    <p className={styles.value}>
+                        <span className={styles.label}>Duration: </span>
+                        {formatDuration(payload[1].value)}
+                    </p>
+                    <p className={styles.value}>
+                        <span className={styles.label}>Sleep Quality: </span>
+                        {formatSleepQuality(payload[2].value)}
+                    </p>
+                </div>
+            );
+        }
+    
+        return null;
+    }
 };
 
 function formatDate(date: string): string {

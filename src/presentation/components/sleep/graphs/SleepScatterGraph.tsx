@@ -5,6 +5,7 @@ import { SleepGraphMainData } from "./SleepGraph";
 import { Arrays } from '../../../../utility/Arrays';
 import moment from "moment";
 import GraphContainer from "../../GraphContainer";
+import { AxisDomain } from "recharts/types/util/types";
 
 interface SleepScatterGraphProps {
     data: SleepGraphMainData[];
@@ -58,7 +59,7 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps, SleepScatterGr
                         stroke="#8884d8"
                         tickFormatter={this.xAxisFormatter}
                         endIndex={this.getBrushFilteredData().length}
-                        onChange={({ brushStartIndex, brushEndIndex }) => this.setState({ brushStartIndex, brushEndIndex })}
+                        onChange={brush => this.setState({ brushStartIndex: brush.startIndex, brushEndIndex: brush.endIndex })}
                     />
                     <Scatter
                         name="Sleep Sessions"
@@ -66,6 +67,7 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps, SleepScatterGr
                         fill="rgba(136, 132, 216, 0.7)"
                         onClick={this.onClickScatter}
                         isAnimationActive={true}
+                        className={null}
                     />
                 </ScatterChart>
             </GraphContainer>
@@ -84,7 +86,7 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps, SleepScatterGr
         return data[Math.round(data.length / 5)].date;
     }
 
-    private yAxisDomain(): number[] {
+    private yAxisDomain(): AxisDomain {
         const data = this.props.data;
         const durations = data.map(e => e.duration);
         const minDuration = Math.floor(Arrays.min(durations));

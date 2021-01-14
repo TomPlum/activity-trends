@@ -3,15 +3,15 @@ import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppInformation } from '../../domain/AppInformation';
-import styles from '../../assets/sass/components/layout/HealthInfo.module.scss';
 import { InfoService } from "../../application/service/InfoService";
+import styles from '../../assets/sass/components/layout/HealthInfo.module.scss';
 
 interface HealthInfoState {
     isActive: boolean;
     data: AppInformation;
 }
 
-class HealthInfo extends Component<{ }, HealthInfoState> {
+class HealthInfo extends Component<{}, HealthInfoState> {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,11 +33,7 @@ class HealthInfo extends Component<{ }, HealthInfoState> {
                 overlay={this.renderTooltip}
                 trigger={["hover", "focus"]}
             >
-                <FontAwesomeIcon
-                    fixedWidth
-                    className={styles.icon}
-                    icon={faInfoCircle}
-                />
+                <FontAwesomeIcon fixedWidth className={styles.icon} icon={faInfoCircle} />
             </OverlayTrigger>
         );
     }

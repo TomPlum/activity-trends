@@ -12,4 +12,4 @@ export class ActivityTrendsRepository {
             throw new Error(response.errors[0].message);
         }
     }
-} 
+}
