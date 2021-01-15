@@ -35,7 +35,6 @@ Also, be sure to have `git` available in your PATH, `npm` might need it (You can
 | `deploy` | Builds, exports, commits, pushes and subtrees for GitHub pages.      |
 
 ## Technology Documentation
-- [NextJS](https://nextjs.org/docs/getting-started)
 - [React Bootstrap](https://react-bootstrap.github.io/layout/grid/)
 - [Papa Parse](https://www.papaparse.com/docs)
 - [Recharts](https://recharts.org/en-US/api)
