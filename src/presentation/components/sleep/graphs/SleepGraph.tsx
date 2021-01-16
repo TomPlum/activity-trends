@@ -11,6 +11,7 @@ import {Mood} from '../../../../domain/Mood';
 import moment from 'moment';
 import SleepBarGraph from './SleepBarGraph';
 import DummyAreaGraph from "../../DummyAreaGraph";
+import DummyPieGraph from "../../DummyPieGraph";
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -109,7 +110,10 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                         <Card>
                             <Card.Body>
                                 <Card.Title>{this.formatDateTitle()}</Card.Title>
-                                <SleepQualityPieChart data={this.state.selectedSessionData} />
+                                {this.props.data
+                                    ? <SleepQualityPieChart data={this.state.selectedSessionData}/>
+                                    : <DummyPieGraph colour={"#8884d8"} speed={2000} sampleSize={6} dataBounds={[5, 25]}/>
+                                }
                             </Card.Body>
                         </Card>
                     </Col>
@@ -128,7 +132,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
 
     private formatDateTitle(): string {
         const session = this.state.selectedSession;
-        if (!session) return "N/A";
+        if (!session) return "Session Breakdown";
         const { date, startTime, endTime } = session;
         return moment(date).format("dddd Do MMMM YYYY") + " (" + startTime + " - " + endTime + ")";
     }

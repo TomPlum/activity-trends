@@ -13,10 +13,10 @@ interface DummyAreaGraphProps {
 
 interface DummyAreaGraphState {
     timeout: any;
-    data: FakeData[];
+    data: FakeAreaData[];
 }
 
-interface FakeData {
+interface FakeAreaData {
     value: number;
     date: string;
 }
@@ -62,7 +62,7 @@ class DummyAreaGraph extends Component<DummyAreaGraphProps, DummyAreaGraphState>
         );
     }
 
-    private getFakeData(): FakeData[] {
+    private getFakeData(): FakeAreaData[] {
         const { sampleSize, dataBounds } = this.props;
         return [...Array(sampleSize).keys()].map((i) => {
             return { value: Numbers.randomInt(dataBounds[0], dataBounds[1]), date: moment().add(i, "month").toString() }
