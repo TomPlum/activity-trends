@@ -26,7 +26,10 @@ class SleepInfoCard extends Component<SleepInfoCardProps> {
                         </span>
                     </Col>
                     <Col lg={8} xs={8}>
-                        <Countup start={0} end={Number(value)} suffix={unit} duration={2} className={styles.value} />
+                        {value
+                            ? <Countup start={0} end={Number(value)} suffix={unit} duration={2} className={styles.value} />
+                            : <span className={styles.value}>N/A</span>
+                        }
                         <h6 className={styles.title}>{title}</h6>
                     </Col>
                 </Row>

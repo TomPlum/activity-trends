@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, ReactText } from "react";
 import { PieChart, Pie, Tooltip, Cell, Label, Legend } from 'recharts';
 import PieTooltip from "../tooltips/PieTooltip";
 import GraphContainer from '../../GraphContainer';
@@ -35,10 +35,15 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
 
     private getSectorColourMappings = data => data.map((entry, i) => <Cell key={`cell-${i}`} fill={entry.fill} />)
 
-    private getSleepQualityLabel = () => this.props.data.sleepQuality + "%";
+    private getSleepQualityLabel(): ReactText {
+        const data = this.props.data;
+        if (!data || !data.sleepQuality) return "N/A";
+        return data.sleepQuality + "%";
+    }
 
     private createGraphData() {
         const { data } = this.props;
+        if (!data) return [];
         return [
             { name: "Awake Time", value: data.awakeTime, fill: "rgba(247, 163, 52, 0.6)", stroke: "rgba(247, 163, 52, 1)" },
             { name: "REM Sleep", value: data.remSleep, fill: "rgba(240, 101, 210, 0.6)",  stroke: "rgba(240, 101, 210, 1)" },

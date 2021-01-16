@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import { Card, Col, Row } from 'react-bootstrap';
-import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
+import React, {Component} from 'react';
+import {Card, Col, Row} from 'react-bootstrap';
+import SleepQualityPieChart, {SleepQualityPieChartData} from "./SleepQualityPieChart";
 import GraphTypeButton from '../GraphTypeButton';
-import { GraphType } from '../../../../infrastructure/types/GraphType';
+import {GraphType} from '../../../../infrastructure/types/GraphType';
 import SleepScatterGraph from './SleepScatterGraph';
 import SleepAreaGraph from './SleepAreaGraph';
 import Info from '../Info';
-import MiscInfo, { MiscInfoData } from '../MiscInfo';
-import { Mood } from '../../../../domain/Mood';
+import MiscInfo, {MiscInfoData} from '../MiscInfo';
+import {Mood} from '../../../../domain/Mood';
 import moment from 'moment';
 import SleepBarGraph from './SleepBarGraph';
+import DummyAreaGraph from "../../DummyAreaGraph";
 
 interface SleepGraphMainProps {
     data: SleepGraphMainData[]
@@ -47,9 +48,9 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     constructor(props) {
         super(props);
         this.state = {
-            selectedSessionData: this.getMostRecentSleepSessionData(),
-            selectedSession: this.getMostRecentSleepSession(),
-            selectedGraphType: GraphType.AREA
+            selectedSessionData: undefined,
+            selectedSession: undefined,
+            selectedGraphType: this.props.data ? GraphType.AREA : GraphType.UNKNOWN
         }
     }
 
@@ -72,7 +73,16 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
 
     handleGraphTypeChange = (option) => this.setState({ selectedGraphType: option });
 
+    componentDidMount() {
+        const data = this.props.data;
+        this.setState({
+            selectedSessionData: data ? this.getMostRecentSleepSessionData(): undefined,
+            selectedSession: data ? this.getMostRecentSleepSession(): undefined,
+        });
+    }
+
     render() {
+        const { selectedGraphType, selectedSession } = this.state;
         return (
             <>
                 <Row>
@@ -84,7 +94,8 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                     <GraphTypeButton
                                         options={[GraphType.SCATTER, GraphType.AREA, GraphType.BAR]}
                                         onChange={this.handleGraphTypeChange}
-                                        default={this.state.selectedGraphType}
+                                        default={selectedGraphType}
+                                        disabled={!this.props.data}
                                     />
                                 </Card.Title>
                                 {this.renderLeadingGraph()}
@@ -106,7 +117,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                         <Card>
                             <Card.Body>
                                 <Card.Title>Miscellaneous Information</Card.Title>
-                                <MiscInfo data={this.state.selectedSession.miscInfo} />
+                                <MiscInfo data={selectedSession ? selectedSession.miscInfo : null} />
                             </Card.Body>
                         </Card>
                     </Col>
@@ -116,7 +127,9 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
     }
 
     private formatDateTitle(): string {
-        const { date, startTime, endTime } = this.state.selectedSession;
+        const session = this.state.selectedSession;
+        if (!session) return "N/A";
+        const { date, startTime, endTime } = session;
         return moment(date).format("dddd Do MMMM YYYY") + " (" + startTime + " - " + endTime + ")";
     }
 
@@ -142,6 +155,9 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
             }
             case GraphType.BAR: {
                 return <SleepBarGraph data={data} onSelectedSession={this.onClickSleepSession} />
+            }
+            case GraphType.UNKNOWN: {
+                return <DummyAreaGraph colour={"#8884d8"}/>
             }
         }
     }

@@ -18,6 +18,10 @@ export class SleepDataRepository {
         if (response.data) {
             return response.data;
         }
+
+        if (response.errors) {
+            throw new Error(response.errors[0].message);
+        }
     }
 
     async getSnapshot(date: string) {

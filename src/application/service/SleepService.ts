@@ -6,8 +6,9 @@ export class SleepService {
     private readonly converter = new SleepDataConverter()
 
     async initialise() {
-        const data = await this.repository.initialise();
-        return this.converter.convertInitialiseResponseData(data);
+        return await this.repository.initialise()
+            .then(data => this.converter.convertInitialiseResponseData(data))
+            .catch(e => null);
     }
 
     async getSnapshot(date: string) {

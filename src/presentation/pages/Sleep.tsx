@@ -33,34 +33,21 @@ class Sleep extends Component<{}, SleepState> {
         return (
             <Container fluid>
                 <LoadingSpinner active={this.state.loading}/>
-                <p>Visualising the data recorded by the iOS Pillow app from my watch.</p>
+                <p>Visualising the data recorded by the iOS Pillow app from my Apple watch.</p>
 
                 <Row>
                     <Col md={4} sm={12}>
-                        <SleepInfoCard
-                            title="Sessions"
-                            value={this.getSleepSessionQuantity()}
-                            icon={faBed}
-                        />
+                        <SleepInfoCard title="Sessions" value={this.getSleepSessionQuantity()} icon={faBed} />
                     </Col>
                     <Col md={4} sm={12}>
-                        <SleepInfoCard
-                            title="Avg Quality"
-                            value={this.getAverageSleepQuality()}
-                            unit="%"
-                            icon={faSmile}
-                        />
+                        <SleepInfoCard title="Avg Quality" value={this.getAverageSleepQuality()} unit="%" icon={faSmile} />
                     </Col>
                     <Col md={4} sm={12}>
-                        <SleepInfoCard
-                            title="Hours Slept"
-                            value={this.getTotalHoursSlept()}
-                            icon={faClock}
-                        />
+                        <SleepInfoCard title="Hours Slept" value={this.getTotalHoursSlept()} icon={faClock} />
                     </Col>
                 </Row>
 
-                { sleepData && <SleepGraph data={sleepData} /> }
+                <SleepGraph data={sleepData} />
             </Container>
         )
     }
