@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBurn, faExclamationCircle, faHammer, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppInformation } from '../../domain/AppInformation';
 import { InfoService } from "../../application/service/InfoService";
@@ -9,6 +9,7 @@ import styles from '../../assets/sass/components/layout/HealthInfo.module.scss';
 interface HealthInfoState {
     isActive: boolean;
     data: AppInformation;
+    error: Error;
 }
 
 class HealthInfo extends Component<{}, HealthInfoState> {
@@ -16,37 +17,41 @@ class HealthInfo extends Component<{}, HealthInfoState> {
         super(props);
         this.state = {
             isActive: false,
-            data: AppInformation.empty()
+            data: AppInformation.empty(),
+            error: undefined
         }
     }
 
     async componentDidMount() {
-        const data = await new InfoService().getInfo();
-        this.setState({ data });
+        await new InfoService().getInfo()
+            .then(data => this.setState({ data }))
+            .catch(error => this.setState({ error }));
     }
 
     render() {
+        const { error } = this.state;
+
         return (
             <OverlayTrigger
                 placement="bottom"
                 delay={{ show: 100, hide: 2000 }}
-                overlay={this.renderTooltip}
+                overlay={error ? this.renderErrorTooltip : this.renderTooltip}
                 trigger={["hover", "focus"]}
             >
-                <FontAwesomeIcon fixedWidth className={styles.icon} icon={faInfoCircle} />
+                <FontAwesomeIcon fixedWidth className={error ? styles.tooltipIcon : styles.icon} icon={error ? faExclamationCircle : faInfoCircle} />
             </OverlayTrigger>
         );
     }
 
     renderTooltip = (props) => {
-        const info = this.state.data;
-        const git = info.getGitInfo();
-        const build = info.getBuildInfo();
+        const { data } = this.state;
+        const git = data.getGitInfo();
+        const build = data.getBuildInfo();
 
         return (
             <Popover id="health" className={styles.tooltip} {...props}>
                 <Popover.Title className={styles.heading}>
-                    <FontAwesomeIcon fixedWidth icon={faHammer} className={styles.hammer}/>{' '}Latest Build
+                    <FontAwesomeIcon fixedWidth icon={faHammer} className={styles.tooltipIcon}/>{' '}Latest Build
                 </Popover.Title>
 
                 <Popover.Content>
@@ -65,6 +70,22 @@ class HealthInfo extends Component<{}, HealthInfoState> {
                     </p>
                     <p className={styles.label}>Ver:
                         <span className={styles.value}>{build.getVersion()}</span>
+                    </p>
+                </Popover.Content>
+            </Popover>
+        );
+    }
+
+    renderErrorTooltip = (props) => {
+        return (
+            <Popover id="health" className={styles.tooltip} {...props}>
+                <Popover.Title className={styles.heading}>
+                    <FontAwesomeIcon fixedWidth icon={faBurn} />{' '}Connectivity
+                </Popover.Title>
+
+                <Popover.Content>
+                    <p className={styles.label}>Reason:
+                        <span className={styles.value}>{this.state.error.toString()}</span>
                     </p>
                 </Popover.Content>
             </Popover>

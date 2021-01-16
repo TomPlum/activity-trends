@@ -9,7 +9,6 @@ interface SnapshotSelectorState {
     data: SnapshotDates;
     selected: string;
     isDisabled: boolean;
-    error: Error;
 }
 
 class SnapshotSelector extends Component<{}, SnapshotSelectorState> {
@@ -20,7 +19,6 @@ class SnapshotSelector extends Component<{}, SnapshotSelectorState> {
             data: new SnapshotDates(),
             selected: "Snapshot",
             isDisabled: false,
-            error: null
         }
     }
 
@@ -30,33 +28,19 @@ class SnapshotSelector extends Component<{}, SnapshotSelectorState> {
     }
 
     async componentDidMount() {
-        try {
-            const data = await new ActivityTrendsService().getSnapshotDates();
-            this.setState({ data });
-        } catch (e) {
-            this.setState({ error: e })
-        }
+        await new ActivityTrendsService().getSnapshotDates()
+               .then((data) => this.setState({ data }))
+               .catch(error => this.setState({ isDisabled: true }));
     }
 
     render() {
-        const { isDisabled, selected, error } = this.state;
+        const { isDisabled, selected } = this.state;
         const mostRecent = "Stubbed"
 
-        if (error) throw error;
-
         return (
-            <NavDropdown title={this.getTitle()}
-                         id="snapshot-dropdown"
-                         className={styles.snapshot}
-                         onSelect={this.select}
-                         disabled={isDisabled}
-            >
-                <NavDropdown.Item className={styles.selected} key={mostRecent} eventKey={mostRecent}>
-                    Most Recent
-                </NavDropdown.Item>
-
+            <NavDropdown title={this.getTitle()} id="snapshot-dropdown" className={styles.snapshot} onSelect={this.select} disabled={isDisabled}>
+                <NavDropdown.Item className={styles.selected} key={mostRecent} eventKey={mostRecent}> Most Recent </NavDropdown.Item>
                 <NavDropdown.Divider/>
-
                 {
                     this.state.data.getDates(Page.SLEEP).map(date => {
                         return (

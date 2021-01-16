@@ -11,5 +11,7 @@ export class ActivityTrendsRepository {
         if (response.errors) {
             throw new Error(response.errors[0].message);
         }
+
+        throw new Error("Initialise Response is Null")
     }
 }

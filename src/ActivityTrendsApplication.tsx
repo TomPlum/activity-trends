@@ -7,19 +7,19 @@ import 'nprogress/nprogress.css';
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config } from "@fortawesome/fontawesome-svg-core";
 import MainLayout from './presentation/layout/Main';
-import ErrorBoundary from './presentation/pages/ErrorBoundary';
 import React from 'react';
 import { HashRouter } from 'react-router-dom'
+import ErrorBoundary from './presentation/pages/ErrorBoundary';
 
 config.autoAddCss = false;
 
-const ActivityTrendsApplication = () => {
+const ActivityTrendsApplication = (props) => {
     return (
-        <ErrorBoundary>
-            <HashRouter basename={process.env.REACT_APP_BASE_PATH}>
+        <HashRouter basename={process.env.REACT_APP_BASE_PATH}>
+            <ErrorBoundary key={props.location?.pathName}>
                 <MainLayout/>
-            </HashRouter>
-        </ErrorBoundary>
+            </ErrorBoundary>
+        </HashRouter>
     );
 }
 
