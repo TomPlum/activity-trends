@@ -157,7 +157,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                 return <SleepBarGraph data={data} onSelectedSession={this.onClickSleepSession} />
             }
             case GraphType.UNKNOWN: {
-                return <DummyAreaGraph colour={"#8884d8"}/>
+                return <DummyAreaGraph colour={"#8884d8"} speed={3000} sampleSize={10} dataBounds={[25, 95]}/>
             }
         }
     }
