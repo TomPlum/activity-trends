@@ -33,10 +33,8 @@ class GraphTypeButton extends Component<GraphTypeButtonProps, GraphTypeButtonSta
         const { selectedType } = this.state;
         return (
             <Dropdown className={styles.dropdown} onSelect={this.onSelect}>
-                <Dropdown.Toggle 
-                    className={styles.toggle}
-                    variant="link">{this.state.selectedType}
-                    disabled={this.props.disabled}
+                <Dropdown.Toggle className={styles.toggle} variant="link" disabled={this.props.disabled}>
+                    {this.state.selectedType}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
