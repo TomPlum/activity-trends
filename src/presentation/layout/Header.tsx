@@ -9,7 +9,7 @@ import styles from '../../assets/sass/components/layout/Header.module.scss'
 class Header extends Component {
     render() {
         return (
-            <Navbar bg="dark" variant="dark" fixed="top" className={styles.header}>
+            <Navbar fixed="top" className={styles.header}>
                 <Navbar.Brand>
                     <img
                         alt="activity-rings-logo"
@@ -18,7 +18,7 @@ class Header extends Component {
                         height="30px"
                         className={styles.logo}
                     />{' '}
-                    Activity Trends
+                    <span className={styles.name}>Activity Trends</span>
                 </Navbar.Brand>
                 <Navbar.Toggle />
 

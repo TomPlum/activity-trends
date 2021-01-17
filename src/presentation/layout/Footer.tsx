@@ -8,7 +8,7 @@ class Footer extends Component {
     render() {
         return (
             <Container fluid>
-                <Navbar bg="light" variant="light" fixed="bottom" className={styles.footer}>
+                <Navbar fixed="bottom" className={styles.footer}>
                     <Navbar.Brand>
                         <span>Thomas Plumpton &copy; {Footer.getCurrentYear()}</span>
                     </Navbar.Brand>
