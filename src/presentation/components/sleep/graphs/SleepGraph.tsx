@@ -112,7 +112,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                 <Card.Title>{this.formatDateTitle()}</Card.Title>
                                 {this.props.data
                                     ? <SleepQualityPieChart data={this.state.selectedSessionData}/>
-                                    : <DummyPieGraph colour={"#8884d8"} speed={2000} sampleSize={6} dataBounds={[5, 25]}/>
+                                    : <DummyPieGraph gradient={["#8884d8", "#342de5"]} speed={2000} sampleSize={6} dataBounds={[5, 25]}/>
                                 }
                             </Card.Body>
                         </Card>

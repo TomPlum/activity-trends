@@ -3,9 +3,10 @@ import {Cell, Pie, PieChart} from 'recharts';
 import moment from 'moment';
 import GraphContainer from './GraphContainer';
 import {Numbers} from "../../utility/Numbers";
+import {Colours} from "../../utility/Colours";
 
 interface DummyPieGraphProps {
-    colour: string;
+    gradient: [string, string];
     speed: number;
     sampleSize: number;
     dataBounds: [number, number];
@@ -66,12 +67,13 @@ class DummyPieGraph extends Component<DummyPieGraphProps, DummyPieGraphState> {
     }
 
     private getFakeData(): FakePieData[] {
-        const { sampleSize, dataBounds } = this.props;
+        const { sampleSize, dataBounds, gradient } = this.props;
+        const fills = Colours.gradient(gradient[0], gradient[1], sampleSize);
         return [...Array(sampleSize).keys()].map((i) => {
             return {
                 name: moment().add(i, "month").toString(),
                 value: Numbers.randomInt(dataBounds[0], dataBounds[1]),
-                fill: "#8884d8"
+                fill: fills[i]
             }
         });
     }
