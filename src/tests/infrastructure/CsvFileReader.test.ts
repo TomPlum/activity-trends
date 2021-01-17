@@ -28,5 +28,3 @@ describe('Invalid Scenarios', () => {
         expect(() => reader.read('test.csv', ',')).toThrowError(new ReferenceError('Unknown File: test.csv'));
     });
 });
-
-export default describe;

@@ -9,11 +9,12 @@
     transition: 0.5s ease;
 }
 
-.hammer {
+.tooltipIcon {
     color: $calories-red;
 }
 
 .tooltip {
+    z-index:99999;
     text-align: left;
 }
 

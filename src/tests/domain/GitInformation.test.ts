@@ -29,5 +29,3 @@ describe('Git Information', () => {
     });
     
 });
-
-export default describe;

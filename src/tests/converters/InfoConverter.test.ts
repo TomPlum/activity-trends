@@ -1,5 +1,5 @@
-import { InfoConverter } from '../../converters/InfoConverter';
-import { Info } from '../../types/Info';
+import { InfoConverter } from '../../infrastructure/converters/InfoConverter';
+import { Info } from '../../infrastructure/types/Info';
 import { GitInformation } from '../../domain/GitInformation';
 import { AppInformation } from '../../domain/AppInformation';
 import { BuildInfo } from '../../domain/BuildInfo';

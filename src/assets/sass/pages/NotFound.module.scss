@@ -1,0 +1,17 @@
+@import '../colours';
+
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.number {
+  font-size: 7em;
+  text-align: center;
+  color: $standing-blue;
+  //text-shadow: rgba(0,0,0,1) 0 0 3px;
+}
+
+.text {
+  display: block;
+}

@@ -1,7 +1,7 @@
 import CsvFileReader from "../CsvFileReader";
-import SleepDataConverter from "../../converters/SleepDataConverter";
+import SleepDataConverter from "../converters/SleepDataConverter";
 import RestClient from "../RestClient";
-import { SleepInitialiseData } from '../../types/Sleep';
+import { SleepInitialiseData } from '../types/Sleep';
 
 export class SleepDataRepository {
     private readonly reader = new CsvFileReader();
@@ -17,6 +17,10 @@ export class SleepDataRepository {
     
         if (response.data) {
             return response.data;
+        }
+
+        if (response.errors) {
+            throw new Error(response.errors[0].message);
         }
     }
 

@@ -1,5 +1,5 @@
 import RestClient from "../RestClient";
-import { InitialiseResponse } from '../../types/Common';
+import { InitialiseResponse } from '../types/Common';
 
 export class ActivityTrendsRepository {
     async initialise(): Promise<InitialiseResponse> {
@@ -11,5 +11,7 @@ export class ActivityTrendsRepository {
         if (response.errors) {
             throw new Error(response.errors[0].message);
         }
+
+        throw new Error("Initialise Response is Null")
     }
-} 
+}

@@ -16,8 +16,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "allowSyntheticDefaultImports": true
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": [
+      "node",
+      "jest"
+    ]
   },
   "exclude": [
     "node_modules"
@@ -25,6 +30,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "node_modules/@types/jest/index.d.ts"
   ]
 }

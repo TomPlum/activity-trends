@@ -1,5 +1,5 @@
-import { SnapshotDatesConverter } from '../../converters/SnapshotDatesConverter';
-import { InitialiseResponse } from '../../types/Common';
+import { SnapshotDatesConverter } from '../../infrastructure/converters/SnapshotDatesConverter';
+import { InitialiseResponse } from '../../infrastructure/types/Common';
 import { SnapshotDates } from '../../domain/SnapshotDates';
 import { Page } from '../../domain/Page';
 
@@ -26,5 +26,3 @@ describe('Snapshot Dates Response Converter', () => {
         return dates;
     }
 });
-
-export default describe;

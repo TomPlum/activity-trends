@@ -1,5 +1,5 @@
 import RestClient from "../RestClient";
-import { Info } from '../../types/Info';
+import { Info } from '../types/Info';
 
 export class InfoRepository {
     async read(): Promise<Info> {
