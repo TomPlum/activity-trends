@@ -26,5 +26,3 @@ describe('Snapshot Dates Response Converter', () => {
         return dates;
     }
 });
-
-export default describe;

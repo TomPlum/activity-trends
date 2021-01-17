@@ -59,5 +59,3 @@ describe('Convert To Main Graph Data', () => {
     test('Sounds Recorded', () => expect(converter.convertToMainGraphData(data)[0].soundsRecorded).toBe(11));
     test('Wake Up Mood', () => expect(converter.convertToMainGraphData(data)[0].mood).toBe(Mood.UNKNOWN));
 });
-
-export default describe;
