@@ -85,7 +85,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                     <GraphTypeButton
                                         options={[GraphType.SCATTER, GraphType.AREA, GraphType.BAR]}
                                         onChange={(option) => this.setState({ selectedGraphType: option })}
-                                        default={selectedGraphType}
+                                        defaultType={selectedGraphType}
                                         disabled={!this.props.data}
                                     />
                                 </Card.Title>

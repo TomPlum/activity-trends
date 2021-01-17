@@ -6,7 +6,7 @@ import styles from "../../../assets/sass/components/sleep/GraphTypeButton.module
 interface GraphTypeButtonProps {
     onChange: (option) => void;
     options: GraphType[];
-    default?: GraphType;
+    defaultType?: GraphType;
     disabled: boolean;
 }
 
@@ -26,6 +26,17 @@ class GraphTypeButton extends Component<GraphTypeButtonProps, GraphTypeButtonSta
     onSelect = (option) => {
         this.setState({ selectedType: option })
         this.props.onChange(option);
+    }
+
+    shouldComponentUpdate(nextProps: Readonly<GraphTypeButtonProps>): boolean {
+        return nextProps.defaultType !== this.state.selectedType;
+    }
+
+    componentDidUpdate(prevProps: Readonly<GraphTypeButtonProps>) {
+        const { defaultType } = this.props;
+        if (prevProps.defaultType !== defaultType) {
+            this.setState({ selectedType: defaultType });
+        }
     }
 
     render() {
