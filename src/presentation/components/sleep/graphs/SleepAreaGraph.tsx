@@ -1,12 +1,11 @@
-import React, { Component } from "react";
-import { AreaChart, CartesianGrid, XAxis, Tooltip, Area, YAxis, Brush } from 'recharts';
-import { AxisDomain } from "recharts/types/util/types";
-import { SleepGraphMainData } from './SleepGraph';
-import { Arrays } from '../../../../utility/Arrays';
+import React, {Component} from "react";
+import {Area, AreaChart, Brush, CartesianGrid, Tooltip, XAxis, YAxis} from 'recharts';
+import {AxisDomain} from "recharts/types/util/types";
+import {SleepGraphMainData} from './SleepGraph';
+import {Arrays} from '../../../../utility/Arrays';
 import moment from "moment";
 import GraphContainer from '../../GraphContainer';
 import AreaTooltip from "../tooltips/AreaTooltip";
-import styles from '../../../../assets/sass/components/sleep/graphs/SleepAreaGraph.module.scss';
 
 interface SleepAreaGraphProps {
     data: SleepGraphMainData[];

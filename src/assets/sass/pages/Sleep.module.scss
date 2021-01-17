@@ -1,0 +1,15 @@
+@import "../colours";
+
+.desc {
+  color: #FFF;
+}
+
+.link {
+  color: $sleep-graph-stroke;
+}
+
+.link:hover {
+  text-decoration: none;
+  transition: 0.5s ease;
+  color: $sleep-purple;
+}

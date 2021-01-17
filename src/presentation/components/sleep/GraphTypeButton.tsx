@@ -17,8 +17,7 @@ interface GraphTypeButtonState {
 class GraphTypeButton extends Component<GraphTypeButtonProps, GraphTypeButtonState> {
     constructor(props) {
         super(props);
-        const defaultType = props.default;
-        const options = props.options;
+        const { defaultType, options } = props;
         this.state = {
             selectedType: defaultType ? defaultType : options ? options[0] : GraphType.UNKNOWN
         }
@@ -34,7 +33,7 @@ class GraphTypeButton extends Component<GraphTypeButtonProps, GraphTypeButtonSta
         return (
             <Dropdown className={styles.dropdown} onSelect={this.onSelect}>
                 <Dropdown.Toggle className={styles.toggle} variant="link" disabled={this.props.disabled}>
-                    {this.state.selectedType}
+                    {selectedType}
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>

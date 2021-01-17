@@ -22,7 +22,13 @@ class SleepQualityPieChart extends Component<SleepQualityPieChartProps> {
         return (
             <GraphContainer>
                 <PieChart>
-                    <Pie data={data} nameKey="name" dataKey="value" innerRadius="40%" animationBegin={0} paddingAngle={5}>
+                    <Pie
+                        data={data}
+                        nameKey="name" dataKey="value"
+                        innerRadius="40%" outerRadius="90%"
+                        animationBegin={0}
+                        paddingAngle={5}
+                    >
                         <Label className={styles.label} position="center" value={this.getSleepQualityLabel()} />
                         {this.getSectorColourMappings(data)}
                     </Pie>

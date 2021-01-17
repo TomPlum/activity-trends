@@ -51,7 +51,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         this.state = {
             selectedSessionData: undefined,
             selectedSession: undefined,
-            selectedGraphType: this.props.data ? GraphType.AREA : GraphType.UNKNOWN
+            selectedGraphType: GraphType.UNKNOWN
         }
     }
 
@@ -59,31 +59,21 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
         const { data, date, startTime, endTime, soundsRecorded, duration, mood } = response;
         this.setState({
             selectedSessionData: data,
-            selectedSession: {
-                date,
-                startTime,
-                endTime,
-                miscInfo: {
-                    soundsRecorded,
-                    mood,
-                    duration
-                }
-            },
+            selectedSession: { date, startTime, endTime, miscInfo: { soundsRecorded, mood, duration } },
         });
     }
-
-    handleGraphTypeChange = (option) => this.setState({ selectedGraphType: option });
 
     componentDidMount() {
         const data = this.props.data;
         this.setState({
             selectedSessionData: data ? this.getMostRecentSleepSessionData(): undefined,
             selectedSession: data ? this.getMostRecentSleepSession(): undefined,
+            selectedGraphType: data ? GraphType.AREA : GraphType.UNKNOWN
         });
     }
 
     render() {
-        const { selectedGraphType, selectedSession } = this.state;
+        const { selectedGraphType, selectedSession, selectedSessionData } = this.state;
         return (
             <>
                 <Row>
@@ -94,7 +84,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                                     <Info text="Click a data point on the graph to display that session in detail below." />
                                     <GraphTypeButton
                                         options={[GraphType.SCATTER, GraphType.AREA, GraphType.BAR]}
-                                        onChange={this.handleGraphTypeChange}
+                                        onChange={(option) => this.setState({ selectedGraphType: option })}
                                         default={selectedGraphType}
                                         disabled={!this.props.data}
                                     />
@@ -111,8 +101,8 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                             <Card.Body>
                                 <Card.Title>{this.formatDateTitle()}</Card.Title>
                                 {this.props.data
-                                    ? <SleepQualityPieChart data={this.state.selectedSessionData}/>
-                                    : <DummyPieGraph gradient={["#8884d8", "#342de5"]} speed={2000} sampleSize={6} dataBounds={[5, 25]}/>
+                                    ? <SleepQualityPieChart data={selectedSessionData}/>
+                                    : <DummyPieGraph gradient={["#8884d8", "#342de5"]} speed={2000} sectors={6} range={[5, 25]}/>
                                 }
                             </Card.Body>
                         </Card>
@@ -127,7 +117,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                     </Col>
                 </Row>
             </>
-        )
+        );
     }
 
     private formatDateTitle(): string {

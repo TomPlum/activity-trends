@@ -7,7 +7,6 @@ const LoadingSpinner = ({active}) => {
         return (
             <div className={styles.wrapper}>
                 <ActivityRings />
-                {/* <p className={styles.loading}>Loading...</p> */}
             </div>
         );
     }

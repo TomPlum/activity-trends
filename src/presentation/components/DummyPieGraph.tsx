@@ -8,8 +8,8 @@ import {Colours} from "../../utility/Colours";
 interface DummyPieGraphProps {
     gradient: [string, string];
     speed: number;
-    sampleSize: number;
-    dataBounds: [number, number];
+    sectors: number;
+    range: [number, number];
 }
 
 interface DummyPieGraphState {
@@ -68,12 +68,12 @@ class DummyPieGraph extends Component<DummyPieGraphProps, DummyPieGraphState> {
     }
 
     private getFakeData(): FakePieData[] {
-        const { sampleSize, dataBounds, gradient } = this.props;
-        const fills = Colours.gradient(gradient[0], gradient[1], sampleSize);
-        return [...Array(sampleSize).keys()].map((i) => {
+        const { sectors, range, gradient } = this.props;
+        const fills = Colours.gradient(gradient[0], gradient[1], sectors);
+        return [...Array(sectors).keys()].map((i) => {
             return {
                 name: moment().add(i, "month").toString(),
-                value: Numbers.randomInt(dataBounds[0], dataBounds[1]),
+                value: Numbers.randomInt(range[0], range[1]),
                 fill: fills[i]
             }
         });
