@@ -33,6 +33,7 @@ class DummyAreaGraph extends Component<DummyAreaGraphProps, DummyAreaGraphState>
     shift = () => this.setState(() => ({data: this.getFakeData()}))
 
     componentDidMount() {
+        this.shift();
         this.setState({timeout: setInterval(() => this.shift(), this.props.speed) });
     }
 
@@ -65,7 +66,10 @@ class DummyAreaGraph extends Component<DummyAreaGraphProps, DummyAreaGraphState>
     private getFakeData(): FakeAreaData[] {
         const { sampleSize, dataBounds } = this.props;
         return [...Array(sampleSize).keys()].map((i) => {
-            return { value: Numbers.randomInt(dataBounds[0], dataBounds[1]), date: moment().add(i, "month").toString() }
+            return {
+                value: Numbers.randomInt(dataBounds[0], dataBounds[1]),
+                date: moment().add(i, "month").toString()
+            }
         });
     }
 

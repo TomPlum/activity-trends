@@ -6,6 +6,7 @@ import LoadingSpinner from '../layout/LoadingSpinner';
 import SleepInfoCard from '../components/sleep/SleepInfoCard';
 import { SleepService } from '../../application/service/SleepService';
 import SleepGraph from '../components/sleep/graphs/SleepGraph';
+import DisabledOverlay from "../layout/DisabledOverlay";
 
 interface SleepState {
     sleepData: SleepGraphMainData[]
@@ -33,6 +34,7 @@ class Sleep extends Component<{}, SleepState> {
         return (
             <Container fluid>
                 <LoadingSpinner active={this.state.loading}/>
+                <DisabledOverlay active={!sleepData}/>
                 <p>Visualising the data recorded by the iOS Pillow app from my Apple watch.</p>
 
                 <Row>

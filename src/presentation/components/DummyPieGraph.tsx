@@ -35,6 +35,7 @@ class DummyPieGraph extends Component<DummyPieGraphProps, DummyPieGraphState> {
     shift = () => this.setState(() => ({data: this.getFakeData()}))
 
     componentDidMount() {
+        this.shift();
         this.setState({timeout: setInterval(() => this.shift(), this.props.speed) });
     }
 

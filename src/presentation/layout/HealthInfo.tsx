@@ -38,7 +38,11 @@ class HealthInfo extends Component<{}, HealthInfoState> {
                 overlay={error ? this.renderErrorTooltip : this.renderTooltip}
                 trigger={["hover", "focus"]}
             >
-                <FontAwesomeIcon fixedWidth className={error ? styles.tooltipIcon : styles.icon} icon={error ? faExclamationCircle : faInfoCircle} />
+                <FontAwesomeIcon
+                    fixedWidth
+                    className={error ? styles.tooltipIcon : styles.icon}
+                    icon={error ? faExclamationCircle : faInfoCircle}
+                />
             </OverlayTrigger>
         );
     }
