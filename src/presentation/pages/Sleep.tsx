@@ -42,16 +42,16 @@ class Sleep extends Component<{}, SleepState> {
                 </p>
 
                 <Row>
-                    <Col md={3} sm={12}>
+                    <Col lg={3} md={6} sm={12}>
                         <SleepInfoCard title="Sessions" value={this.getSleepSessionQuantity()} icon={faBed} />
                     </Col>
-                    <Col md={3} sm={12}>
+                    <Col lg={3} md={6} sm={12}>
                         <SleepInfoCard title="Avg Quality" value={this.getAvgSleepQuality()} unit="%" icon={faSmile} />
                     </Col>
-                    <Col md={3} sm={12}>
+                    <Col lg={3} md={6} sm={12}>
                         <SleepInfoCard title="Hours Slept" value={this.getTotalHoursSlept()} icon={faClock} />
                     </Col>
-                    <Col md={3} sm={12}>
+                    <Col lg={3} md={6} sm={12}>
                         <SleepInfoCard title="Sounds Recorded" value={this.getSoundsSum()} icon={faMicrophone} />
                     </Col>
                 </Row>
