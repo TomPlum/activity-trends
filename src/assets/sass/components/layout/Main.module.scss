@@ -3,7 +3,7 @@
 @mixin compressed-mode {
     .sidebar {
         box-shadow: 0 0 4px 1em rgba(0, 0, 0, 0.5);
-        width: 70px;
+        width: 50px;
         display: flex;
         align-items: center;
         overflow-x: hidden;
@@ -37,7 +37,6 @@
         -o-transition: margin .25s ease-out;
         transition: margin .25s ease-out;
         font-size: 1.2rem;
-        background-color: rgb(41, 41, 43);
         padding: 10px;
     }
 
@@ -48,8 +47,15 @@
         padding: 20px;
         display: flex;
         justify-content: center;
-        background: rgb(55, 55, 57)
     }
+}
+
+.sidebar {
+    background-color: rgb(41, 41, 43);
+}
+
+.content {
+    background: rgb(55, 55, 57)
 }
 
 .sidebar, .content {

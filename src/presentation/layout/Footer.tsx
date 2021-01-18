@@ -14,14 +14,14 @@ class Footer extends Component {
                 <Navbar fixed="bottom" className={styles.footer}>
                     <Nav>
                         <Nav.Link target="_blank" href="https://www.github.com/TomPlum" className={styles.link}>
-                            <FontAwesomeIcon icon={faGithub} size="lg" fixedWidth className={styles.github} />
+                            <FontAwesomeIcon icon={faGithub} size={"lg"} fixedWidth className={styles.github} />
                         </Nav.Link>
                     </Nav>
                     <Navbar.Brand>
-                        <span className={styles.name}>Thomas Plumpton
+                        <div className={styles.name}>Thomas Plumpton
                             <FontAwesomeIcon icon={faCopyright} size={"sm"} fixedWidth className={styles.copyright} />
                             {Footer.getCurrentYear()}
-                        </span>
+                        </div>
                     </Navbar.Brand>
                 </Navbar>
             </Container>

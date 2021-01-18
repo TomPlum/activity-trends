@@ -19,13 +19,13 @@ class SleepInfoCard extends Component<SleepInfoCardProps> {
         return (
             <Card className={styles.card}>
                 <Row className={styles.row}>
-                    <Col lg={4} xs={4}>
+                    <Col sm={4} xs={6}>
                         <span className="fa-layers fa-5x">
                             <FontAwesomeIcon icon={faCircle} className={styles.circle} />
                             <FontAwesomeIcon icon={icon} className={styles.icon} />
                         </span>
                     </Col>
-                    <Col lg={8} xs={8}>
+                    <Col sm={8} xs={6}>
                         {value
                             ? <Countup start={0} end={Number(value)} suffix={unit} duration={2} className={styles.value} />
                             : <span className={styles.value}>N/A</span>

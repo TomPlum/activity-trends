@@ -33,6 +33,14 @@
     .footer span {
         font-size: 0.7em;
     }
+
+    .name {
+        font-size: 2em;
+    }
+
+    .github {
+        font-size: 1em;
+    }
 }
 
 @include tablet {
@@ -45,6 +53,10 @@
     .footer span {
         font-size: 0.85em;
     }
+
+    .github {
+        font-size: 1em;
+    }
 }
 
 @include desktop {
@@ -56,6 +68,10 @@
     
     .footer span {
         font-size: 1em;
+    }
+
+    .github {
+        //font-size: 1.3em;
     }
 }
 
@@ -73,5 +89,7 @@
 }
 
 .name {
+    color: #FFF;
+    font-size: 1em;
     font-weight: 450;
 }
