@@ -25,13 +25,15 @@ class MainLayout extends Component {
                         <Menu />
                     </div>
                     <Col className={styles.content}>
-                        <Switch>
-                            <ProgressRoute path='/' component={Overview} exact />
-                            <ProgressRoute path='/running' component={Running} />
-                            <ProgressRoute path='/gym' component={Gym} />
-                            <ProgressRoute path='/sleep' component={Sleep} />
-                            <ProgressRoute component={NotFound} />
-                        </Switch>
+                        <div className={styles.contentWrapper}>
+                            <Switch>
+                                <ProgressRoute path='/' component={Overview} exact />
+                                <ProgressRoute path='/running' component={Running} />
+                                <ProgressRoute path='/gym' component={Gym} />
+                                <ProgressRoute path='/sleep' component={Sleep} />
+                                <ProgressRoute component={NotFound} />
+                            </Switch>
+                        </div>
                     </Col>
                 </Row>
 

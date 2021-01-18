@@ -43,9 +43,13 @@
 
     .content {
         min-width: 0;
+        max-width: 100%;
         width: 100%;
-        padding: 30px;
-        overflow: hidden;
+        padding: 20px;
+        //overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background: rgb(55, 55, 57)
     }
 }
@@ -54,11 +58,19 @@
     margin-top: 60px;
 }
 
+.contentWrapper {
+    max-width: 1920px;
+    width: 100%;
+}
+
 .wrapper {
     padding: 0;
-    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    //overflow-x: hidden;
 }
 
 .row {
-    margin-left: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
