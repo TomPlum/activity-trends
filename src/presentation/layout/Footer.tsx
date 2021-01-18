@@ -1,9 +1,10 @@
 import {Container, Nav, Navbar} from 'react-bootstrap'
-import styles from '../../assets/sass/components/layout/Footer.module.scss'
 import React, { Component } from 'react';
 import moment from "moment";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
+import {faCopyright} from "@fortawesome/free-regular-svg-icons";
+import styles from '../../assets/sass/components/layout/Footer.module.scss'
 
 
 class Footer extends Component {
@@ -17,7 +18,10 @@ class Footer extends Component {
                         </Nav.Link>
                     </Nav>
                     <Navbar.Brand>
-                        <span>Thomas Plumpton &copy; {Footer.getCurrentYear()}</span>
+                        <span className={styles.name}>Thomas Plumpton
+                            <FontAwesomeIcon icon={faCopyright} size={"sm"} fixedWidth className={styles.copyright} />
+                            {Footer.getCurrentYear()}
+                        </span>
                     </Navbar.Brand>
                 </Navbar>
             </Container>
