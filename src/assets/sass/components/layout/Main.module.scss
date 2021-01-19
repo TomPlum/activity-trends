@@ -1,6 +1,16 @@
 @import '../../viewports';
 
-@mixin compressed-mode {
+@include phone {
+    .content {
+        padding: 0;
+    }
+
+    .content > col {
+        margin: 0;
+    }
+}
+
+@include tablet {
     .sidebar {
         box-shadow: 0 0 4px 1em rgba(0, 0, 0, 0.5);
         width: 50px;
@@ -15,16 +25,7 @@
         width: 100%;
         padding: 15px;
         overflow: hidden;
-        background: rgb(238, 238, 238)
     }
-}
-
-@include phone {
-    @include compressed-mode;
-}
-
-@include tablet {
-    @include compressed-mode;
 }
 
 @include desktop {

@@ -96,7 +96,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                 </Row>
 
                 <Row>
-                    <Col md={6} sm={12}>
+                    <Col xl={6} xs={12}>
                         <Card>
                             <Card.Body>
                                 <Card.Title>{this.formatDateTitle()}</Card.Title>
@@ -107,7 +107,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col md={6} sm={12}>
+                    <Col xl={6} xs={12}>
                         <Card>
                             <Card.Body>
                                 <Card.Title>Miscellaneous Information</Card.Title>

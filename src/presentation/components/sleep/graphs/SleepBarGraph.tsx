@@ -37,7 +37,7 @@ class SleepBarGraph extends Component<SleepBarGraphProps> {
                 <BarChart data={this.props.data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
-                    <YAxis unit="%" name="Sleep Quality" />
+                    <YAxis unit="%" name="Sleep Quality" width={32}/>
                     <Tooltip content={(props) => <BarTooltip {...props} />} />
                     <Brush
                         dataKey='date'

@@ -12,7 +12,7 @@ interface WakeMoodProps {
 class WakeMood extends Component<WakeMoodProps> {
     render() {
         return (
-            <Container>
+            <Container className={styles.container}>
                 <FontAwesomeIcon icon={faGrinBeam} title={"Great"} className={this.getClass(Mood.GREAT)} />
                 <FontAwesomeIcon icon={faSmile} title={"Good"} className={this.getClass(Mood.GOOD)} />
                 <FontAwesomeIcon icon={faMeh} title="Ok" className={this.getClass(Mood.OK)} />

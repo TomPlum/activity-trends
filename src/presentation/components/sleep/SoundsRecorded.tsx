@@ -12,18 +12,18 @@ interface SoundsRecordedProps {
 class SoundsRecorded extends Component<SoundsRecordedProps> {
     render() {
         return (
-            <Container>
-                <Row>
-                    <Col xs={3} className={styles.column}>
-                        <FontAwesomeIcon icon={faVolumeMute} fixedWidth className={this.getClass(SoundThreshold.FLOOR)} />
-                    </Col>
-                    <Col xs={6} className={styles.middleColumn}>
-                        <ProgressBar now={this.getBarFillPercentage()} className={styles.bar} />
-                    </Col>
-                    <Col xs={3} className={styles.column}>
-                        <FontAwesomeIcon icon={faVolumeUp} fixedWidth className={this.getClass(SoundThreshold.UPPER)} />
-                    </Col>
-                </Row>
+            <Container className={styles.container}>
+                <FontAwesomeIcon
+                    icon={faVolumeMute}
+                    fixedWidth
+                    className={this.getClass(SoundThreshold.FLOOR) + " left"}
+                />
+                <ProgressBar now={this.getBarFillPercentage()} className={styles.bar} />
+                <FontAwesomeIcon
+                    icon={faVolumeUp}
+                    fixedWidth
+                    className={this.getClass(SoundThreshold.UPPER) + " right"}
+                />
             </Container>
         );
     }

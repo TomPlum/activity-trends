@@ -50,7 +50,7 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps, SleepScatterGr
                 <ScatterChart data={this.props.data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" name="Date" type="category" tickFormatter={this.xAxisFormatter} />
-                    <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" domain={this.yAxisDomain()} />
+                    <YAxis dataKey="duration" name="Duration" type="number" unit=" hrs" width={32} domain={this.yAxisDomain()} />
                     <ZAxis dataKey="sleepQuality" range={[1, 300]} name="Sleep Quality" unit="%" />
                     <Tooltip cursor={{ strokeDasharray: '3 3' }} content={props => <ScatterTooltip {...props} />} />
                     <Brush

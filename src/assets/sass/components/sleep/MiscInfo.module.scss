@@ -1,3 +1,37 @@
+@import "../../viewports";
+
+@include phone {
+    .value {
+        font-size: 2em;
+    }
+
+    .title {
+        font-size: 1em;
+    }
+}
+
+@include tablet {
+    .value {
+        font-size: 2.5em;
+    }
+
+    .title {
+        font-size: 1.2em;
+    }
+}
+
+
+@include desktop {
+    .value {
+        font-size: 3em;
+    }
+
+    .title {
+        font-size: 1.2em;
+    }
+}
+
+
 .container {
     height: 350px;
 }
@@ -11,9 +45,4 @@
 .value {
     margin: 0;
     font-weight: 600;
-}
-
-.icon {
-    margin: auto;
-    display: block;
 }

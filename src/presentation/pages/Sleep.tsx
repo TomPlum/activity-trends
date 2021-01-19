@@ -33,7 +33,7 @@ class Sleep extends Component<{}, SleepState> {
         const { sleepData, loading } = this.state
 
         return (
-            <Container fluid>
+            <Container fluid className={"page-container"}>
                 <LoadingSpinner active={loading}/>
                 <DisabledOverlay active={!loading && !sleepData}/>
                 <p className={styles.desc}>Visualising the data recorded by the iOS

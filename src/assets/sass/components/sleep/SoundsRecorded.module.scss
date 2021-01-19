@@ -1,4 +1,27 @@
 @import '../../colours';
+@import '../../viewports';
+
+@include desktop {
+    .active, .inactive {
+        font-size: 3em;
+    }
+}
+
+@include tablet {
+    .active, .inactive {
+        font-size: 3em;
+    }
+}
+
+@include phone {
+    .active, .inactive {
+        font-size: 3em;
+    }
+}
+
+.active, .inactive {
+    transition: color 0.6s ease;
+}
 
 .active {
     color: $sleep-graph-stroke;
@@ -8,15 +31,9 @@
     color: rgba(0, 0, 0, 0.2);
 }
 
-.active, .inactive {
-    transition: color 0.6s ease;
-    vertical-align: middle;
-    margin: auto 2px;
-    font-size: 3em;
-}
-
 .column {
-    padding: 0 2px;
+    display: flex;
+    padding: 0;
 }
 
 .middleColumn {
@@ -25,6 +42,17 @@
 }
 
 .bar {
-    display: inline-block;
-    width: 100%;
+    flex-basis: 50%;
+    margin: 0 5px;
+}
+
+.left, .right {
+    flex-basis: 25%;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 0;
 }

@@ -39,7 +39,7 @@ class SleepAreaGraph extends Component<SleepAreaGraphProps> {
                 <AreaChart data={this.props.data}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" name="Date" tickFormatter={this.xAxisFormatter} />
-                    <YAxis type="number" name="Sleep Quality" unit="%" domain={this.yAxisDomain()} />
+                    <YAxis type="number" name="Sleep Quality" unit="%" domain={this.yAxisDomain()} width={32}/>
                     <Tooltip content={props => <AreaTooltip {...props}/>} />
                     <Area
                         type="monotone"
