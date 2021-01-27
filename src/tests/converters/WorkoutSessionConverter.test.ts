@@ -1,78 +1,78 @@
-import { OutdoorExerciseConverter } from "../../infrastructure/converters/OutdoorExerciseConverter";
+import { WorkoutSessionConverter } from "../../infrastructure/converters/WorkoutSessionConverter";
 import { WorkoutSessionData } from "../../infrastructure/types/Health";
 import { WorkoutType } from "../../domain/health/workout/WorkoutType";
+import each from "jest-each";
 
 describe('Outdoor Exercise Converter', () => {
 
-  const converter = new OutdoorExerciseConverter();
-  const each = require("jest-each").default;
+  const converter = new WorkoutSessionConverter();
 
   describe("Workout Type", () => {
     it('Should convert type ELLIPTICAL', () => {
       const data = [getSessionDataWithType("ELLIPTICAL")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.ELLIPTICAL);
+      expect(response[0].type).toBe(WorkoutType.ELLIPTICAL);
     });
 
     it('Should convert type CYCLING', () => {
       const data = [getSessionDataWithType("CYCLING")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.CYCLING);
+      expect(response[0].type).toBe(WorkoutType.CYCLING);
     });
 
     it('Should convert type WALKING', () => {
       const data = [getSessionDataWithType("WALKING")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.WALKING);
+      expect(response[0].type).toBe(WorkoutType.WALKING);
     });
 
     it('Should convert type TENNIS', () => {
       const data = [getSessionDataWithType("TENNIS")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.TENNIS);
+      expect(response[0].type).toBe(WorkoutType.TENNIS);
     });
 
     it('Should convert type FUNCTIONAL_STRENGTH_TRAINING', () => {
       const data = [getSessionDataWithType("FUNCTIONAL_STRENGTH_TRAINING")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.FUNCTIONAL_STRENGTH_TRAINING);
+      expect(response[0].type).toBe(WorkoutType.FUNCTIONAL_STRENGTH_TRAINING);
     });
 
     it('Should convert type TRADITIONAL_STRENGTH_TRAINING', () => {
       const data = [getSessionDataWithType("TRADITIONAL_STRENGTH_TRAINING")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.TRADITIONAL_STRENGTH_TRAINING);
+      expect(response[0].type).toBe(WorkoutType.TRADITIONAL_STRENGTH_TRAINING);
     });
 
     it('Should convert type RUNNING', () => {
       const data = [getSessionDataWithType("RUNNING")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.RUNNING);
+      expect(response[0].type).toBe(WorkoutType.RUNNING);
     });
 
     it('Should convert type CORE_TRAINING', () => {
       const data = [getSessionDataWithType("CORE_TRAINING")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.CORE_TRAINING);
+      expect(response[0].type).toBe(WorkoutType.CORE_TRAINING);
     });
 
     it('Should convert type HIKING', () => {
       const data = [getSessionDataWithType("HIKING")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.HIKING);
+      expect(response[0].type).toBe(WorkoutType.HIKING);
     });
 
     it('Should convert type YOGA', () => {
       const data = [getSessionDataWithType("YOGA")];
       const response = converter.convert(data);
-      expect(response.sessions[0].type).toBe(WorkoutType.YOGA);
+      expect(response[0].type).toBe(WorkoutType.YOGA);
     });
 
     each([undefined, null, "", "WHO_KNOWS"])
       .it('Should convert invalid type %s', (type) => {
         const data = [getSessionDataWithType(type)];
         const response = converter.convert(data);
-        expect(response.sessions[0].type).toBe(WorkoutType.UNKNOWN);
+        expect(response[0].type).toBe(WorkoutType.UNKNOWN);
       });
 
     function getSessionDataWithType(type: string): WorkoutSessionData {
@@ -86,7 +86,7 @@ describe('Outdoor Exercise Converter', () => {
     it('Should convert valid value into a Number', () => {
       const data = [getSessionDataWithDuration("25.82323")];
       const response = converter.convert(data);
-      expect(response.sessions[0].duration).toBe(25.82323);
+      expect(response[0].duration).toBe(25.82323);
     });
 
     each([undefined, null, "", "-50", ""])
@@ -106,7 +106,7 @@ describe('Outdoor Exercise Converter', () => {
     it('Should convert valid value into a Number', () => {
       const data = [getSessionDataWithDistance("3.5623165")];
       const response = converter.convert(data);
-      expect(response.sessions[0].distance).toBe(3.5623165);
+      expect(response[0].distance).toBe(3.5623165);
     });
 
     each([undefined, null, "", "-50", ""])
@@ -126,7 +126,7 @@ describe('Outdoor Exercise Converter', () => {
     it("Should convert a valid value", () => {
       const data = [getSessionDataWithStartTime("2017-10-02T19:54:13")];
       const response = converter.convert(data);
-      expect(response.sessions[0].startTime).toBe("2017-10-02T19:54:13");
+      expect(response[0].startTime).toBe("2017-10-02T19:54:13");
     });
 
     each([undefined, null, ""])
@@ -146,7 +146,7 @@ describe('Outdoor Exercise Converter', () => {
     it("Should convert a valid value", () => {
       const data = [getSessionDataWithEndTime("2017-10-02T19:54:13")];
       const response = converter.convert(data);
-      expect(response.sessions[0].endTime).toBe("2017-10-02T19:54:13");
+      expect(response[0].endTime).toBe("2017-10-02T19:54:13");
     });
 
     each([undefined, null, ""])

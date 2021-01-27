@@ -33,7 +33,7 @@ class RestClient {
         }).then(async response => {
             if (response.ok) {
                 const json = await response.json() as Promise<T>
-                console.log("Sucessfully received " + response.status + " response", json);
+                console.log("Successfully received " + response.status + " response", json);
                 return {
                     data: json,
                     errors: []

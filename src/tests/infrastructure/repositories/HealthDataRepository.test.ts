@@ -13,19 +13,19 @@ describe("Health Data Repository", () => {
   describe("Get Running Data", () => {
     it("Should call the Rest Client with the correct endpoint", () => {
       whenCallApiReturnValidResponse();
-      repository.getRunningData();
+      repository.getCardioSessions();
       expect(mockGet).toHaveBeenCalledWith("/workouts/sessions")
     });
 
     it("Should call return the response data if present", () => {
       whenCallApiReturnValidResponse();
-      const response = repository.getRunningData();
+      const response = repository.getCardioSessions();
       expect(response).toEqual(getValidWorkoutData());
     });
 
     it("Should throw an error with the caught errors message", () => {
       whenCallApiReturnError();
-      expect(() => repository.getRunningData()).rejects.toThrow("Something went wrong.");
+      expect(() => repository.getCardioSessions()).rejects.toThrow("Something went wrong.");
     })
 
     function whenCallApiReturnValidResponse() {

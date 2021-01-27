@@ -1,22 +1,20 @@
-import { OutdoorExercise } from "../../domain/health/workout/OutdoorExercise";
 import { WorkoutSessionData } from "../types/Health";
 import { WorkoutSession } from "../../domain/health/workout/WorkoutSession";
 import { WorkoutType } from "../../domain/health/workout/WorkoutType";
 import { Numbers } from "../../utility/Numbers";
 
-export class OutdoorExerciseConverter {
-  convert(data: WorkoutSessionData[]): OutdoorExercise {
-    const sessions = data.map(sessionData => {
-        const type = OutdoorExerciseConverter.getWorkoutType(sessionData.type);
-        const duration = OutdoorExerciseConverter.getNumericalValue(sessionData.duration, "Duration");
-        const distance = OutdoorExerciseConverter.getNumericalValue(sessionData.distance, "Distance");
-        const calories = OutdoorExerciseConverter.getNumericalValue(sessionData.energyBurned, "Calories");
-        const startTime = OutdoorExerciseConverter.getDate(sessionData.startTime);
-        const endTime = OutdoorExerciseConverter.getDate(sessionData.endTime);
+export class WorkoutSessionConverter {
+  convert(data: WorkoutSessionData[]): WorkoutSession[] {
+    return data.map(sessionData => {
+        const type = WorkoutSessionConverter.getWorkoutType(sessionData.type);
+        const duration = WorkoutSessionConverter.getNumericalValue(sessionData.duration, "Duration");
+        const distance = WorkoutSessionConverter.getNumericalValue(sessionData.distance, "Distance");
+        const calories = WorkoutSessionConverter.getNumericalValue(sessionData.energyBurned, "Calories");
+        const startTime = WorkoutSessionConverter.getDate(sessionData.startTime);
+        const endTime = WorkoutSessionConverter.getDate(sessionData.endTime);
         return new WorkoutSession(type, duration, distance, calories, startTime, endTime);
       }
     );
-    return new OutdoorExercise(sessions);
   }
 
   private static getNumericalValue(value: string, name: string): Number {

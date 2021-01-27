@@ -1,6 +1,6 @@
 import { WorkoutSession } from "./WorkoutSession";
 
-export class OutdoorExercise {
+export class CardioSessions {
   private readonly _sessions: WorkoutSession[]
 
   constructor(sessions: WorkoutSession[]) {
