@@ -6,7 +6,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Switch } from 'react-router-dom';
 import Sleep from '../pages/Sleep';
 import Overview from "../pages/Overview";
-import Running from "../pages/Running";
+import Cardio from "../pages/Cardio";
 import Gym from "../pages/Gym";
 import NotFound from "../pages/NotFound";
 import ProgressRoute from "../components/ProgressRoute";
@@ -28,7 +28,7 @@ class MainLayout extends Component {
             <div className={styles.contentWrapper}>
               <Switch>
                 <ProgressRoute path='/' component={Overview} exact/>
-                <ProgressRoute path='/running' component={Running}/>
+                <ProgressRoute path='/cardio' component={Cardio}/>
                 <ProgressRoute path='/gym' component={Gym}/>
                 <ProgressRoute path='/sleep' component={Sleep}/>
                 <ProgressRoute component={NotFound}/>

@@ -8,12 +8,12 @@ import CardioAreaGraph from "../components/health/graphs/CardioAreaGraph";
 import DummyAreaGraph from "../components/DummyAreaGraph";
 import styles from "../../assets/sass/pages/Sleep.module.scss";
 
-interface RunningState {
+interface CardioPageState {
   data: CardioSessions;
   loading: boolean;
 }
 
-class Running extends Component<{}, RunningState> {
+class Cardio extends Component<{}, CardioPageState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,7 @@ class Running extends Component<{}, RunningState> {
                 <Card.Title>Calories Burned vs Duration</Card.Title>
                 {data ?
                   <CardioAreaGraph data={data}/> :
-                  <DummyAreaGraph colour={"#000000"} speed={2000} sampleSize={30} dataBounds={[50, 1000]}/>
+                  <DummyAreaGraph colour={"#94d55a"} speed={2000} sampleSize={30} dataBounds={[50, 1000]}/>
                 }
               </Card.Body>
             </Card>
@@ -55,4 +55,4 @@ class Running extends Component<{}, RunningState> {
   }
 }
 
-export default Running;
+export default Cardio;

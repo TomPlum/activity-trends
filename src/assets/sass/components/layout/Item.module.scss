@@ -11,7 +11,7 @@
         color: $standing-blue;
     }
     
-    .running {
+    .cardio {
         @include shadow;
         color: $exercise-green;
     }
@@ -30,7 +30,7 @@
 @mixin icons-large {
     @include icon-colours;
 
-    .overview, .running, .sleep, .gym {
+    .overview, .cardio, .sleep, .gym {
         width: 100%;
         font-size: 1.8em;
         text-align: center;
