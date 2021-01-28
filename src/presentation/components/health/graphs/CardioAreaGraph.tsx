@@ -33,7 +33,7 @@ class CardioAreaGraph extends Component<CardioAreaGraphProps> {
             animationDuration={2200}
           />
           <Brush
-            dataKey='_startDate'
+            dataKey='_startTime'
             height={30}
             stroke="#94d55a"
             endIndex={this.getBrushEndIndex()}
@@ -45,6 +45,11 @@ class CardioAreaGraph extends Component<CardioAreaGraphProps> {
   }
 
   private xAxisFormatter = (tickItem: string) => moment(tickItem).format("MMM YY")
+
+  private static yAxisFormatter(tickItem: number) {
+    const s = tickItem.toString();
+    return tickItem >= 1000 ? s.substring(0, 1) + "." + s.substring(1, 2) + "k" : s;
+  }
 
   private getBrushEndIndex = () => Math.round(this.props.data.sessions.length / 10)
 }
