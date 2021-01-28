@@ -17,7 +17,7 @@ export class WorkoutSessionConverter {
     );
   }
 
-  private static getNumericalValue(value: string, name: string): Number {
+  private static getNumericalValue(value: string, name: string): number {
     if (Numbers.isValidNumber(value)) {
       const number = Number(value);
       if (number >= 0) {
@@ -34,7 +34,7 @@ export class WorkoutSessionConverter {
     return value;
   }
 
-  private static getWorkoutType(type: String): WorkoutType {
+  private static getWorkoutType(type: string): WorkoutType {
     switch (type) {
       case "ELLIPTICAL":
         return WorkoutType.ELLIPTICAL;

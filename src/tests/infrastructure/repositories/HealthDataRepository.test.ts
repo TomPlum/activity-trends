@@ -1,6 +1,6 @@
 import { HealthDataRepository } from "../../../infrastructure/repository/HealthDataRepository";
 import RestClient from "../../../infrastructure/RestClient";
-import { WorkoutSessionData } from "../../../infrastructure/types/Health";
+import { WorkoutSessionResponse } from "../../../infrastructure/types/Health";
 
 describe("Health Data Repository", () => {
 
@@ -42,15 +42,17 @@ describe("Health Data Repository", () => {
       }));
     }
 
-    function getValidWorkoutData(): Promise<WorkoutSessionData[]> {
-      return Promise.resolve([{
-        type: "ELLIPTICAL",
-        duration: "16.36445068319638",
-        distance: "0.0",
-        energyBurned: "177.234",
-        startTime: "2017-10-02T19:54:13",
-        endTime: "2017-10-02T20:10:35"
-      }]);
+    function getValidWorkoutData(): Promise<WorkoutSessionResponse> {
+      return Promise.resolve({
+        sessions: [{
+          type: "ELLIPTICAL",
+          duration: "16.36445068319638",
+          distance: "0.0",
+          energyBurned: "177.234",
+          startTime: "2017-10-02T19:54:13",
+          endTime: "2017-10-02T20:10:35"
+        }],
+      });
     }
   });
 });

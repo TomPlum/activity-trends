@@ -6,6 +6,9 @@ $sleep-purple: rgb(140, 71, 196);
 $sleep-graph-fill: rgba(136, 132, 216, 0.6);
 $sleep-graph-stroke: rgba(136, 132, 216, 1);
 
+//Exercise
+$exercise-graph-fill: rgb(48, 198, 71);
+
 //iOS Activity Colours
 $exercise-green: #94d55a;
 $calories-red: #c53f3d;
@@ -14,3 +17,13 @@ $standing-blue: #70bed7;
 //Dark Mode
 $dark-1: #212529;
 $dark-2: #353537;
+
+:export {
+  exercise-green: $exercise-green;
+  calories-red: $calories-red;
+  standing-blue: $standing-blue;
+
+  sleep-purple: $sleep-purple;
+  sleep-graph-fill: $sleep-graph-fill;
+  sleep-graph-stroke: $sleep-graph-stroke;
+}

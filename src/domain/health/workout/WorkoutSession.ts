@@ -2,14 +2,14 @@ import { WorkoutType } from "./WorkoutType";
 
 export class WorkoutSession {
   private readonly _type: WorkoutType;
-  private readonly _duration: Number;
-  private readonly _distance: Number;
-  private readonly _caloriesBurned: Number;
+  private readonly _duration: number;
+  private readonly _distance: number;
+  private readonly _caloriesBurned: number;
   private readonly _startTime: string;
   private readonly _endTime: string;
 
 
-  constructor(type: WorkoutType, duration: Number, distance: Number, caloriesBurned: Number, startTime: string, endTime: string) {
+  constructor(type: WorkoutType, duration: number, distance: number, caloriesBurned: number, startTime: string, endTime: string) {
     this._type = type;
     this._duration = duration;
     this._distance = distance;
@@ -23,15 +23,15 @@ export class WorkoutSession {
     return this._type;
   }
 
-  get duration(): Number {
+  get duration(): number {
     return this._duration;
   }
 
-  get distance(): Number {
+  get distance(): number {
     return this._distance;
   }
 
-  get caloriesBurned(): Number {
+  get caloriesBurned(): number {
     return this._caloriesBurned;
   }
 
