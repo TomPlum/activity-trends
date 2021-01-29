@@ -1,15 +1,15 @@
 export enum WorkoutType {
-  ELLIPTICAL,
-  CYCLING,
-  WALKING,
-  TENNIS,
-  FUNCTIONAL_STRENGTH_TRAINING,
-  TRADITIONAL_STRENGTH_TRAINING,
-  RUNNING,
-  CORE_TRAINING,
-  HIKING,
-  YOGA,
-  UNKNOWN
+  ELLIPTICAL = "Elliptical",
+  CYCLING = "Cycling",
+  WALKING = "Walking",
+  TENNIS = "Tennis",
+  FUNCTIONAL_STRENGTH_TRAINING = "Functional Strength Training",
+  TRADITIONAL_STRENGTH_TRAINING = "Traditional Strength Training",
+  RUNNING = "Running",
+  CORE_TRAINING = "Core Training",
+  HIKING = "Hiking",
+  YOGA = "Yoga",
+  UNKNOWN = "N/A"
 }
 
 export function isCardio(type: WorkoutType): boolean {
