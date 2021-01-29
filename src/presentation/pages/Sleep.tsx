@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { faBed, faClock, faMicrophone, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepGraph, { SleepGraphMainData } from '../components/sleep/graphs/SleepGraph';
 import LoadingSpinner from '../layout/LoadingSpinner';
-import SleepInfoCard from '../components/sleep/SleepInfoCard';
+import InfoCard from '../components/InfoCard';
 import { SleepService } from '../../application/service/SleepService';
 import DisabledOverlay from "../layout/DisabledOverlay";
 import styles from '../../assets/sass/pages/Sleep.module.scss';
@@ -42,16 +42,16 @@ class Sleep extends Component<{}, SleepState> {
 
         <Row>
           <Col xl={3} md={6} sm={6} xs={12}>
-            <SleepInfoCard title="Sessions" value={this.getSleepSessionQuantity()} icon={faBed}/>
+            <InfoCard title="Sessions" value={this.getSleepSessionQuantity()} icon={faBed} colour={"#8884D8"}/>
           </Col>
           <Col xl={3} md={6} sm={6} xs={12}>
-            <SleepInfoCard title="Avg Quality" value={this.getAvgSleepQuality()} unit="%" icon={faSmile}/>
+            <InfoCard title="Avg Quality" value={this.getAvgSleepQuality()} unit="%" icon={faSmile} colour={"#8884D8"}/>
           </Col>
           <Col xl={3} md={6} sm={6} xs={12}>
-            <SleepInfoCard title="Hours Slept" value={this.getTotalHoursSlept()} icon={faClock}/>
+            <InfoCard title="Hours Slept" value={this.getTotalHoursSlept()} icon={faClock} colour={"#8884D8"}/>
           </Col>
           <Col xl={3} md={6} sm={6} xs={12}>
-            <SleepInfoCard title="Sounds Rec." value={this.getSoundsSum()} icon={faMicrophone}/>
+            <InfoCard title="Sounds Rec." value={this.getSoundsSum()} icon={faMicrophone} colour={"#8884D8"}/>
           </Col>
         </Row>
 

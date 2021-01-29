@@ -4,26 +4,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import Countup from 'react-countup';
-import styles from '../../../assets/sass/components/sleep/SleepInfoCard.module.scss';
+import styles from '../../assets/sass/components/sleep/InfoCard.module.scss';
 
-export interface SleepInfoCardProps {
+export interface InfoCardProps {
   value: number,
   unit?: string;
   title: string,
-  icon: IconDefinition
+  icon: IconDefinition,
+  colour: string
 }
 
-class SleepInfoCard extends Component<SleepInfoCardProps> {
+class InfoCard extends Component<InfoCardProps> {
   render() {
-    const {value, title, icon, unit} = this.props;
+    const {value, title, icon, unit, colour} = this.props;
     return (
       <Card className={styles.card}>
         <Row className={styles.row}>
           <Col sm={4} xs={6}>
-                        <span className="fa-layers fa-5x">
-                            <FontAwesomeIcon icon={faCircle} className={styles.circle}/>
-                            <FontAwesomeIcon icon={icon} className={styles.icon}/>
-                        </span>
+            <span className="fa-layers fa-5x">
+              <FontAwesomeIcon icon={faCircle} className={styles.circle} color={colour} opacity={0.9}/>
+              <FontAwesomeIcon icon={icon} className={styles.icon}/>
+            </span>
           </Col>
           <Col sm={8} xs={6}>
             {value
@@ -38,4 +39,4 @@ class SleepInfoCard extends Component<SleepInfoCardProps> {
   }
 }
 
-export default SleepInfoCard;
+export default InfoCard;
