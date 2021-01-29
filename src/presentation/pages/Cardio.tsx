@@ -4,9 +4,8 @@ import LoadingSpinner from "../layout/LoadingSpinner";
 import DisabledOverlay from "../layout/DisabledOverlay";
 import { CardioSessions } from "../../domain/health/workout/CardioSessions";
 import { HealthService } from "../../application/service/HealthService";
-import CardioAreaGraph from "../components/health/graphs/CardioAreaGraph";
-import DummyAreaGraph from "../components/DummyAreaGraph";
 import styles from "../../assets/sass/pages/Sleep.module.scss";
+import CardioGraph from "../components/health/graphs/CardioGraph";
 
 interface CardioPageState {
   data: CardioSessions;
@@ -37,19 +36,7 @@ class Cardio extends Component<{}, CardioPageState> {
         <p className={styles.desc}>A graphical overview of the cardio-orientated workouts exported from my Apple watch
           health data.
         </p>
-        <Row>
-          <Col xs={12}>
-            <Card>
-              <Card.Body>
-                <Card.Title>Calories Burned vs Duration</Card.Title>
-                {data ?
-                  <CardioAreaGraph data={data}/> :
-                  <DummyAreaGraph colour={"#94d55a"} speed={2000} sampleSize={30} dataBounds={[50, 1000]}/>
-                }
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+        <CardioGraph key={"" + loading} data={data ? data.sessions : undefined}/>
       </Container>
     );
   }

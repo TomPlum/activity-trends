@@ -5,7 +5,6 @@ import { SleepGraphMainData } from "./SleepGraph";
 import { Arrays } from '../../../../utility/Arrays';
 import moment from "moment";
 import GraphContainer from "../../GraphContainer";
-import { AxisDomain } from "recharts/types/util/types";
 
 interface SleepScatterGraphProps {
   data: SleepGraphMainData[];
@@ -91,7 +90,7 @@ class SleepScatterGraph extends Component<SleepScatterGraphProps, SleepScatterGr
     return data[Math.round(data.length / 5)].date;
   }
 
-  private yAxisDomain(): AxisDomain {
+  private yAxisDomain() {
     const data = this.props.data;
     const durations = data.map(e => e.duration);
     const minDuration = Math.floor(Arrays.min(durations));

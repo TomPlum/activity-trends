@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Area, AreaChart, Brush, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import GraphContainer from "../../GraphContainer";
-import { CardioSessions } from "../../../../domain/health/workout/CardioSessions";
 import AreaTooltip from "../../sleep/tooltips/AreaTooltip";
-import { Arrays } from "../../../../utility/Arrays";
-import { AxisDomain } from "recharts/types/util/types";
 import moment from "moment";
+import { WorkoutSession } from "../../../../domain/health/workout/WorkoutSession";
 
 interface CardioAreaGraphProps {
-  data: CardioSessions;
+  data: WorkoutSession[];
+  onSelectSession: (session) => void;
 }
 
 class CardioAreaGraph extends Component<CardioAreaGraphProps> {
@@ -16,10 +15,17 @@ class CardioAreaGraph extends Component<CardioAreaGraphProps> {
     super(props);
   }
 
+  onClickDot = (data) => {
+    const payload = data.payload;
+    const session = new WorkoutSession(payload["_type"], payload["_duration"], payload["_distance"], payload["_caloriesBurned"], payload["_startTime"], payload["_endTime"])
+    console.log(session);
+    this.props.onSelectSession(session);
+  }
+
   render() {
     return (
       <GraphContainer>
-        <AreaChart data={this.props.data.sessions}>
+        <AreaChart data={this.props.data}>
           <CartesianGrid strokeDasharray="3 3"/>
           <XAxis dataKey="_startTime" name="Date" tickFormatter={this.xAxisFormatter}/>
           <YAxis type="number" name="Calories" unit="kcal" width={60}/>
@@ -29,7 +35,7 @@ class CardioAreaGraph extends Component<CardioAreaGraphProps> {
             dataKey="_caloriesBurned"
             stroke="#94d55a"
             fill="#94d55a"
-            //activeDot={{onClick: this.onClickArea}}
+            activeDot={{onClick: this.onClickDot}}
             animationDuration={2200}
           />
           <Brush
@@ -51,7 +57,7 @@ class CardioAreaGraph extends Component<CardioAreaGraphProps> {
     return tickItem >= 1000 ? s.substring(0, 1) + "." + s.substring(1, 2) + "k" : s;
   }
 
-  private getBrushEndIndex = () => Math.round(this.props.data.sessions.length / 10)
+  private getBrushEndIndex = () => Math.round(this.props.data.length / 10)
 }
 
 export default CardioAreaGraph;

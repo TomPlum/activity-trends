@@ -1,3 +1,4 @@
+import React from "react";
 import { faDizzy, faExclamationCircle, faPlug, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from "../../assets/sass/components/layout/DisabledOverlay.module.scss";

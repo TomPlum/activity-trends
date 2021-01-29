@@ -29,7 +29,7 @@ class Sleep extends Component<{}, SleepState> {
   }
 
   render() {
-    const {sleepData, loading} = this.state
+    const { sleepData, loading } = this.state
 
     return (
       <Container fluid className={"page-container"}>

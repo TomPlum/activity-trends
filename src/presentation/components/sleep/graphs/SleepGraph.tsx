@@ -107,6 +107,7 @@ class SleepGraph extends Component<SleepGraphMainProps, SleepGraphState> {
               </Card.Body>
             </Card>
           </Col>
+
           <Col xl={6} xs={12}>
             <Card>
               <Card.Body>
