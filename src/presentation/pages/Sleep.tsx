@@ -36,7 +36,7 @@ class Sleep extends Component<{}, SleepState> {
         <LoadingSpinner active={loading}/>
         <DisabledOverlay active={!loading && !sleepData}/>
         <p className={styles.desc}>Visualising the data recorded by the iOS
-          <a href={"https://pillow.app/"} target={"_blank"} rel={"noreferrer"} className={styles.link}> Pillow </a>
+          <a href={"https://pillow.app/"} target={"_blank"} rel={"noreferrer noopener"} className={styles.link}> Pillow </a>
           app from my Apple watch.
         </p>
 

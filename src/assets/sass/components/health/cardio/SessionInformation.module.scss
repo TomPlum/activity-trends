@@ -1,0 +1,39 @@
+@import '../../../colours';
+
+.enabled {
+  height: 350px;
+}
+
+.disabled {
+
+}
+
+.row {
+  vertical-align: center;
+  display: flex;
+}
+
+.text {
+  font-size: 1.8em;
+  font-weight: 500;
+}
+
+.typeIcon, .caloriesIcon, .durationIcon, .distanceIcon {
+  font-size: 2em;
+}
+
+.typeIcon {
+  color: $exercise-green;
+}
+
+.caloriesIcon {
+  color: $calories-red;
+}
+
+.durationIcon {
+  color: $standing-blue;
+}
+
+.distanceIcon {
+  color: $sleep-purple;
+}

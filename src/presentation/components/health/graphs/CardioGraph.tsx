@@ -42,12 +42,7 @@ class CardioGraph extends Component<CardioGraphProps, CardioGraphState> {
 
         <Row>
           <Col lg={6} xs={12}>
-            <Card>
-              <Card.Body>
-                <Card.Title>Session Information</Card.Title>
-                <SessionInformation data={selectedSession}/>
-              </Card.Body>
-            </Card>
+            <SessionInformation data={selectedSession}/>
           </Col>
         </Row>
       </>
