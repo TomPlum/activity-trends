@@ -50,7 +50,7 @@ class Cardio extends Component<{}, CardioPageState> {
             <InfoCard title="Total Distance" value={this.getTotalDistance(data)} unit="km" icon={faRuler} colour={"#94d55a"}/>
           </Col>
           <Col xl={3} md={6} sm={6} xs={12}>
-            <InfoCard title="Sounds Rec." value={this.getTotalDuration(data)} icon={faClock} colour={"#94d55a"}/>
+            <InfoCard title="Workout Time" value={this.getTotalDuration(data)} icon={faClock} unit="hr" colour={"#94d55a"}/>
           </Col>
         </Row>
 
@@ -72,7 +72,9 @@ class Cardio extends Component<{}, CardioPageState> {
   }
 
   private getTotalDuration(data: CardioSessions): number {
-    return data ? data.sessions.map(it => it.duration).reduce((sum, val) => sum + val, 0) : null;
+    if (!data) return null;
+    const mins = data.sessions.map(it => it.duration).reduce((sum, val) => sum + val, 0);
+    return Number((mins / 60).toFixed(1));
   }
 
   private

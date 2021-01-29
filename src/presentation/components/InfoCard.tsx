@@ -11,18 +11,19 @@ export interface InfoCardProps {
   unit?: string;
   title: string,
   icon: IconDefinition,
-  colour: string
+  colour: string,
+  opacity?: number
 }
 
 class InfoCard extends Component<InfoCardProps> {
   render() {
-    const {value, title, icon, unit, colour} = this.props;
+    const {value, title, icon, unit, colour, opacity} = this.props;
     return (
       <Card className={styles.card}>
         <Row className={styles.row}>
           <Col sm={4} xs={6}>
             <span className="fa-layers fa-5x">
-              <FontAwesomeIcon icon={faCircle} className={styles.circle} color={colour} opacity={0.9}/>
+              <FontAwesomeIcon icon={faCircle} className={styles.circle} color={colour} opacity={opacity ? opacity : 0.6}/>
               <FontAwesomeIcon icon={icon} className={styles.icon}/>
             </span>
           </Col>
