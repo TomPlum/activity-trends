@@ -18,19 +18,19 @@
   font-weight: 500;
 }
 
-.typeIcon, .caloriesIcon, .durationIcon, .distanceIcon {
+.typeIcon, .caloriesIcon, .durationIcon, .distanceIcon, .humidityIcon, .temperatureIcon, .timeZoneIcon {
   font-size: 2em;
 }
 
-.typeIcon {
+.typeIcon, .timeZoneIcon {
   color: $exercise-green;
 }
 
-.caloriesIcon {
+.caloriesIcon, .temperatureIcon {
   color: $calories-red;
 }
 
-.durationIcon {
+.durationIcon, .humidityIcon {
   color: $standing-blue;
 }
 

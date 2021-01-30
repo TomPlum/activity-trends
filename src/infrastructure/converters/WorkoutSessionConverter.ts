@@ -2,8 +2,12 @@ import { WorkoutSessionData } from "../types/Health";
 import { WorkoutSession } from "../../domain/health/workout/WorkoutSession";
 import { WorkoutType } from "../../domain/health/workout/WorkoutType";
 import { Numbers } from "../../utility/Numbers";
+import { TemperatureConverter } from "./TemperatureConverter";
 
 export class WorkoutSessionConverter {
+
+  private readonly temperatureConverter = new TemperatureConverter();
+
   convert(data: WorkoutSessionData[]): WorkoutSession[] {
     return data.map(sessionData => {
         const type = WorkoutSessionConverter.getWorkoutType(sessionData.type);
@@ -12,7 +16,10 @@ export class WorkoutSessionConverter {
         const calories = WorkoutSessionConverter.getNumericalValue(sessionData.energyBurned, "Calories");
         const startTime = WorkoutSessionConverter.getDate(sessionData.startTime);
         const endTime = WorkoutSessionConverter.getDate(sessionData.endTime);
-        return new WorkoutSession(type, duration, distance, calories, startTime, endTime);
+        const temperatureData = sessionData.meta.temperature;
+        const timeZone = sessionData.meta.timeZone;
+        const temperature = temperatureData ? this.temperatureConverter.convert(temperatureData) : null;
+        return new WorkoutSession(type, duration, distance, calories, startTime, endTime, timeZone, temperature);
       }
     );
   }

@@ -6,6 +6,7 @@ import each from "jest-each";
 describe('Outdoor Exercise Converter', () => {
 
   const converter = new WorkoutSessionConverter();
+  jest.mock("../../infrastructure/converters/TemperatureConverter");
 
   describe("Workout Type", () => {
     it('Should convert type ELLIPTICAL', () => {
@@ -162,6 +163,32 @@ describe('Outdoor Exercise Converter', () => {
     }
   });
 
+  describe("Time Zone", () => {
+    it("Should convert valid value", () => {
+      const data = [getSessionDataWithTimeZone("Europe/London")];
+      const response = converter.convert(data);
+      expect(response[0].timeZone).toEqual("Europe/London");
+    });
+
+    each([undefined, null]).it("Should set a '%s' value as null", (value) => {
+      const data = [getSessionDataWithTimeZone(value)];
+      const response = converter.convert(data);
+      expect(response[0].timeZone).toBeNull();
+    });
+
+    function getSessionDataWithTimeZone(value?: string) {
+      const data = getValidSessionData();
+      data.meta.timeZone = value;
+      return data;
+    }
+  });
+
+  describe("Temperature", () => {
+    it("Should invoke the TemperatureConverter when the temperature is not null", () => {
+
+    });
+  });
+
   function getValidSessionData(): WorkoutSessionData {
     return {
       type: "RUNNING",
@@ -169,7 +196,15 @@ describe('Outdoor Exercise Converter', () => {
       distance: "0.0",
       energyBurned: "177.234",
       startTime: "2017-10-02T19:54:13",
-      endTime: "2017-10-02T20:10:35"
+      endTime: "2017-10-02T20:10:35",
+      meta: {
+        timeZone: "Europe/London",
+        temperature: {
+          unit: "DEGREES_FAHRENHEIT",
+          value: 26,
+          humidity: 7400
+        }
+      }
     }
   }
 });

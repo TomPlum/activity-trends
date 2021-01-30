@@ -16,10 +16,7 @@ class CardioAreaGraph extends Component<CardioAreaGraphProps> {
   }
 
   onClickDot = (data) => {
-    const payload = data.payload;
-    const session = new WorkoutSession(payload["_type"], payload["_duration"], payload["_distance"], payload["_caloriesBurned"], payload["_startTime"], payload["_endTime"])
-    console.log(session);
-    this.props.onSelectSession(session);
+    this.props.onSelectSession(WorkoutSession.fromPayload(data.payload));
   }
 
   render() {
