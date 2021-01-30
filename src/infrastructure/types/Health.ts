@@ -9,4 +9,16 @@ export interface WorkoutSessionData {
   energyBurned: string;
   startTime: string;
   endTime: string;
+  meta: WorkoutSessionMetaData;
+}
+
+export interface WorkoutSessionMetaData {
+  timeZone?: string;
+  temperature?: WorkoutSessionTemperatureData;
+}
+
+export interface WorkoutSessionTemperatureData {
+  value: number;
+  unit: string;
+  humidity: number;
 }
