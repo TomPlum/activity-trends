@@ -10,7 +10,6 @@ class RestClient {
     static async post<T>(endpoint: string, body: {}):  Promise<APIResponse<T>> {
         return await RestClient.makeRestRequest<T>("POST", body, endpoint);
     }
-    
 
     private static async makeRestRequest<T>(method: string, body: object, endpoint: string): Promise<APIResponse<T>> {
         if (!this.host) {
@@ -55,7 +54,7 @@ class RestClient {
 }
 
 export interface APIResponse<T> {
-    data: Promise<T>;
+    data: any;
     errors: Error[];
 }
 

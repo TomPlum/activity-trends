@@ -22,3 +22,23 @@ export interface WorkoutSessionTemperatureData {
   unit: string;
   humidity: number;
 }
+
+export interface WorkoutRouteResponse {
+  route: WorkoutRouteData;
+  creationDate: string;
+  source: WorkoutRouteSource;
+}
+
+export interface WorkoutRouteData {
+  points: WorkoutRoutePoint[];
+}
+
+export interface WorkoutRoutePoint {
+  lat: number;
+  long: number;
+}
+
+export interface WorkoutRouteSource {
+  name: string;
+  version: string;
+}

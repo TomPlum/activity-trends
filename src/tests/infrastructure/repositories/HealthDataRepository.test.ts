@@ -20,16 +20,16 @@ describe("Health Data Repository", () => {
     it("Should return the response data if present", () => {
       whenCallApiReturnValidResponse(getValidWorkoutData());
       const response = repository.getCardioSessions();
-      expect(response).toEqual(getValidWorkoutData());
+      expect(response).resolves.toEqual(getValidWorkoutData());
     });
 
     it("Should throw an error with the caught errors message", () => {
       whenCallApiReturnError();
-      expect(() => repository.getCardioSessions()).rejects.toThrow("Something went wrong.");
+      expect(repository.getCardioSessions()).rejects.toThrow("Something went wrong.");
     });
 
-    function getValidWorkoutData(): Promise<WorkoutSessionResponse> {
-      return Promise.resolve({
+    function getValidWorkoutData(): WorkoutSessionResponse {
+      return {
         sessions: [{
           type: "ELLIPTICAL",
           duration: "16.36445068319638",
@@ -46,7 +46,7 @@ describe("Health Data Repository", () => {
             }
           }
         }],
-      });
+      }
     }
   });
 
@@ -60,16 +60,16 @@ describe("Health Data Repository", () => {
     it("Should return the response data if present", () => {
       whenCallApiReturnValidResponse(getValidRouteResponse());
       const response = repository.getWorkoutSessionRoute("example-route-name");
-      expect(response).toEqual(getValidRouteResponse());
+      expect(response).resolves.toEqual(getValidRouteResponse());
     });
 
     it("Should throw an error with the caught errors message", () => {
       whenCallApiReturnError();
-      expect(() => repository.getWorkoutSessionRoute("route-name")).rejects.toThrow("Something went wrong.");
+      expect(repository.getWorkoutSessionRoute("route-name")).rejects.toThrow("Something went wrong.");
     });
 
-    function getValidRouteResponse(): Promise<WorkoutRouteResponse> {
-      return Promise.resolve({
+    function getValidRouteResponse(): WorkoutRouteResponse {
+      return {
         creationDate: "2020-08-23T17:40:03",
         source: {
           name: "Apple Health Export",
@@ -87,20 +87,20 @@ describe("Health Data Repository", () => {
             },
           ]
         }
-      });
+      };
     }
   });
 
   function whenCallApiReturnValidResponse(data) {
     mockGet.mockImplementationOnce(() => Promise.resolve({
-      data: data,
+      data,
       errors: []
     }));
   }
 
   function whenCallApiReturnError() {
     mockGet.mockImplementationOnce(() => Promise.resolve({
-      data: Promise.resolve(undefined),
+      data: undefined,
       errors: [new Error("Something went wrong.")]
     }));
   }
