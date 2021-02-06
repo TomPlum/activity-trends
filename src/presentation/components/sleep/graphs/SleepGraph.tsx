@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
 import SleepQualityPieChart, { SleepQualityPieChartData } from "./SleepQualityPieChart";
 import GraphTypeButton from '../GraphTypeButton';
-import { GraphType } from '../../../../infrastructure/types/GraphType';
+import { GraphType } from '../../../../domain/GraphType';
 import SleepScatterGraph from './SleepScatterGraph';
 import SleepAreaGraph from './SleepAreaGraph';
 import Info from '../Info';

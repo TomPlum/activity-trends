@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Dropdown } from "react-bootstrap";
-import { GraphType } from "../../../infrastructure/types/GraphType";
+import { GraphType } from "../../../domain/GraphType";
 import styles from "../../../assets/sass/components/sleep/GraphTypeButton.module.scss";
 
 interface GraphTypeButtonProps {
