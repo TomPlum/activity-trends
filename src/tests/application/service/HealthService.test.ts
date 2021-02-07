@@ -20,4 +20,11 @@ describe("Health Service", () => {
       expect(mockRepository).toHaveBeenCalled();
     })
   });
+
+  describe("Get Cardio Route", () => {
+    it("Should call the Health Data Repository", () => {
+      service.getCardioRoute("test-route-name");
+      expect(repository).toHaveBeenCalled();
+    });
+  });
 });
