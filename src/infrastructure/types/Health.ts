@@ -10,6 +10,7 @@ export interface WorkoutSessionData {
   startTime: string;
   endTime: string;
   meta: WorkoutSessionMetaData;
+  routeName: string;
 }
 
 export interface WorkoutSessionMetaData {

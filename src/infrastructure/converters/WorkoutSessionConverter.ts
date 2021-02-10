@@ -19,7 +19,8 @@ export class WorkoutSessionConverter {
         const temperatureData = sessionData.meta.temperature;
         const timeZone = sessionData.meta.timeZone;
         const temperature = temperatureData ? this.temperatureConverter.convert(temperatureData) : null;
-        return new WorkoutSession(type, duration, distance, calories, startTime, endTime, timeZone, temperature);
+        const routeName = sessionData.routeName;
+        return new WorkoutSession(type, duration, distance, calories, startTime, endTime, timeZone, temperature, routeName);
       }
     );
   }

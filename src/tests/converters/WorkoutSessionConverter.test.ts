@@ -183,6 +183,14 @@ describe('Outdoor Exercise Converter', () => {
     }
   });
 
+  describe("Route Name", () => {
+    it("Should convert a valid route name", () => {
+      const data = [getValidSessionData()]
+      const response = converter.convert(data);
+      expect(response[0].routeName).toBe("route_2020-07-18_7.10pm");
+    });
+  });
+
   describe("Temperature", () => {
     it("Should invoke the TemperatureConverter when the temperature is not null", () => {
 
@@ -204,7 +212,8 @@ describe('Outdoor Exercise Converter', () => {
           value: 26,
           humidity: 7400
         }
-      }
+      },
+      routeName: "route_2020-07-18_7.10pm"
     }
   }
 });

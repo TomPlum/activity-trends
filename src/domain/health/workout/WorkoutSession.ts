@@ -11,10 +11,11 @@ export class WorkoutSession {
   private readonly _endTime: string;
   private readonly _timeZone: string;
   private readonly _temperature: Temperature;
+  private readonly _routeName: string;
 
 
   constructor(type: WorkoutType, duration: number, distance: number, caloriesBurned: number, startTime: string,
-              endTime: string, timeZone: string, temperature: Temperature) {
+              endTime: string, timeZone: string, temperature: Temperature, routeName: string) {
     this._type = type;
     this._duration = duration;
     this._distance = distance;
@@ -23,6 +24,7 @@ export class WorkoutSession {
     this._endTime = endTime;
     this._timeZone = timeZone;
     this._temperature = temperature;
+    this._routeName = routeName;
   }
 
   public static fromPayload(payload: object): WorkoutSession {
@@ -32,7 +34,7 @@ export class WorkoutSession {
     const unit = fromString(temperature["_unit"]);
     return new WorkoutSession(
       payload["_type"], payload["_duration"], payload["_distance"], payload["_caloriesBurned"], payload["_startTime"],
-      payload["_endTime"], payload["_timeZone"], new Temperature(value, unit, humidity)
+      payload["_endTime"], payload["_timeZone"], new Temperature(value, unit, humidity), payload["_routeName"]
     );
   }
 
@@ -66,5 +68,9 @@ export class WorkoutSession {
 
   get temperature(): Temperature {
     return this._temperature;
+  }
+
+  get routeName(): string {
+    return this._routeName;
   }
 }
