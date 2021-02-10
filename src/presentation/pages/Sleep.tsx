@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { faBed, faClock, faMicrophone, faSmile } from '@fortawesome/free-solid-svg-icons';
 import SleepGraph, { SleepGraphMainData } from '../components/sleep/graphs/SleepGraph';
-import LoadingSpinner from '../layout/LoadingSpinner';
+import PageLoadingSpinner from '../layout/PageLoadingSpinner';
 import InfoCard from '../components/InfoCard';
 import { SleepService } from '../../application/service/SleepService';
 import DisabledOverlay from "../layout/DisabledOverlay";
@@ -33,7 +33,7 @@ class Sleep extends Component<{}, SleepState> {
 
     return (
       <Container fluid className={"page-container"}>
-        <LoadingSpinner active={loading}/>
+        <PageLoadingSpinner active={loading}/>
         <DisabledOverlay active={!loading && !sleepData}/>
         <p className={styles.desc}>Visualising the data recorded by the iOS
           <a href={"https://pillow.app/"} target={"_blank"} rel={"noreferrer noopener"} className={styles.link}> Pillow </a>
