@@ -1,6 +1,5 @@
-import { WorkoutType } from "./WorkoutType";
-import { Temperature } from "./Temperature";
-import { fromString } from "./TemperatureUnit";
+import {WorkoutType} from "./WorkoutType";
+import {Temperature} from "./Temperature";
 
 export class WorkoutSession {
   private readonly _type: WorkoutType;
@@ -25,17 +24,6 @@ export class WorkoutSession {
     this._timeZone = timeZone;
     this._temperature = temperature;
     this._routeName = routeName;
-  }
-
-  public static fromPayload(payload: object): WorkoutSession {
-    const temperature = payload["_temperature"];
-    const value = Number(temperature["_value"]);
-    const humidity = Number(temperature["_humidity"]);
-    const unit = fromString(temperature["_unit"]);
-    return new WorkoutSession(
-      payload["_type"], payload["_duration"], payload["_distance"], payload["_caloriesBurned"], payload["_startTime"],
-      payload["_endTime"], payload["_timeZone"], new Temperature(value, unit, humidity), payload["_routeName"]
-    );
   }
 
   get type(): WorkoutType {

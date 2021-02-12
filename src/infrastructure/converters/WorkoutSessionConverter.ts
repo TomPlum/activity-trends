@@ -3,6 +3,8 @@ import { WorkoutSession } from "../../domain/health/workout/WorkoutSession";
 import { WorkoutType } from "../../domain/health/workout/WorkoutType";
 import { Numbers } from "../../utility/Numbers";
 import { TemperatureConverter } from "./TemperatureConverter";
+import {fromString} from "../../domain/health/workout/TemperatureUnit";
+import {Temperature} from "../../domain/health/workout/Temperature";
 
 export class WorkoutSessionConverter {
 
@@ -22,6 +24,17 @@ export class WorkoutSessionConverter {
         const routeName = sessionData.routeName;
         return new WorkoutSession(type, duration, distance, calories, startTime, endTime, timeZone, temperature, routeName);
       }
+    );
+  }
+
+  convertGraphPayload(payload: any): WorkoutSession {
+    const temperature = payload["_temperature"] ? payload["_temperature"] : undefined;
+    const value = WorkoutSessionConverter.getNumericalValue(payload["_value"], "calories");
+    const humidity = WorkoutSessionConverter.getNumericalValue(temperature["_humidity"], "humidity");
+    const unit = fromString(temperature["_unit"]);
+    return new WorkoutSession(
+        payload["_type"], payload["_duration"], payload["_distance"], payload["_caloriesBurned"], payload["_startTime"],
+        payload["_endTime"], payload["_timeZone"], new Temperature(value, unit, humidity), payload["_routeName"]
     );
   }
 
