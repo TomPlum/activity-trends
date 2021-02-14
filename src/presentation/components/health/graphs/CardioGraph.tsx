@@ -1,9 +1,10 @@
-import React, { Component } from "react";
-import { WorkoutSession } from "../../../../domain/health/workout/WorkoutSession";
+import React, {Component} from "react";
+import {WorkoutSession} from "../../../../domain/health/workout/WorkoutSession";
 import CardioAreaGraph from "./CardioAreaGraph";
 import DummyAreaGraph from "../../DummyAreaGraph";
-import { Card, Col, Row } from "react-bootstrap";
+import {Card, Col, Row} from "react-bootstrap";
 import SessionInformation from "../SessionInformation";
+import CardioRouteMap from "../CardioRouteMap";
 
 interface CardioGraphProps {
   data: WorkoutSession[];
@@ -43,6 +44,12 @@ class CardioGraph extends Component<CardioGraphProps, CardioGraphState> {
         <Row>
           <Col lg={6} xs={12}>
             <SessionInformation data={selectedSession}/>
+          </Col>
+          <Col lg={6} xs={12}>
+            <CardioRouteMap
+                key={selectedSession ? selectedSession.routeName : ""}
+                routeName={selectedSession ? selectedSession.routeName : undefined}
+            />
           </Col>
         </Row>
       </>
