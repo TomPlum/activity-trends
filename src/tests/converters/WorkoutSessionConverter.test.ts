@@ -1,6 +1,6 @@
-import { WorkoutSessionConverter } from "../../infrastructure/converters/WorkoutSessionConverter";
-import { WorkoutSessionData } from "../../infrastructure/types/Health";
-import { WorkoutType } from "../../domain/health/workout/WorkoutType";
+import {WorkoutSessionConverter} from "../../infrastructure/converters/WorkoutSessionConverter";
+import {WorkoutSessionData} from "../../infrastructure/types/Health";
+import {WorkoutType} from "../../domain/health/workout/WorkoutType";
 import each from "jest-each";
 
 describe('Workout Session Converter', () => {
@@ -217,9 +217,5 @@ describe('Workout Session Converter', () => {
         routeName: "route_2020-07-18_7.10pm"
       }
     }
-  });
-
-  describe("Convert Graph Payload -> Workout Session", () => {
-
   });
 });

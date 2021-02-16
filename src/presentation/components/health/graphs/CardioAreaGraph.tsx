@@ -4,7 +4,7 @@ import GraphContainer from "../../GraphContainer";
 import AreaTooltip from "../../sleep/tooltips/AreaTooltip";
 import moment from "moment";
 import { WorkoutSession } from "../../../../domain/health/workout/WorkoutSession";
-import {WorkoutSessionConverter} from "../../../../infrastructure/converters/WorkoutSessionConverter";
+import {GraphPayloadConverter} from "../../../../domain/converter/GraphPayloadConverter";
 
 interface CardioAreaGraphProps {
   data: WorkoutSession[];
@@ -17,7 +17,8 @@ class CardioAreaGraph extends Component<CardioAreaGraphProps> {
   }
 
   onClickDot = (data) => {
-    const session = new WorkoutSessionConverter().convertGraphPayload(data.payload);
+    const session = new GraphPayloadConverter().convertToWorkoutSession(data.payload)
+    console.log(data.payload)
     this.props.onSelectSession(session);
   }
 
