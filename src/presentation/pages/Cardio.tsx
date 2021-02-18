@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import LoadingSpinner from "../layout/LoadingSpinner";
+import PageLoadingSpinner from "../layout/PageLoadingSpinner";
 import DisabledOverlay from "../layout/DisabledOverlay";
 import { CardioSessions } from "../../domain/health/workout/CardioSessions";
 import { HealthService } from "../../application/service/HealthService";
@@ -33,7 +33,7 @@ class Cardio extends Component<{}, CardioPageState> {
     const {data, loading} = this.state;
     return (
       <Container fluid className={"page-container"}>
-        <LoadingSpinner active={loading}/>
+        <PageLoadingSpinner active={loading}/>
         <DisabledOverlay active={!loading && !data}/>
         <p className={styles.desc}>A graphical overview of the cardio-orientated workouts exported from my Apple watch
           health data.
