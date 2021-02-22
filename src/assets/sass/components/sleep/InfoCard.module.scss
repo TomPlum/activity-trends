@@ -10,7 +10,6 @@ $inner-purple: rgba(190, 167, 252, 0.849);
 }
 
 .circle {
-    color: $sleep-graph-fill;
     border-radius: 50%;
 }
 
@@ -54,16 +53,15 @@ $inner-purple: rgba(190, 167, 252, 0.849);
     }
 
     .icon {
-        font-size: 1.4rem;
+        font-size: 2rem;
     }
 
     .circle {
-        font-size: 0.7em;
+        font-size: 0.9em;
     }
 
     .value {
         font-weight: 600;
-        font-size: 1.5em;
     }
 
     .title {

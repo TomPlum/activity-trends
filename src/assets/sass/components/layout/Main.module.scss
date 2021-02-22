@@ -1,9 +1,19 @@
 @import '../../viewports';
 
-@mixin compressed-mode {
+@include phone {
+    .content {
+        padding: 0;
+    }
+
+    .content > col {
+        margin: 0;
+    }
+}
+
+@include tablet {
     .sidebar {
         box-shadow: 0 0 4px 1em rgba(0, 0, 0, 0.5);
-        width: 70px;
+        width: 50px;
         display: flex;
         align-items: center;
         overflow-x: hidden;
@@ -15,16 +25,7 @@
         width: 100%;
         padding: 15px;
         overflow: hidden;
-        background: rgb(238, 238, 238)
     }
-}
-
-@include phone {
-    @include compressed-mode;
-}
-
-@include tablet {
-    @include compressed-mode;
 }
 
 @include desktop {
@@ -37,28 +38,44 @@
         -o-transition: margin .25s ease-out;
         transition: margin .25s ease-out;
         font-size: 1.2rem;
-        background-color: rgb(41, 41, 43);
         padding: 10px;
     }
 
     .content {
         min-width: 0;
+        max-width: 100%;
         width: 100%;
-        padding: 30px;
-        overflow: hidden;
-        background: rgb(55, 55, 57)
+        padding: 20px;
+        display: flex;
+        justify-content: center;
     }
+}
+
+.sidebar {
+    background-color: rgb(41, 41, 43);
+}
+
+.content {
+    background: rgb(55, 55, 57)
 }
 
 .sidebar, .content {
     margin-top: 60px;
 }
 
+.contentWrapper {
+    max-width: 1920px;
+    width: 100%;
+}
+
 .wrapper {
     padding: 0;
-    overflow-x: hidden;
+    max-width: 100%;
+    width: 100%;
+    //overflow-x: hidden;
 }
 
 .row {
-    margin-left: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }

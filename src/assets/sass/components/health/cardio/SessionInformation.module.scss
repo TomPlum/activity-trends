@@ -1,0 +1,39 @@
+@import '../../../colours';
+
+.enabled {
+  height: 350px;
+}
+
+.disabled {
+
+}
+
+.row {
+  vertical-align: center;
+  display: flex;
+}
+
+.text {
+  font-size: 1.8em;
+  font-weight: 500;
+}
+
+.typeIcon, .caloriesIcon, .durationIcon, .distanceIcon, .humidityIcon, .temperatureIcon, .timeZoneIcon {
+  font-size: 2em;
+}
+
+.typeIcon, .timeZoneIcon {
+  color: $exercise-green;
+}
+
+.caloriesIcon, .temperatureIcon {
+  color: $calories-red;
+}
+
+.durationIcon, .humidityIcon {
+  color: $standing-blue;
+}
+
+.distanceIcon {
+  color: $sleep-purple;
+}

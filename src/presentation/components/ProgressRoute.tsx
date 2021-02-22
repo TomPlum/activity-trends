@@ -3,20 +3,20 @@ import { Route } from 'react-router-dom';
 import nprogress from 'nprogress';
 import NProgress from 'nprogress';
 
-NProgress.configure({ showSpinner: false, easing: 'ease' })
+NProgress.configure({showSpinner: false, easing: 'ease'})
 
 const ProgressRoute = props => {
 
-    React.useState(nprogress.start());
+  React.useState(nprogress.start());
 
-    React.useEffect(() => {
-        nprogress.done();
-        return () => nprogress.start();
-    });
+  React.useEffect(() => {
+    nprogress.done();
+    return () => nprogress.start();
+  });
 
-    return (
-        <Route {...props} />
-    );
+  return (
+    <Route {...props} />
+  );
 };
 
 export default ProgressRoute;

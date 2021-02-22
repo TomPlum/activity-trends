@@ -20,19 +20,22 @@ and [Recharts](https://recharts.org/en-US/) provides a nice React wrapper for it
 ## Getting Started
 For development, you will only need NodeJS and environment variables configured.
 
-### NodeJS Installation on Windows
-Just go to the [official Node.js website](https://nodejs.org/) and download the installer.
-Also, be sure to have `git` available in your PATH, `npm` might need it (You can find git [here](https://git-scm.com/)).
+### Insomnia REST Requests
+The [Insomnia](https://insomnia.rest/download/) V4 export [rest.json](/rest.json) file includes requests for all the
+API endpoints.
 
 ## NPM Scripts
 
-| Name     | Description                                                          |
-|----------|----------------------------------------------------------------------|
-| `dev`    | Serves the application locally at `localhost:3000`.                  |
-| `build`  | Builds the application into the `.next` directory in the root.       |
-| `start`  | Starts a NodeJS server that supports hyrbid pages (static & SSR)     |
-| `export` | Exports all pages as static `.html` files.                           |
-| `deploy` | Builds, exports, commits, pushes and subtrees for GitHub pages.      |
+| Name        | Description                                                          |
+|-------------|----------------------------------------------------------------------|
+| `build`     | Invokes the React Scripts [`build`](https://create-react-app.dev/docs/available-scripts#npm-run-build) task.    |
+| `start`     | Serves the application locally at `localhost:3000`. See [here](https://create-react-app.dev/docs/available-scripts#npm-start) for more info.     |
+| `deploy`    | Builds, exports, commits, pushes and subtrees for GitHub pages.      |
+| `test`      | Runs the unit tests. See [here](https://create-react-app.dev/docs/available-scripts#npm-test) for more info.    |
+| `eject`     | Drops the create-react-app support. See [here](https://create-react-app.dev/docs/available-scripts#npm-run-eject) for more info.    |
+| `clean`     | Deletes all of the `node_modules` from the project.                  |
+| `reinstall` | Cleans the project and then re-installs it via npm.                  |
+| `rebuild`   | Cleans the projects, re-installs it, and then builds.                |
 
 ## Technology Documentation
 - [React Bootstrap](https://react-bootstrap.github.io/layout/grid/)
