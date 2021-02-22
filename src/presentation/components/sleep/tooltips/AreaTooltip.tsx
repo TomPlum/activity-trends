@@ -36,7 +36,7 @@ class AreaTooltip extends Component<{}, AreaTooltipState> {
 
     return null;
   }
-};
+}
 
 function formatDate(date: string): string {
   return moment(date).format("Mo MMM YYYY HH:MM")
