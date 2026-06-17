@@ -2,11 +2,14 @@
  * Apple Health ingestion CLI.
  *
  *   npm run ingest -- --export ./data/export.xml --routes ./data/workout-routes \
- *     [--sleep-csv ./data/fallback/sleep.csv] [--tz Europe/London] [--no-reset]
+ *     [--ecg ./data/electrocardiograms] [--sleep-csv ./data/fallback/sleep.csv] \
+ *     [--tz Europe/London] [--no-reset]
  *
- * Streams export.xml, loads workouts / records / activity summaries, links GPX
- * routes, loads sleep, then rebuilds daily_metrics. Writes via the Supabase
- * secret key (bypasses RLS). Re-runnable: resets the data tables first by default.
+ * Streams export.xml, tallying the giant high-frequency series (heart rate,
+ * energy, steps…) into in-memory daily roll-ups so they never hit the database —
+ * only a small set of low-volume series are stored raw. Builds sleep sessions
+ * from native SleepAnalysis, links GPX routes, loads ECG recordings, then writes
+ * daily_metrics. Re-runnable: resets the data tables first by default.
  */
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join, resolve } from "node:path";
@@ -17,8 +20,13 @@ import {
   streamHealthExport,
   type ActivitySummaryRow,
   type RecordRow,
+  type SleepSegment,
   type WorkoutRow,
 } from "./health-export";
+import { DailyAccumulator } from "./daily";
+import { ingestRecordTypes, RAW_TYPES } from "./metric-config";
+import { buildSleepSessions } from "./sleep-sessions";
+import { parseEcgCsv } from "./ecg-csv";
 import { parseGpx } from "./gpx";
 import { parseSleepCsv } from "./sleep-csv";
 
@@ -27,6 +35,7 @@ type DB = SupabaseClient<Database>;
 interface Args {
   export?: string;
   routes?: string;
+  ecg?: string;
   sleepCsv?: string;
   tz: string;
   reset: boolean;
@@ -34,12 +43,13 @@ interface Args {
 }
 
 function parseArgs(argv: string[]): Args {
-  const args: Args = { tz: "Europe/London", reset: true, batch: 2000 };
+  const args: Args = { tz: "Europe/London", reset: true, batch: 5000 };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const next = () => argv[++i];
     if (a === "--export") args.export = next();
     else if (a === "--routes") args.routes = next();
+    else if (a === "--ecg") args.ecg = next();
     else if (a === "--sleep-csv") args.sleepCsv = next();
     else if (a === "--tz") args.tz = next() ?? args.tz;
     else if (a === "--batch") args.batch = Number(next()) || args.batch;
@@ -79,9 +89,18 @@ async function insertChunked<T>(
   }
 }
 
-async function ingestExport(db: DB, file: string, batch: number) {
+async function ingestExport(db: DB, file: string, batch: number, daily: DailyAccumulator) {
   console.log(`→ Streaming ${file} …`);
-  let lastLog = Date.now();
+  const segments: SleepSegment[] = [];
+  let rawBuf: Database["public"]["Tables"]["health_records"]["Insert"][] = [];
+
+  const flushRaw = async () => {
+    if (rawBuf.length >= 1000) {
+      await insertChunked(db, "health_records", rawBuf);
+      rawBuf = [];
+    }
+  };
+
   const counts = await streamHealthExport(
     file,
     {
@@ -91,20 +110,55 @@ async function ingestExport(db: DB, file: string, batch: number) {
       onWorkouts: (rows: WorkoutRow[]) =>
         insertChunked(db, "workouts", rows, { onConflict: "activity_type,start_time" }),
       onRecords: async (rows: RecordRow[]) => {
-        await insertChunked(db, "health_records", rows);
-        if (Date.now() - lastLog > 3000) {
-          process.stdout.write(`   …records streamed\r`);
-          lastLog = Date.now();
+        for (const r of rows) {
+          daily.addRecord(r.day, r.type, r.value);
+          if (RAW_TYPES.has(r.type)) {
+            rawBuf.push({
+              type: r.type,
+              unit: r.unit,
+              value: r.value,
+              start_time: r.start_time,
+              end_time: r.end_time,
+              source: r.source,
+            });
+          }
+        }
+        await flushRaw();
+      },
+      onActivitySummaries: async (rows: ActivitySummaryRow[]) => {
+        await insertChunked(db, "activity_summaries", rows, { onConflict: "date" });
+        for (const a of rows) {
+          daily.setDirect(a.date, "active_energy", a.active_energy_kcal);
+          daily.setDirect(a.date, "exercise_min", a.exercise_min);
+          daily.setDirect(a.date, "stand_hours", a.stand_hours);
         }
       },
-      onActivitySummaries: (rows: ActivitySummaryRow[]) =>
-        insertChunked(db, "activity_summaries", rows, { onConflict: "date" }),
+      onSleepSegments: async (rows: SleepSegment[]) => {
+        segments.push(...rows);
+      },
     },
-    { batchSize: batch },
+    { batchSize: batch, recordTypes: ingestRecordTypes() },
   );
+
+  if (rawBuf.length) await insertChunked(db, "health_records", rawBuf);
+
   console.log(
-    `✓ Export: ${counts.workouts} workouts, ${counts.records} records, ${counts.activitySummaries} activity summaries`,
+    `✓ Export: ${counts.workouts} workouts, ${counts.records} records kept raw, ` +
+      `${counts.activitySummaries} activity days, ${counts.sleepSegments} sleep segments`,
   );
+  return segments;
+}
+
+async function ingestSleepSegments(db: DB, segments: SleepSegment[], daily: DailyAccumulator) {
+  if (!segments.length) return false;
+  const { sessions, daily: sleepDaily } = buildSleepSessions(segments);
+  await insertChunked(db, "sleep_sessions", sessions, { onConflict: "start_time" });
+  for (const d of sleepDaily) {
+    daily.setDirect(d.date, "sleep_min", d.sleep_min);
+    daily.setDirect(d.date, "sleep_quality", d.sleep_quality);
+  }
+  console.log(`✓ Sleep: ${sessions.length} sessions from native SleepAnalysis`);
+  return true;
 }
 
 async function ingestRoutes(db: DB, dir: string) {
@@ -114,14 +168,13 @@ async function ingestRoutes(db: DB, dir: string) {
     return;
   }
 
-  // Build a lookup of workout id + start epoch to match routes by time.
   const { data: workouts, error } = await db.from("workouts").select("id, start_time");
   if (error) die(`Could not load workouts for route matching: ${error.message}`);
   const index = (workouts ?? [])
     .map((w) => ({ id: w.id, t: new Date(w.start_time).getTime() }))
     .sort((a, b) => a.t - b.t);
 
-  const TOLERANCE_MS = 2 * 60 * 60 * 1000; // 2 hours
+  const TOLERANCE_MS = 2 * 60 * 60 * 1000;
   const routeRows: Database["public"]["Tables"]["workout_routes"]["Insert"][] = [];
   let matched = 0;
 
@@ -138,7 +191,6 @@ async function ingestRoutes(db: DB, dir: string) {
     }
     const workoutId = best && best.diff <= TOLERANCE_MS ? best.id : null;
     if (workoutId) matched++;
-
     routeRows.push({
       workout_id: workoutId,
       source: "Apple Health Export",
@@ -150,39 +202,66 @@ async function ingestRoutes(db: DB, dir: string) {
     });
   }
 
-  // Only one route per workout (unique workout_id) — drop unmatched dupes.
   const seen = new Set<string>();
   const deduped = routeRows.filter((r) => {
-    if (!r.workout_id) return false;
-    if (seen.has(r.workout_id)) return false;
+    if (!r.workout_id || seen.has(r.workout_id)) return false;
     seen.add(r.workout_id);
     return true;
   });
 
   await insertChunked(db, "workout_routes", deduped, { onConflict: "workout_id" });
-  console.log(`✓ Routes: ${deduped.length} linked to workouts (${matched} matched of ${files.length} files)`);
+  console.log(`✓ Routes: ${deduped.length} linked (${matched} matched of ${files.length} files)`);
 }
 
-async function ingestSleep(db: DB, csvPath: string) {
-  const rows = parseSleepCsv(await readFile(csvPath, "utf8"));
+async function ingestEcg(db: DB, dir: string) {
+  const files = (await readdir(dir)).filter((f) => f.toLowerCase().endsWith(".csv"));
+  const rows: Database["public"]["Tables"]["ecg"]["Insert"][] = [];
+  for (const f of files) {
+    const e = parseEcgCsv(await readFile(join(dir, f), "utf8"));
+    if (!e.recorded_at || !e.sample_count) continue;
+    rows.push({
+      recorded_at: e.recorded_at,
+      classification: e.classification,
+      symptoms: e.symptoms,
+      sample_rate_hz: e.sample_rate_hz,
+      unit: e.unit,
+      device: e.device,
+      software_version: e.software_version,
+      sample_count: e.sample_count,
+      samples: e.samples,
+    });
+  }
   if (!rows.length) {
-    console.log("→ No sleep rows parsed; skipping.");
+    console.log("→ No ECG recordings parsed; skipping.");
     return;
   }
+  await insertChunked(db, "ecg", rows, { onConflict: "recorded_at" });
+  console.log(`✓ ECG: ${rows.length} recordings`);
+}
+
+async function ingestSleepCsv(db: DB, csvPath: string, daily: DailyAccumulator) {
+  const rows = parseSleepCsv(await readFile(csvPath, "utf8"));
+  if (!rows.length) return;
   await insertChunked(db, "sleep_sessions", rows, { onConflict: "start_time" });
-  console.log(`✓ Sleep: ${rows.length} sessions`);
+  for (const r of rows) {
+    if (!r.is_nap && r.end_time) {
+      const day = r.end_time.slice(0, 10);
+      daily.setDirect(day, "sleep_min", r.duration_min ?? 0);
+      daily.setDirect(day, "sleep_quality", r.quality_pct);
+    }
+  }
+  console.log(`✓ Sleep: ${rows.length} sessions from Pillow CSV (fallback)`);
 }
 
 async function main() {
   loadEnv();
   const args = parseArgs(process.argv.slice(2));
-  if (!args.export) {
-    die("Missing --export <path to export.xml>. See scripts/ingest/index.ts for usage.");
-  }
+  if (!args.export) die("Missing --export <path to export.xml>.");
   const exportPath = resolve(args.export);
   if (!(await exists(exportPath))) die(`Export file not found: ${exportPath}`);
 
   const db = createServiceClient();
+  const daily = new DailyAccumulator();
 
   if (args.reset) {
     console.log("→ Resetting data tables …");
@@ -190,25 +269,25 @@ async function main() {
     if (error) die(`reset_health_data failed: ${error.message}`);
   }
 
-  await ingestExport(db, exportPath, args.batch);
+  const segments = await ingestExport(db, exportPath, args.batch, daily);
+
+  const haveNativeSleep = await ingestSleepSegments(db, segments, daily);
 
   if (args.routes && (await exists(resolve(args.routes)))) {
     await ingestRoutes(db, resolve(args.routes));
-  } else if (args.routes) {
-    console.log(`→ Routes dir not found: ${args.routes}; skipping.`);
   }
 
-  // Sleep: explicit CSV, else the bundled Pillow fallback if present.
-  const sleepPath = args.sleepCsv ?? "data/fallback/sleep.csv";
-  if (await exists(resolve(sleepPath))) {
-    await ingestSleep(db, resolve(sleepPath));
-  } else {
-    console.log("→ No sleep CSV found; skipping sleep.");
+  const ecgDir = args.ecg ?? join(exportPath, "..", "electrocardiograms");
+  if (await exists(ecgDir)) await ingestEcg(db, ecgDir);
+
+  // Native SleepAnalysis wins; fall back to the Pillow CSV only if absent.
+  if (!haveNativeSleep) {
+    const sleepPath = args.sleepCsv ?? "data/fallback/sleep.csv";
+    if (await exists(resolve(sleepPath))) await ingestSleepCsv(db, resolve(sleepPath), daily);
   }
 
-  console.log(`→ Rebuilding daily_metrics (tz=${args.tz}) …`);
-  const { error: rollupErr } = await db.rpc("refresh_daily_metrics", { tz: args.tz });
-  if (rollupErr) die(`refresh_daily_metrics failed: ${rollupErr.message}`);
+  console.log("→ Writing daily_metrics …");
+  await insertChunked(db, "daily_metrics", daily.finalize(), { onConflict: "date" });
 
   console.log("\n✓ Ingest complete.\n");
 }

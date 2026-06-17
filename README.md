@@ -1,7 +1,8 @@
 # 📈 Activity Trends
 
 A personal dashboard that visualises my Apple Health & Apple Watch data — workouts,
-activity rings, heart & vitals, sleep and body composition.
+activity rings, heart & vitals, sleep, mobility, nutrition, hearing, body
+composition and ECG recordings.
 
 Originally a Create React App frontend backed by a Kotlin/Spring + MongoDB API, it
 was reworked into a **Next.js app on Vercel backed entirely by Supabase**, fed by a
@@ -57,15 +58,25 @@ You'll get `apple_health_export/export.xml` and an `workout-routes/` folder of G
 
 ```bash
 npm run ingest -- \
-  --export ./data/export.xml \
-  --routes ./data/workout-routes \
-  --tz Europe/London
+  --export ./data/apple_health_export/export.xml \
+  --routes ./data/apple_health_export/workout-routes \
+  --ecg ./data/apple_health_export/electrocardiograms
 ```
 
-The script streams the (multi-GB) XML, loads workouts / records / activity summaries,
-links GPX routes to workouts by time, loads sleep (from `data/fallback/sleep.csv` if
-no `--sleep-csv` is given), and rebuilds the `daily_metrics` rollup. It is
-idempotent — it resets the data tables first unless you pass `--no-reset`.
+The script streams the (multi-GB) XML and **aggregates the huge high-frequency
+series (heart rate, energy, steps, distance, gait, audio, nutrition…) into daily
+roll-ups in memory** — so the database stays small and the ingest is fast. Only a
+small set of low-volume series (resting HR, HRV, weight, blood oxygen, etc.) are
+also kept raw in `health_records` for future drill-down. It also:
+
+- builds sleep sessions from native `SleepAnalysis` stages (Core/Deep/REM/Awake),
+  falling back to a Pillow `sleep.csv` only if the export has none;
+- links GPX routes to workouts by time;
+- loads ECG recordings from `electrocardiograms/*.csv` (EN/JA locale aware).
+
+It is idempotent — it resets the data tables first unless you pass `--no-reset`.
+Days are bucketed by the local date embedded in each record, so there's no
+timezone flag to set.
 
 ## Deployment (Vercel)
 

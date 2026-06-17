@@ -10,4 +10,6 @@ export const queryKeys = {
   workoutRoute: (workoutId: string) => ["workout-route", workoutId] as const,
   activitySummaries: (range: RangeKey) => ["activity-summaries", range] as const,
   sleep: (range: RangeKey) => ["sleep", range] as const,
+  ecgList: ["ecg-list"] as const,
+  ecg: (id: string) => ["ecg", id] as const,
 };

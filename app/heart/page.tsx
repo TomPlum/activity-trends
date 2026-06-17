@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Activity, Droplets, Gauge, HeartPulse, Wind } from "lucide-react";
+import Link from "next/link";
+import { Activity, ChevronRight, Droplets, Gauge, HeartPulse, Wind } from "lucide-react";
 import { useDailyMetrics } from "@/lib/queries/metrics";
+import { useEcgList } from "@/lib/queries/ecg";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean, latest, deltaPct } from "@/lib/stats";
@@ -82,6 +86,43 @@ export default function HeartPage() {
           </div>
         )}
       </QueryView>
+
+      <EcgSection />
     </>
+  );
+}
+
+function EcgSection() {
+  const { data, isPending } = useEcgList();
+  if (!isPending && (!data || data.length === 0)) return null;
+
+  return (
+    <Card className="mt-6">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-base">
+          <HeartPulse className="h-4 w-4 text-chart-4" /> ECG recordings
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        {isPending
+          ? Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-12 rounded-lg" />)
+          : data!.map((e) => (
+              <Link
+                key={e.id}
+                href={`/ecg/${e.id}`}
+                className="flex items-center justify-between rounded-lg border px-3 py-2 transition-colors hover:bg-accent/50"
+              >
+                <div>
+                  <p className="text-sm font-medium">{fmt.shortDate(e.recorded_at)}</p>
+                  <p className="text-xs text-muted-foreground">{fmt.timeOfDay(e.recorded_at)}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  {e.classification && <Badge variant="secondary">{e.classification}</Badge>}
+                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                </div>
+              </Link>
+            ))}
+      </CardContent>
+    </Card>
   );
 }
