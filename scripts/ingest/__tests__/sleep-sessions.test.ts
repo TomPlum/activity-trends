@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { buildSleepSessions } from "../sleep-sessions";
 import type { SleepSegment } from "../health-export";
 
-function seg(value: string, start: string, end: string): SleepSegment {
-  return { value, start_time: start, end_time: end, wake_day: end.slice(0, 10), source: "watch" };
+function seg(value: string, start: string, end: string, source = "watch"): SleepSegment {
+  return { value, start_time: start, end_time: end, wake_day: end.slice(0, 10), source };
 }
 
 describe("buildSleepSessions", () => {
@@ -35,6 +35,23 @@ describe("buildSleepSessions", () => {
     const { sessions } = buildSleepSessions(segments);
     expect(sessions).toHaveLength(2);
     expect(sessions[1].is_nap).toBe(true);
+  });
+
+  it("uses the dominant source instead of summing overlapping ones", () => {
+    // iPhone logs a coarse 'Asleep' envelope; the Watch logs granular stages
+    // for the same night. Totals must not double.
+    const segments = [
+      seg("HKCategoryValueSleepAnalysisInBed", "2024-01-01T23:00:00Z", "2024-01-02T07:00:00Z", "iphone"),
+      seg("HKCategoryValueSleepAnalysisAsleepCore", "2024-01-01T23:10:00Z", "2024-01-02T03:00:00Z", "watch"),
+      seg("HKCategoryValueSleepAnalysisAsleepDeep", "2024-01-02T03:00:00Z", "2024-01-02T04:30:00Z", "watch"),
+      seg("HKCategoryValueSleepAnalysisAsleepREM", "2024-01-02T04:30:00Z", "2024-01-02T06:50:00Z", "watch"),
+    ];
+    const { sessions, daily } = buildSleepSessions(segments);
+    expect(sessions).toHaveLength(1);
+    // watch is granular -> wins; asleep = 230 + 90 + 140 = 460, not ~940
+    expect(sessions[0].source).toBe("watch");
+    expect(sessions[0].duration_min).toBe(460);
+    expect(daily[0].sleep_min).toBe(460);
   });
 
   it("ignores in-bed-only groups with no real sleep", () => {

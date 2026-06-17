@@ -64,3 +64,27 @@ describe("streamHealthExport", () => {
     expect(profile?.biological_sex).toBe("Male");
   });
 });
+
+describe("streamHealthExport — HealthKit v14 WorkoutStatistics", () => {
+  it("reads energy and distance from WorkoutStatistics, not Workout attrs", async () => {
+    const workouts: WorkoutRow[] = [];
+    await streamHealthExport(
+      join(__dirname, "fixtures/workout-v14.xml"),
+      {
+        onWorkouts: async (rows) => {
+          workouts.push(...rows);
+        },
+        onRecords: async () => {},
+        onActivitySummaries: async () => {},
+      },
+      { batchSize: 10 },
+    );
+    expect(workouts).toHaveLength(1);
+    const w = workouts[0];
+    expect(w.activity_type).toBe("Running");
+    expect(w.energy_kcal).toBeCloseTo(320.5, 1);
+    expect(w.distance_km).toBeCloseTo(5.2, 1);
+    expect(w.avg_heart_rate).toBe(150);
+    expect(w.max_heart_rate).toBe(172);
+  });
+});

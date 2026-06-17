@@ -35,16 +35,20 @@ function stageOf(value: string): Stage {
 
 const GAP_MS = 60 * 60 * 1000; // a >1h gap starts a new sleep session
 
-interface Group {
+interface SourceAcc {
   start: number;
   end: number;
-  source: string | null;
-  wakeDay: string;
   deep: number;
   rem: number;
   light: number;
   awake: number;
   inBed: number;
+}
+
+interface Group {
+  end: number; // latest end seen across any source (for gap detection)
+  wakeDay: string;
+  bySource: Map<string, SourceAcc>;
 }
 
 function minutes(start: string | null, end: string | null): number {
@@ -53,10 +57,28 @@ function minutes(start: string | null, end: string | null): number {
   return ms > 0 ? ms / 60000 : 0;
 }
 
+/** Pick the most complete recording for a night: prefer a source with granular
+ * stages (deep/rem), then the one with the most time asleep. */
+function dominantSource(bySource: Map<string, SourceAcc>): { name: string; acc: SourceAcc } | null {
+  let best: { name: string; acc: SourceAcc; asleep: number; granular: boolean } | null = null;
+  for (const [name, acc] of bySource) {
+    const asleep = acc.deep + acc.rem + acc.light;
+    const granular = acc.deep > 0 || acc.rem > 0;
+    if (
+      !best ||
+      (granular && !best.granular) ||
+      (granular === best.granular && asleep > best.asleep)
+    ) {
+      best = { name, acc, asleep, granular };
+    }
+  }
+  return best ? { name: best.name, acc: best.acc } : null;
+}
+
 /**
- * Group raw sleep segments into nightly sessions and per-day rollups. Sessions
- * are split on gaps over an hour; asleep time = deep + rem + light, quality is
- * sleep efficiency against the in-bed (or asleep+awake) window.
+ * Group raw sleep segments into nightly sessions. When more than one source
+ * (e.g. iPhone + Apple Watch) records the same night, we use only the dominant
+ * source's stages rather than summing them — otherwise totals roughly double.
  */
 export function buildSleepSessions(segments: SleepSegment[]): {
   sessions: SleepSessionRow[];
@@ -74,25 +96,24 @@ export function buildSleepSessions(segments: SleepSegment[]): {
     const end = new Date(seg.end_time!).getTime();
     const stage = stageOf(seg.value);
     const mins = minutes(seg.start_time, seg.end_time);
+    const src = seg.source ?? "Apple Health";
 
     if (!cur || start - cur.end > GAP_MS) {
-      cur = {
-        start,
-        end,
-        source: seg.source,
-        wakeDay: seg.wake_day,
-        deep: 0,
-        rem: 0,
-        light: 0,
-        awake: 0,
-        inBed: 0,
-      };
+      cur = { end, wakeDay: seg.wake_day, bySource: new Map() };
       groups.push(cur);
     }
     cur.end = Math.max(cur.end, end);
     cur.wakeDay = seg.wake_day;
-    if (stage && stage !== "inBed") cur[stage] += mins;
-    else if (stage === "inBed") cur.inBed += mins;
+
+    let acc = cur.bySource.get(src);
+    if (!acc) {
+      acc = { start, end, deep: 0, rem: 0, light: 0, awake: 0, inBed: 0 };
+      cur.bySource.set(src, acc);
+    }
+    acc.start = Math.min(acc.start, start);
+    acc.end = Math.max(acc.end, end);
+    if (stage && stage !== "inBed") acc[stage] += mins;
+    else if (stage === "inBed") acc.inBed += mins;
   }
 
   const round = (n: number) => Math.round(n);
@@ -100,25 +121,29 @@ export function buildSleepSessions(segments: SleepSegment[]): {
   const dailyMap = new Map<string, { sleep: number; qSum: number; qCount: number }>();
 
   for (const g of groups) {
-    const asleep = g.deep + g.rem + g.light;
+    const winner = dominantSource(g.bySource);
+    if (!winner) continue;
+    const { deep, rem, light, awake, inBed, start, end } = winner.acc;
+    const asleep = deep + rem + light;
     if (asleep === 0) continue; // in-bed only, no actual sleep recorded
-    const denom = Math.max(g.inBed, asleep + g.awake);
+
+    const denom = Math.max(inBed, asleep + awake);
     const quality = denom > 0 ? Math.min(100, (asleep / denom) * 100) : null;
     const isNap = asleep < 90;
 
     sessions.push({
-      start_time: new Date(g.start).toISOString(),
-      end_time: new Date(g.end).toISOString(),
+      start_time: new Date(start).toISOString(),
+      end_time: new Date(end).toISOString(),
       duration_min: round(asleep),
       quality_pct: quality == null ? null : round(quality),
-      awake_min: round(g.awake),
-      rem_min: round(g.rem),
-      light_min: round(g.light),
-      deep_min: round(g.deep),
+      awake_min: round(awake),
+      rem_min: round(rem),
+      light_min: round(light),
+      deep_min: round(deep),
       sounds_recorded: null,
       mood: null,
       is_nap: isNap,
-      source: g.source ?? "Apple Health",
+      source: winner.name,
     });
 
     if (!isNap) {
