@@ -72,15 +72,31 @@ async function exists(p: string): Promise<boolean> {
   }
 }
 
+/**
+ * Drop rows that share a conflict key, keeping the last. Apple Health exports
+ * can contain duplicate workouts/records (same source re-imported); without this
+ * an upsert hits "ON CONFLICT DO UPDATE command cannot affect row a second time".
+ */
+function dedupeByKey<T>(rows: T[], conflict: string): T[] {
+  const cols = conflict.split(",").map((c) => c.trim());
+  const map = new Map<string, T>();
+  for (const r of rows) {
+    const key = cols.map((c) => String((r as Record<string, unknown>)[c])).join("|");
+    map.set(key, r);
+  }
+  return [...map.values()];
+}
+
 async function insertChunked<T>(
   db: DB,
   table: keyof Database["public"]["Tables"],
   rows: T[],
   opts?: { onConflict?: string },
 ) {
+  const input = opts?.onConflict ? dedupeByKey(rows, opts.onConflict) : rows;
   const size = 1000;
-  for (let i = 0; i < rows.length; i += size) {
-    const chunk = rows.slice(i, i + size) as never[];
+  for (let i = 0; i < input.length; i += size) {
+    const chunk = input.slice(i, i + size) as never[];
     const q = db.from(table);
     const { error } = opts?.onConflict
       ? await q.upsert(chunk, { onConflict: opts.onConflict, ignoreDuplicates: false })
