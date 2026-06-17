@@ -5,8 +5,8 @@
  *     [--sleep-csv ./data/fallback/sleep.csv] [--tz Europe/London] [--no-reset]
  *
  * Streams export.xml, loads workouts / records / activity summaries, links GPX
- * routes, loads sleep, then rebuilds daily_metrics. Writes via the service-role
- * key (bypasses RLS). Re-runnable: resets the data tables first by default.
+ * routes, loads sleep, then rebuilds daily_metrics. Writes via the Supabase
+ * secret key (bypasses RLS). Re-runnable: resets the data tables first by default.
  */
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join, resolve } from "node:path";

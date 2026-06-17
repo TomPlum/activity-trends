@@ -62,7 +62,7 @@ export function ErrorState({ error }: { error: unknown }) {
       title={isConfig ? "Can’t reach Supabase" : "Failed to load"}
       description={
         isConfig
-          ? "Check NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local and that data has been ingested."
+          ? "Check NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local and that data has been ingested."
           : message
       }
     />

@@ -30,8 +30,8 @@ Supabase Postgres  ──RLS: anon = read-only──▶  Next.js (Vercel) via Re
 ```
 
 There is **no auth** — the dashboard is public read-only. Every table allows anon
-`SELECT`; all writes go through the ingest script using the service-role key, which
-bypasses RLS.
+`SELECT`; all writes go through the ingest script using the Supabase **secret key**,
+which bypasses RLS.
 
 ## Getting started
 
@@ -43,8 +43,9 @@ npm run dev
 
 ### Supabase setup
 
-1. Create a Supabase project. Put the URL + anon key in `.env.local`
-   (`NEXT_PUBLIC_SUPABASE_*`) and the service-role key in `SUPABASE_SERVICE_ROLE_KEY`.
+1. Create a Supabase project. Put the URL + **publishable key** in `.env.local`
+   (`NEXT_PUBLIC_SUPABASE_*`) and the **secret key** in `SUPABASE_SECRET_KEY`.
+   (These are the new key system; anon/service_role are legacy.)
 2. Apply the migrations in [`supabase/migrations`](supabase/migrations) — either
    `supabase link` + `supabase db push`, or paste them into the SQL editor in order.
 3. Regenerate types if you change the schema: `npm run db:types`.
@@ -69,9 +70,9 @@ idempotent — it resets the data tables first unless you pass `--no-reset`.
 ## Deployment (Vercel)
 
 1. Import the repo in Vercel (Next.js is auto-detected).
-2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` (both public and
-   safe — reads are gated by RLS). The service-role key is **not** needed on Vercel;
-   ingestion runs locally.
+2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (both
+   public and safe — reads are gated by RLS). The secret key is **not** needed on
+   Vercel; ingestion runs locally.
 
 ## NPM scripts
 
