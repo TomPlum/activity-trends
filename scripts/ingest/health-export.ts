@@ -189,10 +189,20 @@ export async function streamHealthExport(
       }
       case "WorkoutStatistics": {
         if (!current) break;
+        // HealthKit v14 moved energy/distance off the <Workout> element into
+        // these child stats; older exports use Workout attributes (set above).
         const type = shortRecordType((a.type as string) ?? "");
         if (type === "HeartRate") {
           current.avg_heart_rate = parseLeadingNumber(a.average as string);
           current.max_heart_rate = parseLeadingNumber(a.maximum as string);
+        } else if (type === "ActiveEnergyBurned") {
+          current.energy_kcal = parseLeadingNumber(a.sum as string);
+        } else if (
+          type === "DistanceWalkingRunning" ||
+          type === "DistanceCycling" ||
+          type === "DistanceSwimming"
+        ) {
+          current.distance_km = parseLeadingNumber(a.sum as string);
         }
         break;
       }

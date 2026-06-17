@@ -64,3 +64,11 @@ export const CATEGORY_LABELS: Record<WorkoutCategory, string> = {
   mind: "Mind & Body",
   other: "Other",
 };
+
+export const CATEGORY_ACCENT: Record<WorkoutCategory, string> = {
+  cardio: "text-chart-1",
+  strength: "text-chart-3",
+  sport: "text-chart-4",
+  mind: "text-chart-2",
+  other: "text-muted-foreground",
+};

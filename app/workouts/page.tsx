@@ -30,10 +30,13 @@ import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { sum } from "@/lib/stats";
 import {
+  CATEGORY_ACCENT,
   CATEGORY_LABELS,
   workoutMeta,
   type WorkoutCategory,
 } from "@/lib/health/workout-types";
+import { WorkoutIcon } from "@/components/dashboard/workout-icon";
+import { cn } from "@/lib/utils";
 
 type CategoryFilter = WorkoutCategory | "all";
 
@@ -135,7 +138,10 @@ export default function WorkoutsPage() {
                       return (
                         <TableRow key={w.id} className="cursor-pointer">
                           <TableCell className="pl-6">
-                            <Link href={`/workouts/${w.id}`} className="flex items-center gap-2 font-medium hover:underline">
+                            <Link href={`/workouts/${w.id}`} className="flex items-center gap-2.5 font-medium hover:underline">
+                              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-muted">
+                                <WorkoutIcon name={meta.icon} className={cn("h-4 w-4", CATEGORY_ACCENT[meta.category])} />
+                              </span>
                               {meta.label}
                               <Badge variant="secondary" className="text-[10px]">
                                 {CATEGORY_LABELS[meta.category]}

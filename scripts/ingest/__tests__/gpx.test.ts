@@ -20,8 +20,8 @@ describe("parseGpx", () => {
     expect(s).toBeLessThanOrEqual(n);
   });
 
-  it("uses the metadata time as start", () => {
-    expect(route.startTime).toBe("2020-08-23T17:40:02Z");
+  it("uses the first track-point time as start (not the export metadata time)", () => {
+    expect(route.startTime).toBe("2020-07-29T13:51:19Z");
   });
 
   it("computes a non-negative distance", () => {

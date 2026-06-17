@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HealthData locale="en_GB">
+ <ExportDate value="2024-03-02 10:00:00 +0000"/>
+ <Workout workoutActivityType="HKWorkoutActivityTypeRunning" duration="30" durationUnit="min"
+          sourceName="Tom’s Apple Watch" startDate="2024-03-01 07:00:00 +0000" endDate="2024-03-01 07:30:00 +0000">
+   <MetadataEntry key="HKTimeZone" value="Europe/London"/>
+   <WorkoutStatistics type="HKQuantityTypeIdentifierActiveEnergyBurned" sum="320.5" unit="kcal"/>
+   <WorkoutStatistics type="HKQuantityTypeIdentifierDistanceWalkingRunning" sum="5.2" unit="km"/>
+   <WorkoutStatistics type="HKQuantityTypeIdentifierHeartRate" average="150" maximum="172" unit="count/min"/>
+ </Workout>
+</HealthData>
