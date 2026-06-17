@@ -6,7 +6,7 @@ import type { Workout } from "./workouts";
 import type { ActivitySummary } from "./activity";
 
 export interface OverviewData {
-  /** Up to the last 90 days of rollups for sparklines. */
+  /** Up to the last 365 days of rollups (sparklines slice the recent 90). */
   recentMetrics: DailyMetric[];
   latestActivity: ActivitySummary | null;
   lastWorkout: Workout | null;
@@ -32,7 +32,7 @@ export function useOverview() {
     queryKey: queryKeys.overview,
     queryFn: async (): Promise<OverviewData> => {
       const supabase = createClient();
-      const since = new Date(Date.now() - 90 * 864e5).toISOString().slice(0, 10);
+      const since = new Date(Date.now() - 365 * 864e5).toISOString().slice(0, 10);
 
       const [metricsRes, activityRes, workoutRes] = await Promise.all([
         supabase.from("daily_metrics").select("*").gte("date", since).order("date"),
