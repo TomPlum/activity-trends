@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Apple Health Export" xmlns="http://www.topografix.com/GPX/1/1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+    <metadata>
+        <time>2020-08-23T17:40:02Z</time>
+    </metadata>
+    <trk>
+        <name>Route 2020-07-29 3:13pm</name>
+        <trkseg>
+            <trkpt lon="-2.538323" lat="53.252917">
+                <ele>21.476473</ele>
+                <time>2020-07-29T13:51:19Z</time>
+                <extensions>
+                    <speed>1.642115</speed>
+                    <course>-1.000000</course>
+                    <hAcc>3.723220</hAcc>
+                    <vAcc>2.774929</vAcc>
+                </extensions>
+            </trkpt>
+            <trkpt lon="-2.538320" lat="53.252903">
+                <ele>22.036276</ele>
+                <time>2020-07-29T13:51:20Z</time>
+                <extensions>
+                    <speed>1.641947</speed>
+                    <course>-1.000000</course>
+                    <hAcc>3.388743</hAcc>
+                    <vAcc>2.516615</vAcc>
+                </extensions>
+            </trkpt>
+        </trkseg>
+    </trk>
+</gpx>

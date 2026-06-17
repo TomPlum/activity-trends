@@ -1,47 +1,87 @@
-# :chart: Activity Trends
+# 📈 Activity Trends
 
-# Contents
-- [About](#about)
-- [Getting Started](#getting-started)
-- [NPM Scripts](#npm-scripts)
-- [Technology Documentation](#technology-documentation)
+A personal dashboard that visualises my Apple Health & Apple Watch data — workouts,
+activity rings, heart & vitals, sleep and body composition.
 
-## About
-A dashboard style interface visualising the data collected from my Apple Watch.
-The main two sources are the native iOS [Activity](https://support.apple.com/en-gb/guide/watch/apd3bf6d85a6/watchos) 
-app which I used to record my gym workouts and cardio sessions and the 3rd party iOS app, [Pillow](https://pillow.app/),
-that I used to record my sleep.
+Originally a Create React App frontend backed by a Kotlin/Spring + MongoDB API, it
+was reworked into a **Next.js app on Vercel backed entirely by Supabase**, fed by a
+local script that parses the full Apple Health export.
 
-As a back-end developer who, only occasionally, works with front-end codebases, I wanted a personal project that I
-could use to learn [ReactJS](https://reactjs.org/) and all the other relevant industry-standard technologies that are
-commonly found in front-end stacks. I've had experience working with [D3js](https://d3js.org/)
-and [Recharts](https://recharts.org/en-US/) provides a nice React wrapper for it.
+## Stack
 
-## Getting Started
-For development, you will only need NodeJS and environment variables configured.
+| Concern        | Technology |
+|----------------|------------|
+| Framework      | [Next.js 15](https://nextjs.org) (App Router) · React 19 · TypeScript |
+| Hosting        | [Vercel](https://vercel.com) |
+| Backend / DB   | [Supabase](https://supabase.com) (Postgres, RLS public read-only) |
+| Data fetching  | [TanStack Query](https://tanstack.com/query) + `@supabase/supabase-js` |
+| UI             | [Tailwind v4](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) |
+| Charts         | [Recharts](https://recharts.org) |
+| Maps           | [MapLibre](https://maplibre.org) + [react-map-gl](https://visgl.github.io/react-map-gl/) (free OpenStreetMap tiles) |
+| Ingestion      | Local Node/TS streaming parser ([saxes](https://github.com/lddubeau/saxes)) |
 
-### Insomnia REST Requests
-The [Insomnia](https://insomnia.rest/download/) V4 export [rest.json](/rest.json) file includes requests for all the
-API endpoints.
+## Architecture
 
-## NPM Scripts
+```
+Apple Health export.zip (export.xml + workout-routes/*.gpx)
+        │  npm run ingest   (local, re-runnable, service-role key)
+        ▼
+Supabase Postgres  ──RLS: anon = read-only──▶  Next.js (Vercel) via React Query
+```
 
-| Name        | Description                                                          |
-|-------------|----------------------------------------------------------------------|
-| `build`     | Invokes the React Scripts [`build`](https://create-react-app.dev/docs/available-scripts#npm-run-build) task.    |
-| `start`     | Serves the application locally at `localhost:3000`. See [here](https://create-react-app.dev/docs/available-scripts#npm-start) for more info.     |
-| `deploy`    | Builds, exports, commits, pushes and subtrees for GitHub pages.      |
-| `test`      | Runs the unit tests. See [here](https://create-react-app.dev/docs/available-scripts#npm-test) for more info.    |
-| `eject`     | Drops the create-react-app support. See [here](https://create-react-app.dev/docs/available-scripts#npm-run-eject) for more info.    |
-| `clean`     | Deletes all of the `node_modules` from the project.                  |
-| `reinstall` | Cleans the project and then re-installs it via npm.                  |
-| `rebuild`   | Cleans the projects, re-installs it, and then builds.                |
+There is **no auth** — the dashboard is public read-only. Every table allows anon
+`SELECT`; all writes go through the ingest script using the service-role key, which
+bypasses RLS.
 
-## Technology Documentation
-- [React Bootstrap](https://react-bootstrap.github.io/layout/grid/)
-- [Papa Parse](https://www.papaparse.com/docs)
-- [Recharts](https://recharts.org/en-US/api)
-- [TypeScript](https://www.typescriptlang.org/docs)
-- [Font Awesome](https://fontawesome.com/how-to-use/on-the-web/using-with/react)
-- [SASS](https://sass-lang.com/documentation/syntax#scss)
-- [MomentJS](https://momentjs.com/docs/)
+## Getting started
+
+```bash
+npm install
+cp .env.local.example .env.local   # fill in your Supabase project values
+npm run dev
+```
+
+### Supabase setup
+
+1. Create a Supabase project. Put the URL + anon key in `.env.local`
+   (`NEXT_PUBLIC_SUPABASE_*`) and the service-role key in `SUPABASE_SERVICE_ROLE_KEY`.
+2. Apply the migrations in [`supabase/migrations`](supabase/migrations) — either
+   `supabase link` + `supabase db push`, or paste them into the SQL editor in order.
+3. Regenerate types if you change the schema: `npm run db:types`.
+
+### Ingesting your Apple Health data
+
+Export from the iOS Health app (Profile → *Export All Health Data*) and unzip it.
+You'll get `apple_health_export/export.xml` and an `workout-routes/` folder of GPX.
+
+```bash
+npm run ingest -- \
+  --export ./data/export.xml \
+  --routes ./data/workout-routes \
+  --tz Europe/London
+```
+
+The script streams the (multi-GB) XML, loads workouts / records / activity summaries,
+links GPX routes to workouts by time, loads sleep (from `data/fallback/sleep.csv` if
+no `--sleep-csv` is given), and rebuilds the `daily_metrics` rollup. It is
+idempotent — it resets the data tables first unless you pass `--no-reset`.
+
+## Deployment (Vercel)
+
+1. Import the repo in Vercel (Next.js is auto-detected).
+2. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` (both public and
+   safe — reads are gated by RLS). The service-role key is **not** needed on Vercel;
+   ingestion runs locally.
+
+## NPM scripts
+
+| Name         | Description |
+|--------------|-------------|
+| `dev`        | Run the app locally. |
+| `build`      | Production build. |
+| `start`      | Serve the production build. |
+| `lint`       | Next.js / ESLint. |
+| `typecheck`  | `tsc --noEmit`. |
+| `test`       | Vitest unit tests (ingestion parsers, etc.). |
+| `ingest`     | Parse an Apple Health export into Supabase. |
+| `db:types`   | Regenerate `lib/supabase/database.types.ts` from the DB. |
