@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HealthData [
+        <!-- HealthKit Export Version: 11 -->
+        <!ELEMENT HealthData (ExportDate,Me,(Record|Correlation|Workout|ActivitySummary|ClinicalRecord)*)>
+        <!ATTLIST HealthData locale CDATA #REQUIRED>
+        <!ELEMENT ExportDate EMPTY>
+        <!ATTLIST ExportDate
+                value CDATA #REQUIRED
+                >
+        <!ELEMENT Me EMPTY>
+        <!ATTLIST Me
+                HKCharacteristicTypeIdentifierDateOfBirth         CDATA #REQUIRED
+                HKCharacteristicTypeIdentifierBiologicalSex       CDATA #REQUIRED
+                HKCharacteristicTypeIdentifierBloodType           CDATA #REQUIRED
+                HKCharacteristicTypeIdentifierFitzpatrickSkinType CDATA #REQUIRED
+                HKCharacteristicTypeIdentifierCardioFitnessMedicationsUse CDATA #REQUIRED
+                >
+        <!ELEMENT Record ((MetadataEntry|HeartRateVariabilityMetadataList)*)>
+        <!ATTLIST Record
+                type          CDATA #REQUIRED
+                unit          CDATA #IMPLIED
+                value         CDATA #IMPLIED
+                sourceName    CDATA #REQUIRED
+                sourceVersion CDATA #IMPLIED
+                device        CDATA #IMPLIED
+                creationDate  CDATA #IMPLIED
+                startDate     CDATA #REQUIRED
+                endDate       CDATA #REQUIRED
+                >
+        <!-- Note: Any Records that appear as children of a correlation also appear as top-level records in this document. -->
+        <!ELEMENT Correlation ((MetadataEntry|Record)*)>
+        <!ATTLIST Correlation
+                type          CDATA #REQUIRED
+                sourceName    CDATA #REQUIRED
+                sourceVersion CDATA #IMPLIED
+                device        CDATA #IMPLIED
+                creationDate  CDATA #IMPLIED
+                startDate     CDATA #REQUIRED
+                endDate       CDATA #REQUIRED
+                >
+        <!ELEMENT Workout ((MetadataEntry|WorkoutEvent|WorkoutRoute)*)>
+        <!ATTLIST Workout
+                workoutActivityType   CDATA #REQUIRED
+                duration              CDATA #IMPLIED
+                durationUnit          CDATA #IMPLIED
+                totalDistance         CDATA #IMPLIED
+                totalDistanceUnit     CDATA #IMPLIED
+                totalEnergyBurned     CDATA #IMPLIED
+                totalEnergyBurnedUnit CDATA #IMPLIED
+                sourceName            CDATA #REQUIRED
+                sourceVersion         CDATA #IMPLIED
+                device                CDATA #IMPLIED
+                creationDate          CDATA #IMPLIED
+                startDate             CDATA #REQUIRED
+                endDate               CDATA #REQUIRED
+                >
+        <!ELEMENT WorkoutEvent EMPTY>
+        <!ATTLIST WorkoutEvent
+                type         CDATA #REQUIRED
+                date         CDATA #REQUIRED
+                duration     CDATA #IMPLIED
+                durationUnit CDATA #IMPLIED
+                >
+        <!ELEMENT WorkoutRoute ((MetadataEntry|FileReference)*)>
+        <!ATTLIST WorkoutRoute
+                sourceName    CDATA #REQUIRED
+                sourceVersion CDATA #IMPLIED
+                device        CDATA #IMPLIED
+                creationDate  CDATA #IMPLIED
+                startDate     CDATA #REQUIRED
+                endDate       CDATA #REQUIRED
+                >
+        <!ELEMENT FileReference EMPTY>
+        <!ATTLIST FileReference
+                path CDATA #REQUIRED
+                >
+        <!ELEMENT ActivitySummary EMPTY>
+        <!ATTLIST ActivitySummary
+                dateComponents           CDATA #IMPLIED
+                activeEnergyBurned       CDATA #IMPLIED
+                activeEnergyBurnedGoal   CDATA #IMPLIED
+                activeEnergyBurnedUnit   CDATA #IMPLIED
+                appleMoveTime            CDATA #IMPLIED
+                appleMoveTimeGoal        CDATA #IMPLIED
+                appleExerciseTime        CDATA #IMPLIED
+                appleExerciseTimeGoal    CDATA #IMPLIED
+                appleStandHours          CDATA #IMPLIED
+                appleStandHoursGoal      CDATA #IMPLIED
+                >
+        <!ELEMENT MetadataEntry EMPTY>
+        <!ATTLIST MetadataEntry
+                key   CDATA #REQUIRED
+                value CDATA #REQUIRED
+                >
+        <!ELEMENT HeartRateVariabilityMetadataList (InstantaneousBeatsPerMinute*)>
+        <!ELEMENT InstantaneousBeatsPerMinute EMPTY>
+        <!ATTLIST InstantaneousBeatsPerMinute
+                bpm  CDATA #REQUIRED
+                time CDATA #REQUIRED
+                >
+        <!ELEMENT ClinicalRecord EMPTY>
+        <!ATTLIST ClinicalRecord
+                type              CDATA #REQUIRED
+                identifier        CDATA #REQUIRED
+                sourceName        CDATA #REQUIRED
+                sourceURL         CDATA #REQUIRED
+                fhirVersion       CDATA #REQUIRED
+                receivedDate      CDATA #REQUIRED
+                resourceFilePath  CDATA #REQUIRED
+                >
+        <!ELEMENT Audiogram EMPTY>
+        <!ATTLIST Audiogram
+                type          CDATA #REQUIRED
+                sourceName    CDATA #REQUIRED
+                sourceVersion CDATA #IMPLIED
+                device        CDATA #IMPLIED
+                creationDate  CDATA #IMPLIED
+                startDate     CDATA #REQUIRED
+                endDate       CDATA #REQUIRED
+                >
+        <!ELEMENT SensitivityPoint EMPTY>
+        <!ATTLIST SensitivityPoint
+                frequencyValue   CDATA #REQUIRED
+                frequencyUnit    CDATA #REQUIRED
+                leftEarValue     CDATA #IMPLIED
+                leftEarUnit      CDATA #IMPLIED
+                rightEarValue    CDATA #IMPLIED
+                rightEarUnit     CDATA #IMPLIED
+                >
+        ]>
+<HealthData locale="en_GB">
+    <ExportDate value="2020-08-23 18:37:51 +0100"/>
+    <Me HKCharacteristicTypeIdentifierDateOfBirth="1997-03-02"
+        HKCharacteristicTypeIdentifierBiologicalSex="HKBiologicalSexMale"
+        HKCharacteristicTypeIdentifierBloodType="HKBloodTypeNotSet"
+        HKCharacteristicTypeIdentifierFitzpatrickSkinType="HKFitzpatrickSkinTypeNotSet"
+        HKCharacteristicTypeIdentifierCardioFitnessMedicationsUse="None"/>
+    <Record type="HKQuantityTypeIdentifierDietaryWater" sourceName="💧Aqueous" sourceVersion="3.4.144" unit="mL"
+            creationDate="2018-06-26 12:54:42 +0100" startDate="2018-06-26 12:54:42 +0100"
+            endDate="2018-06-26 12:54:42 +0100" value="500"/>
+    <Record type="HKQuantityTypeIdentifierHeight" sourceName="Tom’s iPhone X" sourceVersion="11.1" unit="ft"
+            creationDate="2017-10-03 21:35:31 +0100" startDate="2017-10-03 21:35:31 +0100"
+            endDate="2017-10-03 21:35:31 +0100" value="5.67585"/>
+    <Record type="HKQuantityTypeIdentifierBodyMass" sourceName="MyFitnessPal" sourceVersion="29814" unit="kg"
+            creationDate="2020-05-15 15:13:45 +0100" startDate="2020-05-15 15:13:00 +0100"
+            endDate="2020-05-15 15:13:00 +0100" value="80.1498"/>
+    <Record type="HKQuantityTypeIdentifierHeartRate" sourceName="Tom’s Apple Watch" sourceVersion="4.0"
+            device="&lt;&lt;HKDevice: 0x280d6bac0&gt;, name:Apple Watch, manufacturer:Apple, model:Watch, hardware:Watch3,4, software:4.0&gt;"
+            unit="count/min" creationDate="2017-09-28 13:48:11 +0100" startDate="2017-09-28 13:23:19 +0100"
+            endDate="2017-09-28 13:23:19 +0100" value="80">
+        <MetadataEntry key="HKMetadataKeyHeartRateMotionContext" value="0"/>
+    </Record>
+
+    <Workout workoutActivityType="HKWorkoutActivityTypeElliptical" duration="16.36445068319638" durationUnit="min"
+             totalDistance="0" totalDistanceUnit="km" totalEnergyBurned="177.234" totalEnergyBurnedUnit="kcal"
+             sourceName="Tom’s Apple Watch" sourceVersion="4.0" creationDate="2017-10-02 20:10:35 +0100"
+             startDate="2017-10-02 19:54:13 +0100" endDate="2017-10-02 20:10:35 +0100">
+        <MetadataEntry key="HKTimeZone" value="Europe/London"/>
+        <MetadataEntry key="HKWeatherTemperature" value="53 degF"/>
+        <MetadataEntry key="HKWeatherHumidity" value="8300 %"/>
+    </Workout>
+
+</HealthData>

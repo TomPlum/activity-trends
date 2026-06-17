@@ -1,0 +1,14 @@
+project_id = "activity-trends"
+
+[db]
+port = 54322
+major_version = 15
+
+[api]
+port = 54321
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 5000
+
+[studio]
+port = 54323

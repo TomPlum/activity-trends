@@ -218,3 +218,18 @@ sketch
 build/
 
 # End of https://www.toptal.com/developers/gitignore/api/react,node,intellij+all
+
+# --- Next.js / Supabase / Apple Health rework ---
+/.next/
+/out/
+next-env.d.ts
+*.tsbuildinfo
+.vercel
+/supabase/.temp
+/supabase/.branches
+
+# Local Apple Health export data (large; never commit)
+/data/export.xml
+/data/export.zip
+/data/workout-routes/
+/data/apple_health_export/
