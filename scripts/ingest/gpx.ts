@@ -63,6 +63,8 @@ export function parseGpx(xml: string): ParsedRoute {
     points,
     bounds: points.length ? [west, south, east, north] : null,
     distanceKm: Math.round(distanceKm * 1000) / 1000,
-    startTime: metadataTime ?? firstTrkptTime,
+    // Prefer the first track-point time: Apple sets <metadata><time> to the
+    // export timestamp, not the route's actual start.
+    startTime: firstTrkptTime ?? metadataTime,
   };
 }

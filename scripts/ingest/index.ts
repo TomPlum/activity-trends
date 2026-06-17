@@ -109,9 +109,11 @@ async function ingestExport(db: DB, file: string, batch: number, daily: DailyAcc
   console.log(`→ Streaming ${file} …`);
   const segments: SleepSegment[] = [];
   let rawBuf: Database["public"]["Tables"]["health_records"]["Insert"][] = [];
+  let rawStored = 0;
 
   const flushRaw = async () => {
     if (rawBuf.length >= 1000) {
+      rawStored += rawBuf.length;
       await insertChunked(db, "health_records", rawBuf);
       rawBuf = [];
     }
@@ -156,10 +158,14 @@ async function ingestExport(db: DB, file: string, batch: number, daily: DailyAcc
     { batchSize: batch, recordTypes: ingestRecordTypes() },
   );
 
-  if (rawBuf.length) await insertChunked(db, "health_records", rawBuf);
+  if (rawBuf.length) {
+    rawStored += rawBuf.length;
+    await insertChunked(db, "health_records", rawBuf);
+  }
 
   console.log(
-    `✓ Export: ${counts.workouts} workouts, ${counts.records} records kept raw, ` +
+    `✓ Export: ${counts.workouts} workouts, ${counts.records} records scanned ` +
+      `(${rawStored} kept raw, rest rolled up to daily), ` +
       `${counts.activitySummaries} activity days, ${counts.sleepSegments} sleep segments`,
   );
   return segments;
@@ -184,9 +190,20 @@ async function ingestRoutes(db: DB, dir: string) {
     return;
   }
 
-  const { data: workouts, error } = await db.from("workouts").select("id, start_time");
-  if (error) die(`Could not load workouts for route matching: ${error.message}`);
-  const index = (workouts ?? [])
+  // PostgREST caps a select at ~1000 rows, so page through every workout.
+  const workouts: { id: string; start_time: string }[] = [];
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await db
+      .from("workouts")
+      .select("id, start_time")
+      .order("start_time")
+      .range(from, from + 999);
+    if (error) die(`Could not load workouts for route matching: ${error.message}`);
+    if (!data?.length) break;
+    workouts.push(...data);
+    if (data.length < 1000) break;
+  }
+  const index = workouts
     .map((w) => ({ id: w.id, t: new Date(w.start_time).getTime() }))
     .sort((a, b) => a.t - b.t);
 
