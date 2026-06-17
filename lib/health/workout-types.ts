@@ -24,6 +24,11 @@ const META: Record<string, WorkoutTypeMeta> = {
   FunctionalStrengthTraining: { label: "Functional Strength", category: "strength", icon: "Dumbbell" },
   CoreTraining: { label: "Core Training", category: "strength", icon: "Dumbbell" },
   Tennis: { label: "Tennis", category: "sport", icon: "Trophy" },
+  TrackAndField: { label: "Track & Field", category: "sport", icon: "Trophy" },
+  Snowboarding: { label: "Snowboarding", category: "sport", icon: "Mountain" },
+  CardioDance: { label: "Cardio Dance", category: "cardio", icon: "Music" },
+  Cooldown: { label: "Cooldown", category: "mind", icon: "Heart" },
+  Play: { label: "Play", category: "sport", icon: "Trophy" },
   Yoga: { label: "Yoga", category: "mind", icon: "Heart" },
   Other: { label: "Other", category: "other", icon: "Activity" },
 };

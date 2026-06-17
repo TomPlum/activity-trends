@@ -136,11 +136,57 @@ export interface Database {
           body_fat_pct: number | null;
           sleep_min: number | null;
           sleep_quality: number | null;
+          stand_hours: number | null;
+          basal_energy: number | null;
+          physical_effort: number | null;
+          daylight_min: number | null;
+          distance_cycling_km: number | null;
+          walking_hr_avg: number | null;
+          sleeping_wrist_temp_c: number | null;
+          walking_speed_kmh: number | null;
+          step_length_cm: number | null;
+          walking_asymmetry_pct: number | null;
+          double_support_pct: number | null;
+          stair_ascent_speed: number | null;
+          stair_descent_speed: number | null;
+          walking_steadiness_pct: number | null;
+          env_audio_db: number | null;
+          headphone_audio_db: number | null;
+          diet_energy_kcal: number | null;
+          carbs_g: number | null;
+          protein_g: number | null;
+          fat_g: number | null;
+          sugar_g: number | null;
+          fiber_g: number | null;
+          sodium_mg: number | null;
+          water_ml: number | null;
+          caffeine_mg: number | null;
         };
         Insert: Partial<Database["public"]["Tables"]["daily_metrics"]["Row"]> & {
           date: string;
         };
         Update: Partial<Database["public"]["Tables"]["daily_metrics"]["Row"]>;
+        Relationships: [];
+      };
+      ecg: {
+        Row: {
+          id: string;
+          recorded_at: string;
+          classification: string | null;
+          symptoms: string | null;
+          sample_rate_hz: number | null;
+          average_heart_rate: number | null;
+          unit: string | null;
+          sample_count: number;
+          device: string | null;
+          software_version: string | null;
+          samples: Json;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["ecg"]["Row"]> & {
+          recorded_at: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["ecg"]["Row"]>;
         Relationships: [];
       };
     };

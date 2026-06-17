@@ -1,5 +1,15 @@
 import type { LucideIcon } from "lucide-react";
-import { Activity, Dumbbell, HeartPulse, LayoutDashboard, Moon, Scale } from "lucide-react";
+import {
+  Activity,
+  Dumbbell,
+  Ear,
+  HeartPulse,
+  LayoutDashboard,
+  Moon,
+  PersonStanding,
+  Scale,
+  Utensils,
+} from "lucide-react";
 
 export interface NavItem {
   href: string;
@@ -15,5 +25,8 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/activity", label: "Activity", icon: Activity, accent: "text-chart-1" },
   { href: "/heart", label: "Heart & Vitals", icon: HeartPulse, accent: "text-chart-4" },
   { href: "/sleep", label: "Sleep", icon: Moon, accent: "text-chart-2" },
+  { href: "/mobility", label: "Mobility", icon: PersonStanding, accent: "text-chart-1" },
+  { href: "/nutrition", label: "Nutrition", icon: Utensils, accent: "text-chart-3" },
+  { href: "/hearing", label: "Hearing", icon: Ear, accent: "text-chart-2" },
   { href: "/body", label: "Body", icon: Scale, accent: "text-chart-5" },
 ];

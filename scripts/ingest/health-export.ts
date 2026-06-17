@@ -30,6 +30,18 @@ export interface RecordRow {
   start_time: string;
   end_time: string | null;
   source: string | null;
+  /** Local calendar date (yyyy-MM-dd) taken from the export's local startDate. */
+  day: string;
+}
+
+export interface SleepSegment {
+  /** Raw HKCategoryValueSleepAnalysis* value. */
+  value: string;
+  start_time: string | null;
+  end_time: string | null;
+  /** Local wake date (end date) used to bucket the night. */
+  wake_day: string;
+  source: string | null;
 }
 
 export interface ActivitySummaryRow {
@@ -53,6 +65,7 @@ export interface ExportHandlers {
   onWorkouts: (rows: WorkoutRow[]) => Promise<void>;
   onRecords: (rows: RecordRow[]) => Promise<void>;
   onActivitySummaries: (rows: ActivitySummaryRow[]) => Promise<void>;
+  onSleepSegments?: (rows: SleepSegment[]) => Promise<void>;
 }
 
 /** Record types worth keeping — the ones that power the dashboard. */
@@ -96,14 +109,20 @@ export async function streamHealthExport(
   filePath: string,
   handlers: ExportHandlers,
   options: StreamOptions = {},
-): Promise<{ workouts: number; records: number; activitySummaries: number }> {
+): Promise<{
+  workouts: number;
+  records: number;
+  activitySummaries: number;
+  sleepSegments: number;
+}> {
   const batchSize = options.batchSize ?? 5000;
   const recordTypes = options.recordTypes ?? DEFAULT_RECORD_TYPES;
 
   const workoutBuf: WorkoutRow[] = [];
   const recordBuf: RecordRow[] = [];
   const activityBuf: ActivitySummaryRow[] = [];
-  const counts = { workouts: 0, records: 0, activitySummaries: 0 };
+  const sleepBuf: SleepSegment[] = [];
+  const counts = { workouts: 0, records: 0, activitySummaries: 0, sleepSegments: 0 };
 
   let current: WorkoutAccumulator | null = null;
   let correlationDepth = 0;
@@ -180,8 +199,24 @@ export async function streamHealthExport(
       case "Record": {
         if (correlationDepth > 0) break; // avoid double-counting nested records
         const type = shortRecordType(a.type as string);
+        const startRaw = a.startDate as string;
+        if (!startRaw) break;
+
+        if (type === "SleepAnalysis") {
+          if (!handlers.onSleepSegments) break;
+          const endRaw = (a.endDate as string) || startRaw;
+          sleepBuf.push({
+            value: (a.value as string) || "",
+            start_time: parseHealthDate(startRaw),
+            end_time: parseHealthDate(endRaw),
+            wake_day: endRaw.slice(0, 10),
+            source: (a.sourceName as string) || null,
+          });
+          break;
+        }
+
         if (!recordTypes.has(type)) break;
-        const start = parseHealthDate(a.startDate as string);
+        const start = parseHealthDate(startRaw);
         if (!start) break;
         recordBuf.push({
           type,
@@ -190,6 +225,7 @@ export async function streamHealthExport(
           start_time: start,
           end_time: parseHealthDate(a.endDate as string),
           source: (a.sourceName as string) || null,
+          day: startRaw.slice(0, 10),
         });
         break;
       }
@@ -243,6 +279,10 @@ export async function streamHealthExport(
       counts.activitySummaries += activityBuf.length;
       await handlers.onActivitySummaries(activityBuf.splice(0));
     }
+    if (sleepBuf.length && handlers.onSleepSegments) {
+      counts.sleepSegments += sleepBuf.length;
+      await handlers.onSleepSegments(sleepBuf.splice(0));
+    }
   };
 
   for await (const chunk of stream) {
@@ -250,7 +290,8 @@ export async function streamHealthExport(
     if (
       recordBuf.length >= batchSize ||
       workoutBuf.length >= batchSize ||
-      activityBuf.length >= batchSize
+      activityBuf.length >= batchSize ||
+      sleepBuf.length >= batchSize
     ) {
       await flush();
     }
