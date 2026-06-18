@@ -8,6 +8,8 @@ import { useEcgList } from "@/lib/queries/ecg";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
+import { ReadinessCard } from "@/components/dashboard/readiness-card";
+import { computeReadiness } from "@/lib/health/readiness";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,7 +41,9 @@ export default function HeartPage() {
         }
         isEmpty={(d) => d.length === 0}
       >
-        {(m) => (
+        {(m) => {
+          const readiness = computeReadiness(m);
+          return (
           <div className="space-y-6">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <StatCard label="Resting HR" value={fmt.number(latest(m.map((d) => d.resting_hr)))} unit="bpm" icon={HeartPulse} accent="text-chart-4" delta={deltaPct(m.map((d) => d.resting_hr), 7)} invertDelta spark={{ data: m, dataKey: "resting_hr", color: "var(--chart-4)" }} />
@@ -48,20 +52,32 @@ export default function HeartPage() {
               <StatCard label="Blood oxygen" value={fmt.number(mean(m.map((d) => d.blood_oxygen)), 1)} unit="%" icon={Droplets} accent="text-chart-2" spark={{ data: m, dataKey: "blood_oxygen", color: "var(--chart-2)" }} />
             </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Resting heart rate & HRV</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TrendChart
-                  data={m}
-                  series={[
-                    { key: "resting_hr", label: "Resting HR", type: "line", color: "var(--chart-4)", unit: "bpm" },
-                    { key: "hrv_ms", label: "HRV", type: "line", color: "var(--chart-1)", unit: "ms" },
-                  ]}
-                />
-              </CardContent>
-            </Card>
+            <div className="grid gap-6 lg:grid-cols-3">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Gauge className="h-4 w-4 text-chart-1" /> Readiness
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ReadinessCard days={readiness} />
+                </CardContent>
+              </Card>
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <CardTitle className="text-base">Resting heart rate & HRV</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <TrendChart
+                    data={m}
+                    series={[
+                      { key: "resting_hr", label: "Resting HR", type: "line", color: "var(--chart-4)", unit: "bpm" },
+                      { key: "hrv_ms", label: "HRV", type: "line", color: "var(--chart-1)", unit: "ms" },
+                    ]}
+                  />
+                </CardContent>
+              </Card>
+            </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
               <Card>
@@ -84,7 +100,8 @@ export default function HeartPage() {
               </Card>
             </div>
           </div>
-        )}
+          );
+        }}
       </QueryView>
 
       <EcgSection />

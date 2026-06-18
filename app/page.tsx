@@ -18,8 +18,13 @@ import {
   Trophy,
   Wind,
 } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 import { useOverview } from "@/lib/queries/overview";
 import { useWorkouts } from "@/lib/queries/workouts";
+import { deriveInsights } from "@/lib/insights/engine";
+import { computeReadiness } from "@/lib/health/readiness";
+import { InsightList } from "@/components/dashboard/insight-list";
+import { ReadinessCard } from "@/components/dashboard/readiness-card";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { ActivityRings } from "@/components/dashboard/activity-rings";
@@ -92,6 +97,8 @@ export default function OverviewPage() {
             if (ex >= 30) activeDates.add(row.date);
           }
           const streak = streakStats(activeDates);
+          const insights = deriveInsights(year);
+          const readiness = computeReadiness(year);
 
           return (
             <div className="space-y-6">
@@ -209,6 +216,37 @@ export default function OverviewPage() {
                   delta={deltaPct(m.map((d) => d.sleep_min), 7)}
                   spark={{ data: m, dataKey: "sleep_min", color: "var(--chart-2)" }}
                 />
+              </div>
+
+              {/* Insights + readiness */}
+              <div className="grid gap-6 lg:grid-cols-3">
+                <Card className="lg:col-span-2">
+                  <CardHeader className="flex-row items-center justify-between">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Lightbulb className="h-4 w-4 text-chart-3" />
+                      Insights
+                    </CardTitle>
+                    <Link href="/insights" className="text-xs text-muted-foreground hover:text-foreground">
+                      View all →
+                    </Link>
+                  </CardHeader>
+                  <CardContent>
+                    <InsightList insights={insights.slice(0, 3)} />
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="flex-row items-center justify-between">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Gauge className="h-4 w-4 text-chart-1" />
+                      Readiness
+                    </CardTitle>
+                    <span className="text-xs text-muted-foreground">Today</span>
+                  </CardHeader>
+                  <CardContent>
+                    <ReadinessCard days={readiness} />
+                  </CardContent>
+                </Card>
               </div>
 
               {/* Heatmap + recent workouts */}

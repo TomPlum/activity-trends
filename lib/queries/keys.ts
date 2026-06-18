@@ -13,4 +13,6 @@ export const queryKeys = {
   sleep: (range: RangeKey) => ["sleep", range] as const,
   ecgList: ["ecg-list"] as const,
   ecg: (id: string) => ["ecg", id] as const,
+  records: ["records"] as const,
+  allRoutes: ["all-routes"] as const,
 };
