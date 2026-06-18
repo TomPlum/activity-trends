@@ -1,36 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
-import Map, { Layer, Source, type LayerProps } from "react-map-gl/maplibre";
-import type { StyleSpecification } from "maplibre-gl";
-
-// Free OpenStreetMap raster tiles — no API key, no billing.
-const OSM_STYLE: StyleSpecification = {
-  version: 8,
-  sources: {
-    osm: {
-      type: "raster",
-      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-      tileSize: 256,
-      attribution: "© OpenStreetMap contributors",
-    },
-  },
-  layers: [{ id: "osm", type: "raster", source: "osm" }],
-};
-
-// Semi-transparent lines so overlapping routes build up into a heat-like glow.
-const glowLayer: LayerProps = {
-  id: "routes-glow",
-  type: "line",
-  layout: { "line-cap": "round", "line-join": "round" },
-  paint: { "line-color": "#f97316", "line-width": 5, "line-opacity": 0.08, "line-blur": 3 },
-};
-const lineLayer: LayerProps = {
-  id: "routes-line",
-  type: "line",
-  layout: { "line-cap": "round", "line-join": "round" },
-  paint: { "line-color": "#fb923c", "line-width": 1.6, "line-opacity": 0.5 },
-};
+import { useMemo, useRef } from "react";
+import { useTheme } from "next-themes";
+import Map, { Layer, Source, type LayerProps, type MapRef } from "react-map-gl/maplibre";
+import { MapPin } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { basemapFor, routeColorsFor } from "@/lib/map/basemap";
+import { useActiveAreas } from "@/lib/map/areas";
 
 export interface MapRoute {
   points: [number, number][];
@@ -41,10 +17,43 @@ const MAX_POINTS_PER_ROUTE = 120;
 export default function AllRoutesMap({
   routes,
   height = 560,
+  fill = false,
 }: {
   routes: MapRoute[];
   height?: number;
+  /** Stretch to fill the parent's height instead of using `height` px. */
+  fill?: boolean;
 }) {
+  const { resolvedTheme } = useTheme();
+  const mapRef = useRef<MapRef>(null);
+  const areas = useActiveAreas(routes);
+
+  const mapStyle = useMemo(() => basemapFor(resolvedTheme), [resolvedTheme]);
+
+  const { glowLayer, lineLayer } = useMemo(() => {
+    const colors = routeColorsFor(resolvedTheme);
+    return {
+      // Semi-transparent lines so overlapping routes build into a heat-like glow.
+      glowLayer: {
+        id: "routes-glow",
+        type: "line",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: {
+          "line-color": colors.glow,
+          "line-width": 5,
+          "line-opacity": 0.1,
+          "line-blur": 3,
+        },
+      } satisfies LayerProps,
+      lineLayer: {
+        id: "routes-line",
+        type: "line",
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: { "line-color": colors.line, "line-width": 1.6, "line-opacity": 0.6 },
+      } satisfies LayerProps,
+    };
+  }, [resolvedTheme]);
+
   const { geojson, bounds } = useMemo(() => {
     let minLng = Infinity;
     let minLat = Infinity;
@@ -95,8 +104,11 @@ export default function AllRoutesMap({
   if (!geojson.features.length) {
     return (
       <div
-        className="flex items-center justify-center rounded-xl border text-sm text-muted-foreground"
-        style={{ height }}
+        className={cn(
+          "flex items-center justify-center rounded-xl border text-sm text-muted-foreground",
+          fill && "h-full",
+        )}
+        style={fill ? undefined : { height }}
       >
         No routes match this filter.
       </div>
@@ -104,11 +116,15 @@ export default function AllRoutesMap({
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border" style={{ height }}>
+    <div
+      className={cn("relative overflow-hidden rounded-xl border", fill && "h-full")}
+      style={fill ? undefined : { height }}
+    >
       <Map
+        ref={mapRef}
         key={geojson.features.length}
         initialViewState={initialViewState}
-        mapStyle={OSM_STYLE}
+        mapStyle={mapStyle}
         style={{ width: "100%", height: "100%" }}
       >
         <Source id="all-routes" type="geojson" data={geojson}>
@@ -116,6 +132,39 @@ export default function AllRoutesMap({
           <Layer {...lineLayer} />
         </Source>
       </Map>
+
+      {areas.length > 1 && (
+        <div className="pointer-events-none absolute left-3 top-3 max-w-[calc(100%-1.5rem)]">
+          <div className="pointer-events-auto rounded-lg border bg-background/85 p-2 shadow-sm backdrop-blur">
+            <p className="mb-1.5 flex items-center gap-1.5 px-1 text-[11px] font-medium text-muted-foreground">
+              <MapPin className="h-3 w-3" />
+              Active areas
+            </p>
+            <div className="flex max-w-xs flex-wrap gap-1.5">
+              {areas.map((area) => (
+                <button
+                  key={area.id}
+                  type="button"
+                  onClick={() =>
+                    mapRef.current?.fitBounds(area.bounds, {
+                      padding: 60,
+                      duration: 1200,
+                      maxZoom: 14,
+                    })
+                  }
+                  className="rounded-full border bg-card px-2.5 py-1 text-xs font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                  title={`${area.routeCount} route${area.routeCount === 1 ? "" : "s"}`}
+                >
+                  {area.name ?? "Locating…"}
+                  <span className="ml-1 tabular-nums text-muted-foreground">
+                    {area.routeCount}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

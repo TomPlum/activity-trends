@@ -1,33 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTheme } from "next-themes";
 import Map, { Layer, Source, type LayerProps } from "react-map-gl/maplibre";
-import type { StyleSpecification } from "maplibre-gl";
-
-// Free OpenStreetMap raster tiles — no API key, no billing.
-const OSM_STYLE: StyleSpecification = {
-  version: 8,
-  sources: {
-    osm: {
-      type: "raster",
-      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-      tileSize: 256,
-      attribution: "© OpenStreetMap contributors",
-    },
-  },
-  layers: [{ id: "osm", type: "raster", source: "osm" }],
-};
-
-const lineLayer: LayerProps = {
-  id: "route-line",
-  type: "line",
-  layout: { "line-cap": "round", "line-join": "round" },
-  paint: {
-    "line-color": "#22c55e",
-    "line-width": 4,
-    "line-opacity": 0.9,
-  },
-};
+import { basemapFor, routeColorsFor } from "@/lib/map/basemap";
 
 export interface RouteMapProps {
   /** Ordered [lng, lat] pairs. */
@@ -37,6 +13,22 @@ export interface RouteMapProps {
 }
 
 export default function RouteMap({ points, bounds, height = 360 }: RouteMapProps) {
+  const { resolvedTheme } = useTheme();
+  const mapStyle = useMemo(() => basemapFor(resolvedTheme), [resolvedTheme]);
+  const lineLayer = useMemo<LayerProps>(
+    () => ({
+      id: "route-line",
+      type: "line",
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": routeColorsFor(resolvedTheme).single,
+        "line-width": 4,
+        "line-opacity": 0.9,
+      },
+    }),
+    [resolvedTheme],
+  );
+
   const geojson = useMemo(
     () => ({
       type: "Feature" as const,
@@ -63,7 +55,7 @@ export default function RouteMap({ points, bounds, height = 360 }: RouteMapProps
     <div className="overflow-hidden rounded-xl border" style={{ height }}>
       <Map
         initialViewState={initialViewState}
-        mapStyle={OSM_STYLE}
+        mapStyle={mapStyle}
         style={{ width: "100%", height: "100%" }}
       >
         <Source id="route" type="geojson" data={geojson}>

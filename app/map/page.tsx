@@ -36,7 +36,7 @@ export default function MapPage() {
   const [year, setYear] = useState("all");
 
   return (
-    <>
+    <div className="flex h-[calc(100dvh-7rem)] flex-col lg:h-[calc(100dvh-4rem)]">
       <PageHeader
         title="Routes Map"
         description="Every outdoor workout you've recorded, overlaid into a single map of your training ground."
@@ -44,7 +44,7 @@ export default function MapPage() {
 
       <QueryView
         query={query}
-        loading={<Skeleton className="h-[560px] w-full rounded-xl" />}
+        loading={<Skeleton className="min-h-0 w-full flex-1 rounded-xl" />}
         isEmpty={(d) => d.routes.length === 0}
       >
         {(data) => {
@@ -78,8 +78,8 @@ export default function MapPage() {
           const totalDistance = filtered.reduce((s, r) => s + r.distanceKm, 0);
 
           return (
-            <div className="space-y-4">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-h-0 flex-1 flex-col gap-4">
+              <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex flex-wrap gap-4">
                   <Stat label="Routes" value={fmt.number(filtered.length)} />
                   <Stat label="Distance" value={`${fmt.number(totalDistance)} km`} />
@@ -115,13 +115,13 @@ export default function MapPage() {
                 </div>
               </div>
 
-              <Card className="overflow-hidden">
-                <CardContent className="p-0">
-                  <AllRoutesMap routes={filtered} />
+              <Card className="min-h-0 flex-1 overflow-hidden py-0">
+                <CardContent className="h-full p-0">
+                  <AllRoutesMap routes={filtered} fill />
                 </CardContent>
               </Card>
 
-              <p className="flex items-center gap-1.5 px-1 text-xs text-muted-foreground">
+              <p className="flex shrink-0 items-center gap-1.5 px-1 text-xs text-muted-foreground">
                 <RouteIcon className="h-3.5 w-3.5" />
                 Brighter areas are where your routes overlap most. Lines are simplified for
                 performance.
@@ -130,7 +130,7 @@ export default function MapPage() {
           );
         }}
       </QueryView>
-    </>
+    </div>
   );
 }
 
