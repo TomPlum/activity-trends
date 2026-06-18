@@ -4,6 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 
 export interface AreaRoute {
   points: [number, number][];
+  activityType: string;
+  distanceKm: number;
+  /** ISO start time, used for first/last-visit dates. */
+  date: string | null;
+}
+
+export interface AreaSport {
+  activityType: string;
+  count: number;
 }
 
 export interface ActiveArea {
@@ -13,8 +22,16 @@ export interface ActiveArea {
   /** [w, s, e, n] enclosing every route in the cluster. */
   bounds: [number, number, number, number];
   routeCount: number;
+  totalDistanceKm: number;
+  /** Sports recorded here, busiest first. */
+  sports: AreaSport[];
+  /** Earliest / latest route start time (ISO), or null. */
+  firstDate: string | null;
+  lastDate: string | null;
   /** Reverse-geocoded place name, or null until it resolves. */
   name: string | null;
+  /** Reverse-geocoded country, or null until it resolves. */
+  country: string | null;
 }
 
 const EARTH_RADIUS_KM = 6371;
@@ -23,7 +40,7 @@ function toRad(deg: number): number {
   return (deg * Math.PI) / 180;
 }
 
-function haversineKm(a: [number, number], b: [number, number]): number {
+export function haversineKm(a: [number, number], b: [number, number]): number {
   const dLat = toRad(b[1] - a[1]);
   const dLng = toRad(b[0] - a[0]);
   const lat1 = toRad(a[1]);
@@ -48,6 +65,10 @@ interface MutableCluster {
   sumLng: number;
   sumLat: number;
   routeCount: number;
+  totalDistanceKm: number;
+  sports: Map<string, number>;
+  firstDate: string | null;
+  lastDate: string | null;
   bounds: [number, number, number, number];
 }
 
@@ -57,13 +78,9 @@ function clusterCenter(c: MutableCluster): [number, number] {
 
 /**
  * Greedily group routes whose centroids fall within `thresholdKm` of an existing
- * cluster centre. Returns the busiest areas first, capped at `limit`.
+ * cluster centre. Returns every area, busiest first.
  */
-export function clusterRoutes(
-  routes: AreaRoute[],
-  thresholdKm = 30,
-  limit = 8,
-): ActiveArea[] {
+export function clusterRoutes(routes: AreaRoute[], thresholdKm = 30): ActiveArea[] {
   const clusters: MutableCluster[] = [];
 
   for (const route of routes) {
@@ -76,6 +93,10 @@ export function clusterRoutes(
         sumLng: 0,
         sumLat: 0,
         routeCount: 0,
+        totalDistanceKm: 0,
+        sports: new Map(),
+        firstDate: null,
+        lastDate: null,
         bounds: [Infinity, Infinity, -Infinity, -Infinity],
       };
       clusters.push(target);
@@ -84,6 +105,12 @@ export function clusterRoutes(
     target.sumLng += rep[0];
     target.sumLat += rep[1];
     target.routeCount += 1;
+    target.totalDistanceKm += route.distanceKm;
+    target.sports.set(route.activityType, (target.sports.get(route.activityType) ?? 0) + 1);
+    if (route.date) {
+      if (!target.firstDate || route.date < target.firstDate) target.firstDate = route.date;
+      if (!target.lastDate || route.date > target.lastDate) target.lastDate = route.date;
+    }
     for (const [lng, lat] of route.points) {
       if (lng < target.bounds[0]) target.bounds[0] = lng;
       if (lat < target.bounds[1]) target.bounds[1] = lat;
@@ -94,7 +121,6 @@ export function clusterRoutes(
 
   return clusters
     .sort((a, b) => b.routeCount - a.routeCount)
-    .slice(0, limit)
     .map((c) => {
       const center = clusterCenter(c);
       return {
@@ -102,36 +128,57 @@ export function clusterRoutes(
         center,
         bounds: c.bounds,
         routeCount: c.routeCount,
+        totalDistanceKm: c.totalDistanceKm,
+        sports: Array.from(c.sports, ([activityType, count]) => ({ activityType, count })).sort(
+          (a, b) => b.count - a.count,
+        ),
+        firstDate: c.firstDate,
+        lastDate: c.lastDate,
         name: null,
+        country: null,
       };
     });
 }
 
+// Only the busiest areas get reverse-geocoded — keeps us well within Nominatim's
+// usage policy while still naming every place that matters.
+const GEOCODE_LIMIT = 12;
 const GEO_CACHE_PREFIX = "area-geocode:";
 
-function readCache(key: string): string | null {
+interface GeoResult {
+  name: string;
+  country: string | null;
+}
+
+function cacheKey(center: [number, number]): string {
+  return `${center[1].toFixed(2)},${center[0].toFixed(2)}`;
+}
+
+function readCache(key: string): GeoResult | null {
   try {
-    return window.localStorage.getItem(GEO_CACHE_PREFIX + key);
+    const raw = window.localStorage.getItem(GEO_CACHE_PREFIX + key);
+    return raw ? (JSON.parse(raw) as GeoResult) : null;
   } catch {
     return null;
   }
 }
 
-function writeCache(key: string, value: string): void {
+function writeCache(key: string, value: GeoResult): void {
   try {
-    window.localStorage.setItem(GEO_CACHE_PREFIX + key, value);
+    window.localStorage.setItem(GEO_CACHE_PREFIX + key, JSON.stringify(value));
   } catch {
     /* storage unavailable / full — names just won't persist */
   }
 }
 
-/** Reverse-geocode a cluster centre to a city-level name via OSM Nominatim. */
-async function reverseGeocode([lng, lat]: [number, number]): Promise<string | null> {
-  const key = `${lat.toFixed(2)},${lng.toFixed(2)}`;
+/** Reverse-geocode a cluster centre to a city + country via OSM Nominatim. */
+async function reverseGeocode(center: [number, number]): Promise<GeoResult | null> {
+  const key = cacheKey(center);
   const cached = readCache(key);
   if (cached) return cached;
 
   try {
+    const [lng, lat] = center;
     const res = await fetch(
       `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=10&addressdetails=1`,
       { headers: { "Accept-Language": "en" } },
@@ -142,8 +189,9 @@ async function reverseGeocode([lng, lat]: [number, number]): Promise<string | nu
     const name: string | undefined =
       a.city ?? a.town ?? a.village ?? a.suburb ?? a.county ?? a.state ?? a.country;
     if (!name) return null;
-    writeCache(key, name);
-    return name;
+    const result: GeoResult = { name, country: a.country ?? null };
+    writeCache(key, result);
+    return result;
   } catch {
     return null;
   }
@@ -152,9 +200,9 @@ async function reverseGeocode([lng, lat]: [number, number]): Promise<string | nu
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /**
- * Cluster routes into active areas and resolve a place name for each. Names
- * stream in as they resolve; Nominatim's 1 req/sec policy is respected for
- * uncached lookups.
+ * Cluster routes into active areas and resolve a name + country for the busiest
+ * ones. Names stream in as they resolve; Nominatim's 1 req/sec policy is
+ * respected for uncached lookups.
  */
 export function useActiveAreas(routes: AreaRoute[]): ActiveArea[] {
   const clusters = useMemo(() => clusterRoutes(routes), [routes]);
@@ -165,19 +213,20 @@ export function useActiveAreas(routes: AreaRoute[]): ActiveArea[] {
     let cancelled = false;
 
     (async () => {
-      for (let i = 0; i < clusters.length; i += 1) {
-        const cached = readCache(
-          `${clusters[i].center[1].toFixed(2)},${clusters[i].center[0].toFixed(2)}`,
-        );
-        const name = await reverseGeocode(clusters[i].center);
+      const targets = clusters.slice(0, GEOCODE_LIMIT);
+      for (let i = 0; i < targets.length; i += 1) {
+        const cached = readCache(cacheKey(targets[i].center));
+        const geo = await reverseGeocode(targets[i].center);
         if (cancelled) return;
-        if (name) {
+        if (geo) {
           setAreas((prev) =>
-            prev.map((a) => (a.id === clusters[i].id ? { ...a, name } : a)),
+            prev.map((a) =>
+              a.id === targets[i].id ? { ...a, name: geo.name, country: geo.country } : a,
+            ),
           );
         }
         // Throttle only network lookups, not cache hits.
-        if (!cached && i < clusters.length - 1) await sleep(1100);
+        if (!cached && i < targets.length - 1) await sleep(1100);
       }
     })();
 
