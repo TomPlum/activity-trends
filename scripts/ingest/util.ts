@@ -30,6 +30,22 @@ export function toCelsius(value: number, unitHint: string | undefined): number {
   return value;
 }
 
+/**
+ * Normalise an Apple Health height reading to metres. The unit varies by locale
+ * ("cm", "m", "ft", "in"); when absent we infer from magnitude (a human height
+ * is ~1.5–2.1 m but ~150–210 cm).
+ */
+export function heightToMeters(value: number | null, unit: string | undefined): number | null {
+  if (value == null || !Number.isFinite(value) || value <= 0) return null;
+  const u = unit?.toLowerCase().trim();
+  if (u === "cm") return value / 100;
+  if (u === "m") return value;
+  if (u === "ft") return value * 0.3048;
+  if (u === "in") return value * 0.0254;
+  // No/unknown unit: values above 3 are almost certainly centimetres.
+  return value > 3 ? value / 100 : value;
+}
+
 /** Humidity comes through scaled (e.g. "8300 %"); clamp to a 0-100 percentage. */
 export function normaliseHumidity(value: number | null): number | null {
   if (value == null) return null;

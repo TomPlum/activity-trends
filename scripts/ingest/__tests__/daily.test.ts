@@ -44,4 +44,39 @@ describe("DailyAccumulator", () => {
     a.addRecord("2024-01-01", "NotAThing", 5);
     expect(a.finalize()).toHaveLength(0);
   });
+
+  describe("BMI derivation", () => {
+    it("derives BMI from weight and height when Apple recorded none", () => {
+      const a = new DailyAccumulator();
+      a.addRecord("2024-01-01", "BodyMass", 80);
+      a.setHeight("2024-01-01", 2); // 80 / 2² = 20
+      const row = a.finalize().find((r) => r.date === "2024-01-01")!;
+      expect(row.weight_kg).toBe(80);
+      expect(row.bmi).toBe(20);
+    });
+
+    it("prefers a recorded BMI over the derived value", () => {
+      const a = new DailyAccumulator();
+      a.addRecord("2024-01-01", "BodyMass", 80);
+      a.addRecord("2024-01-01", "BodyMassIndex", 25);
+      a.setHeight("2024-01-01", 2); // would derive 20
+      const row = a.finalize().find((r) => r.date === "2024-01-01")!;
+      expect(row.bmi).toBe(25);
+    });
+
+    it("carries the most recent prior height forward to later days", () => {
+      const a = new DailyAccumulator();
+      a.setHeight("2024-01-01", 2);
+      a.addRecord("2024-06-01", "BodyMass", 90); // no height logged that day
+      const row = a.finalize().find((r) => r.date === "2024-06-01")!;
+      expect(row.bmi).toBe(22.5); // 90 / 2²
+    });
+
+    it("leaves BMI null when no height is known", () => {
+      const a = new DailyAccumulator();
+      a.addRecord("2024-01-01", "BodyMass", 80);
+      const row = a.finalize().find((r) => r.date === "2024-01-01")!;
+      expect(row.bmi == null).toBe(true);
+    });
+  });
 });

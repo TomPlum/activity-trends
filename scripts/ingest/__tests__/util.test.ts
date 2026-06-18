@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   haversineKm,
+  heightToMeters,
   normaliseHumidity,
   parseHealthDate,
   parseLeadingNumber,
@@ -56,6 +57,24 @@ describe("shortRecordType", () => {
   it("strips known prefixes", () => {
     expect(shortRecordType("HKQuantityTypeIdentifierStepCount")).toBe("StepCount");
     expect(shortRecordType("HKCategoryTypeIdentifierSleepAnalysis")).toBe("SleepAnalysis");
+  });
+});
+
+describe("heightToMeters", () => {
+  it("normalises the common Apple Health units to metres", () => {
+    expect(heightToMeters(180, "cm")).toBeCloseTo(1.8, 5);
+    expect(heightToMeters(1.8, "m")).toBeCloseTo(1.8, 5);
+    expect(heightToMeters(6, "ft")).toBeCloseTo(1.8288, 4);
+    expect(heightToMeters(72, "in")).toBeCloseTo(1.8288, 4);
+  });
+  it("infers cm vs m from magnitude when the unit is absent", () => {
+    expect(heightToMeters(180, undefined)).toBeCloseTo(1.8, 5);
+    expect(heightToMeters(1.8, undefined)).toBeCloseTo(1.8, 5);
+  });
+  it("rejects non-positive or invalid values", () => {
+    expect(heightToMeters(0, "cm")).toBeNull();
+    expect(heightToMeters(null, "cm")).toBeNull();
+    expect(heightToMeters(Number.NaN, "cm")).toBeNull();
   });
 });
 

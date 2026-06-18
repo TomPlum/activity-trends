@@ -29,6 +29,7 @@ import { buildSleepSessions } from "./sleep-sessions";
 import { parseEcgCsv } from "./ecg-csv";
 import { parseGpx } from "./gpx";
 import { parseSleepCsv } from "./sleep-csv";
+import { heightToMeters } from "./util";
 
 type DB = SupabaseClient<Database>;
 
@@ -130,6 +131,7 @@ async function ingestExport(db: DB, file: string, batch: number, daily: DailyAcc
       onRecords: async (rows: RecordRow[]) => {
         for (const r of rows) {
           daily.addRecord(r.day, r.type, r.value);
+          if (r.type === "Height") daily.setHeight(r.day, heightToMeters(r.value, r.unit ?? undefined));
           if (RAW_TYPES.has(r.type)) {
             rawBuf.push({
               type: r.type,

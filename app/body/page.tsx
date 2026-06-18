@@ -13,6 +13,19 @@ import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { latest, deltaPct } from "@/lib/stats";
 
+/** Compact in-card placeholder for a metric Apple Health didn't record. */
+function NoReadings({ metric }: { metric: string }) {
+  return (
+    <div className="flex h-[240px] flex-col items-center justify-center gap-1 text-center">
+      <p className="text-sm font-medium text-muted-foreground">No {metric} readings</p>
+      <p className="max-w-xs text-xs text-muted-foreground">
+        Your Apple Health export contains no {metric} data — these come from a smart scale or
+        manual entry.
+      </p>
+    </div>
+  );
+}
+
 export default function BodyPage() {
   const [range, setRange] = useState<RangeKey>("1y");
   const query = useDailyMetrics(range);
@@ -35,7 +48,10 @@ export default function BodyPage() {
         }
         isEmpty={(d) => d.every((r) => r.weight_kg == null && r.bmi == null && r.body_fat_pct == null)}
       >
-        {(m) => (
+        {(m) => {
+          const hasBmi = m.some((d) => d.bmi != null);
+          const hasBodyFat = m.some((d) => d.body_fat_pct != null);
+          return (
           <div className="space-y-6">
             <div className="grid gap-4 sm:grid-cols-3">
               <StatCard label="Weight" value={fmt.number(latest(m.map((d) => d.weight_kg)), 1)} unit="kg" icon={Scale} accent="text-chart-5" delta={deltaPct(m.map((d) => d.weight_kg), 30)} invertDelta spark={{ data: m, dataKey: "weight_kg", color: "var(--chart-5)" }} />
@@ -58,7 +74,11 @@ export default function BodyPage() {
                   <CardTitle className="text-base">BMI</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <TrendChart data={m} height={240} series={[{ key: "bmi", label: "BMI", type: "line", color: "var(--chart-3)" }]} valueFormatter={(v) => v.toFixed(0)} />
+                  {hasBmi ? (
+                    <TrendChart data={m} height={240} series={[{ key: "bmi", label: "BMI", type: "line", color: "var(--chart-3)" }]} valueFormatter={(v) => v.toFixed(0)} />
+                  ) : (
+                    <NoReadings metric="BMI" />
+                  )}
                 </CardContent>
               </Card>
               <Card>
@@ -66,12 +86,17 @@ export default function BodyPage() {
                   <CardTitle className="text-base">Body fat</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <TrendChart data={m} height={240} series={[{ key: "body_fat_pct", label: "Body fat", type: "line", color: "var(--chart-4)", unit: "%" }]} valueFormatter={(v) => `${v.toFixed(0)}%`} />
+                  {hasBodyFat ? (
+                    <TrendChart data={m} height={240} series={[{ key: "body_fat_pct", label: "Body fat", type: "line", color: "var(--chart-4)", unit: "%" }]} valueFormatter={(v) => `${v.toFixed(0)}%`} />
+                  ) : (
+                    <NoReadings metric="body fat" />
+                  )}
                 </CardContent>
               </Card>
             </div>
           </div>
-        )}
+          );
+        }}
       </QueryView>
     </>
   );

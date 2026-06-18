@@ -34,8 +34,9 @@ export function TrendChart({
   series,
   xKey = "date",
   height = 320,
-  yWidth = 36,
+  yWidth = 44,
   valueFormatter,
+  yUnit,
 }: {
   data: Array<Record<string, number | null | string>>;
   series: SeriesDef[];
@@ -43,6 +44,8 @@ export function TrendChart({
   height?: number;
   yWidth?: number;
   valueFormatter?: (value: number) => string;
+  /** Unit appended to Y-axis ticks. Defaults to the sole series' unit. */
+  yUnit?: string;
 }) {
   const config: ChartConfig = Object.fromEntries(
     series.map((s, i) => [
@@ -50,6 +53,16 @@ export function TrendChart({
       { label: s.label, color: s.color ?? `var(--chart-${(i % 5) + 1})` },
     ]),
   );
+
+  // Only show a unit when it's unambiguous — a single series, or an explicit prop.
+  const axisUnit = yUnit ?? (series.length === 1 ? series[0].unit : undefined);
+  const formatTick = (v: number | string) => {
+    const base = valueFormatter
+      ? valueFormatter(Number(v))
+      : new Intl.NumberFormat("en-GB", { notation: "compact" }).format(Number(v));
+    if (!axisUnit || base.endsWith(axisUnit)) return base;
+    return `${base}${axisUnit === "%" ? "" : " "}${axisUnit}`;
+  };
 
   return (
     <ChartContainer config={config} style={{ height }} className="w-full">
@@ -82,9 +95,7 @@ export function TrendChart({
             width={yWidth}
             tickLine={false}
             axisLine={false}
-            tickFormatter={(v) =>
-              valueFormatter ? valueFormatter(Number(v)) : new Intl.NumberFormat("en-GB", { notation: "compact" }).format(Number(v))
-            }
+            tickFormatter={formatTick}
           />
           <ChartTooltip
             content={

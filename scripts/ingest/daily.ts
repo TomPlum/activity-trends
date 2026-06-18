@@ -13,6 +13,7 @@ interface Bucket {
 export class DailyAccumulator {
   private agg = new Map<string, Map<string, Bucket>>(); // date -> column -> bucket
   private direct = new Map<string, Map<string, number>>(); // date -> column -> value
+  private heights = new Map<string, number>(); // date -> height in metres (for BMI derivation)
 
   private dayAgg(date: string): Map<string, Bucket> {
     let m = this.agg.get(date);
@@ -44,6 +45,24 @@ export class DailyAccumulator {
     this.dayDirect(date).set(column, value);
   }
 
+  /** Record a height reading (metres) used to derive BMI when it's missing. */
+  setHeight(date: string, meters: number | null) {
+    if (meters == null || !Number.isFinite(meters) || meters <= 0) return;
+    this.heights.set(date, meters);
+  }
+
+  /** Height in effect on a date: the most recent reading on or before it, else the earliest. */
+  private heightAt(date: string): number | null {
+    if (this.heights.size === 0) return null;
+    const sorted = [...this.heights.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+    let height = sorted[0][1];
+    for (const [d, m] of sorted) {
+      if (d <= date) height = m;
+      else break;
+    }
+    return height;
+  }
+
   private static round(n: number): number {
     return Math.round(n * 1000) / 1000;
   }
@@ -69,6 +88,12 @@ export class DailyAccumulator {
       const directMap = this.direct.get(date);
       if (directMap) {
         for (const [column, v] of directMap) row[column] = DailyAccumulator.round(v);
+      }
+
+      // Derive BMI from weight + height when Apple didn't record a BodyMassIndex.
+      if (row.bmi == null && typeof row.weight_kg === "number") {
+        const h = this.heightAt(date);
+        if (h) row.bmi = DailyAccumulator.round(row.weight_kg / (h * h));
       }
 
       rows.push(row);

@@ -80,7 +80,13 @@ export const PCT_COLUMNS = new Set(
     .map((r) => r.column),
 );
 
-/** Every type the streamer should surface (daily-mapped ∪ raw). */
+/**
+ * Types we surface but don't map directly to a column — used to derive other
+ * metrics. Height feeds BMI when Apple didn't record a BodyMassIndex value.
+ */
+export const DERIVE_TYPES = new Set(["Height"]);
+
+/** Every type the streamer should surface (daily-mapped ∪ raw ∪ derive). */
 export function ingestRecordTypes(): Set<string> {
-  return new Set([...Object.keys(DAILY_RULES), ...RAW_TYPES]);
+  return new Set([...Object.keys(DAILY_RULES), ...RAW_TYPES, ...DERIVE_TYPES]);
 }
