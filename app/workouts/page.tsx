@@ -60,7 +60,16 @@ import {
 import { WorkoutIcon } from "@/components/dashboard/workout-icon";
 import { cn } from "@/lib/utils";
 
-const WORKOUT_GREEN = "var(--workout)";
+// Each metric gets its own colour so the tiles and chart aren't a wall of green.
+// `accent` is the tailwind text token for stat-card icons; `color` is the CSS
+// value for sparklines and chart series.
+const METRIC_COLORS = {
+  sessions: { accent: "text-workout", color: "var(--workout)" },
+  calories: { accent: "text-chart-3", color: "var(--chart-3)" },
+  distance: { accent: "text-chart-2", color: "var(--chart-2)" },
+  duration: { accent: "text-chart-5", color: "var(--chart-5)" },
+  avgHr: { accent: "text-chart-4", color: "var(--chart-4)" },
+} as const;
 
 /** Trend over the range: last half vs first half of the daily series. */
 function trendDelta(values: Array<number | null>): number | null {
@@ -183,7 +192,7 @@ export default function WorkoutsPage() {
         label: "Calories",
         icon: Flame,
         unit: "kcal",
-        color: WORKOUT_GREEN,
+        color: METRIC_COLORS.calories.color,
         data: daily.map((d) => ({ date: d.date, value: d.calories })),
         valueFormatter: (v) => fmt.compactNumber(v),
       },
@@ -192,7 +201,7 @@ export default function WorkoutsPage() {
         label: "Distance",
         icon: Route,
         unit: "km",
-        color: WORKOUT_GREEN,
+        color: METRIC_COLORS.distance.color,
         data: daily.map((d) => ({ date: d.date, value: d.distance })),
         valueFormatter: (v) => fmt.number(v, v >= 100 ? 0 : 1),
       },
@@ -201,7 +210,7 @@ export default function WorkoutsPage() {
         label: "Duration",
         icon: Timer,
         unit: "min",
-        color: WORKOUT_GREEN,
+        color: METRIC_COLORS.duration.color,
         data: daily.map((d) => ({ date: d.date, value: d.duration })),
         valueFormatter: (v) => fmt.number(v, 0),
       },
@@ -209,7 +218,7 @@ export default function WorkoutsPage() {
         key: "sessions",
         label: "Sessions",
         icon: Dumbbell,
-        color: WORKOUT_GREEN,
+        color: METRIC_COLORS.sessions.color,
         data: daily.map((d) => ({ date: d.date, value: d.sessions })),
         valueFormatter: (v) => fmt.number(v, 0),
       },
@@ -218,7 +227,7 @@ export default function WorkoutsPage() {
         label: "Avg heart rate",
         icon: HeartPulse,
         unit: "bpm",
-        color: "var(--chart-4)",
+        color: METRIC_COLORS.avgHr.color,
         data: daily.map((d) => ({ date: d.date, value: d.avgHr })),
         valueFormatter: (v) => fmt.number(v, 0),
       },
@@ -262,43 +271,43 @@ export default function WorkoutsPage() {
                 label="Sessions"
                 value={fmt.number(sessions)}
                 icon={Dumbbell}
-                accent="text-workout"
+                accent={METRIC_COLORS.sessions.accent}
                 delta={trendDelta(daily.map((d) => d.sessions))}
                 sub={`${fmt.number(daily.length)} active ${daily.length === 1 ? "day" : "days"}`}
-                spark={{ data: daily, dataKey: "sessions", color: WORKOUT_GREEN }}
+                spark={{ data: daily, dataKey: "sessions", color: METRIC_COLORS.sessions.color }}
               />
               <StatCard
                 label="Calories burned"
                 value={fmt.number(totalKcal)}
                 unit="kcal"
                 icon={Flame}
-                accent="text-workout"
+                accent={METRIC_COLORS.calories.accent}
                 delta={trendDelta(daily.map((d) => d.calories))}
                 sub={sessions ? `${fmt.number(totalKcal / sessions)} avg/session` : undefined}
-                spark={{ data: daily, dataKey: "calories", color: WORKOUT_GREEN }}
+                spark={{ data: daily, dataKey: "calories", color: METRIC_COLORS.calories.color }}
               />
               <StatCard
                 label="Total distance"
                 value={fmt.number(totalKm)}
                 unit="km"
                 icon={Route}
-                accent="text-workout"
+                accent={METRIC_COLORS.distance.accent}
                 delta={trendDelta(daily.map((d) => d.distance))}
                 sub={
                   distanceSessions
                     ? `${fmt.distanceKm(totalKm / distanceSessions)} avg`
                     : "no distance logged"
                 }
-                spark={{ data: daily, dataKey: "distance", color: WORKOUT_GREEN }}
+                spark={{ data: daily, dataKey: "distance", color: METRIC_COLORS.distance.color }}
               />
               <StatCard
                 label="Time"
                 value={fmt.duration(totalMin)}
                 icon={Timer}
-                accent="text-workout"
+                accent={METRIC_COLORS.duration.accent}
                 delta={trendDelta(daily.map((d) => d.duration))}
                 sub={sessions ? `${fmt.duration(totalMin / sessions)} avg/session` : undefined}
-                spark={{ data: daily, dataKey: "duration", color: WORKOUT_GREEN }}
+                spark={{ data: daily, dataKey: "duration", color: METRIC_COLORS.duration.color }}
               />
             </div>
 
