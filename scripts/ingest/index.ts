@@ -92,10 +92,10 @@ async function insertChunked<T>(
   db: DB,
   table: keyof Database["public"]["Tables"],
   rows: T[],
-  opts?: { onConflict?: string },
+  opts?: { onConflict?: string; chunkSize?: number },
 ) {
   const input = opts?.onConflict ? dedupeByKey(rows, opts.onConflict) : rows;
-  const size = 1000;
+  const size = opts?.chunkSize ?? 1000;
   for (let i = 0; i < input.length; i += size) {
     const chunk = input.slice(i, i + size) as never[];
     const q = db.from(table);
@@ -244,7 +244,9 @@ async function ingestRoutes(db: DB, dir: string) {
     return true;
   });
 
-  await insertChunked(db, "workout_routes", deduped, { onConflict: "workout_id" });
+  // Each row carries a full GPS track (potentially thousands of points), so a
+  // 1000-row statement blows past Postgres's statement_timeout — insert in small batches.
+  await insertChunked(db, "workout_routes", deduped, { onConflict: "workout_id", chunkSize: 25 });
   console.log(`✓ Routes: ${deduped.length} linked (${matched} matched of ${files.length} files)`);
 }
 
