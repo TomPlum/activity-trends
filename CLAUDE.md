@@ -48,8 +48,23 @@ Streams `export.xml` with `saxes`, aggregating high-frequency series **in memory
 
 `TrendChart` (`components/charts/trend-chart.tsx`) takes `data` + `series[]` (each `{ key, label, color, type?, unit? }`). The Y-axis appends a unit when unambiguous (single series' `unit`, or an explicit `yUnit` prop); `valueFormatter` formats the number only. `%` renders without a space.
 
+## Maps
+
+`react-map-gl/maplibre` over **free CARTO raster basemaps** (no API key, like OSM). Shared helpers in `lib/map/`:
+
+- `basemap.ts` — `basemapFor(theme)` returns the light/dark CARTO style; `routeColorsFor(theme)` gives theme-aware route colours. **maplibre paints to a `<canvas>` so it cannot read CSS variables** — every map colour is a baked hex here and in `sports.ts` (per-sport palette), never `var(--chart-*)`.
+- `areas.ts` — `clusterRoutes()` groups routes by centroid proximity; `useActiveAreas()` reverse-geocodes the busiest cluster centres via **OSM Nominatim** (≤1 req/s, results cached in `localStorage`). Also exports `haversineKm`.
+- Components: `route-map.tsx` (single workout) and `all-routes-map.tsx` (all routes overlaid; heat vs by-sport colour modes).
+
+**Gotchas:** importing `Map` from `react-map-gl/maplibre` shadows the global `Map` constructor — use `Set`/objects or alias the import. The `/map` page fills the viewport via a flex column sized `h-[calc(100dvh-…)]` with the map card as `flex-1`.
+
+## Insights
+
+`lib/insights/engine.ts` is a **rule table** (`RULES`) over `DailyMetric` rows. `deriveInsights()` correlates each `driver → outcome` (optionally lagged a day) and emits a sentence only when `n ≥ 20` and `|r| ≥ 0.2`. **To add an insight, append a `Rule`** — no engine changes needed, and weak/absent relationships self-filter, so speculative additions are safe. `desirable` is the *expected* physiological sign: when the observed correlation matches it the insight reads as a confirmed/healthy pattern (green ↑), otherwise red ↓. Both `/insights` and the overview's `InsightList` (top 3) consume the same output.
+
 ## Conventions
 
+- Hooks (e.g. `useActiveAreas`, `useDailyMetrics`) go at component top level, **never inside a `QueryView` render-prop** — derive data above `QueryView` and keep the `{(data) => …}` callback presentational, or the query toggling between pending/ready breaks the rules of hooks.
 - Tests are colocated in `__tests__/` dirs, Vitest. Pure helpers and the ingest pipeline are well-covered — keep that up.
 - Empty/loading/error UI goes through `QueryView` + `EmptyState`/`ChartSkeleton` in `components/dashboard/states.tsx`. Per-metric "no data" placeholders (e.g. Body tab BMI) are small in-card notices, not the full `EmptyState`.
 - Default branch is `release`; branch before committing, and only commit/push when asked.
