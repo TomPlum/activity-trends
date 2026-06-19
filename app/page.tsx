@@ -231,7 +231,7 @@ export default function OverviewPage() {
                     </Link>
                   </CardHeader>
                   <CardContent>
-                    <InsightList insights={insights.slice(0, 3)} />
+                    <InsightList insights={insights.slice(0, 5)} />
                   </CardContent>
                 </Card>
 
