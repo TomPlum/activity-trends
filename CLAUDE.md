@@ -44,9 +44,18 @@ Streams `export.xml` with `saxes`, aggregating high-frequency series **in memory
 3. Surface it in the relevant `app/<tab>/page.tsx` (StatCard + `TrendChart`).
 4. Add/extend tests in `scripts/ingest/__tests__/`.
 
+## Supabase queries (`lib/queries/`)
+
+Two gotchas when reading list/detail tables directly (not the pre-aggregated `daily_metrics`):
+
+- **1000-row cap.** A `.select()` with no `.range()` silently truncates at 1000 rows — "all time" looks complete but isn't. Page through with `.range(offset, offset+SIZE-1)` until a short page returns (see `useWorkouts`).
+- **Single-column selects type as `never`.** `database.types.ts` is hand-authored, so the PostgREST type parser can't resolve a narrowed `.select("col")` and infers `never`. Use `.select("*")`, or keep the narrow select and cast the result (`(res.data ?? []) as Array<{ col: T }>`, see `useWorkoutRouteIds`).
+
 ## Charts
 
 `TrendChart` (`components/charts/trend-chart.tsx`) takes `data` + `series[]` (each `{ key, label, color, type?, unit? }`). The Y-axis appends a unit when unambiguous (single series' `unit`, or an explicit `yUnit` prop); `valueFormatter` formats the number only. `%` renders without a space.
+
+`ConfigurableTrendChart` (`components/charts/configurable-trend-chart.tsx`) wraps `TrendChart` in a card with a metric selector (cycle through stats) + a `ChartTypeToggle` (bar/line/area) — pass `metrics[]`, each carrying its own pre-aggregated `{ date, value }[]`. Reuse it (plus `dashboard/table-pagination.tsx`, `dashboard/number-range-filter.tsx`, `dashboard/date-range-select.tsx`, `ui/popover.tsx`) before hand-rolling chart controls, paginated tables, or column filters. Per-metric colours come from the `--chart-*` tokens (`--workout` is the green Workouts accent); stat-card icon + sparkline + chart series for a metric should share one colour.
 
 ## Maps
 
