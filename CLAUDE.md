@@ -71,9 +71,18 @@ Two gotchas when reading list/detail tables directly (not the pre-aggregated `da
 
 `lib/insights/engine.ts` is a **rule table** (`RULES`) over `DailyMetric` rows. `deriveInsights()` correlates each `driver → outcome` (optionally lagged a day) and emits a sentence only when `n ≥ 20` and `|r| ≥ 0.2`. **To add an insight, append a `Rule`** — no engine changes needed, and weak/absent relationships self-filter, so speculative additions are safe. `desirable` is the *expected* physiological sign: when the observed correlation matches it the insight reads as a confirmed/healthy pattern (green ↑), otherwise red ↓. Both `/insights` and the overview's `InsightList` (top 3) consume the same output.
 
+## Readiness & fitness scoring (`lib/health/`)
+
+Three pure modules feed the Readiness card (overview + `/heart`) and the `/records` page; all are unit-tested.
+
+- `readiness.ts` — `computeReadiness(metrics)` scores each day 0–100 from HRV (z-score vs a trailing-60-day baseline, higher better), resting HR (z-score, lower better), sleep, and prior-day exercise load. `WEIGHTS` are **renormalised over only the contributors present** that day, so early days with just sleep still score. Rendered by `readiness-gauge.tsx` (270° SVG radial) + `readiness-card.tsx`.
+- `fitness.ts` — VO₂max → `fitnessAge`, plus `vo2Rating`/`restingHrRating` bands vs age/sex norms. **Gotcha:** `normaliseSex` matches `.toLowerCase().includes("female")`, *not* `startsWith("f")` — Apple's raw value is `HKBiologicalSexFemale`, so a prefix check mislabels everyone male.
+- `records.ts` — `buildRecords()` for the PR wall. **Gotcha:** fastest-pace records are restricted to `FOOT_SPORTS` (run/walk/hike) — pace isn't comparable across sports, so without the filter a fast cycling leg wins the "fastest pace" PR. A test guards this.
+
 ## Conventions
 
 - Hooks (e.g. `useActiveAreas`, `useDailyMetrics`) go at component top level, **never inside a `QueryView` render-prop** — derive data above `QueryView` and keep the `{(data) => …}` callback presentational, or the query toggling between pending/ready breaks the rules of hooks.
 - Tests are colocated in `__tests__/` dirs, Vitest. Pure helpers and the ingest pipeline are well-covered — keep that up.
+- **Date math is local-calendar, not UTC.** Day keys are local `yyyy-MM-dd` (build from `getFullYear()/getMonth()/getDate()`, never `toISOString()`, which shifts the day across the UTC boundary), and step a day at a time with `setDate(getDate() ± 1)`, never `± 86_400_000ms` (DST days aren't 24h). `streakStats` in `lib/stats.ts` is the reference; matching the metric keys' own local dates is what keeps streaks/lags correct.
 - Empty/loading/error UI goes through `QueryView` + `EmptyState`/`ChartSkeleton` in `components/dashboard/states.tsx`. Per-metric "no data" placeholders (e.g. Body tab BMI) are small in-card notices, not the full `EmptyState`.
 - Default branch is `release`; branch before committing, and only commit/push when asked.
