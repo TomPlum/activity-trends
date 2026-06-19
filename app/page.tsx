@@ -180,7 +180,7 @@ export default function OverviewPage() {
               </Card>
 
               {/* KPI sparkline cards */}
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 <StatCard
                   label="Avg daily steps"
                   value={fmt.number(mean(steps))}
@@ -219,7 +219,7 @@ export default function OverviewPage() {
               </div>
 
               {/* Insights + readiness */}
-              <div className="grid gap-6 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                 <Card className="lg:col-span-2">
                   <CardHeader className="flex-row items-center justify-between">
                     <CardTitle className="flex items-center gap-2 text-base">
@@ -250,7 +250,7 @@ export default function OverviewPage() {
               </div>
 
               {/* Heatmap + recent workouts */}
-              <div className="grid gap-6 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                 <Card className="lg:col-span-2">
                   <CardHeader className="flex-row items-center justify-between">
                     <CardTitle className="text-base">Activity streak</CardTitle>
@@ -323,7 +323,7 @@ export default function OverviewPage() {
               </div>
 
               {/* Trends */}
-              <div className="grid gap-6 lg:grid-cols-2">
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <TrendCard title="Heart health" subtitle="Last 90 days">
                   <TrendChart
                     height={220}
