@@ -32,6 +32,10 @@ export interface PersonalRecord {
   /** lucide icon name; mapped to a component in the UI. */
   icon: string;
   accent: string;
+  /** Whether this best came from a single workout or a daily-metric peak. */
+  group: "workout" | "daily";
+  /** The day the record was set (ISO), when known — used for recency. */
+  date?: string | null;
 }
 
 function dateLabel(d: string | null | undefined): string | undefined {
@@ -59,6 +63,8 @@ export function buildRecords(workouts: RecordWorkout[], tops: DailyTops): Person
         .join(" · "),
       icon: "Route",
       accent: "text-chart-2",
+      group: "workout",
+      date: longest.start_time,
     });
   }
 
@@ -83,6 +89,8 @@ export function buildRecords(workouts: RecordWorkout[], tops: DailyTops): Person
         .join(" · "),
       icon: "Zap",
       accent: "text-chart-3",
+      group: "workout",
+      date: fastest.start_time,
     });
   }
 
@@ -100,6 +108,8 @@ export function buildRecords(workouts: RecordWorkout[], tops: DailyTops): Person
         .join(" · "),
       icon: "Flame",
       accent: "text-chart-4",
+      group: "workout",
+      date: biggestBurn.start_time,
     });
   }
 
@@ -116,6 +126,8 @@ export function buildRecords(workouts: RecordWorkout[], tops: DailyTops): Person
       detail: dateLabel(top.date),
       icon: cfg.icon,
       accent: cfg.accent,
+      group: "daily",
+      date: top.date,
     });
   };
 

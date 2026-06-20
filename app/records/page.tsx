@@ -12,9 +12,13 @@ import {
   TrendingUp,
   Trophy,
   Zap,
+  Dumbbell,
+  CalendarClock,
 } from "lucide-react";
 import { useProfile } from "@/lib/queries/profile";
 import { useRecords, type RecordDailyRow } from "@/lib/queries/records";
+import type { PersonalRecord } from "@/lib/health/records";
+import * as fmt from "@/lib/format";
 import {
   ageFromDob,
   fitnessAge,
@@ -96,46 +100,146 @@ export default function RecordsPage() {
           const vo2 = lastNonNull(data.daily, "vo2max");
           const rhr = lastNonNull(data.daily, "resting_hr");
 
+          const workoutRecs = records.filter((r) => r.group === "workout");
+          const dailyRecs = records.filter((r) => r.group === "daily");
+          const mostRecent = records
+            .filter((r) => r.date)
+            .sort((a, b) => (a.date! < b.date! ? 1 : -1))[0];
+
           return (
             <div className="space-y-8">
               {vo2 != null && (
                 <FitnessAgeCard vo2={vo2} rhr={rhr} age={age} sex={sex} />
               )}
 
-              <section>
-                <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold">
-                  <Trophy className="h-5 w-5 text-chart-4" />
-                  Personal records
-                </h2>
-                {records.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No records to show yet.</p>
-                ) : (
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {records.map((r) => {
-                      const Icon = RECORD_ICONS[r.icon] ?? Trophy;
-                      return (
-                        <Card key={r.key} className="overflow-hidden">
-                          <CardContent className="p-5">
-                            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-                              <Icon className={cn("h-4 w-4", r.accent)} />
-                              {r.label}
-                            </div>
-                            <p className="mt-2 text-2xl font-semibold tabular-nums">{r.value}</p>
-                            {r.detail && (
-                              <p className="mt-1 truncate text-xs text-muted-foreground">{r.detail}</p>
-                            )}
-                          </CardContent>
-                        </Card>
-                      );
-                    })}
-                  </div>
-                )}
-              </section>
+              {records.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No records to show yet.</p>
+              ) : (
+                <>
+                  <RecordsSummary
+                    total={records.length}
+                    workouts={workoutRecs.length}
+                    daily={dailyRecs.length}
+                    mostRecent={mostRecent}
+                  />
+
+                  {workoutRecs.length > 0 && (
+                    <RecordSection
+                      icon={Dumbbell}
+                      iconClass="text-chart-2"
+                      title="Workout bests"
+                      records={workoutRecs}
+                    />
+                  )}
+                  {dailyRecs.length > 0 && (
+                    <RecordSection
+                      icon={Trophy}
+                      iconClass="text-chart-4"
+                      title="Daily bests"
+                      records={dailyRecs}
+                    />
+                  )}
+                </>
+              )}
             </div>
           );
         }}
       </QueryView>
     </>
+  );
+}
+
+function RecordsSummary({
+  total,
+  workouts,
+  daily,
+  mostRecent,
+}: {
+  total: number;
+  workouts: number;
+  daily: number;
+  mostRecent: PersonalRecord | undefined;
+}) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <SummaryTile icon={Trophy} accent="text-chart-4" label="Personal records" value={fmt.number(total)} />
+      <SummaryTile icon={Dumbbell} accent="text-chart-2" label="Workout bests" value={fmt.number(workouts)} />
+      <SummaryTile icon={Gauge} accent="text-chart-3" label="Daily bests" value={fmt.number(daily)} />
+      <SummaryTile
+        icon={CalendarClock}
+        accent="text-chart-1"
+        label="Latest record"
+        value={mostRecent?.date ? fmt.shortDate(mostRecent.date) : "—"}
+        sub={mostRecent?.label}
+      />
+    </div>
+  );
+}
+
+function SummaryTile({
+  icon: Icon,
+  accent,
+  label,
+  value,
+  sub,
+}: {
+  icon: LucideIcon;
+  accent: string;
+  label: string;
+  value: string;
+  sub?: string;
+}) {
+  return (
+    <Card className="overflow-hidden">
+      <CardContent className="p-5">
+        <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+          <Icon className={cn("h-4 w-4", accent)} />
+          {label}
+        </div>
+        <p className="mt-2 text-2xl font-semibold tabular-nums">{value}</p>
+        {sub && <p className="mt-1 truncate text-xs text-muted-foreground">{sub}</p>}
+      </CardContent>
+    </Card>
+  );
+}
+
+function RecordSection({
+  icon: Icon,
+  iconClass,
+  title,
+  records,
+}: {
+  icon: LucideIcon;
+  iconClass: string;
+  title: string;
+  records: PersonalRecord[];
+}) {
+  return (
+    <section>
+      <h2 className="mb-3 flex items-center gap-2 text-lg font-semibold">
+        <Icon className={cn("h-5 w-5", iconClass)} />
+        {title}
+      </h2>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {records.map((r) => {
+          const RecIcon = RECORD_ICONS[r.icon] ?? Trophy;
+          return (
+            <Card key={r.key} className="overflow-hidden">
+              <CardContent className="p-5">
+                <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                  <RecIcon className={cn("h-4 w-4", r.accent)} />
+                  {r.label}
+                </div>
+                <p className="mt-2 text-2xl font-semibold tabular-nums">{r.value}</p>
+                {r.detail && (
+                  <p className="mt-1 truncate text-xs text-muted-foreground">{r.detail}</p>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
