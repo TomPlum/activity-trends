@@ -10,7 +10,7 @@ import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { ReadinessCard } from "@/components/dashboard/readiness-card";
 import { computeReadiness } from "@/lib/health/readiness";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -63,41 +63,38 @@ export default function HeartPage() {
                   <ReadinessCard days={readiness} />
                 </CardContent>
               </Card>
-              <Card className="lg:col-span-2">
-                <CardHeader>
-                  <CardTitle className="text-base">Resting heart rate & HRV</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart
-                    data={m}
-                    series={[
-                      { key: "resting_hr", label: "Resting HR", type: "line", color: "var(--chart-4)", unit: "bpm" },
-                      { key: "hrv_ms", label: "HRV", type: "line", color: "var(--chart-1)", unit: "ms" },
-                    ]}
-                  />
-                </CardContent>
-              </Card>
+              <StyleableTrendChart
+                className="lg:col-span-2"
+                title="Resting heart rate & HRV"
+                data={m}
+                defaultType="line"
+                series={[
+                  { key: "resting_hr", label: "Resting HR", color: "var(--chart-4)", unit: "bpm" },
+                  { key: "hrv_ms", label: "HRV", color: "var(--chart-1)", unit: "ms" },
+                ]}
+              />
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">VO₂ Max</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart data={m} height={260} series={[{ key: "vo2max", label: "VO₂ Max", color: "var(--chart-3)" }]} valueFormatter={(v) => v.toFixed(0)} />
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
+              <StyleableTrendChart
+                title="VO₂ Max"
+                data={m}
+                height={260}
+                series={[{ key: "vo2max", label: "VO₂ Max", color: "var(--chart-3)" }]}
+                valueFormatter={(v) => v.toFixed(0)}
+              />
+              <StyleableTrendChart
+                title={
+                  <>
                     <Wind className="h-4 w-4 text-chart-2" /> Respiratory rate
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart data={m} height={260} series={[{ key: "respiratory_rate", label: "Respiratory rate", type: "line", color: "var(--chart-2)", unit: "br/min" }]} valueFormatter={(v) => v.toFixed(0)} />
-                </CardContent>
-              </Card>
+                  </>
+                }
+                data={m}
+                height={260}
+                defaultType="line"
+                series={[{ key: "respiratory_rate", label: "Respiratory rate", color: "var(--chart-2)", unit: "br/min" }]}
+                valueFormatter={(v) => v.toFixed(0)}
+              />
             </div>
           </div>
           );

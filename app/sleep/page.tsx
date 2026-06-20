@@ -6,9 +6,8 @@ import { useSleepSessions } from "@/lib/queries/sleep";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean } from "@/lib/stats";
@@ -55,37 +54,26 @@ export default function SleepPage() {
                 <StatCard label="Avg REM" value={fmt.duration(mean(sessions.map((s) => s.rem_min)))} icon={Sparkles} accent="text-chart-3" />
               </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Sleep stages</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart
-                    data={data}
-                    valueFormatter={(v) => `${Math.round(v / 60)}h`}
-                    series={[
-                      { key: "deep", label: "Deep", color: "var(--chart-5)", stackId: "s" },
-                      { key: "rem", label: "REM", color: "var(--chart-3)", stackId: "s" },
-                      { key: "light", label: "Light", color: "var(--chart-2)", stackId: "s" },
-                      { key: "awake", label: "Awake", color: "var(--chart-4)", stackId: "s" },
-                    ]}
-                  />
-                </CardContent>
-              </Card>
+              <StyleableTrendChart
+                title="Sleep stages"
+                data={data}
+                valueFormatter={(v) => `${Math.round(v / 60)}h`}
+                series={[
+                  { key: "deep", label: "Deep", color: "var(--chart-5)", stackId: "s" },
+                  { key: "rem", label: "REM", color: "var(--chart-3)", stackId: "s" },
+                  { key: "light", label: "Light", color: "var(--chart-2)", stackId: "s" },
+                  { key: "awake", label: "Awake", color: "var(--chart-4)", stackId: "s" },
+                ]}
+              />
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Sleep quality</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart
-                    data={data}
-                    height={240}
-                    series={[{ key: "quality", label: "Quality", type: "line", color: "var(--chart-1)", unit: "%" }]}
-                    valueFormatter={(v) => `${v.toFixed(0)}%`}
-                  />
-                </CardContent>
-              </Card>
+              <StyleableTrendChart
+                title="Sleep quality"
+                data={data}
+                height={240}
+                defaultType="line"
+                series={[{ key: "quality", label: "Quality", color: "var(--chart-1)", unit: "%" }]}
+                valueFormatter={(v) => `${v.toFixed(0)}%`}
+              />
             </div>
           );
         }}

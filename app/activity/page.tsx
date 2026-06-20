@@ -6,9 +6,8 @@ import { useDailyMetrics } from "@/lib/queries/metrics";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean, sum, deltaPct } from "@/lib/stats";
@@ -44,32 +43,26 @@ export default function ActivityPage() {
               <StatCard label="Flights climbed" value={fmt.number(sum(m.map((d) => d.flights_climbed)))} icon={Mountain} accent="text-chart-5" />
             </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Daily steps</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TrendChart data={m} series={[{ key: "steps", label: "Steps", type: "bar", color: "var(--chart-1)" }]} />
-              </CardContent>
-            </Card>
+            <StyleableTrendChart
+              title="Daily steps"
+              data={m}
+              defaultType="bar"
+              series={[{ key: "steps", label: "Steps", color: "var(--chart-1)" }]}
+            />
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Active energy</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart data={m} height={260} series={[{ key: "active_energy", label: "Active energy", color: "var(--chart-3)", unit: "kcal" }]} />
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Distance</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart data={m} height={260} series={[{ key: "distance_km", label: "Distance", color: "var(--chart-2)", unit: "km" }]} />
-                </CardContent>
-              </Card>
+              <StyleableTrendChart
+                title="Active energy"
+                data={m}
+                height={260}
+                series={[{ key: "active_energy", label: "Active energy", color: "var(--chart-3)", unit: "kcal" }]}
+              />
+              <StyleableTrendChart
+                title="Distance"
+                data={m}
+                height={260}
+                series={[{ key: "distance_km", label: "Distance", color: "var(--chart-2)", unit: "km" }]}
+              />
             </div>
           </div>
         )}

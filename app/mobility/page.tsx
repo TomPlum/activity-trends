@@ -6,9 +6,8 @@ import { useDailyMetrics } from "@/lib/queries/metrics";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean, latest } from "@/lib/stats";
@@ -46,57 +45,44 @@ export default function MobilityPage() {
               <StatCard label="Asymmetry" value={fmt.number(mean(m.map((d) => d.walking_asymmetry_pct)), 1)} unit="%" icon={TrendingUpDown} accent="text-chart-4" invertDelta spark={{ data: m, dataKey: "walking_asymmetry_pct", color: "var(--chart-4)" }} />
             </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Walking speed & step length</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <TrendChart
-                  data={m}
-                  series={[
-                    { key: "walking_speed_kmh", label: "Speed (km/h)", type: "line", color: "var(--chart-1)" },
-                    { key: "step_length_cm", label: "Step length (cm)", type: "line", color: "var(--chart-3)" },
-                  ]}
-                  valueFormatter={(v) => v.toFixed(0)}
-                />
-              </CardContent>
-            </Card>
+            <StyleableTrendChart
+              title="Walking speed & step length"
+              data={m}
+              defaultType="line"
+              series={[
+                { key: "walking_speed_kmh", label: "Speed (km/h)", color: "var(--chart-1)" },
+                { key: "step_length_cm", label: "Step length (cm)", color: "var(--chart-3)" },
+              ]}
+              valueFormatter={(v) => v.toFixed(0)}
+            />
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
+              <StyleableTrendChart
+                title={
+                  <>
                     <Activity className="h-4 w-4 text-chart-4" /> Gait symmetry
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart
-                    data={m}
-                    height={260}
-                    series={[
-                      { key: "walking_asymmetry_pct", label: "Asymmetry %", type: "line", color: "var(--chart-4)" },
-                      { key: "double_support_pct", label: "Double support %", type: "line", color: "var(--chart-5)" },
-                    ]}
-                    valueFormatter={(v) => `${v.toFixed(0)}%`}
-                  />
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Stair speed</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <TrendChart
-                    data={m}
-                    height={260}
-                    series={[
-                      { key: "stair_ascent_speed", label: "Ascent", type: "line", color: "var(--chart-1)" },
-                      { key: "stair_descent_speed", label: "Descent", type: "line", color: "var(--chart-2)" },
-                    ]}
-                    valueFormatter={(v) => v.toFixed(2)}
-                  />
-                </CardContent>
-              </Card>
+                  </>
+                }
+                data={m}
+                height={260}
+                defaultType="line"
+                series={[
+                  { key: "walking_asymmetry_pct", label: "Asymmetry %", color: "var(--chart-4)" },
+                  { key: "double_support_pct", label: "Double support %", color: "var(--chart-5)" },
+                ]}
+                valueFormatter={(v) => `${v.toFixed(0)}%`}
+              />
+              <StyleableTrendChart
+                title="Stair speed"
+                data={m}
+                height={260}
+                defaultType="line"
+                series={[
+                  { key: "stair_ascent_speed", label: "Ascent", color: "var(--chart-1)" },
+                  { key: "stair_descent_speed", label: "Descent", color: "var(--chart-2)" },
+                ]}
+                valueFormatter={(v) => v.toFixed(2)}
+              />
             </div>
           </div>
         )}
