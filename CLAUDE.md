@@ -85,4 +85,4 @@ Three pure modules feed the Readiness card (overview + `/heart`) and the `/recor
 - Tests are colocated in `__tests__/` dirs, Vitest. Pure helpers and the ingest pipeline are well-covered — keep that up.
 - **Date math is local-calendar, not UTC.** Day keys are local `yyyy-MM-dd` (build from `getFullYear()/getMonth()/getDate()`, never `toISOString()`, which shifts the day across the UTC boundary), and step a day at a time with `setDate(getDate() ± 1)`, never `± 86_400_000ms` (DST days aren't 24h). `streakStats` in `lib/stats.ts` is the reference; matching the metric keys' own local dates is what keeps streaks/lags correct.
 - Empty/loading/error UI goes through `QueryView` + `EmptyState`/`ChartSkeleton` in `components/dashboard/states.tsx`. Per-metric "no data" placeholders (e.g. Body tab BMI) are small in-card notices, not the full `EmptyState`.
-- Default branch is `release`; branch before committing, and only commit/push when asked.
+- Default branch is `release`. This is a personal project, so committing and pushing directly to `release` is fine — no feature branch needed.
