@@ -8,7 +8,8 @@ import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartHeader } from "@/components/dashboard/chart-header";
+import { Card, CardContent } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { latest, deltaPct } from "@/lib/stats";
@@ -60,9 +61,10 @@ export default function BodyPage() {
             </div>
 
             <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Weight</CardTitle>
-              </CardHeader>
+              <ChartHeader
+                title="Weight"
+                info="Body weight over time, in kilograms, from each logged measurement. The range defaults to a year so the trend is easy to see."
+              />
               <CardContent>
                 <TrendChart data={m} series={[{ key: "weight_kg", label: "Weight", color: "var(--chart-5)", unit: "kg" }]} valueFormatter={(v) => v.toFixed(0)} />
               </CardContent>
@@ -70,9 +72,10 @@ export default function BodyPage() {
 
             <div className="grid gap-6 lg:grid-cols-2">
               <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">BMI</CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  title="BMI"
+                  info="Body Mass Index — weight relative to height. Apple records it directly when available; otherwise it's derived from your weight and height."
+                />
                 <CardContent>
                   {hasBmi ? (
                     <TrendChart data={m} height={240} series={[{ key: "bmi", label: "BMI", type: "line", color: "var(--chart-3)" }]} valueFormatter={(v) => v.toFixed(0)} />
@@ -82,9 +85,10 @@ export default function BodyPage() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Body fat</CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  title="Body fat"
+                  info="Body fat percentage over time. These readings come from a smart scale or manual entry — Apple Watch doesn't measure body composition."
+                />
                 <CardContent>
                   {hasBodyFat ? (
                     <TrendChart data={m} height={240} series={[{ key: "body_fat_pct", label: "Body fat", type: "line", color: "var(--chart-4)", unit: "%" }]} valueFormatter={(v) => `${v.toFixed(0)}%`} />

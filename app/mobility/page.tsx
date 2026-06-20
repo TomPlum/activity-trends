@@ -8,7 +8,8 @@ import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartHeader } from "@/components/dashboard/chart-header";
+import { Card, CardContent } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean, latest } from "@/lib/stats";
@@ -47,9 +48,10 @@ export default function MobilityPage() {
             </div>
 
             <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Walking speed & step length</CardTitle>
-              </CardHeader>
+              <ChartHeader
+                title="Walking speed & step length"
+                info="Your average walking pace (km/h) and how far you travel per step (cm). Both are gauges of gait health — they tend to dip when you're tired, injured or unwell."
+              />
               <CardContent>
                 <TrendChart
                   data={m}
@@ -64,11 +66,12 @@ export default function MobilityPage() {
 
             <div className="grid gap-6 lg:grid-cols-2">
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Activity className="h-4 w-4 text-chart-4" /> Gait symmetry
-                  </CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  icon={Activity}
+                  iconClass="text-chart-4"
+                  title="Gait symmetry"
+                  info="Walking asymmetry is the percentage of time your steps are uneven between legs; double support is the share of each stride with both feet on the ground. Lower is steadier — both rise with fatigue or injury."
+                />
                 <CardContent>
                   <TrendChart
                     data={m}
@@ -82,9 +85,10 @@ export default function MobilityPage() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">Stair speed</CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  title="Stair speed"
+                  info="How quickly you climb and descend stairs (metres per second), measured by Apple Watch. Higher speeds reflect better lower-body strength and balance."
+                />
                 <CardContent>
                   <TrendChart
                     data={m}

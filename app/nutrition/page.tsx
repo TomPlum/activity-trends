@@ -8,7 +8,8 @@ import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartHeader } from "@/components/dashboard/chart-header";
+import { Card, CardContent } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean } from "@/lib/stats";
@@ -45,9 +46,10 @@ export default function NutritionPage() {
             </div>
 
             <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Energy intake</CardTitle>
-              </CardHeader>
+              <ChartHeader
+                title="Energy intake"
+                info="Total calories you logged eating each day. Only as complete as what's recorded in Apple Health via a food-tracking app."
+              />
               <CardContent>
                 <TrendChart data={m} series={[{ key: "diet_energy_kcal", label: "Calories", type: "bar", color: "var(--chart-3)" }]} />
               </CardContent>
@@ -55,11 +57,12 @@ export default function NutritionPage() {
 
             <div className="grid gap-6 lg:grid-cols-2">
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Wheat className="h-4 w-4 text-chart-1" /> Macronutrients
-                  </CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  icon={Wheat}
+                  iconClass="text-chart-1"
+                  title="Macronutrients"
+                  info="Grams of carbohydrate, protein and fat logged per day, stacked so the full bar is your total macros for that day."
+                />
                 <CardContent>
                   <TrendChart
                     data={m}
@@ -74,11 +77,12 @@ export default function NutritionPage() {
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Croissant className="h-4 w-4 text-chart-5" /> Sugar &amp; fibre
-                  </CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  icon={Croissant}
+                  iconClass="text-chart-5"
+                  title="Sugar & fibre"
+                  info="Grams of sugar and dietary fibre logged each day. Watching sugar down and fibre up is a simple marker of diet quality."
+                />
                 <CardContent>
                   <TrendChart
                     data={m}

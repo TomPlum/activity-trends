@@ -316,6 +316,7 @@ export default function WorkoutsPage() {
               metrics={chartMetrics}
               defaultMetric="calories"
               defaultType="bar"
+              info="Your workouts aggregated per day for the chosen metric — calories, distance, duration, session count or average heart rate. Use the dropdown to switch metric and the toggle for bar, line or area. Honours the filters applied below."
             />
 
             <Card>

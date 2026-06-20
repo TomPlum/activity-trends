@@ -12,6 +12,7 @@ import { ReadinessCard } from "@/components/dashboard/readiness-card";
 import { computeReadiness } from "@/lib/health/readiness";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
+import { ChartHeader } from "@/components/dashboard/chart-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -54,19 +55,21 @@ export default function HeartPage() {
 
             <div className="grid gap-6 lg:grid-cols-3">
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Gauge className="h-4 w-4 text-chart-1" /> Readiness
-                  </CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  icon={Gauge}
+                  iconClass="text-chart-1"
+                  title="Readiness"
+                  info="A 0–100 daily score blending HRV, resting heart rate, sleep and the previous day's exercise load against your own recent baseline. Higher means better recovered and readier to train."
+                />
                 <CardContent>
                   <ReadinessCard days={readiness} />
                 </CardContent>
               </Card>
               <Card className="lg:col-span-2">
-                <CardHeader>
-                  <CardTitle className="text-base">Resting heart rate & HRV</CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  title="Resting heart rate & HRV"
+                  info="Resting heart rate (beats per minute, lower is generally fitter) and heart rate variability (SDNN in milliseconds, higher generally signals better recovery), tracked together over time."
+                />
                 <CardContent>
                   <TrendChart
                     data={m}
@@ -81,19 +84,21 @@ export default function HeartPage() {
 
             <div className="grid gap-6 lg:grid-cols-2">
               <Card>
-                <CardHeader>
-                  <CardTitle className="text-base">VO₂ Max</CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  title="VO₂ Max"
+                  info="Estimated maximum oxygen uptake (ml/kg/min) — Apple's measure of cardio fitness. It moves slowly; a rising trend means your aerobic fitness is improving."
+                />
                 <CardContent>
                   <TrendChart data={m} height={260} series={[{ key: "vo2max", label: "VO₂ Max", color: "var(--chart-3)" }]} valueFormatter={(v) => v.toFixed(0)} />
                 </CardContent>
               </Card>
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Wind className="h-4 w-4 text-chart-2" /> Respiratory rate
-                  </CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  icon={Wind}
+                  iconClass="text-chart-2"
+                  title="Respiratory rate"
+                  info="Breaths per minute, mostly measured during sleep. A stable resting rate is normal; a sustained jump can accompany illness, stress or poor recovery."
+                />
                 <CardContent>
                   <TrendChart data={m} height={260} series={[{ key: "respiratory_rate", label: "Respiratory rate", type: "line", color: "var(--chart-2)", unit: "br/min" }]} valueFormatter={(v) => v.toFixed(0)} />
                 </CardContent>

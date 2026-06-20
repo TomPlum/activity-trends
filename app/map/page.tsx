@@ -6,6 +6,7 @@ import { Route as RouteIcon, Flame, Palette, Sparkles, Trophy } from "lucide-rea
 import { useAllRoutes } from "@/lib/queries/all-routes";
 import { workoutMeta } from "@/lib/health/workout-types";
 import { PageHeader } from "@/components/dashboard/page-header";
+import { InfoHint } from "@/components/dashboard/info-hint";
 import { QueryView } from "@/components/dashboard/states";
 import { useActiveAreas, haversineKm, type ActiveArea } from "@/lib/map/areas";
 import type { MapFocus, MapRoute, RouteColorMode } from "@/components/dashboard/all-routes-map";
@@ -180,6 +181,7 @@ export default function MapPage() {
                     ))}
                   </SelectContent>
                 </Select>
+                <InfoHint text="Every outdoor workout with GPS, overlaid on one map. In heat mode brighter areas are where your routes overlap most; in by-sport mode each activity gets its own colour. Filter by sport and year, and use the on-map buttons to jump to new areas or your longest route." />
               </div>
             </div>
 

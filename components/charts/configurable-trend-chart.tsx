@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { TrendChart } from "./trend-chart";
 import { ChartTypeToggle, type ChartType } from "./chart-type-toggle";
+import { InfoHint } from "@/components/dashboard/info-hint";
 
 export interface ChartMetric {
   key: string;
@@ -35,12 +36,15 @@ export function ConfigurableTrendChart({
   defaultMetric,
   defaultType = "bar",
   height,
+  info,
 }: {
   metrics: ChartMetric[];
   title?: string;
   defaultMetric?: string;
   defaultType?: ChartType;
   height?: number;
+  /** Optional explainer shown via an info icon in the header. */
+  info?: string;
 }) {
   const [metricKey, setMetricKey] = useState(defaultMetric ?? metrics[0]?.key);
   const [type, setType] = useState<ChartType>(defaultType);
@@ -81,6 +85,7 @@ export function ConfigurableTrendChart({
             </SelectContent>
           </Select>
           <ChartTypeToggle value={type} onChange={setType} />
+          {info && <InfoHint text={info} />}
         </div>
       </CardHeader>
       <CardContent>

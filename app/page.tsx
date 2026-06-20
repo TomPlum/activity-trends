@@ -25,6 +25,7 @@ import { deriveInsights } from "@/lib/insights/engine";
 import { computeReadiness } from "@/lib/health/readiness";
 import { InsightList } from "@/components/dashboard/insight-list";
 import { ReadinessCard } from "@/components/dashboard/readiness-card";
+import { InfoHint } from "@/components/dashboard/info-hint";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { ActivityRings } from "@/components/dashboard/activity-rings";
@@ -103,7 +104,10 @@ export default function OverviewPage() {
           return (
             <div className="space-y-6">
               {/* Hero */}
-              <Card className="overflow-hidden">
+              <Card className="relative overflow-hidden">
+                <div className="absolute right-3 top-3 z-10">
+                  <InfoHint text="Your most recent Apple Watch activity rings — Move (active calories), Exercise (brisk-activity minutes) and Stand (hours with at least a minute standing) — alongside today's headline vitals." />
+                </div>
                 <CardContent className="grid gap-6 p-6 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-10">
                   <div className="flex items-center justify-center gap-5 sm:justify-start">
                     <ActivityRings
@@ -241,7 +245,10 @@ export default function OverviewPage() {
                       <Gauge className="h-4 w-4 text-chart-1" />
                       Readiness
                     </CardTitle>
-                    <span className="text-xs text-muted-foreground">Today</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">Today</span>
+                      <InfoHint text="A 0–100 daily recovery score blending HRV, resting heart rate, sleep and the previous day's exercise load against your own recent baseline. Higher means better recovered." />
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <ReadinessCard days={readiness} />
@@ -254,7 +261,10 @@ export default function OverviewPage() {
                 <Card className="lg:col-span-2">
                   <CardHeader className="flex-row items-center justify-between">
                     <CardTitle className="text-base">Activity streak</CardTitle>
-                    <span className="text-xs text-muted-foreground">Past year</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">Past year</span>
+                      <InfoHint text="Each square is a day in the past year; brighter means more exercise minutes. A day counts toward your streak when the Apple exercise ring is closed (≥30 min)." />
+                    </div>
                   </CardHeader>
                   <CardContent className="space-y-5">
                     <div className="grid grid-cols-3 gap-3">
@@ -324,7 +334,11 @@ export default function OverviewPage() {
 
               {/* Trends */}
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <TrendCard title="Heart health" subtitle="Last 90 days">
+                <TrendCard
+                  title="Heart health"
+                  subtitle="Last 90 days"
+                  info="Resting heart rate (bpm) and heart rate variability (ms) over the last 90 days — two of the clearest day-to-day signals of cardiovascular health and recovery."
+                >
                   <TrendChart
                     height={220}
                     data={m}
@@ -335,7 +349,11 @@ export default function OverviewPage() {
                   />
                 </TrendCard>
 
-                <TrendCard title="Sleep duration" subtitle="Last 30 days">
+                <TrendCard
+                  title="Sleep duration"
+                  subtitle="Last 30 days"
+                  info="Hours asleep each night over the last 30 days. See the Sleep tab for the full stage, schedule and quality breakdown."
+                >
                   <TrendChart
                     height={220}
                     data={m30}
@@ -345,7 +363,11 @@ export default function OverviewPage() {
                 </TrendCard>
 
                 {hasVo2 && (
-                  <TrendCard title="Cardio fitness" subtitle="VO₂ Max · past year">
+                  <TrendCard
+                    title="Cardio fitness"
+                    subtitle="VO₂ Max · past year"
+                    info="Estimated VO₂ Max (ml/kg/min) over the past year — Apple's headline measure of aerobic fitness. It changes slowly, so the trend matters more than any single point."
+                  >
                     <TrendChart
                       height={220}
                       data={vo2Series}
@@ -355,7 +377,11 @@ export default function OverviewPage() {
                 )}
 
                 {hasWeight && (
-                  <TrendCard title="Body weight" subtitle="Past year">
+                  <TrendCard
+                    title="Body weight"
+                    subtitle="Past year"
+                    info="Body weight (kg) over the past year from each logged measurement. See the Body tab for BMI and body composition."
+                  >
                     <TrendChart
                       height={220}
                       data={weightSeries}
@@ -470,17 +496,22 @@ function MiniStat({
 function TrendCard({
   title,
   subtitle,
+  info,
   children,
 }: {
   title: string;
   subtitle?: string;
+  info: string;
   children: ReactNode;
 }) {
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between">
         <CardTitle className="text-base">{title}</CardTitle>
-        {subtitle && <span className="text-xs text-muted-foreground">{subtitle}</span>}
+        <div className="flex items-center gap-2">
+          {subtitle && <span className="text-xs text-muted-foreground">{subtitle}</span>}
+          <InfoHint text={info} />
+        </div>
       </CardHeader>
       <CardContent>{children}</CardContent>
     </Card>

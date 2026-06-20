@@ -8,7 +8,8 @@ import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ChartHeader } from "@/components/dashboard/chart-header";
+import { Card, CardContent } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean } from "@/lib/stats";
@@ -43,11 +44,12 @@ export default function HearingPage() {
             </div>
 
             <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Ear className="h-4 w-4 text-chart-2" /> Audio exposure
-                </CardTitle>
-              </CardHeader>
+              <ChartHeader
+                icon={Ear}
+                iconClass="text-chart-2"
+                title="Audio exposure"
+                info="Average daily sound levels in decibels — environmental noise around you and audio played through headphones. Sustained high levels raise the risk of long-term hearing loss."
+              />
               <CardContent>
                 <TrendChart
                   data={m}
