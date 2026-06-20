@@ -12,6 +12,7 @@ import { ReadinessCard } from "@/components/dashboard/readiness-card";
 import { computeReadiness } from "@/lib/health/readiness";
 import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
+import { ChartHeader } from "@/components/dashboard/chart-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -54,11 +55,12 @@ export default function HeartPage() {
 
             <div className="grid gap-6 lg:grid-cols-3">
               <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Gauge className="h-4 w-4 text-chart-1" /> Readiness
-                  </CardTitle>
-                </CardHeader>
+                <ChartHeader
+                  icon={Gauge}
+                  iconClass="text-chart-1"
+                  title="Readiness"
+                  info="A 0–100 daily score blending HRV, resting heart rate, sleep and the previous day's exercise load against your own recent baseline. Higher means better recovered and readier to train."
+                />
                 <CardContent>
                   <ReadinessCard days={readiness} />
                 </CardContent>
@@ -72,6 +74,7 @@ export default function HeartPage() {
                   { key: "resting_hr", label: "Resting HR", color: "var(--chart-4)", unit: "bpm" },
                   { key: "hrv_ms", label: "HRV", color: "var(--chart-1)", unit: "ms" },
                 ]}
+                info="Resting heart rate (beats per minute, lower is generally fitter) and heart rate variability (SDNN in milliseconds, higher generally signals better recovery), tracked together over time."
               />
             </div>
 
@@ -82,6 +85,7 @@ export default function HeartPage() {
                 height={260}
                 series={[{ key: "vo2max", label: "VO₂ Max", color: "var(--chart-3)" }]}
                 valueFormatter={(v) => v.toFixed(0)}
+                info="Estimated maximum oxygen uptake (ml/kg/min) — Apple's measure of cardio fitness. It moves slowly; a rising trend means your aerobic fitness is improving."
               />
               <StyleableTrendChart
                 title={
@@ -94,6 +98,7 @@ export default function HeartPage() {
                 defaultType="line"
                 series={[{ key: "respiratory_rate", label: "Respiratory rate", color: "var(--chart-2)", unit: "br/min" }]}
                 valueFormatter={(v) => v.toFixed(0)}
+                info="Breaths per minute, mostly measured during sleep. A stable resting rate is normal; a sustained jump can accompany illness, stress or poor recovery."
               />
             </div>
           </div>

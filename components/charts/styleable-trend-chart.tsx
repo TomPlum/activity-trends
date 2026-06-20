@@ -2,6 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { InfoHint } from "@/components/dashboard/info-hint";
 import { TrendChart, type SeriesDef } from "./trend-chart";
 import { ChartTypeToggle, type ChartType } from "./chart-type-toggle";
 
@@ -24,6 +25,7 @@ export function StyleableTrendChart({
   yUnit,
   yWidth,
   footer,
+  info,
   className,
 }: {
   title: ReactNode;
@@ -38,6 +40,8 @@ export function StyleableTrendChart({
   yWidth?: number;
   /** Extra content rendered beneath the chart (e.g. a caption). */
   footer?: ReactNode;
+  /** Tooltip text explaining what the chart shows, shown via an info icon. */
+  info?: string;
   /** Applied to the wrapping Card (e.g. column spans). */
   className?: string;
 }) {
@@ -51,6 +55,7 @@ export function StyleableTrendChart({
         <div className="flex items-center gap-2">
           {subtitle && <span className="text-xs text-muted-foreground">{subtitle}</span>}
           <ChartTypeToggle value={type} onChange={setType} />
+          {info && <InfoHint text={info} />}
         </div>
       </CardHeader>
       <CardContent>

@@ -24,6 +24,7 @@ import { deriveInsights } from "@/lib/insights/engine";
 import { computeReadiness } from "@/lib/health/readiness";
 import { InsightList } from "@/components/dashboard/insight-list";
 import { ReadinessCard } from "@/components/dashboard/readiness-card";
+import { InfoHint } from "@/components/dashboard/info-hint";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { ActivityRings } from "@/components/dashboard/activity-rings";
@@ -102,7 +103,10 @@ export default function OverviewPage() {
           return (
             <div className="space-y-6">
               {/* Hero */}
-              <Card className="overflow-hidden">
+              <Card className="relative overflow-hidden">
+                <div className="absolute right-3 top-3 z-10">
+                  <InfoHint text="Your most recent Apple Watch activity rings — Move (active calories), Exercise (brisk-activity minutes) and Stand (hours with at least a minute standing) — alongside today's headline vitals." />
+                </div>
                 <CardContent className="grid gap-6 p-6 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-10">
                   <div className="flex items-center justify-center gap-5 sm:justify-start">
                     <ActivityRings
@@ -240,7 +244,10 @@ export default function OverviewPage() {
                       <Gauge className="h-4 w-4 text-chart-1" />
                       Readiness
                     </CardTitle>
-                    <span className="text-xs text-muted-foreground">Today</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">Today</span>
+                      <InfoHint text="A 0–100 daily recovery score blending HRV, resting heart rate, sleep and the previous day's exercise load against your own recent baseline. Higher means better recovered." />
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <ReadinessCard days={readiness} />
@@ -253,7 +260,10 @@ export default function OverviewPage() {
                 <Card className="lg:col-span-2">
                   <CardHeader className="flex-row items-center justify-between">
                     <CardTitle className="text-base">Activity streak</CardTitle>
-                    <span className="text-xs text-muted-foreground">Past year</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">Past year</span>
+                      <InfoHint text="Each square is a day in the past year; brighter means more exercise minutes. A day counts toward your streak when the Apple exercise ring is closed (≥30 min)." />
+                    </div>
                   </CardHeader>
                   <CardContent className="space-y-5">
                     <div className="grid grid-cols-3 gap-3">
@@ -333,6 +343,7 @@ export default function OverviewPage() {
                     { key: "resting_hr", label: "Resting HR", color: "var(--chart-4)", unit: "bpm" },
                     { key: "hrv_ms", label: "HRV", color: "var(--chart-1)", unit: "ms" },
                   ]}
+                  info="Resting heart rate (bpm) and heart rate variability (ms) over the last 90 days — two of the clearest day-to-day signals of cardiovascular health and recovery."
                 />
 
                 <StyleableTrendChart
@@ -343,6 +354,7 @@ export default function OverviewPage() {
                   defaultType="bar"
                   valueFormatter={(v) => `${Math.round(v / 60)}h`}
                   series={[{ key: "sleep_min", label: "Sleep", color: "var(--chart-2)" }]}
+                  info="Hours asleep each night over the last 30 days. See the Sleep tab for the full stage, schedule and quality breakdown."
                 />
 
                 {hasVo2 && (
@@ -352,6 +364,7 @@ export default function OverviewPage() {
                     height={220}
                     data={vo2Series}
                     series={[{ key: "vo2max", label: "VO₂ Max", color: "var(--chart-3)", unit: "ml/kg" }]}
+                    info="Estimated VO₂ Max (ml/kg/min) over the past year — Apple's headline measure of aerobic fitness. It changes slowly, so the trend matters more than any single point."
                   />
                 )}
 
@@ -363,6 +376,7 @@ export default function OverviewPage() {
                     data={weightSeries}
                     valueFormatter={(v) => `${v.toFixed(0)}`}
                     series={[{ key: "weight_kg", label: "Weight", color: "var(--chart-5)", unit: "kg" }]}
+                    info="Body weight (kg) over the past year from each logged measurement. See the Body tab for BMI and body composition."
                   />
                 )}
               </div>

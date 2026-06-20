@@ -64,6 +64,7 @@ export default function BodyPage() {
               data={m}
               series={[{ key: "weight_kg", label: "Weight", color: "var(--chart-5)", unit: "kg" }]}
               valueFormatter={(v) => v.toFixed(0)}
+              info="Body weight over time, in kilograms, from each logged measurement. The range defaults to a year so the trend is easy to see."
             />
 
             <div className="grid gap-6 lg:grid-cols-2">
@@ -75,6 +76,7 @@ export default function BodyPage() {
                   defaultType="line"
                   series={[{ key: "bmi", label: "BMI", color: "var(--chart-3)" }]}
                   valueFormatter={(v) => v.toFixed(0)}
+                  info="Body Mass Index — weight relative to height. Apple records it directly when available; otherwise it's derived from your weight and height."
                 />
               ) : (
                 <Card>
@@ -94,6 +96,7 @@ export default function BodyPage() {
                   defaultType="line"
                   series={[{ key: "body_fat_pct", label: "Body fat", color: "var(--chart-4)", unit: "%" }]}
                   valueFormatter={(v) => `${v.toFixed(0)}%`}
+                  info="Body fat percentage over time. These readings come from a smart scale or manual entry — Apple Watch doesn't measure body composition."
                 />
               ) : (
                 <Card>

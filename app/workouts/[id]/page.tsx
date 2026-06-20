@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { ArrowLeft, Flame, MapPin, Route, Thermometer, Timer } from "lucide-react";
 import { useWorkout, useWorkoutRoute } from "@/lib/queries/workouts";
 import { PageHeader } from "@/components/dashboard/page-header";
+import { ChartHeader } from "@/components/dashboard/chart-header";
 import { ChartSkeleton, ErrorState } from "@/components/dashboard/states";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -68,9 +69,10 @@ export default function WorkoutDetailPage() {
 
           <div className="grid gap-6 lg:grid-cols-3">
             <Card className="lg:col-span-2">
-              <CardHeader>
-                <CardTitle className="text-base">Route</CardTitle>
-              </CardHeader>
+              <ChartHeader
+                title="Route"
+                info="The GPS track recorded for this workout, drawn on a map. Only outdoor sessions with location data have a route; indoor workouts won't show one."
+              />
               <CardContent>
                 {route.isPending ? (
                   <ChartSkeleton className="h-[360px]" />

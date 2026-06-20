@@ -54,6 +54,7 @@ export default function MobilityPage() {
                 { key: "step_length_cm", label: "Step length (cm)", color: "var(--chart-3)" },
               ]}
               valueFormatter={(v) => v.toFixed(0)}
+              info="Your average walking pace (km/h) and how far you travel per step (cm). Both are gauges of gait health — they tend to dip when you're tired, injured or unwell."
             />
 
             <div className="grid gap-6 lg:grid-cols-2">
@@ -71,6 +72,7 @@ export default function MobilityPage() {
                   { key: "double_support_pct", label: "Double support %", color: "var(--chart-5)" },
                 ]}
                 valueFormatter={(v) => `${v.toFixed(0)}%`}
+                info="Walking asymmetry is the percentage of time your steps are uneven between legs; double support is the share of each stride with both feet on the ground. Lower is steadier — both rise with fatigue or injury."
               />
               <StyleableTrendChart
                 title="Stair speed"
@@ -82,6 +84,7 @@ export default function MobilityPage() {
                   { key: "stair_descent_speed", label: "Descent", color: "var(--chart-2)" },
                 ]}
                 valueFormatter={(v) => v.toFixed(2)}
+                info="How quickly you climb and descend stairs (metres per second), measured by Apple Watch. Higher speeds reflect better lower-body strength and balance."
               />
             </div>
           </div>

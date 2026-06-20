@@ -48,6 +48,7 @@ export default function ActivityPage() {
               data={m}
               defaultType="bar"
               series={[{ key: "steps", label: "Steps", color: "var(--chart-1)" }]}
+              info="Total steps counted each day by your iPhone and Apple Watch. Bar height is that day's step count over the selected range."
             />
 
             <div className="grid gap-6 lg:grid-cols-2">
@@ -56,12 +57,14 @@ export default function ActivityPage() {
                 data={m}
                 height={260}
                 series={[{ key: "active_energy", label: "Active energy", color: "var(--chart-3)", unit: "kcal" }]}
+                info="Active calories burned per day — energy spent on movement above your resting metabolism, the figure behind the red Move ring."
               />
               <StyleableTrendChart
                 title="Distance"
                 data={m}
                 height={260}
                 series={[{ key: "distance_km", label: "Distance", color: "var(--chart-2)", unit: "km" }]}
+                info="Distance travelled on foot each day (walking and running), in kilometres, as tracked by your devices."
               />
             </div>
           </div>

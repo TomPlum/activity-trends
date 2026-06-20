@@ -41,7 +41,8 @@ export function TrendChart({
   data: Array<Record<string, number | null | string>>;
   series: SeriesDef[];
   xKey?: string;
-  height?: number;
+  /** Pixel height, or a percentage (e.g. "100%") to fill a flex container. */
+  height?: number | `${number}%`;
   yWidth?: number;
   valueFormatter?: (value: number) => string;
   /** Unit appended to Y-axis ticks. Defaults to the sole series' unit. */

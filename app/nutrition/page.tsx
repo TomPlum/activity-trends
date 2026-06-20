@@ -48,6 +48,7 @@ export default function NutritionPage() {
               data={m}
               defaultType="bar"
               series={[{ key: "diet_energy_kcal", label: "Calories", color: "var(--chart-3)" }]}
+              info="Total calories you logged eating each day. Only as complete as what's recorded in Apple Health via a food-tracking app."
             />
 
             <div className="grid gap-6 lg:grid-cols-2">
@@ -65,6 +66,7 @@ export default function NutritionPage() {
                   { key: "protein_g", label: "Protein", color: "var(--chart-4)", stackId: "m" },
                   { key: "fat_g", label: "Fat", color: "var(--chart-3)", stackId: "m" },
                 ]}
+                info="Grams of carbohydrate, protein and fat logged per day, stacked so the full bar is your total macros for that day."
               />
               <StyleableTrendChart
                 title={
@@ -80,6 +82,7 @@ export default function NutritionPage() {
                   { key: "sugar_g", label: "Sugar", color: "var(--chart-5)" },
                   { key: "fiber_g", label: "Fibre", color: "var(--chart-1)" },
                 ]}
+                info="Grams of sugar and dietary fibre logged each day. Watching sugar down and fibre up is a simple marker of diet quality."
               />
             </div>
           </div>

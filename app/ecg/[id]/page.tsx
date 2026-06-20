@@ -6,8 +6,9 @@ import { ArrowLeft, HeartPulse } from "lucide-react";
 import { useEcg } from "@/lib/queries/ecg";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { EcgWaveform } from "@/components/charts/ecg-waveform";
+import { ChartHeader } from "@/components/dashboard/chart-header";
 import { ChartSkeleton, ErrorState } from "@/components/dashboard/states";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import * as fmt from "@/lib/format";
@@ -45,11 +46,12 @@ export default function EcgDetailPage() {
           />
 
           <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <HeartPulse className="h-4 w-4 text-chart-4" /> Lead I
-              </CardTitle>
-            </CardHeader>
+            <ChartHeader
+              icon={HeartPulse}
+              iconClass="text-chart-4"
+              title="Lead I"
+              info="The single-lead electrocardiogram trace recorded by Apple Watch — voltage over time across one heartbeat sequence. Apple's on-device algorithm classifies the rhythm (e.g. sinus rhythm or atrial fibrillation)."
+            />
             <CardContent>
               <EcgWaveform samples={samples} />
               <div className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">

@@ -54,6 +54,7 @@ export default function HearingPage() {
                 { key: "headphone_audio_db", label: "Headphone (dB)", color: "var(--chart-3)" },
               ]}
               valueFormatter={(v) => `${v.toFixed(0)}`}
+              info="Average daily sound levels in decibels — environmental noise around you and audio played through headphones. Sustained high levels raise the risk of long-term hearing loss."
               footer={
                 <p className="mt-3 text-xs text-muted-foreground">
                   The WHO suggests keeping sustained exposure below ~70 dB to protect long-term
