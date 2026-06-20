@@ -6,10 +6,8 @@ import { useDailyMetrics } from "@/lib/queries/metrics";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { ChartHeader } from "@/components/dashboard/chart-header";
-import { Card, CardContent } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean, sum, deltaPct } from "@/lib/stats";
@@ -45,35 +43,29 @@ export default function ActivityPage() {
               <StatCard label="Flights climbed" value={fmt.number(sum(m.map((d) => d.flights_climbed)))} icon={Mountain} accent="text-chart-5" />
             </div>
 
-            <Card>
-              <ChartHeader
-                title="Daily steps"
-                info="Total steps counted each day by your iPhone and Apple Watch. Bar height is that day's step count over the selected range."
-              />
-              <CardContent>
-                <TrendChart data={m} series={[{ key: "steps", label: "Steps", type: "bar", color: "var(--chart-1)" }]} />
-              </CardContent>
-            </Card>
+            <StyleableTrendChart
+              title="Daily steps"
+              data={m}
+              defaultType="bar"
+              series={[{ key: "steps", label: "Steps", color: "var(--chart-1)" }]}
+              info="Total steps counted each day by your iPhone and Apple Watch. Bar height is that day's step count over the selected range."
+            />
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <Card>
-                <ChartHeader
-                  title="Active energy"
-                  info="Active calories burned per day — energy spent on movement above your resting metabolism, the figure behind the red Move ring."
-                />
-                <CardContent>
-                  <TrendChart data={m} height={260} series={[{ key: "active_energy", label: "Active energy", color: "var(--chart-3)", unit: "kcal" }]} />
-                </CardContent>
-              </Card>
-              <Card>
-                <ChartHeader
-                  title="Distance"
-                  info="Distance travelled on foot each day (walking and running), in kilometres, as tracked by your devices."
-                />
-                <CardContent>
-                  <TrendChart data={m} height={260} series={[{ key: "distance_km", label: "Distance", color: "var(--chart-2)", unit: "km" }]} />
-                </CardContent>
-              </Card>
+              <StyleableTrendChart
+                title="Active energy"
+                data={m}
+                height={260}
+                series={[{ key: "active_energy", label: "Active energy", color: "var(--chart-3)", unit: "kcal" }]}
+                info="Active calories burned per day — energy spent on movement above your resting metabolism, the figure behind the red Move ring."
+              />
+              <StyleableTrendChart
+                title="Distance"
+                data={m}
+                height={260}
+                series={[{ key: "distance_km", label: "Distance", color: "var(--chart-2)", unit: "km" }]}
+                info="Distance travelled on foot each day (walking and running), in kilometres, as tracked by your devices."
+              />
             </div>
           </div>
         )}

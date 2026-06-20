@@ -6,10 +6,9 @@ import { useDailyMetrics } from "@/lib/queries/metrics";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { ChartHeader } from "@/components/dashboard/chart-header";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { latest, deltaPct } from "@/lib/stats";
@@ -60,43 +59,55 @@ export default function BodyPage() {
               <StatCard label="Body fat" value={fmt.number(latest(m.map((d) => d.body_fat_pct)), 1)} unit="%" icon={Percent} accent="text-chart-4" spark={{ data: m, dataKey: "body_fat_pct", color: "var(--chart-4)" }} />
             </div>
 
-            <Card>
-              <ChartHeader
-                title="Weight"
-                info="Body weight over time, in kilograms, from each logged measurement. The range defaults to a year so the trend is easy to see."
-              />
-              <CardContent>
-                <TrendChart data={m} series={[{ key: "weight_kg", label: "Weight", color: "var(--chart-5)", unit: "kg" }]} valueFormatter={(v) => v.toFixed(0)} />
-              </CardContent>
-            </Card>
+            <StyleableTrendChart
+              title="Weight"
+              data={m}
+              series={[{ key: "weight_kg", label: "Weight", color: "var(--chart-5)", unit: "kg" }]}
+              valueFormatter={(v) => v.toFixed(0)}
+              info="Body weight over time, in kilograms, from each logged measurement. The range defaults to a year so the trend is easy to see."
+            />
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <Card>
-                <ChartHeader
+              {hasBmi ? (
+                <StyleableTrendChart
                   title="BMI"
+                  data={m}
+                  height={240}
+                  defaultType="line"
+                  series={[{ key: "bmi", label: "BMI", color: "var(--chart-3)" }]}
+                  valueFormatter={(v) => v.toFixed(0)}
                   info="Body Mass Index — weight relative to height. Apple records it directly when available; otherwise it's derived from your weight and height."
                 />
-                <CardContent>
-                  {hasBmi ? (
-                    <TrendChart data={m} height={240} series={[{ key: "bmi", label: "BMI", type: "line", color: "var(--chart-3)" }]} valueFormatter={(v) => v.toFixed(0)} />
-                  ) : (
+              ) : (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-base">BMI</CardTitle>
+                  </CardHeader>
+                  <CardContent>
                     <NoReadings metric="BMI" />
-                  )}
-                </CardContent>
-              </Card>
-              <Card>
-                <ChartHeader
+                  </CardContent>
+                </Card>
+              )}
+              {hasBodyFat ? (
+                <StyleableTrendChart
                   title="Body fat"
+                  data={m}
+                  height={240}
+                  defaultType="line"
+                  series={[{ key: "body_fat_pct", label: "Body fat", color: "var(--chart-4)", unit: "%" }]}
+                  valueFormatter={(v) => `${v.toFixed(0)}%`}
                   info="Body fat percentage over time. These readings come from a smart scale or manual entry — Apple Watch doesn't measure body composition."
                 />
-                <CardContent>
-                  {hasBodyFat ? (
-                    <TrendChart data={m} height={240} series={[{ key: "body_fat_pct", label: "Body fat", type: "line", color: "var(--chart-4)", unit: "%" }]} valueFormatter={(v) => `${v.toFixed(0)}%`} />
-                  ) : (
+              ) : (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-base">Body fat</CardTitle>
+                  </CardHeader>
+                  <CardContent>
                     <NoReadings metric="body fat" />
-                  )}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
           );

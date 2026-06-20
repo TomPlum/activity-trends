@@ -6,10 +6,8 @@ import { useDailyMetrics } from "@/lib/queries/metrics";
 import { PageHeader } from "@/components/dashboard/page-header";
 import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
-import { ChartHeader } from "@/components/dashboard/chart-header";
-import { Card, CardContent } from "@/components/ui/card";
 import type { RangeKey } from "@/lib/queries/ranges";
 import * as fmt from "@/lib/format";
 import { mean, latest } from "@/lib/stats";
@@ -47,60 +45,47 @@ export default function MobilityPage() {
               <StatCard label="Asymmetry" value={fmt.number(mean(m.map((d) => d.walking_asymmetry_pct)), 1)} unit="%" icon={TrendingUpDown} accent="text-chart-4" invertDelta spark={{ data: m, dataKey: "walking_asymmetry_pct", color: "var(--chart-4)" }} />
             </div>
 
-            <Card>
-              <ChartHeader
-                title="Walking speed & step length"
-                info="Your average walking pace (km/h) and how far you travel per step (cm). Both are gauges of gait health — they tend to dip when you're tired, injured or unwell."
-              />
-              <CardContent>
-                <TrendChart
-                  data={m}
-                  series={[
-                    { key: "walking_speed_kmh", label: "Speed (km/h)", type: "line", color: "var(--chart-1)" },
-                    { key: "step_length_cm", label: "Step length (cm)", type: "line", color: "var(--chart-3)" },
-                  ]}
-                  valueFormatter={(v) => v.toFixed(0)}
-                />
-              </CardContent>
-            </Card>
+            <StyleableTrendChart
+              title="Walking speed & step length"
+              data={m}
+              defaultType="line"
+              series={[
+                { key: "walking_speed_kmh", label: "Speed (km/h)", color: "var(--chart-1)" },
+                { key: "step_length_cm", label: "Step length (cm)", color: "var(--chart-3)" },
+              ]}
+              valueFormatter={(v) => v.toFixed(0)}
+              info="Your average walking pace (km/h) and how far you travel per step (cm). Both are gauges of gait health — they tend to dip when you're tired, injured or unwell."
+            />
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <Card>
-                <ChartHeader
-                  icon={Activity}
-                  iconClass="text-chart-4"
-                  title="Gait symmetry"
-                  info="Walking asymmetry is the percentage of time your steps are uneven between legs; double support is the share of each stride with both feet on the ground. Lower is steadier — both rise with fatigue or injury."
-                />
-                <CardContent>
-                  <TrendChart
-                    data={m}
-                    height={260}
-                    series={[
-                      { key: "walking_asymmetry_pct", label: "Asymmetry %", type: "line", color: "var(--chart-4)" },
-                      { key: "double_support_pct", label: "Double support %", type: "line", color: "var(--chart-5)" },
-                    ]}
-                    valueFormatter={(v) => `${v.toFixed(0)}%`}
-                  />
-                </CardContent>
-              </Card>
-              <Card>
-                <ChartHeader
-                  title="Stair speed"
-                  info="How quickly you climb and descend stairs (metres per second), measured by Apple Watch. Higher speeds reflect better lower-body strength and balance."
-                />
-                <CardContent>
-                  <TrendChart
-                    data={m}
-                    height={260}
-                    series={[
-                      { key: "stair_ascent_speed", label: "Ascent", type: "line", color: "var(--chart-1)" },
-                      { key: "stair_descent_speed", label: "Descent", type: "line", color: "var(--chart-2)" },
-                    ]}
-                    valueFormatter={(v) => v.toFixed(2)}
-                  />
-                </CardContent>
-              </Card>
+              <StyleableTrendChart
+                title={
+                  <>
+                    <Activity className="h-4 w-4 text-chart-4" /> Gait symmetry
+                  </>
+                }
+                data={m}
+                height={260}
+                defaultType="line"
+                series={[
+                  { key: "walking_asymmetry_pct", label: "Asymmetry %", color: "var(--chart-4)" },
+                  { key: "double_support_pct", label: "Double support %", color: "var(--chart-5)" },
+                ]}
+                valueFormatter={(v) => `${v.toFixed(0)}%`}
+                info="Walking asymmetry is the percentage of time your steps are uneven between legs; double support is the share of each stride with both feet on the ground. Lower is steadier — both rise with fatigue or injury."
+              />
+              <StyleableTrendChart
+                title="Stair speed"
+                data={m}
+                height={260}
+                defaultType="line"
+                series={[
+                  { key: "stair_ascent_speed", label: "Ascent", color: "var(--chart-1)" },
+                  { key: "stair_descent_speed", label: "Descent", color: "var(--chart-2)" },
+                ]}
+                valueFormatter={(v) => v.toFixed(2)}
+                info="How quickly you climb and descend stairs (metres per second), measured by Apple Watch. Higher speeds reflect better lower-body strength and balance."
+              />
             </div>
           </div>
         )}

@@ -4,6 +4,7 @@ import { TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkline } from "@/components/charts/sparkline";
+import { AnimatedNumber } from "./animated-number";
 
 export interface StatCardProps {
   label: string;
@@ -43,7 +44,9 @@ export function StatCard({
           {Icon && <Icon className={cn("h-4 w-4", accent)} />}
         </div>
         <div className="mt-2 flex items-baseline gap-1">
-          <span className="text-3xl font-semibold tracking-tight tabular-nums">{value}</span>
+          <span className="text-3xl font-semibold tracking-tight tabular-nums">
+            <AnimatedNumber value={value} />
+          </span>
           {unit && <span className="text-sm text-muted-foreground">{unit}</span>}
         </div>
 

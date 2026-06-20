@@ -1,6 +1,5 @@
 "use client";
 
-import type { ReactNode } from "react";
 import Link from "next/link";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -32,7 +31,7 @@ import { ActivityRings } from "@/components/dashboard/activity-rings";
 import { StreakHeatmap } from "@/components/dashboard/streak-heatmap";
 import { WorkoutIcon } from "@/components/dashboard/workout-icon";
 import { Sparkline } from "@/components/charts/sparkline";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, QueryView } from "@/components/dashboard/states";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -334,61 +333,51 @@ export default function OverviewPage() {
 
               {/* Trends */}
               <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                <TrendCard
+                <StyleableTrendChart
                   title="Heart health"
                   subtitle="Last 90 days"
+                  height={220}
+                  data={m}
+                  defaultType="line"
+                  series={[
+                    { key: "resting_hr", label: "Resting HR", color: "var(--chart-4)", unit: "bpm" },
+                    { key: "hrv_ms", label: "HRV", color: "var(--chart-1)", unit: "ms" },
+                  ]}
                   info="Resting heart rate (bpm) and heart rate variability (ms) over the last 90 days — two of the clearest day-to-day signals of cardiovascular health and recovery."
-                >
-                  <TrendChart
-                    height={220}
-                    data={m}
-                    series={[
-                      { key: "resting_hr", label: "Resting HR", type: "line", color: "var(--chart-4)", unit: "bpm" },
-                      { key: "hrv_ms", label: "HRV", type: "line", color: "var(--chart-1)", unit: "ms" },
-                    ]}
-                  />
-                </TrendCard>
+                />
 
-                <TrendCard
+                <StyleableTrendChart
                   title="Sleep duration"
                   subtitle="Last 30 days"
+                  height={220}
+                  data={m30}
+                  defaultType="bar"
+                  valueFormatter={(v) => `${Math.round(v / 60)}h`}
+                  series={[{ key: "sleep_min", label: "Sleep", color: "var(--chart-2)" }]}
                   info="Hours asleep each night over the last 30 days. See the Sleep tab for the full stage, schedule and quality breakdown."
-                >
-                  <TrendChart
-                    height={220}
-                    data={m30}
-                    valueFormatter={(v) => `${Math.round(v / 60)}h`}
-                    series={[{ key: "sleep_min", label: "Sleep", type: "bar", color: "var(--chart-2)" }]}
-                  />
-                </TrendCard>
+                />
 
                 {hasVo2 && (
-                  <TrendCard
+                  <StyleableTrendChart
                     title="Cardio fitness"
                     subtitle="VO₂ Max · past year"
+                    height={220}
+                    data={vo2Series}
+                    series={[{ key: "vo2max", label: "VO₂ Max", color: "var(--chart-3)", unit: "ml/kg" }]}
                     info="Estimated VO₂ Max (ml/kg/min) over the past year — Apple's headline measure of aerobic fitness. It changes slowly, so the trend matters more than any single point."
-                  >
-                    <TrendChart
-                      height={220}
-                      data={vo2Series}
-                      series={[{ key: "vo2max", label: "VO₂ Max", type: "area", color: "var(--chart-3)", unit: "ml/kg" }]}
-                    />
-                  </TrendCard>
+                  />
                 )}
 
                 {hasWeight && (
-                  <TrendCard
+                  <StyleableTrendChart
                     title="Body weight"
                     subtitle="Past year"
+                    height={220}
+                    data={weightSeries}
+                    valueFormatter={(v) => `${v.toFixed(0)}`}
+                    series={[{ key: "weight_kg", label: "Weight", color: "var(--chart-5)", unit: "kg" }]}
                     info="Body weight (kg) over the past year from each logged measurement. See the Body tab for BMI and body composition."
-                  >
-                    <TrendChart
-                      height={220}
-                      data={weightSeries}
-                      valueFormatter={(v) => `${v.toFixed(0)}`}
-                      series={[{ key: "weight_kg", label: "Weight", type: "area", color: "var(--chart-5)", unit: "kg" }]}
-                    />
-                  </TrendCard>
+                  />
                 )}
               </div>
             </div>
@@ -490,31 +479,6 @@ function MiniStat({
         {unit && <span className="ml-1 text-xs font-normal text-muted-foreground">{unit}</span>}
       </p>
     </div>
-  );
-}
-
-function TrendCard({
-  title,
-  subtitle,
-  info,
-  children,
-}: {
-  title: string;
-  subtitle?: string;
-  info: string;
-  children: ReactNode;
-}) {
-  return (
-    <Card>
-      <CardHeader className="flex-row items-center justify-between">
-        <CardTitle className="text-base">{title}</CardTitle>
-        <div className="flex items-center gap-2">
-          {subtitle && <span className="text-xs text-muted-foreground">{subtitle}</span>}
-          <InfoHint text={info} />
-        </div>
-      </CardHeader>
-      <CardContent>{children}</CardContent>
-    </Card>
   );
 }
 

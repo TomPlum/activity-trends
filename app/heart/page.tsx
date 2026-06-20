@@ -10,7 +10,7 @@ import { RangeSelect } from "@/components/dashboard/range-select";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { ReadinessCard } from "@/components/dashboard/readiness-card";
 import { computeReadiness } from "@/lib/health/readiness";
-import { TrendChart } from "@/components/charts/trend-chart";
+import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
 import { ChartHeader } from "@/components/dashboard/chart-header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -65,44 +65,41 @@ export default function HeartPage() {
                   <ReadinessCard days={readiness} />
                 </CardContent>
               </Card>
-              <Card className="lg:col-span-2">
-                <ChartHeader
-                  title="Resting heart rate & HRV"
-                  info="Resting heart rate (beats per minute, lower is generally fitter) and heart rate variability (SDNN in milliseconds, higher generally signals better recovery), tracked together over time."
-                />
-                <CardContent>
-                  <TrendChart
-                    data={m}
-                    series={[
-                      { key: "resting_hr", label: "Resting HR", type: "line", color: "var(--chart-4)", unit: "bpm" },
-                      { key: "hrv_ms", label: "HRV", type: "line", color: "var(--chart-1)", unit: "ms" },
-                    ]}
-                  />
-                </CardContent>
-              </Card>
+              <StyleableTrendChart
+                className="lg:col-span-2"
+                title="Resting heart rate & HRV"
+                data={m}
+                defaultType="line"
+                series={[
+                  { key: "resting_hr", label: "Resting HR", color: "var(--chart-4)", unit: "bpm" },
+                  { key: "hrv_ms", label: "HRV", color: "var(--chart-1)", unit: "ms" },
+                ]}
+                info="Resting heart rate (beats per minute, lower is generally fitter) and heart rate variability (SDNN in milliseconds, higher generally signals better recovery), tracked together over time."
+              />
             </div>
 
             <div className="grid gap-6 lg:grid-cols-2">
-              <Card>
-                <ChartHeader
-                  title="VO₂ Max"
-                  info="Estimated maximum oxygen uptake (ml/kg/min) — Apple's measure of cardio fitness. It moves slowly; a rising trend means your aerobic fitness is improving."
-                />
-                <CardContent>
-                  <TrendChart data={m} height={260} series={[{ key: "vo2max", label: "VO₂ Max", color: "var(--chart-3)" }]} valueFormatter={(v) => v.toFixed(0)} />
-                </CardContent>
-              </Card>
-              <Card>
-                <ChartHeader
-                  icon={Wind}
-                  iconClass="text-chart-2"
-                  title="Respiratory rate"
-                  info="Breaths per minute, mostly measured during sleep. A stable resting rate is normal; a sustained jump can accompany illness, stress or poor recovery."
-                />
-                <CardContent>
-                  <TrendChart data={m} height={260} series={[{ key: "respiratory_rate", label: "Respiratory rate", type: "line", color: "var(--chart-2)", unit: "br/min" }]} valueFormatter={(v) => v.toFixed(0)} />
-                </CardContent>
-              </Card>
+              <StyleableTrendChart
+                title="VO₂ Max"
+                data={m}
+                height={260}
+                series={[{ key: "vo2max", label: "VO₂ Max", color: "var(--chart-3)" }]}
+                valueFormatter={(v) => v.toFixed(0)}
+                info="Estimated maximum oxygen uptake (ml/kg/min) — Apple's measure of cardio fitness. It moves slowly; a rising trend means your aerobic fitness is improving."
+              />
+              <StyleableTrendChart
+                title={
+                  <>
+                    <Wind className="h-4 w-4 text-chart-2" /> Respiratory rate
+                  </>
+                }
+                data={m}
+                height={260}
+                defaultType="line"
+                series={[{ key: "respiratory_rate", label: "Respiratory rate", color: "var(--chart-2)", unit: "br/min" }]}
+                valueFormatter={(v) => v.toFixed(0)}
+                info="Breaths per minute, mostly measured during sleep. A stable resting rate is normal; a sustained jump can accompany illness, stress or poor recovery."
+              />
             </div>
           </div>
           );
