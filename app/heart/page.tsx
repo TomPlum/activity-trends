@@ -22,6 +22,7 @@ import {
 import { StyleableTrendChart } from "@/components/charts/styleable-trend-chart";
 import { ConfigurableTrendChart, type ChartMetric } from "@/components/charts/configurable-trend-chart";
 import { TablePagination } from "@/components/dashboard/table-pagination";
+import { EcgPreview } from "@/components/charts/ecg-waveform";
 import { CardGridSkeleton, ChartSkeleton, QueryView } from "@/components/dashboard/states";
 import { ChartHeader } from "@/components/dashboard/chart-header";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -375,23 +376,40 @@ function EcgSection() {
       </CardHeader>
       <CardContent className="space-y-2">
         {isPending
-          ? Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-12 rounded-lg" />)
-          : data!.map((e) => (
-              <Link
-                key={e.id}
-                href={`/ecg/${e.id}`}
-                className="flex items-center justify-between rounded-lg border px-3 py-2 transition-colors hover:bg-accent/50"
-              >
-                <div>
-                  <p className="text-sm font-medium">{fmt.shortDate(e.recorded_at)}</p>
-                  <p className="text-xs text-muted-foreground">{fmt.timeOfDay(e.recorded_at)}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  {e.classification && <Badge variant="secondary">{e.classification}</Badge>}
-                  <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                </div>
-              </Link>
-            ))}
+          ? Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-20 rounded-lg" />)
+          : data!.map((e) => {
+              const samples = (e.samples as number[] | null) ?? [];
+              const durationSec =
+                e.sample_rate_hz && e.sample_count ? e.sample_count / e.sample_rate_hz : null;
+              return (
+                <Link
+                  key={e.id}
+                  href={`/ecg/${e.id}`}
+                  className="flex items-center gap-3 rounded-lg border px-3 py-2.5 transition-colors hover:bg-accent/50"
+                >
+                  <div className="min-w-0 shrink-0">
+                    <p className="text-sm font-medium">{fmt.shortDate(e.recorded_at)}</p>
+                    <p className="text-xs text-muted-foreground">{fmt.timeOfDay(e.recorded_at)}</p>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-muted-foreground">
+                      {e.average_heart_rate != null && (
+                        <span className="inline-flex items-center gap-1">
+                          <HeartPulse className="h-3 w-3 text-chart-4" />
+                          {fmt.number(e.average_heart_rate)} bpm
+                        </span>
+                      )}
+                      {durationSec != null && <span>{durationSec.toFixed(0)}s</span>}
+                    </div>
+                  </div>
+                  <div className="h-12 min-w-0 flex-1 overflow-hidden">
+                    <EcgPreview samples={samples} />
+                  </div>
+                  <div className="flex shrink-0 items-center gap-3">
+                    {e.classification && <Badge variant="secondary">{e.classification}</Badge>}
+                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </Link>
+              );
+            })}
       </CardContent>
     </Card>
   );

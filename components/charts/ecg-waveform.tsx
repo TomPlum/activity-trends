@@ -75,3 +75,67 @@ export function EcgWaveform({
     </div>
   );
 }
+
+/**
+ * Compact, gridless ECG trace for inline list rows. Heavily downsampled so a
+ * full 30 s recording renders as a lightweight thumbnail.
+ */
+export function EcgPreview({
+  samples,
+  maxPoints = 240,
+  className,
+}: {
+  samples: number[];
+  maxPoints?: number;
+  className?: string;
+}) {
+  const { path, viewW } = useMemo(() => {
+    if (!samples.length) return { path: "", viewW: 1000 };
+
+    const step = Math.max(1, Math.ceil(samples.length / maxPoints));
+    const pts: number[] = [];
+    for (let i = 0; i < samples.length; i += step) pts.push(samples[i]);
+
+    let min = Infinity;
+    let max = -Infinity;
+    for (const v of pts) {
+      if (v < min) min = v;
+      if (v > max) max = v;
+    }
+    const range = max - min || 1;
+    const w = pts.length;
+    const h = 100;
+
+    const d = pts
+      .map((v, i) => {
+        const x = (i / (w - 1)) * w;
+        const y = h - ((v - min) / range) * h;
+        return `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
+      })
+      .join(" ");
+
+    return { path: d, viewW: w };
+  }, [samples, maxPoints]);
+
+  if (!path) return null;
+
+  return (
+    <svg
+      className={className}
+      viewBox={`0 0 ${viewW} 100`}
+      preserveAspectRatio="none"
+      width="100%"
+      height="100%"
+      role="img"
+      aria-label="ECG preview"
+    >
+      <path
+        d={path}
+        fill="none"
+        stroke="var(--chart-4)"
+        strokeWidth="1"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
