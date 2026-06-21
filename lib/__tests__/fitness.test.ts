@@ -67,4 +67,13 @@ describe("buildRecords", () => {
     expect(recs.map((r) => r.key)).toEqual(["most-steps"]);
     expect(recs[0].value).toBe("28,000");
   });
+
+  it("tags each record with its group and date", () => {
+    const recs = buildRecords(workouts, { steps: { date: "2024-02-02", value: 28000 } });
+    const byKey = Object.fromEntries(recs.map((r) => [r.key, r]));
+    expect(byKey["longest-distance"].group).toBe("workout");
+    expect(byKey["longest-distance"].date).toBe("2024-05-01T08:00:00Z");
+    expect(byKey["most-steps"].group).toBe("daily");
+    expect(byKey["most-steps"].date).toBe("2024-02-02");
+  });
 });
