@@ -1,17 +1,25 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import { defineConfig, globalIgnores } from "eslint/config";
+import { fixupConfigRules } from "@eslint/compat";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({ baseDirectory: __dirname });
-
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+const eslintConfig = defineConfig([
+  ...fixupConfigRules(nextVitals),
+  ...fixupConfigRules(nextTs),
   {
-    ignores: ["lib/supabase/database.types.ts", ".next/**", "node_modules/**"],
+    rules: {
+      "react-hooks/immutability": "off",
+      "react-hooks/preserve-manual-memoization": "off",
+      "react-hooks/refs": "off",
+      "react-hooks/set-state-in-effect": "off",
+    },
   },
-];
+  globalIgnores([
+    "lib/supabase/database.types.ts",
+    ".claude/**",
+    ".next/**",
+    "node_modules/**",
+  ]),
+]);
 
 export default eslintConfig;
